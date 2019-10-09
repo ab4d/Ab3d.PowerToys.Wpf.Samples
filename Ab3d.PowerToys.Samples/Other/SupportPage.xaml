@@ -1,0 +1,81 @@
+﻿<Page x:Class="Ab3d.PowerToys.Samples.Other.SupportPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:common="clr-namespace:Ab3d.PowerToys.Samples.Common"
+      mc:Ignorable="d" 
+      d:DesignHeight="500" d:DesignWidth="800"
+    Title="Feedback">
+    <Page.Background>
+        <LinearGradientBrush StartPoint="0.4,1" EndPoint="0.6,0">
+            <GradientStop Color="#FCCC" Offset="0"/>
+            <GradientStop Color="#FFFFFFFF" Offset=".5"/>
+        </LinearGradientBrush>
+    </Page.Background>
+    <Grid>
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
+            <StackPanel Orientation="Vertical" Margin="20 10">
+                <!-- NOTE: In the previous versions of the samples FlowDocumentReader was used to show info pages. But because this control always thrown an exception that 'PresentationUI.Aero2' was not found (the exception was handled by .Net code, but it always stopped the debugger if stop on exception was turned on), I have upgraded TextBlock to add some additional markup. -->
+                <common:TextBlockEx Style="{StaticResource InfoContent}">
+                    WPF 3D with Ab3d.PowerToys may have the easiest 3D API there is. But still there will probably be times where you will need good support.\n
+                    \n
+                    The good news is that the Ab3d.PowerToys library comes with the \!best support on the market for WPF 3D\! with one of the most experienced developers for WPF 3D. We are working extensively with WPF 3D since the WPF's earliest times (Avalon age).\n
+                    \n
+                    \n
+                    The following support options are available:\n
+                </common:TextBlockEx>
+                <TextBlock Style="{StaticResource InfoContent}">
+                    <Run>▪</Run>
+                    <Hyperlink NavigateUri="http://forum.ab4d.com/forumdisplay.php?fid=9" RequestNavigate="link_navigate">Ab3d.PowerToys Forum</Hyperlink>
+                    <Run>(recommended for generic questions)</Run>
+                    <LineBreak/>
+                </TextBlock>
+                <TextBlock Style="{StaticResource InfoContent}">
+                    <Run>▪</Run>
+                    <Hyperlink NavigateUri="mailto://support@ab4d.com" RequestNavigate="link_navigate">email support</Hyperlink>
+                    <Run>on support@ab4d.com (for private and more individual questions)</Run>
+                    <LineBreak/>
+                </TextBlock>
+                <TextBlock Style="{StaticResource InfoContent}">
+                    <Run>▪ Purchase</Run>
+                    <Run FontWeight="Bold">full source code</Run>
+                    <Run>of the Ab3d.PowerToys library with fully documented code (not really a support option but can offer you some help in understanding how WPF 3D and library work).</Run>
+                    <LineBreak/>
+                </TextBlock>
+                <TextBlock Style="{StaticResource InfoContent}">
+                    <Run>▪</Run>
+                    <Run FontWeight="Bold">Feature requests -</Run>
+                    <Run>if you are missing a feature in Ab3d.PowerToys and the feature could be also useful for other users,</Run>
+                    <Hyperlink NavigateUri="mailto://support@ab4d.com" RequestNavigate="link_navigate">contact us</Hyperlink>
+                    <Run>and maybe we will implement it for you freely in a few days.</Run>
+                    <LineBreak/>
+                </TextBlock>
+                <TextBlock Style="{StaticResource InfoContent}">
+                    <Run>▪</Run>
+                    <Run FontWeight="Bold">On-site support</Run>
+                    <Run>with TeamViewer and Skype. Solving problems on your computer and your project. Contact us on</Run>
+                    <Hyperlink NavigateUri="mailto://support@ab4d.com" RequestNavigate="link_navigate">email</Hyperlink>
+                    <Run>for more details.</Run>
+                    <LineBreak/>
+                </TextBlock>
+                <TextBlock Style="{StaticResource InfoContent}">
+                    <Run>▪</Run>
+                    <Run FontWeight="Bold">Coding on demand</Run>
+                    <Run>- jump-start with WPF 3D development and have the solution within a few days. Contact us on</Run>
+                    <Hyperlink NavigateUri="mailto://support@ab4d.com" RequestNavigate="link_navigate">email</Hyperlink>
+                    <Run>for more details.</Run>
+                    <LineBreak/>
+                    <LineBreak/>
+                </TextBlock>
+
+                <TextBlock Style="{StaticResource InfoContent}">
+                    <Run>You are also invited to check the</Run>
+                    <Hyperlink NavigateUri="https://www.ab4d.com/PowerToys.aspx" RequestNavigate="link_navigate" >PowerToys web page</Hyperlink>
+                    <Run>and</Run>
+                    <Hyperlink NavigateUri="http://blog.ab4d.com/category/Ab3dPowerToys.aspx" RequestNavigate="link_navigate" >Ab3d.PowerToys related blog posts</Hyperlink>
+                </TextBlock>
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</Page>

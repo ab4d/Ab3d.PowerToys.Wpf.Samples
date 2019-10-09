@@ -1,0 +1,45 @@
+﻿<Page x:Class="Ab3d.PowerToys.Samples.Cameras.CamerasIntroPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:common="clr-namespace:Ab3d.PowerToys.Samples.Common"
+      mc:Ignorable="d"       
+      d:DesignHeight="500" d:DesignWidth="800"   
+      Background="{StaticResource GrayTitlePageGradient}"
+      Title="CamerasIntroPage">
+    <Grid Margin="10">
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
+            <StackPanel Orientation="Vertical" Margin="20 10">
+                <!-- NOTE: In the previous versions of the samples FlowDocumentReader was used to show info pages. But because this control always thrown an exception that 'PresentationUI.Aero2' was not found (the exception was handled by .Net code, but it always stopped the debugger if stop on exception was turned on), I have upgraded TextBlock to add some additional markup. -->
+                <common:TextBlockEx Style="{StaticResource InfoContent}">
+                    The Ab3d.PowerToys library defines cameras that can be used in much more natural way than the WPF's Cameras. Instead of using Vectors and Position, the camera is defined by angles in degrees and some other properties like Distance or CenterObject.\n
+                    \n
+                    The following image shows Class diagram for Ab3d.Cameras namespace:
+                </common:TextBlockEx>
+                <Image Source="/Resources/CamerasClassDiagram.png"></Image>
+                <common:TextBlockEx Style="{StaticResource InfoContent}">
+                    The classes that are shown in the upper half part of the image are base camera classes and are used internally. The classes in the lower part can be used in your applications.\n
+                    \n
+                    The \!BaseCamera\! defines some basic properties, events and methods. It also links the Ab3d.Camera with the Viewport3D and its camera. This is done by setting TargetViewport3D or TargetViewport3DName property. If those two properties are not set and IsAutoViewport3DFindingEnabled is true, the control tries to find the target Viewport3D automatically by inspecting the logical tree.\n
+                    \n
+                    The BaseCamera also defines \!Point3DTo2D\! and \!Rect3DTo2D\! methods to convert 3D Point or 3D Rect from 3D coordinates into the 2D coordinates on the screen. \!Offset\! property on the BaseCamera can be used to specifies an offset of the camera's position.\n
+                    \n
+                    The \!SphericalCamera\! defines the angles (Heading, Attitude, Bank) that set the camera's LookDirection. It also defines the Camera light that can illuminate the scene from the cameras position. \!StartRotation\! and \!StopRotation\! methods can be used to simply start and stop rotating the camera.\n
+                    \n
+                    The \!TargetPositonCamera\! can be used if we know the 3D position where the camera should look at. To fully define the camera we also need to set the camera angles and distance to the position.\n
+                    \n
+                    The \!TargetRect3DCamera\! is similar to TargetPositonCamera, but instead of looking at a Point3D, the camera looks at a Rect3D - actually at the center of the Rect3D. Because the Rect3D has size, we can also use distance relative to the size of the Rect3D. For example if we set IsDistancePercent to true and Distance is 3, this means the camera will be away from the center of the Rect3D for 3 times the length of the Rect3D diagonal. There is also IsDynamicTarget property that if set to true means that the camera is constantly checking if the TargetRect3D is changed.\n
+                    \n
+                    The \!SceneCamera\! is almost the same as TargetRect3DCamera. The only difference is that the user does not need to set the TargetRect3D as it is automatically set to the whole 3D scene in the TargetViewport3D.\n
+                    \n
+                    The \!ThirdPersonCamera\! is a camera that is looking at the CenterObject from the "third persons eyes". The angles and distance define from where the camera is looking at the CenterObject.\n
+                    \n
+                    The \!FirstPersonCamera\! is a camera that is looking from the defined position and in the direction of the defined angles.
+                    \n
+                    The \!FreeCamera\! is a camera is not defined with using angles, but by providing a CameraPosition and a TargetPosition. When used with MouseCameraController this camera is not constrained to rotate around Y (up) axis but can rotate freely. Usually this is not very user friendly, but for some advanced users or when used with a 3D mouse this may be desired.
+                </common:TextBlockEx>
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</Page>

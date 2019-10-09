@@ -1,0 +1,43 @@
+﻿<Page x:Class="Ab3d.PowerToys.Samples.Text3D.Text3DIntroPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:common="clr-namespace:Ab3d.PowerToys.Samples.Common"
+      mc:Ignorable="d" 
+      d:DesignHeight="600" d:DesignWidth="1000"
+      Background="{StaticResource GrayTitlePageGradient}"
+      Title="Text3DIntroPage">
+    <Grid Margin="10">
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
+            <StackPanel Orientation="Vertical" Margin="20 10">
+                <!-- NOTE: In the previous versions of the samples FlowDocumentReader was used to show info pages. But because this control always thrown an exception that 'PresentationUI.Aero2' was not found (the exception was handled by .Net code, but it always stopped the debugger if stop on exception was turned on), I have upgraded TextBlock to add some additional markup. -->
+                <common:TextBlockEx Style="{StaticResource InfoContent}">
+                    Ab3d.PowerToys library also provides great support for \!showing text in 3D world\!.\n
+                    \n
+                    With Ab3d.PowerToys library this can be done with:\n
+                    \* TextBlockVisual3D\n
+                    \* TextVisual3D, CenteredTextVisual3D and LineWithTextVisual3D.\n
+                    \n
+                    \n
+                    The easiest way to show 3D text is to use \!TextBlockVisual3D\!.\n
+                    \n
+                    TextBlockVisual3D allows you to specify the position, orientation, size, color, font family and many other text properties.
+                    What is more, you can also define the color and thickness of the border around the text.\n
+                    \n
+                    TextBlockVisual3D shows 3D text with showing a Border with a TextBlock elements on a plane 3D model. By default a VisualBrush is used to render Border and TextBlock to texture. It is also possible to specify RenderBitmapSize property. In this case TextBlockVisual3D will render Border and TextBlock to a bitmap instead of using VisualBrush. This also allows using \!Ab3d.EXEngine\! to show TextBlockVisual3D.\n
+                    \n
+                    \n
+                    Another way to show 3D text with Ab3d.PowerToys library is to show 3D text as a series of connected 3D lines that are created from a predefined font.
+                    In this case it is not possible to define the font family, but it is possible to define the font size and line thickness and color.\n
+                    \n
+                    To show 3D Text in this way, you can use \!TextVisual3D\! or \!CenteredTextVisual3D\! classes.\n
+                    \n
+                    The 3D Text can be also created from code with methods from Ab3d.Models.Text3DFactory class. The class also contains a \!MeasureText\! method that can be used to get the size of the text. The method is internally used by the CenteredTextVisual3D class to determine the needed offset from the CenterPosition.\n
+                    \n
+                    With \!LineWithTextVisual3D\! it is possible to draw a 3D line with a text over the line. This can be very useful for adding notifications or measuring lengths.
+                </common:TextBlockEx>
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</Page>

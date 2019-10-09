@@ -1,0 +1,38 @@
+﻿<Page x:Class="Ab3d.PowerToys.Samples.Lines3D.Lines3DIntroPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:common="clr-namespace:Ab3d.PowerToys.Samples.Common"
+      mc:Ignorable="d" 
+      d:DesignHeight="500" d:DesignWidth="800"
+      Background="{StaticResource GrayTitlePageGradient}"
+      Title="Lines3DIntroPage">
+    <Grid Margin="10">
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
+            <StackPanel Orientation="Vertical" Margin="20 10">
+                <!-- NOTE: In the previous versions of the samples FlowDocumentReader was used to show info pages. But because this control always thrown an exception that 'PresentationUI.Aero2' was not found (the exception was handled by .Net code, but it always stopped the debugger if stop on exception was turned on), I have upgraded TextBlock to add some additional markup. -->
+                <common:TextBlockEx Style="{StaticResource InfoContent}">
+                    WPF does not natively support 3D Lines. But the Ab3d.PowerToys library contains classes to create 3D lines.\n
+                    \n
+                    The lines can be created as Visual3D objects with the following classes: \!LineVisual3D, MultiLineVisual3D, PolyLineVisual3D, RectangleVisual3D, LineArcVisual3D, WireBoxVisual3D, WireCrossVisual3D, AxisVisual3D, ColoredAxisVisual3D, LineArcVisual3D and WireGridVisual3D\!.
+                    The visuals can be used in XAML which means that you can see the results in Visual Studio designer.\n
+                    \n
+                    3D lines can be also created from code with \!Ab3d.Models.Line3DFactory\!. The methods in the Line3DFactory return 3D lines as GeometryModel3D objects. This means that you can add 3D lines to the existing Model3DGroup.\n
+                    \n
+                    There is also a \!Ab3d.Models.WireframeFactory\! to create wireframe objects from existing 3D models. WireframeFactory also contains methods to create lines for 3D model normals.\n
+                    \n
+                    The positions that define the lines are defined in 3D space. The line thickness is defined in screen space - this mean that if line thickness is 3, the line will be always 3 pixels thick regardless how far from the camera it is defined.\n
+                    \n
+                    The 3D Text supported by Ab3d.PowerToys library is also created by the 3D lines.\n
+                    \n
+                    To create the 3D line in WPF, it must be created with 3D model that consists of two triangles. The positions of the triangles depend on the position of the camera and size of Viewport3D. This means the code that draws the line must constantly check if the camera was changed, the parent Viewport3D or Visual3D is changed or the parent is not visible any more. This process can normally affect performance. The implementation in Ab3d.PowerToys library is designed in such a way that the performance impact is minimal. The code caches many properties and updates only those lines that need update. When the update is needed the new MeshGeometry3D is not rebuild from stretch but instead only positions are changed. It also checks if the lines were removed from the visual and acts accordingly. There are a few 3D lines implementation for WPF, but the highly optimized lines updater makes this implementation the most advanced.\n
+                    \n
+                    The updates of lines is controlled by the \!Ab3d.Utilities.LinesUpdater\! class. It is subscribed to camera changed events or CompositionTarget.Rendering event handler. It checkes when the camera is significantly changed and then updated the geometry of the shown lines. The class also checks if line was disabled, removed from the objects graph or if parent Visual3D or Viewport3D was not shown any more.\n
+                    \n
+                    The LinesUpdater can be used to further improve the performance of lines regeneration with setting its UpdateMode property to Never and update the lines manually by calling the Refresh method. Using LinesUpdater class is demonstrated in Lines3D stress test.
+                </common:TextBlockEx>
+            </StackPanel>
+         </ScrollViewer>
+    </Grid>
+</Page>

@@ -1,0 +1,32 @@
+﻿<Page x:Class="Ab3d.PowerToys.Samples.MouseCameraControllerSamples.MouseCameraControllerIntroPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:common="clr-namespace:Ab3d.PowerToys.Samples.Common"
+      mc:Ignorable="d"       
+      d:DesignHeight="500" d:DesignWidth="800"  
+      Background="{StaticResource GrayTitlePageGradient}"
+    Title="CameraControllerIntroPage">
+    <Grid Margin="10">
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
+            <StackPanel Orientation="Vertical" Margin="20 10">
+                <!-- NOTE: In the previous versions of the samples FlowDocumentReader was used to show info pages. But because this control always thrown an exception that 'PresentationUI.Aero2' was not found (the exception was handled by .Net code, but it always stopped the debugger if stop on exception was turned on), I have upgraded TextBlock to add some additional markup. -->
+                <common:TextBlockEx Style="{StaticResource InfoContent}">
+                    Great camera control is the heart of any 3D application.\n
+                    \n
+                    It allows user of the application to control the view of the 3D scene. Simple camera control can make the application feel natural and easy to use.\n
+                    \n
+                    The main camera controller in Ab3d.PowerToys library is \!MouseCameraController\!.\n
+                    \n
+                    MouseCameraController allows user to rotate, move and zoom camera with mouse or with touch. It provides many properties that enable customizing the camera control.\n
+                    \n
+                    See the samples in this section to see a demonstration of the MouseCameraController.\n
+                    \n
+                    Note also that MouseCameraController can be used with any type of camera (TargetPositionCamera, FreeCamera, FirstPersonCamera, etc.).
+                    The type of camera greatly influences what will happen when user rotates the camera - with TargetPositionCamera the scene will rotate around TargetPosition, but with FirstPersonCamera the view will rotate around as if user would rotate the head around.
+                </common:TextBlockEx>
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</Page>

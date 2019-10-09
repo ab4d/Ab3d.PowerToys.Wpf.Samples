@@ -1,0 +1,49 @@
+﻿<Page x:Class="Ab3d.PowerToys.Samples.UseCases.WireframeSelection"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Ab3d.PowerToys.Samples.Lines3D"
+      xmlns:visuals="clr-namespace:Ab3d.Visuals;assembly=Ab3d.PowerToys"
+      xmlns:controls="clr-namespace:Ab3d.Controls;assembly=Ab3d.PowerToys"
+      xmlns:cameras="clr-namespace:Ab3d.Cameras;assembly=Ab3d.PowerToys"
+      mc:Ignorable="d" 
+      d:DesignHeight="300" d:DesignWidth="300"
+      Title="WireframeSelection">
+
+    <Grid>
+        <Border Name="ViewportBorder">
+            <Border.Background>
+                <LinearGradientBrush StartPoint="0 0" EndPoint="0 1">
+                    <GradientStop Offset="0" Color="#033C62"/>
+                    <GradientStop Offset="1" Color="#01131F"/>
+                </LinearGradientBrush>
+            </Border.Background>
+            <Viewport3D Name="MainViewport">
+                <ModelVisual3D x:Name="OriginalModelVisual" />
+                <visuals:WireframeVisual3D x:Name="WireframeVisual" 
+                                           WireframeType="Wireframe" LineThickness="2" LineColor="Red" UseModelColor="False"/>
+            </Viewport3D>
+        </Border>
+
+        <cameras:TargetPositionCamera Name="Camera1" Heading="30" Attitude="-20" Bank="0" 
+                                      Distance="100"
+                                      ShowCameraLight="Always"
+                                      TargetViewport3D="{Binding ElementName=MainViewport}"/>
+
+        <controls:MouseCameraController Name="MouseCameraController1"
+                                        RotateCameraConditions="RightMouseButtonPressed"
+                                        MoveCameraConditions="RightMouseButtonPressed, ControlKey"
+                                        ShowRotationCenterMarker="True"
+                                        EventsSourceElement="{Binding ElementName=ViewportBorder}"
+                                        TargetCamera="{Binding ElementName=Camera1}"/>
+
+        <controls:MouseCameraControllerInfo x:Name="CameraControllerInfo" 
+                                            ShowRotateInfo="True" ShowMoveInfo="True"
+                                            MouseCameraController="{Binding ElementName=MouseCameraController1}" 
+                                            Foreground="DimGray" FontSize="15" FontWeight="Bold"
+                                            Margin="10" VerticalAlignment="Bottom" HorizontalAlignment="Left"/>
+
+        <CheckBox Name="PreserveModelColorCheckBox" Content="Preserve model color" IsChecked="False" VerticalAlignment="Top" HorizontalAlignment="Right" Foreground="White" Margin="5" Checked="PreserveModelColorCheckBoxChanged" Unchecked="PreserveModelColorCheckBoxChanged"/>
+    </Grid>
+</Page>

@@ -1,0 +1,47 @@
+﻿<Page x:Class="Ab3d.PowerToys.Samples.EventManager3D.EventManagerIntroPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:common="clr-namespace:Ab3d.PowerToys.Samples.Common"
+      mc:Ignorable="d" 
+      d:DesignHeight="500" d:DesignWidth="800"   
+      Background="{StaticResource GrayTitlePageGradient}"
+      Title="EventManagerIntroPage">
+    <Grid Margin="10">
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
+            <StackPanel Orientation="Vertical" Margin="20 10">
+                <!-- NOTE: In the previous versions of the samples FlowDocumentReader was used to show info pages. But because this control always thrown an exception that 'PresentationUI.Aero2' was not found (the exception was handled by .Net code, but it always stopped the debugger if stop on exception was turned on), I have upgraded TextBlock to add some additional markup. -->
+                <common:TextBlockEx Style="{StaticResource InfoContent}">
+                    The \!EventManager3D\! class is a helper class that enables user to simply subscribe to mouse events on 3D objects. Some mouse events support is already available with WPF's ModelUIElement3D class, but it only support some of the mouse events and provide only limited information about the hit objects. Its usage also requires breaking the 3d objects that are grouped with Model3DGroup into individual ModelUIElement3D objects. Using EventManager3D provides much better events support and does not require any change in the 3D objects organization.\n
+                    \n
+                    The following mouse events are supported:\n
+                    \!\*MouseEnter,\n
+                    \*MouseLeave,\n
+                    \*MouseMove,\n
+                    \*MouseDown,\n
+                    \*MouseUp,\n
+                    \*MouseClick,\n
+                    \*MouseDoubleClick,\n
+                    \*MouseWheel,\n
+                    \*BeginMouseDrag,\n
+                    \*MouseDrag\! and\!\n
+                    \*EndMouseDrag\!\n
+                    \n
+                    This way you do not need to do the complicated 3D hit testing any more. You can simply subscribe to mouse events. This way you the code is much simpler and better organized.\n
+                    \n
+                    \!Usage\!\n
+                    To use EventManager3D create an instance of \!EventManager3D\! class and pass TargetViewport3D as constructor parameter.\n
+                    \n
+                    Than if you need to subscribe events on Model3D create \!ModelEventSource3D\! and set its TargetModel3D to the Model3D. Now you can subscribe to the events on the created ModelEventSource3D. The last thing to do is to register the ModelEventSource3D to the EventManager3D with the RegisterEventSource3D method on the EventManager3D.\n
+                    \n
+                    If you need to subscribe to events on Visual3D use \!VisualEventSource3D\! instead of ModelEventSource3D.\n
+                    \n
+                    It is also possible to subscribe the same events on more Model3D or Visual3D objects. In this case use \!MultiModelEventSource3D\! or \!MultiVisualEventSource3D\!.\n
+                    \n
+                    If you have read 3D objects with \!Ab3d.Reader3ds\! or have the 3D objects already organized in a Dictionary with name object pairs, you can define the objects or visuals by their name. In this case the \!NamedObjects\! dictionary must be set on EventManager3D.\n
+                </common:TextBlockEx>
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</Page>

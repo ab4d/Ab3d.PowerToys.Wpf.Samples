@@ -1,0 +1,33 @@
+﻿<Page x:Class="Ab3d.PowerToys.Samples.Objects3D.Objects3DIntroPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:common="clr-namespace:Ab3d.PowerToys.Samples.Common"
+      mc:Ignorable="d" 
+      d:DesignHeight="500" d:DesignWidth="800"
+      Background="{StaticResource GrayTitlePageGradient}"
+      Title="Objects3DIntroPage">
+    <Grid Margin="10">
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
+            <StackPanel Orientation="Vertical" Margin="20 10">
+                <!-- NOTE: In the previous versions of the samples FlowDocumentReader was used to show info pages. But because this control always thrown an exception that 'PresentationUI.Aero2' was not found (the exception was handled by .Net code, but it always stopped the debugger if stop on exception was turned on), I have upgraded TextBlock to add some additional markup. -->
+                <common:TextBlockEx Style="{StaticResource InfoContent}">
+                    The Ab3d.PowerToys library defines classes that allow creation of some basic 3D objects.\n
+                    \n
+                    The 3D models can be created in many ways. With classes under the \!Ab3d.Meshes\! namespace it is possible to create MeshGeometry3D objects.\n
+                    \n
+                    The \!Ab3d.Models.Model3DFactory\! class can be used to create basic 3D objects as GeometryModel3D objects.\n
+                    \n
+                    To create 3D objects in \!XAML\! and immediately see the results in Visual Studio designer use the classes in \!Ab3d.Visuals\! or \!Ab3d.UIElements\!.\n
+                    \n
+                    The difference between 3D objects defined under Ab3d.Visuals and Ab3d.UIElements is that the object under UIElements are derived from UIElement3D and therefore have support for input, focusing, and eventing. They also define \!ToolTip\! property that can be used to simply shown a ToolTip when mouse is over the 3D element. The 3D objects under Ab3d.Visuals are derived from ModelVisual3D and are therefore more lightweight.\n
+                    \n
+                    To make creation of 3D object in XAML even simpler, the Material and BackMaterial property can be simply set by defining its color. This is done with \!MaterialTypeConverter\! that converts color name into DiffuseMaterial with SolidColorBrush.\n
+                    \n
+                    The creation of objects is highly optimized to make the creation as fast as possible.
+                </common:TextBlockEx>
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</Page>

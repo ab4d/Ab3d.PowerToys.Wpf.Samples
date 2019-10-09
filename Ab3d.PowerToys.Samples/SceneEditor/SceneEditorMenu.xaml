@@ -1,0 +1,35 @@
+﻿<UserControl x:Class="Ab3d.PowerToys.Samples.SceneEditor.SceneEditorMenu"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Ab3d.PowerToys.Samples.SceneEditor"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <Menu>
+        <MenuItem Header="File">
+            <MenuItem Header="New" />
+            <MenuItem Header="Import" />
+            <MenuItem Header="Export" />
+        </MenuItem>
+        <MenuItem Header="Create">
+            <MenuItem Header="Box" />
+            <MenuItem Header="Sphere" />
+        </MenuItem>
+        <MenuItem Header="Edit">
+            <MenuItem Header="Move object" />
+            <MenuItem Header="Scale object" />
+            <MenuItem Header="Rotate object" />
+            <Separator />
+            <MenuItem Header="Edit mesh positions" />
+        </MenuItem>
+        <MenuItem Header="View">
+            <MenuItem Header="Show camera axis" IsCheckable="True" IsChecked="{Binding Source={x:Static local:SceneEditorContext.Current}, Path=ShowCameraAxis}" />
+            <MenuItem Header="Show view cube" IsCheckable="True" IsChecked="{Binding Source={x:Static local:SceneEditorContext.Current}, Path=ShowViewCubeCameraController}" />
+            <MenuItem Header="Show mouse info" IsCheckable="True" IsChecked="{Binding Source={x:Static local:SceneEditorContext.Current}, Path=ShowMouseCameraControllerInfo}" />
+            <Separator />
+            <MenuItem Header="Show wire grid" IsCheckable="True" IsChecked="{Binding Source={x:Static local:SceneEditorContext.Current}, Path=ShowWireGrid}" />
+            <MenuItem Header="Snap to grid" IsCheckable="True" IsChecked="{Binding Source={x:Static local:SceneEditorContext.Current}, Path=SnapToGrid}" />
+        </MenuItem>
+    </Menu>
+</UserControl>

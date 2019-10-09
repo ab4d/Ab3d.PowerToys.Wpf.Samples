@@ -1,0 +1,138 @@
+﻿<Page x:Class="Ab3d.PowerToys.Samples.UseCases.BillboardsSample"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:cameras="clr-namespace:Ab3d.Cameras;assembly=Ab3d.PowerToys"
+      xmlns:ab3d="clr-namespace:Ab3d.Controls;assembly=Ab3d.PowerToys"  
+      xmlns:visuals="clr-namespace:Ab3d.Visuals;assembly=Ab3d.PowerToys"
+      mc:Ignorable="d" 
+      Title="TemplatePage"
+      d:DesignHeight="400" d:DesignWidth="800">
+    <Page.Resources>
+        <BooleanToVisibilityConverter x:Key="VisibilityOfBool" />
+        <DiffuseMaterial x:Key="TreeTextureMaterial">
+            <DiffuseMaterial.Brush>
+                <ImageBrush ImageSource="/Resources/TreeTexture.png"/>
+            </DiffuseMaterial.Brush>
+        </DiffuseMaterial>
+    </Page.Resources>
+
+    <Grid Name="RootGrid">
+        <Border Name="ViewportBorder" Background="Transparent">
+
+            <Viewport3D Name="MainViewport">
+                <visuals:WireGridVisual3D CenterPosition="0 0 -70" Size="300 400" WidthCellsCount="30" HeightCellsCount="40" LineColor="#555555" LineThickness="2"/>
+
+                <visuals:BoxVisual3D x:Name="GoldBoxVisual3D" CenterPosition="0 10 0" Size="60 20 40" Material="Gold" />
+
+                <visuals:TextBlockVisual3D x:Name="TextBlockVisual3D1"
+                                           Text="TextBlockVisual3D"
+                                           Position="-100 0 0" PositionType="Bottom"
+                                           Size="80 20"
+                                           Background="Silver"
+                                           BorderThickness="0 1" BorderBrush="Gold"
+                                           RenderBitmapSize="256 128"
+                                           TextPadding="5 0" />
+
+                <visuals:PlaneVisual3D x:Name="PlaneVisual1"
+                                       CenterPosition="100 15 0" Size="80 20" Normal="0 0 1" HeightDirection="0 1 0">
+                    <visuals:PlaneVisual3D.Material>
+                        <DiffuseMaterial>
+                            <DiffuseMaterial.Brush>
+                                <VisualBrush>
+                                    <VisualBrush.Visual>
+                                        <Border Background="Silver" BorderThickness="0 1" BorderBrush="Gold">
+                                            <TextBlock Text="PlaneVisual3D" Margin="5 0" />
+                                        </Border>
+                                    </VisualBrush.Visual>
+                                </VisualBrush>
+                            </DiffuseMaterial.Brush>
+                        </DiffuseMaterial>
+                    </visuals:PlaneVisual3D.Material>
+                </visuals:PlaneVisual3D>
+
+
+                <!-- All semi-transparent textures have transparent background. -->
+                <!-- Tho show them correctly, we need to sort the 3D models so that those farther away from camera are rendered last (are defined later in the WPF tree). -->
+                <!-- This is done with Ab3d.Utilities.TransparencySorter. -->
+                <!-- See Utilities/TransparencyProblem for more info. -->
+                <ModelVisual3D x:Name="TreesPlaceholerVisual3D">
+
+                    <visuals:PlaneVisual3D x:Name="TreePlaneVisual1"
+                                           CenterPosition="30 20 -170" Size="25 40" Normal="0 0 1" HeightDirection="0 1 0"
+                                           Material="{StaticResource TreeTextureMaterial}"/>
+
+                    <visuals:PlaneVisual3D x:Name="TreePlaneVisual2"
+                                           CenterPosition="-20 20 -160" Size="25 40" Normal="0 0 1" HeightDirection="0 1 0"
+                                           Material="{StaticResource TreeTextureMaterial}"/>
+                    
+                    <visuals:PlaneVisual3D x:Name="TreePlaneVisual3"
+                                           CenterPosition="50 20 -120" Size="25 40" Normal="0 0 1" HeightDirection="0 1 0"
+                                           Material="{StaticResource TreeTextureMaterial}"/>
+
+                    <visuals:PlaneVisual3D x:Name="TreePlaneVisual4"
+                                           CenterPosition="0 20 -100" Size="25 40" Normal="0 0 1" HeightDirection="0 1 0"
+                                           Material="{StaticResource TreeTextureMaterial}"/>
+
+                </ModelVisual3D>
+
+                <ModelVisual3D>
+                    <ModelVisual3D.Content>
+                        <Model3DGroup>
+                            <AmbientLight Color="#333333"/>
+                        </Model3DGroup>
+                    </ModelVisual3D.Content>
+                </ModelVisual3D>
+            </Viewport3D>
+        </Border>
+        
+        <!-- It is also possible to show text over 3D elements with calculating 2D positions of 3D positions and then positioning elements on overlay Canvas -->
+        <!-- OverlayCanvas must be drawn over the Viewport3D element -->
+        <!-- The shown elements should update their position each time the camera or size of Viewport3D is changed -->
+        <Canvas Name="OverlayCanvas" Visibility="{Binding ElementName=ShowOverlayCheckBox, Path=IsChecked, Converter={StaticResource VisibilityOfBool}}">
+            <Line Name="OverlayLine" Stroke="Silver" StrokeThickness="2" />
+            <Border Name="OverlayInfoBorder" BorderBrush="Gold" BorderThickness="0 4 0 4" Background="Silver">
+                <TextBlock Name="OverlayInfoTextBlock" Margin="10 5" FontSize="20" Text="Overlay text"/>
+            </Border>
+        </Canvas>
+
+        <cameras:TargetPositionCamera Name="Camera1" 
+                                      TargetPosition="0 0 0" 
+                                      Heading="30" Attitude="-30" Bank="0" 
+                                      Distance="400" 
+                                      ShowCameraLight="Always"
+                                      TargetViewport3D="{Binding ElementName=MainViewport}"/>
+
+        <ab3d:MouseCameraController Name="MouseCameraController1"
+                                    RotateCameraConditions="LeftMouseButtonPressed"
+                                    MoveCameraConditions="LeftMouseButtonPressed, ControlKey"
+                                    ShowRotationCenterMarker="True"
+                                    EventsSourceElement="{Binding ElementName=ViewportBorder}"
+                                    TargetCamera="{Binding ElementName=Camera1}" />
+
+        <ab3d:CameraAxisPanel HorizontalAlignment="Left" VerticalAlignment="Bottom" TargetCamera="{Binding ElementName=Camera1}" />
+        
+        <Border  Margin="5 10" VerticalAlignment="Bottom" HorizontalAlignment="Right" BorderBrush="Black" BorderThickness="2" Background="#55FFFFFF">
+            <StackPanel Orientation="Vertical" Margin="5 10">
+                    
+                <CheckBox Name="FixYAxisCheckBox" Content="Fix Y axis" IsChecked="False" Margin="0 5 0 0" FontWeight="Bold"
+                            ToolTip="When checked the billboard 3D objects will be always oriented upwards and will only rotate around Y axis." />
+
+                <CheckBox Name="FixScreenSizeCheckBox" Content="Fix screen size" IsChecked="False" Margin="0 2 0 0" FontWeight="Bold"
+                          ToolTip="When checked the sizes of TextBlockVisual3D and PlaneVisual3D are calculated so that they have fixed size on the screen. Zoom the camera out to see the effect." />
+                
+                <CheckBox Name="ShowOverlayCheckBox" Content="Show Overlay Canvas" IsChecked="True" Margin="0 2 0 0" FontWeight="Bold"
+                          ToolTip="When checked a TextBlock is shown on a Canvas that is positioned on top of Viewport3D - Overlay Canvas"/>
+
+                <CheckBox Name="AlignWithCameraCheckBox" Content="AlignWithCamera" IsChecked="True" Margin="0 2 0 0" FontWeight="Bold"
+                          ToolTip="When checked the AlignWithCamera method is called on the TextBlockVisual3D and PlaneVisual3D objects to align the planes so that they face the camera." />
+                    
+            </StackPanel>
+        </Border>
+
+        <TextBlock FontWeight="Bold" FontSize="20" Foreground="#444" Margin="10" VerticalAlignment="Top" HorizontalAlignment="Left" 
+                   Text="Showing 3D objects as billboards that are always turned towards camera"/>
+
+    </Grid>
+</Page>

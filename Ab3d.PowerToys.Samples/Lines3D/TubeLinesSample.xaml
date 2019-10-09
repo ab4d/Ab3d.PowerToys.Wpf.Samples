@@ -1,0 +1,87 @@
+﻿<Page x:Class="Ab3d.PowerToys.Samples.Lines3D.TubeLinesSample"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:cameras="clr-namespace:Ab3d.Cameras;assembly=Ab3d.PowerToys"
+      xmlns:ab3d="clr-namespace:Ab3d.Controls;assembly=Ab3d.PowerToys"  
+      xmlns:visuals="clr-namespace:Ab3d.Visuals;assembly=Ab3d.PowerToys" 
+      mc:Ignorable="d" 
+      d:DesignHeight="400" d:DesignWidth="600"
+	Title="LineTubeSample">
+
+    <Grid>
+        <Border Name="ViewportBorder">
+            <Border.Background>
+                <LinearGradientBrush StartPoint="0 0" EndPoint="0 1">
+                    <GradientStop Offset="0" Color="#033C62"/>
+                    <GradientStop Offset="1" Color="#01131F"/>
+                </LinearGradientBrush>
+            </Border.Background>
+
+            <Viewport3D Name="MainViewport">
+                <visuals:TubeLineVisual3D StartPosition="-50,0,220" EndPosition="50,0,220" Material="E:Silver" Segments="6" Radius="0.1"/> <!-- E:Silver is EmissiveSilver material -->
+                <visuals:TubeLineVisual3D StartPosition="-50,0,200" EndPosition="50,0,200" Material="E:Silver" Segments="6" Radius="0.25"/>
+                <visuals:TubeLineVisual3D StartPosition="-50,0,180" EndPosition="50,0,180" Material="E:Silver" Segments="6" Radius="0.5"/>
+                <visuals:TubeLineVisual3D StartPosition="-50,0,160" EndPosition="50,0,160" Material="E:Silver" Segments="6" Radius="1"/>
+                <visuals:TubeLineVisual3D StartPosition="-50,0,140" EndPosition="50,0,140" Material="E:Silver" Segments="6" Radius="2"/>
+                <visuals:TubeLineVisual3D StartPosition="-50,0,120" EndPosition="50,0,120" Material="E:Silver" Segments="6" Radius="3"/>
+
+                <visuals:TubeLineVisual3D StartPosition="-50,0,100" EndPosition="-50,0,0" Material="E:Silver" Segments="6" Radius="0.5"/>
+                <visuals:TubeLineVisual3D StartPosition="0,0,100" EndPosition="0,0,0" Material="E:Silver" Segments="6" Radius="1"/>
+                <visuals:TubeLineVisual3D StartPosition="50,0,100" EndPosition="50,0,0" Material="E:Silver" Segments="6" Radius="2"/>
+
+                <visuals:TubeLineVisual3D StartPosition="100,0,100" EndPosition="200,0,100" Material="E:Silver" Segments="6" Radius="1"/>
+                <visuals:TubeLineVisual3D StartPosition="200,0,100" EndPosition="200,0,200" Material="E:Silver" Segments="6" Radius="1"/>
+                <visuals:TubeLineVisual3D StartPosition="200,0,200" EndPosition="100,0,200" Material="E:Silver" Segments="6" Radius="1"/>
+                <visuals:TubeLineVisual3D StartPosition="100,0,200" EndPosition="100,0,100" Material="E:Silver" Segments="6" Radius="1"/>
+                
+                <ModelVisual3D x:Name="MeshTubeLinesVisual" />
+            </Viewport3D>
+        </Border>
+
+        <TextBlock FontWeight="Bold" FontSize="20" Foreground="Silver" Margin="10" VerticalAlignment="Top" HorizontalAlignment="Left" Text="3D lines created with TubeLine3DVisual and TubeLineMesh3D objects"/>
+
+        <cameras:SceneCamera Name="Camera1" Heading="30" Attitude="-20" Bank="0" Distance="700" ShowCameraLight="Always"/>
+
+        <ab3d:MouseCameraController Name="MouseCameraController1" 
+                                    RotateCameraConditions="LeftMouseButtonPressed"
+                                    MoveCameraConditions="LeftMouseButtonPressed, ControlKey"
+                                    EventsSourceElement="{Binding ElementName=ViewportBorder}"/>
+
+        <ab3d:CameraControlPanel VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="5" Width="225" Height="75" ShowMoveButtons="True"/>
+
+        <Border VerticalAlignment="Bottom" HorizontalAlignment="Right" Background="#33000000" BorderBrush="Black" BorderThickness="2" CornerRadius="3">
+            <Grid Margin="10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <TextBlock Grid.Column="0" Grid.Row="0" Foreground="Silver" VerticalAlignment="Center" Margin="0 3 5 0" Text="Segments count:"/>
+                <ComboBox Name="SegmentsComboBox" Grid.Column="1" Grid.Row="0" SelectedIndex="2" Width="60" Margin="0 3" SelectionChanged="SegmentsComboBox_OnSelectionChanged">
+                    <ComboBoxItem>3</ComboBoxItem>
+                    <ComboBoxItem>4</ComboBoxItem>
+                    <ComboBoxItem>6</ComboBoxItem>
+                    <ComboBoxItem>8</ComboBoxItem>
+                    <ComboBoxItem>16</ComboBoxItem>
+                    <ComboBoxItem>20</ComboBoxItem>
+                </ComboBox>
+                <Image Grid.Row="0" Grid.Column="2" Source="/Resources/infoIcon.png" SnapsToDevicePixels="True" Width="16" Height="16" VerticalAlignment="Center"
+                       Margin="5 -2 0 0" ToolTipService.ShowDuration="30000" ToolTip="Specify how many segments (sides) are used to create each tube model." />
+
+
+                <TextBlock Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" Foreground="Silver" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0 3 5 0" Text="Use emissive material:" />
+                <CheckBox Name="EmissiveMaterialCheckBox" Grid.Column="1" Grid.Row="1" Foreground="Silver" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0 3 5 0" IsChecked="True" Checked="EmissiveMaterialCheckBoxCheckedChanged" Unchecked="EmissiveMaterialCheckBoxCheckedChanged"/>
+
+                <Image Name="EmissiveMaterialInfoImage" Grid.Column="2" Grid.Row="1" Source="/Resources/infoIcon.png" SnapsToDevicePixels="True" Width="16" Height="16" VerticalAlignment="Center"
+                       Margin="5 -2 0 0" ToolTipService.ShowDuration="30000" />
+            </Grid>
+        </Border>
+    </Grid>
+</Page>

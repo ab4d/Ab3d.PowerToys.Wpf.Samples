@@ -1,0 +1,23 @@
+﻿<Page x:Class="Ab3d.PowerToys.Samples.Utilities.UtilitiesIntroPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:common="clr-namespace:Ab3d.PowerToys.Samples.Common"
+      mc:Ignorable="d" 
+      d:DesignHeight="600" d:DesignWidth="1000"
+      Background="{StaticResource GrayTitlePageGradient}"
+      Title="UtilitiesIntroPage">
+    <Grid Margin="10">
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
+            <StackPanel Orientation="Vertical" Margin="20 10">
+                <!-- NOTE: In the previous versions of the samples FlowDocumentReader was used to show info pages. But because this control always thrown an exception that 'PresentationUI.Aero2' was not found (the exception was handled by .Net code, but it always stopped the debugger if stop on exception was turned on), I have upgraded TextBlock to add some additional markup. -->
+                <common:TextBlockEx Style="{StaticResource InfoTitle}">\!Ab3d.Utilities\!</common:TextBlockEx>
+                <common:TextBlockEx Style="{StaticResource InfoContent}">
+                    The \!Ab3d.Utilities\! namespace contains many WPF 3D helper classes.
+                    Some of the classes like \!LinesUpdates\! and \!EventManager\! have already been demonstrated in other sections. This section shows some other samples.
+                </common:TextBlockEx>
+            </StackPanel>
+        </ScrollViewer>            
+    </Grid>
+</Page>

@@ -1,0 +1,66 @@
+﻿<Page x:Class="Ab3d.PowerToys.Samples.Objects3D.ExtrudeAlongPathSample"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:cameras="clr-namespace:Ab3d.Cameras;assembly=Ab3d.PowerToys"
+    xmlns:ab3d="clr-namespace:Ab3d.Controls;assembly=Ab3d.PowerToys"  
+    xmlns:visuals="clr-namespace:Ab3d.Visuals;assembly=Ab3d.PowerToys"        
+    Title="AllModelsSample"
+    mc:Ignorable="d" 
+    d:DesignHeight="400" d:DesignWidth="600">
+    <Grid Name="MainGrid">
+        <Border Name="ViewportBorder">
+            <Border.Background>
+                <LinearGradientBrush StartPoint="0 0" EndPoint="0 1">
+                    <GradientStop Offset="0" Color="#033C62"/>
+                    <GradientStop Offset="1" Color="#01131F"/>
+                </LinearGradientBrush>
+            </Border.Background>
+
+            <Viewport3D Name="MainViewport">
+                <visuals:TextBlockVisual3D Position="-150 10 20" PositionType="Center"
+                                           Foreground="Yellow" Background="Black" BorderBrush="White" BorderThickness="1" TextPadding="5 3"
+                                           Size="0 50" UpDirection="0 0.4 -1"
+                                           Text="Ellipse shape&#x0a;isClosed: true&#x0a;isSmooth: true" />
+
+                <visuals:TextBlockVisual3D Position="0 10 20" PositionType="Center"
+                                           Foreground="Yellow" Background="Black" BorderBrush="White" BorderThickness="1" TextPadding="5 3"
+                                           Size="0 50" UpDirection="0 0.4 -1"
+                                           Text="Ellipse shape&#x0a;isClosed: false&#x0a;isSmooth: false" />
+                
+                <visuals:TextBlockVisual3D Position="150 10 20" PositionType="Center"
+                                           Foreground="Yellow" Background="Black" BorderBrush="White" BorderThickness="1" TextPadding="5 3"
+                                           Size="0 50" UpDirection="0 0.4 -1"
+                                           Text="T shape&#x0a;isClosed: true&#x0a;isSmooth: false" />
+            </Viewport3D>
+        </Border>
+
+        <cameras:TargetPositionCamera Name="Camera1" Heading="30" Attitude="-20" Bank="0" 
+                                      Distance="500" TargetPosition="-50 50 0" 
+                                      ShowCameraLight="Always"
+                                      CameraType="PerspectiveCamera" CameraWidth="200"
+                                      TargetViewport3D="{Binding ElementName=MainViewport}"/>
+
+        <ab3d:MouseCameraController Name="MouseCameraController1"
+                                    ZoomMode="MousePosition"
+                                    ShowRotationCenterMarker="True"
+                                    RotateAroundMousePosition="True"
+                                    RotateCameraConditions="LeftMouseButtonPressed"
+                                    MoveCameraConditions="LeftMouseButtonPressed, ControlKey"
+
+                                    QuickZoomConditions="LeftMouseButtonPressed, RightMouseButtonPressed"
+                                    QuickZoomMaxZoomInFactor="10"
+                                    QuickZoomMaxFactorScreenDistance="200"
+                                    ShowQuickZoomMarker="True"
+
+                                    EventsSourceElement="{Binding ElementName=ViewportBorder}"
+                                    TargetCamera="{Binding ElementName=Camera1}"/>
+
+        <ab3d:CameraControlPanel VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="5" Width="225" Height="75" ShowMoveButtons="True"
+                                 TargetCamera="{Binding ElementName=Camera1}"/>
+
+        <TextBlock FontWeight="Bold" FontSize="20" Foreground="Silver" Margin="10" VerticalAlignment="Top" HorizontalAlignment="Left" 
+                   Text="Extrude a 2D shape along a 3D path"/>
+    </Grid>
+</Page>

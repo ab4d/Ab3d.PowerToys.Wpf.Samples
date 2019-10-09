@@ -1,0 +1,464 @@
+﻿<Page x:Class="Ab3d.PowerToys.Samples.Cameras.CameraTypesSample"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:cameras="clr-namespace:Ab3d.Cameras;assembly=Ab3d.PowerToys"
+    xmlns:visuals="clr-namespace:Ab3d.Visuals;assembly=Ab3d.PowerToys"    
+    xmlns:ab3d="clr-namespace:Ab3d.Controls;assembly=Ab3d.PowerToys"  
+    Loaded="Page_Loaded"
+    Title="CamerasSample"
+    MinWidth="600">
+    <ScrollViewer Name="MainScrollViewer" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Visible">
+        <Grid Name="MainGrid" Margin="0 0 10 0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="300"/>
+
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="300"/>
+
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="300"/>
+
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="300"/>
+
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="300"/>
+            </Grid.RowDefinitions>
+
+            <Grid Name="TitleGrid" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0" FontWeight="Bold" FontSize="20" Margin="2 5 5 0" Text="Ab3d.PowerToys camera types"/>
+                <Button Name="PrintButton" Grid.Column="1" Width="100" Margin="5 0" Click="InvokePrint">Print</Button>
+            </Grid>
+
+
+
+
+
+            <!-- TargetPositionCamera -->
+            <StackPanel Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Vertical" VerticalAlignment="Bottom">
+                <TextBlock FontWeight="Bold" FontSize="16" Margin="5 15 5 0" Text="TargetPositionCamera"/>
+                <TextBlock FontSize="14" Margin="5 0" TextWrapping="Wrap"
+                           Text="TargetPositionCamera is the most commonly used camera. The camera gives you full control over the target position and allows using simple angles and distance to define the orientation and position of the camera."/>
+                <TextBlock FontSize="12" FontWeight="Bold" Margin="5 0" Text="&lt;cameras:TargetPositionCamera Heading=&quot;-20&quot; Attitude=&quot;-20&quot; TargetPosition=&quot;0 0 0&quot; Distance=&quot;450&quot; /&gt;"/>
+            </StackPanel>
+
+            <Border Grid.Row="2" Grid.Column="0" BorderThickness="2" SnapsToDevicePixels="True" BorderBrush="Black" Margin="6 0 3 0">
+                <Grid Name="TargetPositionGrid1" Background="Transparent">
+                    <Viewport3D Name="TargetPositionCameraViewport">
+                        <visuals:WireCrossVisual3D Position="0 0 0" LineColor="Red" LineThickness="3" LinesLength="30" />
+                        <ModelVisual3D>
+                            <ModelVisual3D.Content>
+                                <Model3DGroup x:Name="WireframeModelGroup1"/>
+                            </ModelVisual3D.Content>
+                        </ModelVisual3D>
+
+                        <ModelVisual3D>
+                            <ModelVisual3D.Children>
+                                <ModelVisual3D Content="{StaticResource CameraModel}">
+                                    <ModelVisual3D.Transform>
+                                        <Transform3DGroup>
+                                            <ScaleTransform3D ScaleX="0.3" ScaleY="0.3" ScaleZ="0.3"/>
+                                            <RotateTransform3D>
+                                                <RotateTransform3D.Rotation>
+                                                    <AxisAngleRotation3D Axis="0 1 0" Angle="180"/>
+                                                </RotateTransform3D.Rotation>
+                                            </RotateTransform3D>
+                                            <TranslateTransform3D OffsetX="10" OffsetY="5"/>
+                                        </Transform3DGroup>
+                                    </ModelVisual3D.Transform>
+                                </ModelVisual3D>
+                                <visuals:PyramidVisual3D BottomCenterPosition="0 -100 0" Size="100 100 100" Material="#774444FF">
+                                    <visuals:PyramidVisual3D.Transform>
+                                        <Transform3DGroup>
+                                            <RotateTransform3D>
+                                                <RotateTransform3D.Rotation>
+                                                    <AxisAngleRotation3D Axis="0 0 1" Angle="-90"/>
+                                                </RotateTransform3D.Rotation>
+                                            </RotateTransform3D>
+                                        </Transform3DGroup>
+                                    </visuals:PyramidVisual3D.Transform>
+                                </visuals:PyramidVisual3D>
+                            </ModelVisual3D.Children>
+                            <ModelVisual3D.Transform>
+                                <Transform3DGroup>
+                                    <TranslateTransform3D OffsetX="450"/>
+                                    <RotateTransform3D>
+                                        <RotateTransform3D.Rotation>
+                                            <AxisAngleRotation3D Axis="0 0 1" Angle="20"/>
+                                        </RotateTransform3D.Rotation>
+                                    </RotateTransform3D>
+                                    <RotateTransform3D>
+                                        <RotateTransform3D.Rotation>
+                                            <AxisAngleRotation3D Axis="0 1 0" Angle="-70"/>
+                                        </RotateTransform3D.Rotation>
+                                    </RotateTransform3D>
+                                </Transform3DGroup>
+                            </ModelVisual3D.Transform>
+                        </ModelVisual3D>
+                    </Viewport3D>
+                    <cameras:TargetPositionCamera Name="TargetPositionCamera1" TargetViewport3D="{Binding ElementName=TargetPositionCameraViewport}"
+                                                  Heading="80" Attitude="-20" Bank="0" 
+                                                  TargetPosition="0 0 0" Distance="1100"/>
+                    <ab3d:CameraControlPanel Name="CameraControlPanel1" Margin="0 10 0 0" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="100" Height="50" TargetCameraName="TargetPositionCamera1"/>
+                    <ab3d:MouseCameraController Name="MouseCameraController1" RotateCameraConditions="LeftMouseButtonPressed" MoveCameraConditions="LeftMouseButtonPressed, ControlKey" IsMouseWheelZoomEnabled="False" TargetCameraName="TargetPositionCamera1" EventsSourceElement="{Binding ElementName=TargetPositionGrid1}"/>
+                </Grid>
+            </Border>
+
+            <Border Grid.Row="2" Grid.Column="1"  BorderThickness="2" SnapsToDevicePixels="True" BorderBrush="Black" Margin="6 0 3 0">
+                <Grid>
+                    <Viewport3D Name="TargetPositionCameraViewport2">
+                        <ModelVisual3D Content="{StaticResource HouseWithTreesModel}"/>
+                        <ModelVisual3D Content="{StaticResource PersonModel}"/>
+                    </Viewport3D>
+                    <cameras:TargetPositionCamera Name="TargetPositionCamera2" TargetViewport3D="{Binding ElementName=TargetPositionCameraViewport2}"
+                                                  Heading="-20" Attitude="-20" Distance="450" TargetPosition="0 0 0"/>
+
+                </Grid>
+            </Border>
+
+
+
+
+            <!-- FreeCamera -->
+            <StackPanel Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Vertical" VerticalAlignment="Bottom">
+                <TextBlock FontWeight="Bold" FontSize="16" Margin="5 15 5 0" Text="FreeCamera"/>
+                <TextBlock FontSize="14" Margin="5 0" TextWrapping="Wrap"
+                           Text="FreeCamera is a camera for advanced users. Instead of easy to understand angles, the camera is defined by providing a CameraPosition and a TargetPosition. When used with MouseCameraController this camera is not constrained to rotate around Y (up) axis but can rotate freely. Usually this is not very user friendly, but for some advanced users or when used with a 3D mouse this may be desired."/>
+                <TextBlock FontSize="12" FontWeight="Bold" Margin="5 0" Text="&lt;cameras:FreeCamera CameraPosition=&quot;130 150 400&quot; TargetPosition=&quot;0 0 0&quot;/&gt;"/>
+            </StackPanel>
+
+            <Border Grid.Row="4" Grid.Column="0"  BorderThickness="2" SnapsToDevicePixels="True" BorderBrush="Black" Margin="6 0 3 0">
+                <Grid Name="FreeCameraGrid1" Background="Transparent">
+                    <Viewport3D Name="FreeCameraViewport">
+                        <visuals:WireCrossVisual3D Position="0 0 0" LineColor="Red" LineThickness="3" LinesLength="30" />
+                        <ModelVisual3D>
+                            <ModelVisual3D.Content>
+                                <Model3DGroup x:Name="WireframeModelGroup2"/>
+                            </ModelVisual3D.Content>
+                        </ModelVisual3D>
+
+
+                        <ModelVisual3D>
+                            <ModelVisual3D.Children>
+                                <ModelVisual3D Content="{StaticResource CameraModel}">
+                                    <ModelVisual3D.Transform>
+                                        <Transform3DGroup>
+                                            <ScaleTransform3D ScaleX="0.3" ScaleY="0.3" ScaleZ="0.3"/>
+                                            <RotateTransform3D>
+                                                <RotateTransform3D.Rotation>
+                                                    <AxisAngleRotation3D Axis="0 1 0" Angle="180"/>
+                                                </RotateTransform3D.Rotation>
+                                            </RotateTransform3D>
+                                            <TranslateTransform3D OffsetX="10" OffsetY="5"/>
+                                        </Transform3DGroup>
+                                    </ModelVisual3D.Transform>
+                                </ModelVisual3D>
+                                <visuals:PyramidVisual3D BottomCenterPosition="0 -100 0" Size="100 100 100" Material="#774444FF">
+                                    <visuals:PyramidVisual3D.Transform>
+                                        <Transform3DGroup>
+                                            <RotateTransform3D>
+                                                <RotateTransform3D.Rotation>
+                                                    <AxisAngleRotation3D Axis="0 0 1" Angle="-90"/>
+                                                </RotateTransform3D.Rotation>
+                                            </RotateTransform3D>
+                                        </Transform3DGroup>
+                                    </visuals:PyramidVisual3D.Transform>
+                                </visuals:PyramidVisual3D>
+                            </ModelVisual3D.Children>
+                            <ModelVisual3D.Transform>
+                                <Transform3DGroup>
+                                    <TranslateTransform3D OffsetX="450"/>
+                                    <RotateTransform3D>
+                                        <RotateTransform3D.Rotation>
+                                            <AxisAngleRotation3D Axis="0 0 1" Angle="20"/>
+                                        </RotateTransform3D.Rotation>
+                                    </RotateTransform3D>
+                                    <RotateTransform3D>
+                                        <RotateTransform3D.Rotation>
+                                            <AxisAngleRotation3D Axis="0 1 0" Angle="-70"/>
+                                        </RotateTransform3D.Rotation>
+                                    </RotateTransform3D>
+                                </Transform3DGroup>
+                            </ModelVisual3D.Transform>
+                        </ModelVisual3D>
+                    </Viewport3D>
+                    <cameras:TargetPositionCamera Name="FreeCamera1" TargetViewport3D="{Binding ElementName=FreeCameraViewport}"
+                                                  Heading="80" Attitude="-20" Bank="0" 
+                                                  TargetPosition="0 0 0" Distance="1100"/>
+                    <ab3d:CameraControlPanel Name="CameraControlPanel2" Margin="0 10 0 0" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="100" Height="50" TargetCameraName="FreeCamera1"/>
+                    <ab3d:MouseCameraController Name="MouseCameraController2" RotateCameraConditions="LeftMouseButtonPressed" MoveCameraConditions="LeftMouseButtonPressed, ControlKey" IsMouseWheelZoomEnabled="False" TargetCameraName="FreeCamera1" EventsSourceElement="{Binding ElementName=FreeCameraGrid1}"/>
+                </Grid>
+            </Border>
+
+            <Border Grid.Row="4" Grid.Column="1"  BorderThickness="2" SnapsToDevicePixels="True" BorderBrush="Black" Margin="6 0 3 0">
+                <Grid>
+                    <Viewport3D Name="FreeCameraViewport2">
+                        <ModelVisual3D Content="{StaticResource HouseWithTreesModel}"/>
+                        <ModelVisual3D Content="{StaticResource PersonModel}"/>
+                    </Viewport3D>
+                    <cameras:FreeCamera Name="FreeCamera2" TargetViewport3D="{Binding ElementName=FreeCameraViewport2}"
+                                        CameraPosition="130 150 400" TargetPosition="0 0 0"/>
+
+                </Grid>
+            </Border>
+
+
+            <!-- Scene camera -->
+            <StackPanel Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Vertical" VerticalAlignment="Bottom">
+                <TextBlock FontWeight="Bold" FontSize="16" Margin="5 15 5 0" Text="SceneCamera:"/>
+                <TextBlock FontSize="14" Margin="5 0" TextWrapping="Wrap"
+                           Text="SceneCamera is the camera that is the easiest to use. You only set the Heading and Attitude angle and Distance from the center of the 3D scene and the camera will automatically adjust itself to point to the center of the 3D scene. With setting IsDistancePercent property to true, you may even define the distance as percentage of scene's size. When the objects in the scene are changed, you may need to call Refresh method to update the SceneCamera."/>
+                <TextBlock FontSize="12" FontWeight="Bold" Margin="5 0" Text="&lt;cameras:SceneCamera Heading=&quot;-80&quot; Attitude=&quot;-20&quot; Distance=&quot;800&quot;/&gt;"/>
+            </StackPanel>
+
+            <Border Grid.Row="6" Grid.Column="0"  BorderThickness="2" SnapsToDevicePixels="True" BorderBrush="Black" Margin="6 0 3 0">
+                <Grid Name="SceneCameraGrid1" Background="Transparent">
+                    <Viewport3D Name="SceneCameraViewport">
+                        <ModelVisual3D>
+                            <ModelVisual3D.Content>
+                                <Model3DGroup x:Name="WireframeModelGroup3"/>
+                            </ModelVisual3D.Content>
+                        </ModelVisual3D>
+
+
+                        <ModelVisual3D>
+                            <ModelVisual3D.Children>
+                                <ModelVisual3D Content="{StaticResource CameraModel}">
+                                    <ModelVisual3D.Transform>
+                                        <Transform3DGroup>
+                                            <ScaleTransform3D ScaleX="0.3" ScaleY="0.3" ScaleZ="0.3"/>
+                                            <RotateTransform3D>
+                                                <RotateTransform3D.Rotation>
+                                                    <AxisAngleRotation3D Axis="0 1 0" Angle="180"/>
+                                                </RotateTransform3D.Rotation>
+                                            </RotateTransform3D>
+                                            <TranslateTransform3D OffsetX="10" OffsetY="5"/>
+                                        </Transform3DGroup>
+                                    </ModelVisual3D.Transform>
+                                </ModelVisual3D>
+                                <visuals:PyramidVisual3D BottomCenterPosition="0 -200 0" Size="200 200 200" Material="#774444FF">
+                                    <visuals:PyramidVisual3D.Transform>
+                                        <Transform3DGroup>
+                                            <RotateTransform3D>
+                                                <RotateTransform3D.Rotation>
+                                                    <AxisAngleRotation3D Axis="0 0 1" Angle="-90"/>
+                                                </RotateTransform3D.Rotation>
+                                            </RotateTransform3D>
+                                        </Transform3DGroup>
+                                    </visuals:PyramidVisual3D.Transform>
+                                </visuals:PyramidVisual3D>
+                            </ModelVisual3D.Children>
+                            <ModelVisual3D.Transform>
+                                <Transform3DGroup>
+                                    <TranslateTransform3D OffsetX="600" OffsetY="50" OffsetZ="-95"/>
+                                    <RotateTransform3D>
+                                        <RotateTransform3D.Rotation>
+                                            <AxisAngleRotation3D Axis="0 0 1" Angle="20"/>
+                                        </RotateTransform3D.Rotation>
+                                    </RotateTransform3D>
+                                    <RotateTransform3D>
+                                        <RotateTransform3D.Rotation>
+                                            <AxisAngleRotation3D Axis="0 1 0" Angle="-10"/>
+                                        </RotateTransform3D.Rotation>
+                                    </RotateTransform3D>
+                                </Transform3DGroup>
+                            </ModelVisual3D.Transform>
+                        </ModelVisual3D>
+                    </Viewport3D>
+                    <cameras:TargetPositionCamera Name="SceneCamera1" TargetViewport3D="{Binding ElementName=SceneCameraViewport}"
+                                                  Heading="-30" Attitude="-20" Bank="0" TargetPosition="0 0 0" Distance="1600"/>
+                    <ab3d:CameraControlPanel Name="CameraControlPanel3" Margin="0 10 0 0" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="100" Height="50" TargetCameraName="SceneCamera1"/>
+                    <ab3d:MouseCameraController Name="MouseCameraController3" RotateCameraConditions="LeftMouseButtonPressed" MoveCameraConditions="LeftMouseButtonPressed, ControlKey" IsMouseWheelZoomEnabled="False" TargetCameraName="SceneCamera1" EventsSourceElement="{Binding ElementName=SceneCameraGrid1}"/>
+                </Grid>
+            </Border>
+
+            <Border Grid.Row="6" Grid.Column="1"  BorderThickness="2" SnapsToDevicePixels="True" BorderBrush="Black" Margin="6 0 3 0">
+                <Grid>
+                    <Viewport3D Name="SceneCameraViewport2">
+                        <ModelVisual3D x:Name="SceneModel1" Content="{StaticResource HouseWithTreesModel}"/>
+                        <ModelVisual3D x:Name="PersonModel1" Content="{StaticResource PersonModel}"/>
+                    </Viewport3D>
+                    <cameras:SceneCamera Name="SceneCamera2" TargetViewport3D="{Binding ElementName=SceneCameraViewport2}"
+                                 Heading="-80" Attitude="-20" Distance="800" IsDistancePercent="False"/>
+
+                </Grid>
+            </Border>
+
+
+
+            <!-- Third Person Camera -->
+            <StackPanel Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Vertical" VerticalAlignment="Bottom">
+                <TextBlock FontWeight="Bold" FontSize="16" Margin="5 15 5 0" Text="ThirdPersonCamera:"/>
+                <TextBlock FontSize="14" Margin="5 0" TextWrapping="Wrap"
+                           Text="ThirdPersonCamera is a camera that always looks at the 3D model specified with the CenterObject property. This kind of camera is commonly used in third person games when you look at your character from behind."/>
+                <TextBlock FontSize="12" FontWeight="Bold" Margin="5 0" Text="&lt;cameras:ThirdPersonCamera Heading=&quot;-30&quot; Attitude=&quot;-20&quot; Distance=&quot;200&quot; CenterObject=&quot;{Binding ElementName=PersonModel2}&quot;/&gt;"/>
+            </StackPanel>
+
+            <Border Grid.Row="8" Grid.Column="0"  BorderThickness="2" SnapsToDevicePixels="True" BorderBrush="Black" Margin="6 0 3 0">
+                <Grid Name="ThirdPersonCameraGrid1" Background="Transparent">
+                    <Viewport3D Name="ThirdPersonCameraViewport">
+                        <ModelVisual3D>
+                            <ModelVisual3D.Content>
+                                <Model3DGroup x:Name="WireframeModelGroup4"/>
+                            </ModelVisual3D.Content>
+                        </ModelVisual3D>
+
+                        <ModelVisual3D>
+                            <ModelVisual3D.Children>
+                                <ModelVisual3D Content="{StaticResource CameraModel}">
+                                    <ModelVisual3D.Transform>
+                                        <Transform3DGroup>
+                                            <ScaleTransform3D ScaleX="0.3" ScaleY="0.3" ScaleZ="0.3"/>
+                                            <RotateTransform3D>
+                                                <RotateTransform3D.Rotation>
+                                                    <AxisAngleRotation3D Axis="0 1 0" Angle="180"/>
+                                                </RotateTransform3D.Rotation>
+                                            </RotateTransform3D>
+                                            <TranslateTransform3D OffsetX="10" OffsetY="5"/>
+                                        </Transform3DGroup>
+                                    </ModelVisual3D.Transform>
+                                </ModelVisual3D>
+                                <visuals:PyramidVisual3D BottomCenterPosition="0 -100 0" Size="100 100 100" Material="#774444FF">
+                                    <visuals:PyramidVisual3D.Transform>
+                                        <Transform3DGroup>
+                                            <RotateTransform3D>
+                                                <RotateTransform3D.Rotation>
+                                                    <AxisAngleRotation3D Axis="0 0 1" Angle="-90"/>
+                                                </RotateTransform3D.Rotation>
+                                            </RotateTransform3D>
+                                        </Transform3DGroup>
+                                    </visuals:PyramidVisual3D.Transform>
+                                </visuals:PyramidVisual3D>
+                            </ModelVisual3D.Children>
+                            <ModelVisual3D.Transform>
+                                <Transform3DGroup>
+                                    <TranslateTransform3D OffsetX="200"/>
+                                    <RotateTransform3D>
+                                        <RotateTransform3D.Rotation>
+                                            <AxisAngleRotation3D Axis="0 0 1" Angle="20"/>
+                                        </RotateTransform3D.Rotation>
+                                    </RotateTransform3D>
+                                    <RotateTransform3D>
+                                        <RotateTransform3D.Rotation>
+                                            <AxisAngleRotation3D Axis="0 1 0" Angle="-60"/>
+                                        </RotateTransform3D.Rotation>
+                                    </RotateTransform3D>
+                                    <TranslateTransform3D OffsetX="-42" OffsetY="15" OffsetZ="176"/>
+                                </Transform3DGroup>
+                            </ModelVisual3D.Transform>
+                        </ModelVisual3D>
+                    </Viewport3D>
+                    <cameras:TargetPositionCamera Name="ThirdPersonCamera1" TargetViewport3D="{Binding ElementName=ThirdPersonCameraViewport}"
+                                                  Heading="15" Attitude="-20" Bank="0" TargetPosition="0 0 0" Distance="900"/>
+                    <ab3d:CameraControlPanel Name="CameraControlPanel4" Margin="0 10 0 0" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="100" Height="50" TargetCameraName="ThirdPersonCamera1"/>
+                    <ab3d:MouseCameraController Name="MouseCameraController4" RotateCameraConditions="LeftMouseButtonPressed" MoveCameraConditions="LeftMouseButtonPressed, ControlKey" IsMouseWheelZoomEnabled="False" TargetCameraName="ThirdPersonCamera1" EventsSourceElement="{Binding ElementName=ThirdPersonCameraGrid1}"/>
+                </Grid>
+            </Border>
+
+            <Border Grid.Row="8" Grid.Column="1"  BorderThickness="2" SnapsToDevicePixels="True" BorderBrush="Black" Margin="6 0 3 0">
+                <Grid>
+                    <Viewport3D Name="ThirdPersonCameraViewport2">
+                        <ModelVisual3D Content="{StaticResource HouseWithTreesModel}"/>
+                        <ModelVisual3D x:Name="PersonModel2" Content="{StaticResource PersonModel}"/>
+                    </Viewport3D>
+                    <cameras:ThirdPersonCamera Name="ThirdPersonCamera2" TargetViewport3D="{Binding ElementName=ThirdPersonCameraViewport2}"
+                                           Heading="-30" Attitude="-20" Distance="200"
+                                           CenterObject="{Binding ElementName=PersonModel2}"/>
+
+                </Grid>
+            </Border>
+
+            <!-- First Person Camera -->
+            <StackPanel Grid.Row="9" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Vertical" VerticalAlignment="Bottom">
+                <TextBlock FontWeight="Bold" FontSize="16" Margin="5 15 5 0" Text="FirstPersonCamera:"/>
+                <TextBlock FontSize="14" Margin="5 0" TextWrapping="Wrap"
+                           Text="FirstPersonCamera is a camera type that is usually used in first person games. There you specify the position of the character eyes and then see the world as you would be looking from the character's eyes - the rotation of the head is specified by Heading and Attitude properties."/>
+                <TextBlock FontSize="12" FontWeight="Bold" Margin="5 0" Text="&lt;cameras:FirstPersonCamera Heading=&quot;0&quot; Attitude=&quot;0&quot; Position=&quot;-42 30 176&quot;/&gt;"/>
+            </StackPanel>
+
+            <Border Grid.Row="10" Grid.Column="0"  BorderThickness="2" SnapsToDevicePixels="True" BorderBrush="Black" Margin="6 0 3 0">
+                <Grid Name="FirstPersonCameraGrid1" Background="Transparent">
+                    <Viewport3D Name="FirstPersonCameraViewport">
+                        <ModelVisual3D>
+                            <ModelVisual3D.Content>
+                                <Model3DGroup x:Name="WireframeModelGroup5"/>
+                            </ModelVisual3D.Content>
+                        </ModelVisual3D>
+
+                        <ModelVisual3D>
+                            <ModelVisual3D.Children>
+                                <ModelVisual3D Content="{StaticResource CameraModel}">
+                                    <ModelVisual3D.Transform>
+                                        <Transform3DGroup>
+                                            <ScaleTransform3D ScaleX="0.3" ScaleY="0.3" ScaleZ="0.3"/>
+                                            <RotateTransform3D>
+                                                <RotateTransform3D.Rotation>
+                                                    <AxisAngleRotation3D Axis="0 1 0" Angle="180"/>
+                                                </RotateTransform3D.Rotation>
+                                            </RotateTransform3D>
+                                            <TranslateTransform3D OffsetX="10" OffsetY="5"/>
+                                        </Transform3DGroup>
+                                    </ModelVisual3D.Transform>
+                                </ModelVisual3D>
+                                <visuals:PyramidVisual3D BottomCenterPosition="0 -100 0" Size="100 100 100" Material="#774444FF">
+                                    <visuals:PyramidVisual3D.Transform>
+                                        <Transform3DGroup>
+                                            <RotateTransform3D>
+                                                <RotateTransform3D.Rotation>
+                                                    <AxisAngleRotation3D Axis="0 0 1" Angle="-90"/>
+                                                </RotateTransform3D.Rotation>
+                                            </RotateTransform3D>
+                                        </Transform3DGroup>
+                                    </visuals:PyramidVisual3D.Transform>
+                                </visuals:PyramidVisual3D>
+                            </ModelVisual3D.Children>
+                            <ModelVisual3D.Transform>
+                                <Transform3DGroup>
+                                    <TranslateTransform3D OffsetX="0"/>
+                                    <RotateTransform3D>
+                                        <RotateTransform3D.Rotation>
+                                            <AxisAngleRotation3D Axis="0 0 1" Angle="0"/>
+                                        </RotateTransform3D.Rotation>
+                                    </RotateTransform3D>
+                                    <RotateTransform3D>
+                                        <RotateTransform3D.Rotation>
+                                            <AxisAngleRotation3D Axis="0 1 0" Angle="-100"/>
+                                        </RotateTransform3D.Rotation>
+                                    </RotateTransform3D>
+                                    <TranslateTransform3D OffsetX="-48" OffsetY="30" OffsetZ="176"/>
+                                </Transform3DGroup>
+                            </ModelVisual3D.Transform>
+                        </ModelVisual3D>
+                    </Viewport3D>
+                    <cameras:TargetPositionCamera Name="FirstPersonCamera1" TargetViewport3D="{Binding ElementName=FirstPersonCameraViewport}"
+                                                  Heading="30" Attitude="-20" Bank="0" TargetPosition="0 0 0" Distance="900"/>
+                    <ab3d:CameraControlPanel Name="CameraControlPanel5" Margin="0 10 0 0" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="100" Height="50" TargetCameraName="FirstPersonCamera1"/>
+                    <ab3d:MouseCameraController Name="MouseCameraController5" RotateCameraConditions="LeftMouseButtonPressed" MoveCameraConditions="LeftMouseButtonPressed, ControlKey" IsMouseWheelZoomEnabled="False" TargetCameraName="FirstPersonCamera1" EventsSourceElement="{Binding ElementName=FirstPersonCameraGrid1}"/>
+                </Grid>
+            </Border>
+
+            <Border Grid.Row="10" Grid.Column="1"  BorderThickness="2" SnapsToDevicePixels="True" BorderBrush="Black" Margin="6 0 3 0">
+                <Grid>
+                    <Viewport3D Name="FirstPersonCameraViewport2">
+                        <ModelVisual3D Content="{StaticResource HouseWithTreesModel}"/>
+                        <ModelVisual3D Content="{StaticResource PersonModel}"/>
+                    </Viewport3D>
+                    <cameras:FirstPersonCamera Name="FirstPersonCamera2" TargetViewport3D="{Binding ElementName=FirstPersonCameraViewport2}"
+                                               Heading="10" Attitude="0" Position="-48 30 176"/>
+
+                </Grid>
+            </Border>
+        </Grid>
+    </ScrollViewer>
+</Page>

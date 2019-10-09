@@ -1,0 +1,38 @@
+﻿<Page x:Class="Ab3d.PowerToys.Samples.UseCases.UseCasesIntroPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:common="clr-namespace:Ab3d.PowerToys.Samples.Common"
+      mc:Ignorable="d" 
+      d:DesignHeight="600" d:DesignWidth="1000"
+      Background="{StaticResource GrayTitlePageGradient}"
+      Title="UseCasesIntroPage">
+    <Grid Margin="10">
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
+            <StackPanel Orientation="Vertical" Margin="20 10">
+                <!-- NOTE: In the previous versions of the samples FlowDocumentReader was used to show info pages. But because this control always thrown an exception that 'PresentationUI.Aero2' was not found (the exception was handled by .Net code, but it always stopped the debugger if stop on exception was turned on), I have upgraded TextBlock to add some additional markup. -->
+                <common:TextBlockEx Style="{StaticResource InfoTitle}">\!Use Cases\! show the power of \!Ab3d.PowerToys\! in a real-world like scenarios.</common:TextBlockEx>
+                <common:TextBlockEx Style="{StaticResource InfoContent}">
+                    The \!3D Plot\! and \!3D Earth view\! samples show how to use height map to create great looking 3D plots of some interesting functions and how to use height map and satellite images data and create 3D Earth view.\n
+                    \n
+                    The \!Cannon simulation\! use case shows how easy is to create a physical simulation in 3D with help from Ab3d.PowerToys classes. The use case demonstrates the use of various Cameras, 3D Visuals and 3D Lines.\n
+                    \n
+                    The \!Wind Power Generators\! use case shows a landscape with 5 wind generators positioned on the hill.\n
+                    User can rotate the camera around with mouse (MouseCameraController) or with camera buttons (CameraControlPanel). The camera can also move closer or farther away by mouse wheel or by buttons on control panel. The center object can be changed by using the ComboBox above the camera control panel.\n
+                    The user can also move the wind generators around the landscape by simply dragging and dropping the wind generator by the mouse.\n
+                    To make the scene even more realistic it is possible to set the wind speed with the slider on the right. This will also make the wind generators to rotate.\n
+                    Note: The landscape and wind generator models were converted from 3ds file into xaml with Viewer3ds.\n
+                    \n
+                    The \!Scene Editor\! sample show how to create a simple scene editor. It also demonstrates how to adjust the camera to show all the objects in the scene (fit camera to view). It also uses custom hit testing where first a 3D ray from the current mouse position and current camera is calculated. Than an intersection from the ray and the XZ plane is calculated - it use to get the current mouse position in 3D space.\n
+                    \n
+                    The \!Distance measurement\! uses many features from Ab3d.PowerToys. It shows how to create a 3D scene where user can measure the distance on a 3D scene.\n
+                    \n
+                    The \!Arrows Sample\! shows how to use ArrowVisual3D objects in an interesting simulation. The simulation animates a golden sphere in 3D space. The arrows are positioned in the direction of the sphere, the color of the arrows indicate the distance to the sphere.\n
+                    \n
+                    This section also have some other samples.
+                </common:TextBlockEx>
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</Page>

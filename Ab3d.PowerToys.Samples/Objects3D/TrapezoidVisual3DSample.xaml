@@ -1,0 +1,117 @@
+﻿<Page x:Class="Ab3d.PowerToys.Samples.Objects3D.TrapezoidVisual3DSample"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:cameras="clr-namespace:Ab3d.Cameras;assembly=Ab3d.PowerToys"
+    xmlns:ab3d="clr-namespace:Ab3d.Controls;assembly=Ab3d.PowerToys"  
+    xmlns:visuals="clr-namespace:Ab3d.Visuals;assembly=Ab3d.PowerToys"
+    xmlns:common="clr-namespace:Ab3d.PowerToys.Samples.Common"
+    MinWidth="600"
+    Title="Trapezoid Model sample">
+    <Page.Resources>
+        <BooleanToVisibilityConverter x:Key="VisibilityOfBool" />
+    </Page.Resources>
+    <Grid>
+        <Border Name="ViewportBorder" BorderBrush="Black" BorderThickness="2" Margin="5" CornerRadius="5">
+            <Border.Background>
+                <LinearGradientBrush StartPoint="0 0" EndPoint="0 1">
+                    <GradientStop Offset="0" Color="#033C62"/>
+                    <GradientStop Offset="1" Color="#01131F"/>
+                </LinearGradientBrush>
+            </Border.Background>
+            <Viewport3D Name="MainViewport">
+                <ModelVisual3D>
+                    <ModelVisual3D.Content>
+                        <Model3DGroup x:Name="TrianglesGroup"/>
+                    </ModelVisual3D.Content>
+                </ModelVisual3D>
+                <visuals:TrapezoidVisual3D x:Name="TrapezoidVisual3D1" 
+                                           BottomCenterPosition="0 0 0"
+                                           BottomSize="150 100"
+                                           TopSize="70 30"
+                                           Height="{Binding ElementName=HeightSlider, Path=Value}"
+                                           Material="Silver"
+                                           GeometryChanged="TrapezoidVisual3D1_GeometryChanged"/>
+                <ModelVisual3D x:Name="CustomTrapezoidVisual3D" />
+                <ModelVisual3D>
+                    <ModelVisual3D.Content>
+                        <Model3DGroup x:Name="NormalsGroup"/>
+                    </ModelVisual3D.Content>
+                </ModelVisual3D>
+            </Viewport3D>
+        </Border>
+
+        <ab3d:MeshInspectorOverlay Name="MeshInspector" Margin="5"
+                                   Visibility="{Binding ElementName=ShowMeshInspectorCheckBox, Path=IsChecked, Converter={StaticResource VisibilityOfBool}}"
+                                   Camera="{Binding ElementName=Camera1}"
+                                   ShowPositionIndexes="True" PositionsTextColor="White" PositionsTextFontSize="10" PositionsTextFontWeight="Bold"
+                                   ShowTriangleIndexes="True" TriangleIndexesTextColor="Yellow" TriangleIndexesTextFontSize="9" TriangleIndexesTextFontWeight="Normal"
+                                   ShowTriangles="True" ShowOnlyFrontFacingTriangles="True" CombinePositionIndexes="WithSame2DScreenPosition"/>
+
+        <cameras:TargetPositionCamera Name="Camera1" TargetPosition="0 0 0"
+                                      Heading="30" Attitude="-40" Bank="0" 
+                                      Distance="400" 
+                                      ShowCameraLight="Always"
+                                      TargetViewport3D="{Binding ElementName=MainViewport}"/>
+        
+        <ab3d:MouseCameraController Name="MouseCameraController1"
+                                    RotateCameraConditions="LeftMouseButtonPressed"
+                                    MoveCameraConditions="LeftMouseButtonPressed, ControlKey"
+                                    TargetCamera="{Binding ElementName=Camera1}"
+                                    EventsSourceElement="{Binding ElementName=ViewportBorder}"/>
+
+        <ab3d:CameraControlPanel VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="5" Width="225" Height="75" ShowMoveButtons="True"/>
+
+        <StackPanel VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="10">
+            <TextBlock FontWeight="Bold" FontSize="18" Foreground="Silver" Margin="0 3" TextDecorations="Underline" Text="TrapezoidVisual3D"/>
+            <TextBlock FontWeight="Bold" FontSize="13" Foreground="Silver" Margin="0 1" Text="View:"/>
+            <CheckBox Name="TextureMaterialCheckBox" IsChecked="False"  Foreground="Silver" Checked="OnMaterialSettingsChanged" Unchecked="OnMaterialSettingsChanged">Is Texture material</CheckBox>
+            <CheckBox Name="SemiTransparentMaterialCheckBox" IsChecked="True" Foreground="Silver" Checked="OnMaterialSettingsChanged" Unchecked="OnMaterialSettingsChanged">Is Semi-Transparent material</CheckBox>
+            <CheckBox Name="ShowTrianglesCheckBox" IsChecked="True" Foreground="Silver" Checked="OnWireSettingsChanged" Unchecked="OnWireSettingsChanged">Show Triangles</CheckBox>
+            <CheckBox Name="ShowNormalsCheckBox" IsChecked="True" Foreground="Silver" Checked="OnWireSettingsChanged" Unchecked="OnWireSettingsChanged">Show Normals</CheckBox>
+
+            <CheckBox Name="ShowMeshInspectorCheckBox" IsChecked="False" Margin="0 6 0 0" Foreground="Silver">Show MeshInspectorOverlay</CheckBox>
+            <TextBlock Name="MeshInspectorInfoTextBlock" Margin="20 0 0 0" FontSize="10" Visibility="{Binding ElementName=MeshInspector, Path=Visibility}">
+                <Run Foreground="White">White - Position indexes</Run>
+                <LineBreak />
+                <Run Foreground="Yellow">Yellow - Triangle indexes</Run>
+            </TextBlock>
+
+            <RadioButton Name="StandardTrapezoidRadioButton" Content="Standard Trapezoid (TrapezoidVisual3D)" Margin="0 15 0 3" Foreground="Silver" FontWeight="Bold" GroupName="TrapezoidType" IsChecked="True" Checked="TrapezoidTypeCheckedChanged"/>
+
+            <StackPanel Name="StandardTrapezoidPanel" Orientation="Vertical" Margin="20 0 0 15">
+                <TextBlock Foreground="Silver" Margin="0 3 0 5" Text="BottomCenterPosition: (0, 0, 0)"/>
+            
+                <common:SimpleGrid ColumnsCount="2" ColumnSpacing="5" RowSpacing="5">
+                    <TextBlock Foreground="Silver" Text="BottomSize:"/>
+                    <ComboBox Name="BottomSizeComboBox" SelectedIndex="2" SelectionChanged="BottomSizeComboBox_OnSelectionChanged">
+                        <ComboBoxItem>70 30</ComboBoxItem>
+                        <ComboBoxItem>100 50</ComboBoxItem>
+                        <ComboBoxItem>150 100</ComboBoxItem>
+                        <ComboBoxItem>150 150</ComboBoxItem>
+                        <ComboBoxItem>150 200</ComboBoxItem>
+                    </ComboBox>
+                
+                    <TextBlock Foreground="Silver" Text="TopSize:"/>
+                    <ComboBox Name="TopSizeComboBox" SelectedIndex="0" SelectionChanged="TopSizeComboBox_OnSelectionChanged">
+                        <ComboBoxItem>70 30</ComboBoxItem>
+                        <ComboBoxItem>100 50</ComboBoxItem>
+                        <ComboBoxItem>150 50</ComboBoxItem>
+                        <ComboBoxItem>150 150</ComboBoxItem>
+                        <ComboBoxItem>150 200</ComboBoxItem>                    
+                    </ComboBox>
+                
+                    <TextBlock Foreground="Silver" Text="Height:"/>
+                    <Slider Name="HeightSlider" Width="100"
+                            Minimum="30" Maximum="120" Value="70" 
+                            AutoToolTipPlacement="BottomRight" AutoToolTipPrecision="0"
+                            TickFrequency="10" TickPlacement="BottomRight" SmallChange="10" LargeChange="20" IsSnapToTickEnabled="True"/>
+                </common:SimpleGrid>
+            </StackPanel>
+
+            <RadioButton Name="CustomTopCenterRadioButton" Content="Custom TopCenterPosition (see C# code)" Margin="0 0 0 3" Foreground="Silver" FontWeight="Bold" GroupName="TrapezoidType" Checked="TrapezoidTypeCheckedChanged" />
+
+            <RadioButton Name="CustomDirectionRadioButton" Content="Custom direction (see C# code)" Margin="0 0 0 3" Foreground="Silver" FontWeight="Bold" GroupName="TrapezoidType" Checked="TrapezoidTypeCheckedChanged" />
+
+        </StackPanel>
+    </Grid>
+</Page>

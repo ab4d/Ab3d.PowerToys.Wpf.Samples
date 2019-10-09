@@ -1,0 +1,231 @@
+﻿<Page x:Class="Ab3d.PowerToys.Samples.Utilities.ExtensionMethods"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:common="clr-namespace:Ab3d.PowerToys.Samples.Common"
+      mc:Ignorable="d" 
+      d:DesignHeight="2400" d:DesignWidth="800"
+	Title="DebuggingUtilities">
+
+    <Grid>
+        <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="0,10,0,-10">
+            <StackPanel Orientation="Vertical" Margin="10 0">
+                <common:TextBlockEx TextWrapping="Wrap" FontSize="14">
+                    Ab3d.PowerToys library defines \!many extension methods\! in the Ab3d namespace.\n
+                    \n
+                    The extension methods can be grouped into the following categories:\n
+                    \n
+                    1) Standard helper methods\n
+                    2) Getting and setting 3D object names\n
+                    3) Model iterators\n
+                    4) Dumping information about 3D objects while debugging in the Visual Studio Immediate Window\n
+                    \n
+                    (the code for all the samples here can be copied from the code behind file - ExtensionMethods.xaml.cs)\n
+                    \n
+                    \n
+                    \!1) Standard helper methods\!\n
+                    \n
+                    Convert from Point3D to Vector3D and from Vector3D to Point3D:
+                </common:TextBlockEx>
+
+                <common:TextBlockEx FontFamily="Consolas" Margin="10 0" Background="#EEE">
+                    var point1 = new Point3D(10, 10, 10);\n
+                    var vector1 = point1.\!ToVector3D()\!;\n
+                    \n
+                    var vector2 = new Vector3D(10, 10, 10);\n
+                    var point2 = vector2.\!ToPoint3D()\!;
+                </common:TextBlockEx>
+
+                <common:TextBlockEx TextWrapping="Wrap" Margin="0 20 0 0" FontSize="14">
+                    Easily create ModelVisual3D from GeometryModel3D or Model3DGroup:
+                </common:TextBlockEx>
+
+                <common:TextBlockEx FontFamily="Consolas" Margin="10 0" Background="#EEE">
+                    var sphereMesh = new Ab3d.Meshes.SphereMesh3D(new Point3D(0, 0, 0), 10, 30).Geometry;\n
+                    var sphereModel3D = new GeometryModel3D(sphereMesh, new DiffuseMaterial(Brushes.Gold));\n
+                    \n
+                    var sphereModelVisual = sphereModel3D.\!CreateModelVisual3D()\!;
+                </common:TextBlockEx>
+                
+                <common:TextBlockEx TextWrapping="Wrap" Margin="0 20 0 0" FontSize="14">
+                    Get center position of a 3D model's bounding box (Rect3D):
+                </common:TextBlockEx>
+
+                <common:TextBlockEx FontFamily="Consolas" Margin="10 0" Background="#EEE">
+                    Point3D centerPosition = sphereModel3D.Bounds.\!GetCenterPosition()\!;
+                </common:TextBlockEx>
+
+                
+                <common:TextBlockEx TextWrapping="Wrap" Margin="0 20 0 0" FontSize="14">
+                    \n
+                    \!2) Getting and setting 3D object names\!\n
+                    \n
+                    WPF does not support adding names to 3D objects. But with Ab3d.PowerToys extension method, it is possible to get and set name to 
+                    any WPF Visual3D, Model3DGroup, GeometryModel3D, MeshGeometry3D or Material. This is done with using \!GetName()\! and \!SetName(string)\! methods.\n
+                    \n
+                    Note that when setting name, the name must comply with WPF naming convention: "name must start with a letter or underscore and can contain only letters, digits, or underscores."
+                    (see Ab3d.PowerToys help for more info - see Ab3d.Extensions.SetName)\n
+                    \n
+                    For example:
+                </common:TextBlockEx>
+                
+                <common:TextBlockEx FontFamily="Consolas" Margin="10 0" Background="#EEE">
+                    geometryModel3D.\!SetName\!("RootModel");\n
+                    
+                    defaultMaterial.\!SetName\!("DefaultMaterial");\n
+                    geometryModel3D.Material = defaultMaterial;\n
+                    \n
+                    // then later in the code:\n
+                    string modelName = geometryModel3D.\!GetName();\!\n
+                    string materialName = geometryModel3D.Material.\!GetName();\!
+                </common:TextBlockEx>
+
+
+                <common:TextBlockEx TextWrapping="Wrap" Margin="0 20 0 0" FontSize="14">
+                    \n
+                    \!3) Model iterators\!\n
+                    \n
+                    Model iterators help you work with 3D models inside hierarchically organized 3D models.\n
+                    \n
+                    For example the following code uses \!ForEachGeometryModel3D\! extension method to change material in all the GeometryModel3D defined in the MainViewport3D:
+                </common:TextBlockEx>
+
+                <common:TextBlockEx FontFamily="Consolas" Margin="10 5" Background="#EEE">
+                    var redDiffuseMaterial = new DiffuseMaterial(Brushes.Red);\n
+                    \n
+                    MainViewport3D.Children.\!ForEachGeometryModel3D\!((geometryModel3D) =&gt;\n
+                    {\n
+                    \____// This code is called for every GeometryModel3D inside MainViewport3D.Children\n
+                    \____geometryModel3D.Material = redDiffuseMaterial;\n
+                    });
+                </common:TextBlockEx>
+
+
+                <common:TextBlockEx Margin="0 20 0 0" TextWrapping="Wrap" FontSize="14">
+                    The following code counts number of positions on all models inside a Model3DGroup (rootModel3DGroup):
+                </common:TextBlockEx>
+
+                <common:TextBlockEx FontFamily="Consolas" Margin="10 5" Background="#EEE">
+                    int totalPositions = 0;\n
+                    \n
+                    rootModel3DGroup.\!ForEachGeometryModel3D\!((geometryModel3D) =&gt;\n
+                    {\n
+                    \____// This code is called for every GeometryModel3D inside rootModel3DGroup\n
+                    \____var meshGeometry3D = geometryModel3D.Geometry as MeshGeometry3D;\n
+                    \____if (meshGeometry3D != null &amp;&amp; meshGeometry3D.Positions != null)\n
+                    \________totalPositions += meshGeometry3D.Positions.Count;\n
+                    });
+                </common:TextBlockEx>
+
+                <common:TextBlockEx Margin="0 20 0 0" TextWrapping="Wrap" FontSize="14">
+                    With \!ForEachVisual3D\! it is possible to iterate through all ModelVisual3D objects.\n
+                    The following example increased radius of all SphereVisual3D on the scene:
+                </common:TextBlockEx>
+
+                <common:TextBlockEx FontFamily="Consolas" Margin="10 5" Background="#EEE">
+                    MainViewport3D.Children.\!ForEachVisual3D\!((modelVisual3D) =>\n
+                    {\n
+                    \____// This code is called for every ModelVisual3D in MainViewport3D\n
+                    \____var sphereVisual3D = modelVisual3D as Ab3d.Visuals.SphereVisual3D;\n
+                    \____if (sphereVisual3D != null)\n
+                    \________sphereVisual3D.Radius *= 1.2;\n
+                    });
+                </common:TextBlockEx>
+
+                <common:TextBlockEx Margin="0 20 0 0" TextWrapping="Wrap" FontSize="14">
+                    The extensions methods internally call method on the \!Ab3d.Utilities.ModelIterator\! class. The class defines \!IterateGeometryModel3DObjects\! and \!IterateModelVisualsObjects\! methods with various overloads.\n
+                    \n
+                    The advantage of those two methods is that they not only call an action for each GeometryModel3D or ModelVisual3D but also pass the parent's transformation to the called action. This can have various uses. The following sample shows how to get all positions of one Model3DGroup (the positions should also be transformed with their transformations):
+                </common:TextBlockEx>
+
+                <common:TextBlockEx Margin="0 20 0 0" TextWrapping="Wrap" FontSize="14">
+                    With \!ForEachVisual3D\! it is possible to iterate through all ModelVisual3D objects.\n
+                    The following example increased radius of all SphereVisual3D on the scene:
+                </common:TextBlockEx>
+
+                <common:TextBlockEx FontFamily="Consolas" Margin="10 5" Background="#EEE">
+                    var allPositions = new List&lt;Point3D&gt;();\n
+                    \n
+                    Ab3d.Utilities.ModelIterator.IterateGeometryModel3DObjects(model3D: rootModel3DGroup, \n
+                    parentTransform3D: null, \n
+                    callback: delegate(GeometryModel3D geometryModel3D, Transform3D transform3D)\n
+                    {\n
+                    \____// This code is called for every GeometryModel3D inside rootModel3DGroup\n
+                    \____// transform3D is set to the Transform3D with all parent transformations or to null if there is no parent transformation\n
+                    \____var meshGeometry3D = geometryModel3D.Geometry as MeshGeometry3D;\n
+                    \____\n
+                    \____if (meshGeometry3D != null)\n
+                    \____{\n
+                    \________var positions = meshGeometry3D.Positions;\n
+                    \________if (positions != null)\n
+                    \________{\n
+                    \____________int positionsCount = positions.Count;\n
+                    \____________for (var i = 0; i&lt;positionsCount; i++)\n
+                    \____________{\n
+                    \________________Point3D onePosition = positions[i];\n
+                    \n
+                    \________________if (transform3D != null)\n
+                    \____________________onePosition = transform3D.Transform(positions[i]);\n
+                    \n
+                    \________________allPositions.Add(onePosition);\n
+                    \____________}\n
+                    \________}\n
+                    \____}\n
+                    });
+                </common:TextBlockEx>
+                
+                
+
+
+                <common:TextBlockEx Margin="0 30 0 0" TextWrapping="Wrap" FontSize="14">
+                    \n
+                    \!4) Dumping information about 3D objects\!\n
+                    \n
+                    When debugging your application, you can use the \!DumpHierarchy\! or \!Dump\! methods in the Visual Studio \!Immediate Window\! to get nicely formatted information about many objects that are used in WPF 3D.\n
+                    \n
+                    Note that DumpHierarchy methods also display object names that are set with \!SetName\! extension method.\n
+                    \n
+                    \n
+                    \!DumpHierarchy methods:\!\n
+                    \n
+                    DumpHierarchy method can be called on Viewport3D, Visual3D or Model3DGroup objects.\n
+                    The following sample shows output when called on Viewport3D:
+                </common:TextBlockEx>
+
+                <TextBlock FontWeight="Bold" Margin="0 10 0 0" Text="MainViewport3D.DumpHierarchy():" />
+                <TextBlock Name="DumpHierarchyTextBlock" FontFamily="Consolas" Margin="10 0" Background="#EEE"/>
+
+                <TextBlock FontWeight="Bold" Margin="0 20 0 0" Text="Dump methods:" FontSize="14"/>
+                
+                <TextBlock FontWeight="Bold" Margin="0 10 0 0" Text="geometryModel3D.Dump():" />
+                <TextBlock Name="GeometryModelDumpTextBlock" FontFamily="Consolas" Margin="10 0" Background="#EEE"/>
+
+                <TextBlock FontWeight="Bold" Margin="0 20 0 0" Text="meshGeometry.Dump():" />
+                <TextBlock Name="MeshGeometryDumpTextBlock" FontFamily="Consolas" Margin="10 0" Background="#EEE"/>
+
+                <TextBlock FontWeight="Bold" Margin="0 20 0 0" Text="matrix3D.Dump():" />
+                <TextBlock Name="MatrixDumpTextBlock" FontFamily="Consolas" Margin="10 0" Background="#EEE"/>
+                
+                <TextBlock FontWeight="Bold" Margin="0 20 0 0" Text="matrix3D.Dump(5):" />
+                <TextBlock Name="MatrixDump5TextBlock" FontFamily="Consolas" Margin="10 0" Background="#EEE"/>
+
+                <TextBlock FontWeight="Bold" Margin="0 20 0 0" Text="transform.Dump():" />
+                <TextBlock Name="TransformDumpTextBlock" FontFamily="Consolas" Margin="10 0" Background="#EEE"/>
+
+                <TextBlock FontWeight="Bold" Margin="0 20 0 0" Text="material.Dump():" />
+                <TextBlock Name="MaterialDumpTextBlock" FontFamily="Consolas" Margin="10 0" Background="#EEE"/>
+
+                <TextBlock FontWeight="Bold" Margin="0 20 0 0" Text="model.Bounds.Dump() // Rect3D Dump:" />
+                <TextBlock Name="BoundsTextBlock" FontFamily="Consolas" Margin="10 0" Background="#EEE"/>
+
+                <TextBlock FontWeight="Bold" Margin="0 20 0 0" Text="model3DGroup.Dump():" />
+                <TextBlock Name="ModelGroupDumpTextBlock" FontFamily="Consolas" Margin="10 0" Background="#EEE"/>
+
+                <TextBlock FontWeight="Bold" Margin="0 20 0 0" Text="Ab3d.Utilities.Dumper.GetMeshInitializationCode(geometryModel3D.Geometry):" />
+                <TextBlock Name="MeshInitializationTextBlock" FontFamily="Consolas" Margin="10 0" Background="#EEE"/>
+
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</Page>

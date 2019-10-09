@@ -1,0 +1,90 @@
+﻿<Page x:Class="Ab3d.PowerToys.Samples.Cameras.FitIntoViewSample"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:cameras="clr-namespace:Ab3d.Cameras;assembly=Ab3d.PowerToys"
+      xmlns:ab3d="clr-namespace:Ab3d.Controls;assembly=Ab3d.PowerToys"  
+      xmlns:visuals="clr-namespace:Ab3d.Visuals;assembly=Ab3d.PowerToys"
+      mc:Ignorable="d" 
+      Title="FitIntoViewSample"
+      d:DesignHeight="400" d:DesignWidth="800">
+
+    <Grid Name="RootGrid">
+        <Border Name="ViewportBorder">
+            <Border.Background>
+                <LinearGradientBrush StartPoint="0 0" EndPoint="0 1">
+                    <GradientStop Offset="0" Color="#033C62"/>
+                    <GradientStop Offset="1" Color="#01131F"/>
+                </LinearGradientBrush>
+            </Border.Background>
+
+            <Viewport3D Name="MainViewport">
+                <visuals:WireGridVisual3D CenterPosition="0 0 0" Size="100 100" WidthCellsCount="5" HeightCellsCount="5" LineColor="#555555" LineThickness="2"/>
+
+                <ModelVisual3D x:Name="ObjectsRootVisual3D" >
+                    <!-- Objects inside this ModelVisual3D will be used to calculate FitIntoView. Objects are added in code behind. -->
+                </ModelVisual3D>
+
+                <ModelVisual3D>
+                    <ModelVisual3D.Content>
+                        <Model3DGroup>
+                            <AmbientLight Color="#333333"/>
+                        </Model3DGroup>
+                    </ModelVisual3D.Content>
+                </ModelVisual3D>
+            </Viewport3D>
+        </Border>
+
+        <cameras:TargetPositionCamera Name="Camera1" 
+                                      TargetPosition="0 0 0" 
+                                      Heading="30" Attitude="-20" Bank="0" 
+                                      CameraType="OrthographicCamera"
+                                      CameraWidth="160"
+                                      FieldOfView="45"
+                                      ShowCameraLight="Always"
+                                      TargetViewport3D="{Binding ElementName=MainViewport}"/>
+
+        <ab3d:MouseCameraController Name="MouseCameraController1"
+                                    RotateCameraConditions="LeftMouseButtonPressed"
+                                    MoveCameraConditions="LeftMouseButtonPressed, ControlKey"
+                                    
+                                    IsRotationDirectionAdjusted="False"
+                                    MoveOnlyHorizontally="False" 
+                                    
+                                    EventsSourceElement="{Binding ElementName=ViewportBorder}"
+                                    TargetCamera="{Binding ElementName=Camera1}" />
+
+        <ab3d:CameraAxisPanel HorizontalAlignment="Left" VerticalAlignment="Bottom" TargetCamera="{Binding ElementName=Camera1}" />
+
+        <Border BorderBrush="Black" BorderThickness="2" Background="#55FFFFFF" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="10">
+            <StackPanel Orientation="Vertical" Margin="10">
+                <StackPanel.LayoutTransform>
+                    <ScaleTransform ScaleX="1.7" ScaleY="1.7" />
+                </StackPanel.LayoutTransform>
+            
+                <CheckBox Name="AutoAdjustCheckBox" IsChecked="True" Content="Auto fit" Margin="0 2 0 0" ToolTip="Calls Fit into view after each user camera change"/>
+            
+                <CheckBox Name="CenterCameraCheckBox" IsChecked="True" Content="Center camera" Margin="0 2 0 0"
+                          Unchecked="CenterCameraCheckBox_OnUnchecked"
+                          ToolTip="When checked the camera will also reset to view the center of the scene. When unchecked the camera will look at (0, 0, 0)"/>
+
+                <TextBlock Text="adjustmentFactor:" Margin="0 5 0 0"/>
+                <ComboBox Name="AdjustmentFactorComboBox" SelectedIndex="0" SelectionChanged="AdjustmentFactorComboBox_OnSelectionChanged">
+                    <ComboBoxItem>1.0 (no margin)</ComboBoxItem>
+                    <ComboBoxItem>1.1 (10% margin)</ComboBoxItem>
+                    <ComboBoxItem>1.2 (20% margin)</ComboBoxItem>
+                </ComboBox>
+            
+                <Button Name="FitIntoViewButton" Content="Fit into view" Padding="10 3" Margin="0 10 0 0" 
+                        Click="FitIntoViewButton_OnClick" />
+            
+                <Button Name="RecreateSceneButton" Content="Recreate scene" Padding="10 3" Margin="0 3 0 0" 
+                        Click="RecreateSceneButton_OnClick" />
+            </StackPanel>
+        </Border>
+
+        <Canvas Name="PreviewCanvas" HorizontalAlignment="Right" VerticalAlignment="Top" Width="100" Height="100" />
+        
+    </Grid>
+</Page>

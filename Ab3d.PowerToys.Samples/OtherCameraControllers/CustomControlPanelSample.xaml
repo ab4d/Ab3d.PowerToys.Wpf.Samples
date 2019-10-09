@@ -1,0 +1,37 @@
+﻿<Page x:Class="Ab3d.PowerToys.Samples.OtherCameraControllers.CustomControlPanelSample"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:cameras="clr-namespace:Ab3d.Cameras;assembly=Ab3d.PowerToys"
+    xmlns:my="clr-namespace:Ab3d.PowerToys.Samples.OtherCameraControllers"
+    Background="Transparent"
+    MinWidth="500"
+    Title="CamerasSample">
+    <Grid>
+        <Viewport3D Name="SceneCameraViewport">
+            <ModelVisual3D Content="{StaticResource Ab3d_Box_Model}"/>
+        </Viewport3D>
+        <cameras:SceneCamera Name="SceneCamera1"
+                             Heading="0" Attitude="-15" Bank="0" Distance="2" IsDistancePercent="True"/>
+        
+        <my:CustomControlPanel VerticalAlignment="Bottom" HorizontalAlignment="Left" ShowMoveButtons="True"/>
+
+        <Border BorderBrush="Black" BorderThickness="2" CornerRadius="2" Background="#CCFFFFFF" 
+                Width="260" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="10">
+            <TextBlock Margin="10" TextWrapping="Wrap">
+                <Run FontWeight="Bold">Instructions to change color from original orange to blue with Adobe Photoshop:</Run>
+                <LineBreak/>
+                <LineBreak/>
+                <Run>1. Open all selected button images.</Run><LineBreak/>
+                <Run>2. Desaturate colors (Saturation: -100) in all images to convert the image into grayscale.</Run><LineBreak/>
+                <Run>3. In one image add color overlay. Select blend mode: Hard Light.</Run><LineBreak/>
+                <Run>4. Select color: R: 38, G: 140, B: 217</Run><LineBreak/>
+                <Run>5. Save the image as blue selected arrow.</Run><LineBreak/>
+                <Run>6. Copy applied overlay to other images. Save other images.</Run><LineBreak/>
+                <LineBreak/>
+                <Run>Create not selected images:</Run>
+                <Run>7. Just change the blend mode into Soft light.</Run><LineBreak/>
+                <Run>8. Save the image as not selected blue arrow.</Run><LineBreak/>
+            </TextBlock>    
+        </Border>
+    </Grid>
+</Page>

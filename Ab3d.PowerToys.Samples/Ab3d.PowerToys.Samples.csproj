@@ -1,0 +1,1555 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{3A03EEA1-567C-4E18-9A3E-5951EFF558D4}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Ab3d.PowerToys.Samples</RootNamespace>
+    <AssemblyName>Ab3d.PowerToys.Samples</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <ApplicationIcon>PowerToys.ico</ApplicationIcon>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;NET4</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <UseVSHostingProcess>true</UseVSHostingProcess>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Ab3d.PowerToys">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\lib\net45\Ab3d.PowerToys.dll</HintPath>
+    </Reference>
+    <Reference Include="Ab3d.PowerToys.Input">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\lib\net45\Ab3d.PowerToys.Input.dll</HintPath>
+    </Reference>
+    <Reference Include="AssimpNet">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\lib\AssimpNet.dll</HintPath>
+    </Reference>
+    <Reference Include="Ab3d.PowerToys.Assimp">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\lib\Ab3d.PowerToys.Assimp.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="ReachFramework" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Printing" />
+    <Reference Include="System.Xaml" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="UIAutomationProvider" />
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationFramework" />
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Page Include="Animations\AnimationEasingSample.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Animations\AnimationIntroPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Animations\FreeCameraAnimation.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Animations\CameraAnimation.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Animations\AnimationSettings.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Animations\CustomAnimationSample.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Animations\ObjectAnimationSample.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="AssimpSamples\SkeletalAnimation.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Cameras\OffCenterCameraSample.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Common\StandardTransform3DEditor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Lines3D\WireGridVisual3DSample.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Lines3D\LinesSelector.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Lines3D\MiterLimitSample.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MouseCameraControllerSamples\QuickZoomSample.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="MouseCameraControllerSamples\ZoomToCustomPoint.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Objects3D\ContentVisual3DSample.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Objects3D\ExtrudeAlongPathSample.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Objects3D\AdvancedObjects3DIntroPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Objects3D\StreamLinesSample.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Other\DXEngineSamples.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="SceneEditor\SceneEditor.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UseCases\DucksLakeDemo.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UseCases\Interactive3DControlsSample.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UseCases\InteractiveUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UseCases\ModelingWithBooleanOperations.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UseCases\ObjectSelectionSample.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Animations\EasingFunctions.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="AssimpSamples\AssimpModelVisual3D.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="AssimpSamples\AssimpIntroPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="AssimpSamples\AssimpWpfExporterSample.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="AssimpSamples\AssimpWpfImporterSample.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Cameras\CustomUpAxisWithFreeCamera.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Cameras\CameraMethods.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="EventManager3D\MouseSelectionAndRotation.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Input\InputIntroPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Input\Mouse3DSample.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MouseCameraControllerSamples\CustomRotation3DMarker.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="OtherCameraControllers\MouseCameraControllerInfo.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Input\XInputCameraController.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="MouseCameraControllerSamples\CustomRotationMarker.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MouseCameraControllerSamples\MouseCameraControllerIntroPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="MouseCameraControllerSamples\MouseCameraControllerOptions.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="OtherCameraControllers\CameraPanelsSample.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MouseCameraControllerSamples\HorizontalCameraMovement.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MouseCameraControllerSamples\RotateAroundCustomPoint.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MouseCameraControllerSamples\RotationDirectionSample.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="OtherCameraControllers\VerticalCameraControlPanelSample.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="MouseCameraControllerSamples\MainMouseCameraControllerProperties.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="OtherCameraControllers\CustomControlPanelSample.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="OtherCameraControllers\CameraControllerIntroPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="OtherCameraControllers\ViewCubeCameraControllerSample.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Cameras\CameraAnimationSample.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Cameras\CameraOrientation.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Cameras\CamerasPropertiesSample.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Cameras\CameraTypeSample.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Cameras\CustomUpAxisWithGlobalTransform.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Cameras\FirstPersonCameraSample.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Cameras\FitIntoViewSample.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Cameras\FreeCameraSample.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Cameras\LimitedCameraMovementSample.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Cameras\Point3DTo2DSample.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Common\FeedbackControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="EventManager3D\EventManagerClickSample.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="EventManager3D\EventManagerIntroPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="EventManager3D\EventPanels\MouseWheel3DEventArgsPanel.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="EventManager3D\EventPanels\Touch3DEventArgsPanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="EventManager3D\TouchManipulationsSample.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Lines3D\AxesVisuals.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Lines3D\CurvesSample.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Lines3D\Lines3DIntroPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Lines3D\TubeLinesSample.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Lines3D\WireframePolygonLines.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Objects3D\BooleanOperationsSample.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Objects3D\SliceSample.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Objects3D\TubePathSample.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Lines3D\WireframeSample.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Lines3D\WireframeTypesSample.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Objects3D\AllUIElementsSample.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Objects3D\ArrowVisual3DSample.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Objects3D\HeightMapSample.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Objects3D\LatheCreator.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Objects3D\ObjectInspector.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Objects3D\SkyboxSample.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Objects3D\ConeTubeVisual3DSample.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Text3D\AdjustingTextDirectionSample.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Text3D\CustomTextBlockVisual3DSample.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Text3D\TextBlockVisual3DProperties.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Text3D\SymbolCharactersSample.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UseCases\BillboardsSample.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UseCases\DrawOnTextureSample.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UseCases\Graph3D.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UseCases\SceneView3D.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UseCases\TemplatePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UseCases\WireframeSelection.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Utilities\MeshInspectorOverlaySample.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Utilities\ModelMoverAndRotatorSample.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Utilities\ModelScalarSample.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Utilities\PositionAndScaleModel3DSample.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Utilities\TextureCoordinatesGeneratorSample.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Utilities\LightingRigSample.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Objects3D\TrapezoidVisual3DSample.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Other\UserControlForWinForms.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Other\WinFormsInfo.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ReaderObj\ObjModelVisual3D.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ReaderObj\ReaderObjIntroPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ReaderObj\ReadObjFromResources.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ReaderObj\ViewerObj.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UseCases\ArrowsSample.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UseCases\DistanceMeasurement.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UseCases\MultipleSceneViewSample.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UseCases\Plot3DSample.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UseCases\EarthView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Objects3D\MultiMaterialBoxesSample.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Objects3D\MultiMaterialBoxVisual3DSample.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Objects3D\TubeVisual3DSample.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Text3D\Text3DIntroPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Text3D\LineWithTextSample.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Text3D\Text3DSample.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Objects3D\MaterialTypeConverterSample.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Lines3D\Lines3DSample.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Objects3D\Model3DFactorySample.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Objects3D\CylinderVisual3DSample.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Lines3D\Lines3DStressTest.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Objects3D\ObjectsCheatsheet.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Objects3D\UIElementsToolTipSample.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Text3D\TextDirectionsSample.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Objects3D\ExtrudeCreator.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Cameras\MouseRay3DSample.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Utilities\ExtensionMethods.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Utilities\ModelDecoratorSample.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Utilities\ModelMoverOverlaySample.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Utilities\ModelOptimizerTest.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Utilities\ModelRotatorSample.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Utilities\PerspectiveTransformationSample.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Utilities\RenderToBitmapSample.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Utilities\SceneWithGlassesSample.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Utilities\TransparencyProblem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UseCases\CannonBallSimulation.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="EventManager3D\EventManagerDragSample.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="EventManager3D\EventManagerSample.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="EventManager3D\EventPanels\MouseDrag3DEventArgsPanel.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="EventManager3D\EventPanels\Mouse3DEventArgsPanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="EventManager3D\EventPanels\MouseButton3DEventArgsPanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Objects3D\AllVisualsSample.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Objects3D\BoxVisual3DSample.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Objects3D\Objects3DIntroPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Objects3D\CircleVisual3DSample.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Objects3D\ConeVisual3DSample.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Objects3D\SphereVisual3DSample.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Objects3D\PlaneVisual3DSample.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\ModelsDictionary.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="OtherCameraControllers\CameraControlPanel.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Cameras\CamerasIntroPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Cameras\CameraTypesSample.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Utilities\ModelMoverInsideObjectSample.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Utilities\Visual3DTransparencySortingSample.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Utilities\ShadingHelperSample.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Utilities\Model3DTransparencySortingSample.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Utilities\UtilitiesIntroPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Other\SupportPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Other\IntroductionPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UseCases\UseCasesIntroPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UseCases\WindPowerGeneratorsSample.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="Animations\AnimationEasingSample.xaml.cs">
+      <DependentUpon>AnimationEasingSample.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Animations\AnimationIntroPage.xaml.cs">
+      <DependentUpon>AnimationIntroPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Animations\FreeCameraAnimation.xaml.cs">
+      <DependentUpon>FreeCameraAnimation.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Animations\CameraAnimation.xaml.cs">
+      <DependentUpon>CameraAnimation.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Animations\AnimationSettings.xaml.cs">
+      <DependentUpon>AnimationSettings.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Animations\CustomAnimationSample.xaml.cs">
+      <DependentUpon>CustomAnimationSample.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Animations\ObjectAnimationSample.xaml.cs">
+      <DependentUpon>ObjectAnimationSample.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Assimp\AssimpAnimationController.cs" />
+    <Compile Include="Assimp\AssimpNodeAnimationNode.cs" />
+    <Compile Include="AssimpSamples\SkeletalAnimation.xaml.cs">
+      <DependentUpon>SkeletalAnimation.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Assimp\Skeleton.cs" />
+    <Compile Include="Assimp\SkeletonNode.cs" />
+    <Compile Include="Cameras\OffCenterCameraSample.xaml.cs">
+      <DependentUpon>OffCenterCameraSample.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Common\CsvDataReader.cs" />
+    <Compile Include="Common\GradientColorLegend.cs" />
+    <Compile Include="Common\StandardTransform3DEditor.xaml.cs">
+      <DependentUpon>StandardTransform3DEditor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Lines3D\WireGridVisual3DSample.xaml.cs">
+      <DependentUpon>WireGridVisual3DSample.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Lines3D\LinesSelector.xaml.cs">
+      <DependentUpon>LinesSelector.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Lines3D\MiterLimitSample.xaml.cs">
+      <DependentUpon>MiterLimitSample.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MouseCameraControllerSamples\QuickZoomSample.xaml.cs">
+      <DependentUpon>QuickZoomSample.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MouseCameraControllerSamples\ZoomToCustomPoint.xaml.cs">
+      <DependentUpon>ZoomToCustomPoint.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Objects3D\ContentVisual3DSample.xaml.cs">
+      <DependentUpon>ContentVisual3DSample.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Objects3D\ExtrudeAlongPathSample.xaml.cs">
+      <DependentUpon>ExtrudeAlongPathSample.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Objects3D\AdvancedObjects3DIntroPage.xaml.cs">
+      <DependentUpon>AdvancedObjects3DIntroPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Objects3D\StreamLinesSample.xaml.cs">
+      <DependentUpon>StreamLinesSample.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Other\DXEngineSamples.xaml.cs">
+      <DependentUpon>DXEngineSamples.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SceneEditor\OverlayCanvas3D.cs" />
+    <Compile Include="SceneEditor\OverlayViewport3D.cs" />
+    <Compile Include="SceneEditor\SceneEditor.xaml.cs">
+      <DependentUpon>SceneEditor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SceneEditor\SceneEditorContext.cs" />
+    <Compile Include="UseCases\DucksLakeDemo.xaml.cs">
+      <DependentUpon>DucksLakeDemo.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UseCases\Interactive3DControlsSample.xaml.cs">
+      <DependentUpon>Interactive3DControlsSample.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UseCases\InteractiveUserControl.xaml.cs">
+      <DependentUpon>InteractiveUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UseCases\ModelingWithBooleanOperations.xaml.cs">
+      <DependentUpon>ModelingWithBooleanOperations.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UseCases\ObjectSelectionSample.xaml.cs">
+      <DependentUpon>ObjectSelectionSample.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Animations\EasingFunctions.xaml.cs">
+      <DependentUpon>EasingFunctions.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Assimp\AssimpLoader.cs" />
+    <Compile Include="AssimpSamples\AssimpModelVisual3D.xaml.cs">
+      <DependentUpon>AssimpModelVisual3D.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="AssimpSamples\AssimpIntroPage.xaml.cs">
+      <DependentUpon>AssimpIntroPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="AssimpSamples\AssimpWpfExporterSample.xaml.cs">
+      <DependentUpon>AssimpWpfExporterSample.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="AssimpSamples\AssimpWpfImporterSample.xaml.cs">
+      <DependentUpon>AssimpWpfImporterSample.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Cameras\CustomUpAxisWithFreeCamera.xaml.cs">
+      <DependentUpon>CustomUpAxisWithFreeCamera.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Cameras\CameraMethods.xaml.cs">
+      <DependentUpon>CameraMethods.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Common\InfoControl.cs" />
+    <Compile Include="EventManager3D\MouseSelectionAndRotation.xaml.cs">
+      <DependentUpon>MouseSelectionAndRotation.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Input\InputIntroPage.xaml.cs">
+      <DependentUpon>InputIntroPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Input\Mouse3DSample.xaml.cs">
+      <DependentUpon>Mouse3DSample.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MouseCameraControllerSamples\CustomRotation3DMarker.xaml.cs">
+      <DependentUpon>CustomRotation3DMarker.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="OtherCameraControllers\MouseCameraControllerInfo.xaml.cs">
+      <DependentUpon>MouseCameraControllerInfo.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Input\XInputCameraController.xaml.cs">
+      <DependentUpon>XInputCameraController.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MouseCameraControllerSamples\CustomRotationMarker.xaml.cs">
+      <DependentUpon>CustomRotationMarker.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MouseCameraControllerSamples\MouseCameraControllerIntroPage.xaml.cs">
+      <DependentUpon>MouseCameraControllerIntroPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MouseCameraControllerSamples\MouseCameraControllerOptions.xaml.cs">
+      <DependentUpon>MouseCameraControllerOptions.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="OtherCameraControllers\CameraPanelsSample.xaml.cs">
+      <DependentUpon>CameraPanelsSample.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MouseCameraControllerSamples\HorizontalCameraMovement.xaml.cs">
+      <DependentUpon>HorizontalCameraMovement.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MouseCameraControllerSamples\RotateAroundCustomPoint.xaml.cs">
+      <DependentUpon>RotateAroundCustomPoint.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MouseCameraControllerSamples\RotationDirectionSample.xaml.cs">
+      <DependentUpon>RotationDirectionSample.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="OtherCameraControllers\VerticalCameraControlPanelSample.xaml.cs">
+      <DependentUpon>VerticalCameraControlPanelSample.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MouseCameraControllerSamples\MainMouseCameraControllerProperties.xaml.cs">
+      <DependentUpon>MainMouseCameraControllerProperties.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="OtherCameraControllers\ViewCubeCameraControllerSample.xaml.cs">
+      <DependentUpon>ViewCubeCameraControllerSample.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Cameras\CameraTypeSample.xaml.cs">
+      <DependentUpon>CameraTypeSample.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Cameras\CustomUpAxisWithGlobalTransform.xaml.cs">
+      <DependentUpon>CustomUpAxisWithGlobalTransform.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Cameras\FirstPersonCameraSample.xaml.cs">
+      <DependentUpon>FirstPersonCameraSample.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Cameras\FitIntoViewSample.xaml.cs">
+      <DependentUpon>FitIntoViewSample.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Cameras\FreeCameraSample.xaml.cs">
+      <DependentUpon>FreeCameraSample.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Common\AxisWireBoxVisual3D.cs" />
+    <Compile Include="Common\DragAndDropHelper.cs" />
+    <Compile Include="Common\FeedbackControl.xaml.cs">
+      <DependentUpon>FeedbackControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Common\SimpleGrid.cs" />
+    <Compile Include="Common\TextBlockEx.cs" />
+    <Compile Include="EventManager3D\EventManagerClickSample.xaml.cs">
+      <DependentUpon>EventManagerClickSample.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="EventManager3D\EventPanels\MouseWheel3DEventArgsPanel.xaml.cs">
+      <DependentUpon>MouseWheel3DEventArgsPanel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="EventManager3D\EventPanels\Touch3DEventArgsPanel.xaml.cs">
+      <DependentUpon>Touch3DEventArgsPanel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="EventManager3D\TouchManipulationsSample.xaml.cs">
+      <DependentUpon>TouchManipulationsSample.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Lines3D\AxesVisuals.xaml.cs">
+      <DependentUpon>AxesVisuals.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Lines3D\CurvesSample.xaml.cs">
+      <DependentUpon>CurvesSample.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Lines3D\Lines3DIntroPage.xaml.cs">
+      <DependentUpon>Lines3DIntroPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Lines3D\TubeLinesSample.xaml.cs">
+      <DependentUpon>TubeLinesSample.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Lines3D\WireframePolygonLines.xaml.cs">
+      <DependentUpon>WireframePolygonLines.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Objects3D\BooleanOperationsSample.xaml.cs">
+      <DependentUpon>BooleanOperationsSample.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Objects3D\SliceSample.xaml.cs">
+      <DependentUpon>SliceSample.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Objects3D\TubePathSample.xaml.cs">
+      <DependentUpon>TubePathSample.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Lines3D\WireframeSample.xaml.cs">
+      <DependentUpon>WireframeSample.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Lines3D\WireframeTypesSample.xaml.cs">
+      <DependentUpon>WireframeTypesSample.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="OtherCameraControllers\CustomControlPanel.cs" />
+    <Compile Include="OtherCameraControllers\CustomControlPanelSample.xaml.cs">
+      <DependentUpon>CustomControlPanelSample.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="OtherCameraControllers\CameraControllerIntroPage.xaml.cs">
+      <DependentUpon>CameraControllerIntroPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Cameras\CameraAnimationSample.xaml.cs">
+      <DependentUpon>CameraAnimationSample.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Cameras\CameraOrientation.xaml.cs">
+      <DependentUpon>CameraOrientation.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Cameras\CamerasPropertiesSample.xaml.cs">
+      <DependentUpon>CamerasPropertiesSample.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Cameras\LimitedCameraMovementSample.xaml.cs">
+      <DependentUpon>LimitedCameraMovementSample.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Cameras\Point3DTo2DSample.xaml.cs">
+      <DependentUpon>Point3DTo2DSample.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="EventManager3D\EventManagerIntroPage.xaml.cs">
+      <DependentUpon>EventManagerIntroPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Objects3D\AllUIElementsSample.xaml.cs">
+      <DependentUpon>AllUIElementsSample.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Objects3D\ArrowVisual3DSample.xaml.cs">
+      <DependentUpon>ArrowVisual3DSample.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Objects3D\HeightMapSample.xaml.cs">
+      <DependentUpon>HeightMapSample.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Objects3D\LatheCreator.xaml.cs">
+      <DependentUpon>LatheCreator.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Objects3D\ObjectInspector.xaml.cs">
+      <DependentUpon>ObjectInspector.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Objects3D\SkyboxSample.xaml.cs">
+      <DependentUpon>SkyboxSample.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Objects3D\ConeTubeVisual3DSample.xaml.cs">
+      <DependentUpon>ConeTubeVisual3DSample.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Text3D\AdjustingTextDirectionSample.xaml.cs">
+      <DependentUpon>AdjustingTextDirectionSample.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Text3D\CustomTextBlockVisual3DSample.xaml.cs">
+      <DependentUpon>CustomTextBlockVisual3DSample.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Text3D\TextBlockVisual3DProperties.xaml.cs">
+      <DependentUpon>TextBlockVisual3DProperties.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Text3D\SymbolCharactersSample.xaml.cs">
+      <DependentUpon>SymbolCharactersSample.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UseCases\BillboardsSample.xaml.cs">
+      <DependentUpon>BillboardsSample.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UseCases\DrawOnTextureSample.xaml.cs">
+      <DependentUpon>DrawOnTextureSample.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UseCases\Graph3D.xaml.cs">
+      <DependentUpon>Graph3D.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Common\SceneLayout.cs" />
+    <Compile Include="UseCases\SceneView3D.xaml.cs">
+      <DependentUpon>SceneView3D.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Common\SceneViewType.cs" />
+    <Compile Include="UseCases\TemplatePage.xaml.cs">
+      <DependentUpon>TemplatePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UseCases\WireframeSelection.xaml.cs">
+      <DependentUpon>WireframeSelection.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Utilities\MeshInspectorOverlaySample.xaml.cs">
+      <DependentUpon>MeshInspectorOverlaySample.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Utilities\ModelMoverAndRotatorSample.xaml.cs">
+      <DependentUpon>ModelMoverAndRotatorSample.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Utilities\ModelScalarSample.xaml.cs">
+      <DependentUpon>ModelScalarSample.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Utilities\PositionAndScaleModel3DSample.xaml.cs">
+      <DependentUpon>PositionAndScaleModel3DSample.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Utilities\TextureCoordinatesGeneratorSample.xaml.cs">
+      <DependentUpon>TextureCoordinatesGeneratorSample.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Utilities\LightingRigSample.xaml.cs">
+      <DependentUpon>LightingRigSample.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Objects3D\TrapezoidVisual3DSample.xaml.cs">
+      <DependentUpon>TrapezoidVisual3DSample.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Other\UserControlForWinForms.xaml.cs">
+      <DependentUpon>UserControlForWinForms.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Other\WinFormsInfo.xaml.cs">
+      <DependentUpon>WinFormsInfo.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ReaderObj\ObjModelVisual3D.xaml.cs">
+      <DependentUpon>ObjModelVisual3D.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ReaderObj\ReaderObjIntroPage.xaml.cs">
+      <DependentUpon>ReaderObjIntroPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ReaderObj\ReadObjFromResources.xaml.cs">
+      <DependentUpon>ReadObjFromResources.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ReaderObj\ViewerObj.xaml.cs">
+      <DependentUpon>ViewerObj.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UseCases\ArrowsSample.xaml.cs">
+      <DependentUpon>ArrowsSample.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UseCases\DistanceMeasurement.xaml.cs">
+      <DependentUpon>DistanceMeasurement.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UseCases\MultipleSceneViewSample.xaml.cs">
+      <DependentUpon>MultipleSceneViewSample.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UseCases\Plot3DSample.xaml.cs">
+      <DependentUpon>Plot3DSample.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UseCases\EarthView.xaml.cs">
+      <DependentUpon>EarthView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Objects3D\MultiMaterialBoxesSample.xaml.cs">
+      <DependentUpon>MultiMaterialBoxesSample.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Objects3D\MultiMaterialBoxVisual3DSample.xaml.cs">
+      <DependentUpon>MultiMaterialBoxVisual3DSample.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Objects3D\TubeVisual3DSample.xaml.cs">
+      <DependentUpon>TubeVisual3DSample.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Text3D\Text3DIntroPage.xaml.cs">
+      <DependentUpon>Text3DIntroPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Text3D\LineWithTextSample.xaml.cs">
+      <DependentUpon>LineWithTextSample.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Text3D\Text3DSample.xaml.cs">
+      <DependentUpon>Text3DSample.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Objects3D\MaterialTypeConverterSample.xaml.cs">
+      <DependentUpon>MaterialTypeConverterSample.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Lines3D\Lines3DSample.xaml.cs">
+      <DependentUpon>Lines3DSample.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Objects3D\Model3DFactorySample.xaml.cs">
+      <DependentUpon>Model3DFactorySample.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Objects3D\CylinderVisual3DSample.xaml.cs">
+      <DependentUpon>CylinderVisual3DSample.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Lines3D\Lines3DStressTest.xaml.cs">
+      <DependentUpon>Lines3DStressTest.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Objects3D\ObjectsCheatsheet.xaml.cs">
+      <DependentUpon>ObjectsCheatsheet.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Objects3D\UIElementsToolTipSample.xaml.cs">
+      <DependentUpon>UIElementsToolTipSample.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Text3D\TextDirectionsSample.xaml.cs">
+      <DependentUpon>TextDirectionsSample.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Objects3D\ExtrudeCreator.xaml.cs">
+      <DependentUpon>ExtrudeCreator.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Cameras\MouseRay3DSample.xaml.cs">
+      <DependentUpon>MouseRay3DSample.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Utilities\ExtensionMethods.xaml.cs">
+      <DependentUpon>ExtensionMethods.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Utilities\ModelDecoratorSample.xaml.cs">
+      <DependentUpon>ModelDecoratorSample.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Utilities\ModelMoverOverlaySample.xaml.cs">
+      <DependentUpon>ModelMoverOverlaySample.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Utilities\ModelOptimizerTest.xaml.cs">
+      <DependentUpon>ModelOptimizerTest.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Utilities\ModelRotatorSample.xaml.cs">
+      <DependentUpon>ModelRotatorSample.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Utilities\PerspectiveTransformationSample.xaml.cs">
+      <DependentUpon>PerspectiveTransformationSample.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Utilities\RenderToBitmapSample.xaml.cs">
+      <DependentUpon>RenderToBitmapSample.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Utilities\SceneWithGlassesSample.xaml.cs">
+      <DependentUpon>SceneWithGlassesSample.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Utilities\TransparencyProblem.xaml.cs">
+      <DependentUpon>TransparencyProblem.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UseCases\CannonBallSimulation.xaml.cs">
+      <DependentUpon>CannonBallSimulation.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="EventManager3D\EventManagerDragSample.xaml.cs">
+      <DependentUpon>EventManagerDragSample.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="EventManager3D\EventPanels\MouseDrag3DEventArgsPanel.xaml.cs">
+      <DependentUpon>MouseDrag3DEventArgsPanel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="EventManager3D\EventPanels\EventData.cs" />
+    <Compile Include="EventManager3D\EventManagerSample.xaml.cs">
+      <DependentUpon>EventManagerSample.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="EventManager3D\EventPanels\Mouse3DEventArgsPanel.xaml.cs">
+      <DependentUpon>Mouse3DEventArgsPanel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="EventManager3D\EventPanels\MouseButton3DEventArgsPanel.xaml.cs">
+      <DependentUpon>MouseButton3DEventArgsPanel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="OtherCameraControllers\CameraControlPanel.xaml.cs">
+      <DependentUpon>CameraControlPanel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Objects3D\AllVisualsSample.xaml.cs">
+      <DependentUpon>AllVisualsSample.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Objects3D\Objects3DIntroPage.xaml.cs">
+      <DependentUpon>Objects3DIntroPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Cameras\CamerasIntroPage.xaml.cs">
+      <DependentUpon>CamerasIntroPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Cameras\CameraTypesSample.xaml.cs">
+      <DependentUpon>CameraTypesSample.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="IsStringEmptyConverter.cs" />
+    <Compile Include="Utilities\ModelMoverInsideObjectSample.xaml.cs">
+      <DependentUpon>ModelMoverInsideObjectSample.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Utilities\Visual3DTransparencySortingSample.xaml.cs">
+      <DependentUpon>Visual3DTransparencySortingSample.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Utilities\ShadingHelperSample.xaml.cs">
+      <DependentUpon>ShadingHelperSample.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Utilities\Model3DTransparencySortingSample.xaml.cs">
+      <DependentUpon>Model3DTransparencySortingSample.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Utilities\UtilitiesIntroPage.xaml.cs">
+      <DependentUpon>UtilitiesIntroPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Objects3D\BoxVisual3DSample.xaml.cs">
+      <DependentUpon>BoxVisual3DSample.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Objects3D\CircleVisual3DSample.xaml.cs">
+      <DependentUpon>CircleVisual3DSample.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Objects3D\ConeVisual3DSample.xaml.cs">
+      <DependentUpon>ConeVisual3DSample.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Objects3D\SphereVisual3DSample.xaml.cs">
+      <DependentUpon>SphereVisual3DSample.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Objects3D\PlaneVisual3DSample.xaml.cs">
+      <DependentUpon>PlaneVisual3DSample.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Other\SupportPage.xaml.cs">
+      <DependentUpon>SupportPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Other\IntroductionPage.xaml.cs">
+      <DependentUpon>IntroductionPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="UseCases\UseCasesIntroPage.xaml.cs">
+      <DependentUpon>UseCasesIntroPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UseCases\WindGenerator.cs" />
+    <Compile Include="UseCases\WindPowerGeneratorsSample.xaml.cs">
+      <DependentUpon>WindPowerGeneratorsSample.xaml</DependentUpon>
+    </Compile>
+    <Content Include="Resources\Streamlines.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Resource Include="Resources\DXEngine-ArrowsSample.png" />
+    <Content Include="..\lib\Assimp32.dll">
+      <Link>Assimp32.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\lib\Assimp64.dll">
+      <Link>Assimp64.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\soldier.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\soldier.X">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Resource Include="Resources\TreeTexture.png" />
+    <Resource Include="Resources\updated_icon.png" />
+    <Resource Include="Resources\3D-mouses-from-3Dconnexion.jpg" />
+    <Content Include="Resources\Collada\duck.dae">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Resource Include="Resources\XBox-controller.jpg" />
+    <Resource Include="AssimpLicense.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Content Include="Resources\Collada\duckCM.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Resource Include="Resources\new_icon.png" />
+    <Content Include="Resources\ObjFiles\dragon_vrip_res3.obj">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\ObjFiles\dragon_vrip_res3.obj.mtl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Resource Include="Resources\PowerToys_Model3ds.jpg" />
+    <Resource Include="Resources\Settings.png" />
+    <Resource Include="Resources\SkyboxTextures\CloudyLightRaysBack512.png" />
+    <Resource Include="Resources\SkyboxTextures\CloudyLightRaysDown512.png" />
+    <Resource Include="Resources\SkyboxTextures\CloudyLightRaysFront512.png" />
+    <Resource Include="Resources\SkyboxTextures\CloudyLightRaysRight512.png" />
+    <Resource Include="Resources\SkyboxTextures\CloudyLightRaysLeft512.png" />
+    <Resource Include="Resources\SkyboxTextures\CloudyLightRaysUp512.png" />
+    <Resource Include="Resources\SkyboxTextures\readme.txt" />
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="app.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Resource Include="Resources\AssimpViewerSample.png" />
+    <Resource Include="Resources\KinectSample.jpg" />
+    <Resource Include="Resources\10x10-texture.png" />
+    <Content Include="Resources\ObjFiles\dragon_vrip_res3_readme.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\ObjFiles\Teapot.obj">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\ObjFiles\WaltHead.mtl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\ObjFiles\WaltHead.obj">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Resource Include="Resources\ObjFiles\robotarm.mtl" />
+    <Resource Include="Resources\ObjFiles\robotarm.obj" />
+    <Content Include="Resources\ObjFiles\house with trees.mtl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\ObjFiles\house with trees.obj">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\ObjFiles\ship_boat.mtl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\ObjFiles\ship_boat.obj">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Resource Include="Resources\PowerToysTexture.png" />
+    <Resource Include="Resources\PowerToys_box_front.jpg" />
+    <Resource Include="Resources\PowerToys_box_side.jpg" />
+    <AppDesigner Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Samples.xml">
+      <SubType>Designer</SubType>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\landscapeTexture.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\CamerasClassDiagram.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\CustomControlPanel\moveBack.png" />
+    <Resource Include="Resources\CustomControlPanel\moveBack_selected.png" />
+    <Resource Include="Resources\CustomControlPanel\moveForward.png" />
+    <Resource Include="Resources\CustomControlPanel\moveForward_selected.png" />
+    <Resource Include="Resources\CustomControlPanel\rotateDown.png" />
+    <Resource Include="Resources\CustomControlPanel\rotateDown_selected.png" />
+    <Resource Include="Resources\CustomControlPanel\rotateLeft.png" />
+    <Resource Include="Resources\CustomControlPanel\rotateLeft_selected.png" />
+    <Resource Include="Resources\CustomControlPanel\rotateRight.png" />
+    <Resource Include="Resources\CustomControlPanel\rotateRight_selected.png" />
+    <Resource Include="Resources\CustomControlPanel\rotateUp.png" />
+    <Resource Include="Resources\CustomControlPanel\rotateUp_selected.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="PowerToys.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\cannon.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\TransparencyUseCaseModels\coffee.jpg" />
+    <Resource Include="Resources\TransparencyUseCaseModels\coffee_logo.jpg" />
+    <Resource Include="Resources\TransparencyUseCaseModels\coffee_plate.jpg" />
+    <Resource Include="Resources\TransparencyUseCaseModels\OAKPLY1.JPG" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\CustomControlPanel\moveDown.png" />
+    <Resource Include="Resources\CustomControlPanel\moveDown_selected.png" />
+    <Resource Include="Resources\CustomControlPanel\moveLeft.png" />
+    <Resource Include="Resources\CustomControlPanel\moveLeft_selected.png" />
+    <Resource Include="Resources\CustomControlPanel\moveRight.png" />
+    <Resource Include="Resources\CustomControlPanel\moveRight_selected.png" />
+    <Resource Include="Resources\CustomControlPanel\moveUp.png" />
+    <Resource Include="Resources\CustomControlPanel\moveUp_selected.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\PowerToysBannerImage.png" />
+    <Content Include="Resources\ObjFiles\ship_boat_readme.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Resource Include="Resources\ab4d-logo.png" />
+    <Content Include="Resources\HeightMaps\europe.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Resource Include="Resources\PowerToysWinFormsSample.jpg" />
+    <Resource Include="Resources\ObjFiles\robotarm.png" />
+    <Resource Include="Resources\infoIcon.png" />
+    <Content Include="Resources\HeightMaps\readme.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeightMaps\europe_height.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeightMaps\srtm_ramp2.world.500x250.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeightMaps\world.topo.200407.3x500x250.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\HeightMaps\simpleHeightMap.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

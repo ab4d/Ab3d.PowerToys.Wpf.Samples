@@ -1,0 +1,126 @@
+﻿<Page x:Class="Ab3d.PowerToys.Samples.Utilities.LightingRigSample"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:visuals="clr-namespace:Ab3d.Visuals;assembly=Ab3d.PowerToys"
+      xmlns:controls="clr-namespace:Ab3d.Controls;assembly=Ab3d.PowerToys"
+      xmlns:cameras="clr-namespace:Ab3d.Cameras;assembly=Ab3d.PowerToys"
+      mc:Ignorable="d" 
+      d:DesignHeight="400" d:DesignWidth="700"
+	Title="StandardLightingRigSample">
+
+    <Grid>
+        <Border Name="ViewportBorder" BorderBrush="Black" BorderThickness="2" Margin="5">
+            <Border.Background>
+                <LinearGradientBrush StartPoint="0 0" EndPoint="0 1">
+                    <GradientStop Offset="0" Color="#033C62"/>
+                    <GradientStop Offset="1" Color="#01131F"/>
+                </LinearGradientBrush>
+            </Border.Background>
+            <Viewport3D Name="MainViewport">
+
+                <visuals:ObjModelVisual3D Source="/Resources/ObjFiles/WaltHead.obj"
+                                          Position="0 -30 0" PositionType="BottomCenter"
+                                          DefaultBackMaterial="Gray"/>
+            
+                <visuals:LightingRigVisual3D x:Name="LigthingRig" KeyLightDirection="0 0 -1" />
+
+            </Viewport3D>
+        </Border>
+        <cameras:TargetPositionCamera Name="Camera1" Heading="-20" Attitude="-20" Bank="0" 
+                                      Distance="200" TargetPosition="0 0 0" 
+                                      Offset="0 0 0"
+                                      ShowCameraLight="Never"
+                                      TargetViewport3D="{Binding ElementName=MainViewport}"/>
+
+        <controls:MouseCameraController Name="MouseCameraController1"
+                                    RotateCameraConditions="LeftMouseButtonPressed"
+                                    MoveCameraConditions="LeftMouseButtonPressed, ControlKey"
+                                    EventsSourceElement="{Binding ElementName=ViewportBorder}"
+                                    TargetCamera="{Binding ElementName=Camera1}"/>
+
+
+        <StackPanel VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="10">
+            <TextBlock FontWeight="Bold" FontSize="18" Foreground="Silver" Margin="0 3" TextDecorations="Underline" Text="LightingRigVisual3D"/>
+
+            <TextBlock FontWeight="Bold" FontSize="12" Foreground="Silver" Margin="0 1" Text="Camera direction:"/>
+            
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Heading:" Foreground="Silver" Margin="10 0 0 0"/>
+                <TextBlock Text="{Binding ElementName=Camera1, Path=Heading, StringFormat=F0}" Foreground="Silver" />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Attitude:" Foreground="Silver" Margin="10 0 0 0"/>
+                <TextBlock Text="{Binding ElementName=Camera1, Path=Attitude, StringFormat=F0}" Foreground="Silver" />
+            </StackPanel>
+            
+
+            <TextBlock FontWeight="Bold" FontSize="12" Foreground="Silver" Margin="0 15 0 0" Text="Key light direction:"/>
+            
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Heading:" Foreground="Silver" Margin="10 0 0 0" Width="80"/>
+                <TextBlock Text="{Binding ElementName=KeyLightHeadingSlider, Path=Value, StringFormat=F0}" Foreground="Silver" Width="30" Margin="5 0 0 0" />
+                <Slider Name="KeyLightHeadingSlider" Width="150"
+                        Minimum="-180" Maximum="180" Value="-30" 
+                        AutoToolTipPlacement="BottomRight" AutoToolTipPrecision="0"
+                        TickFrequency="30" TickPlacement="BottomRight" SmallChange="1" LargeChange="30" IsSnapToTickEnabled="False"
+                        ValueChanged="KeyLightDirectionSliderChanged"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Attitude:" Foreground="Silver" Margin="10 0 0 0" Width="80"/>
+                <TextBlock Text="{Binding ElementName=KeyLightAttitudeSlider, Path=Value, StringFormat=F0}" Foreground="Silver" Width="30" Margin="5 0 0 0" />
+                <Slider Name="KeyLightAttitudeSlider" Width="150"
+                        Minimum="-60" Maximum="60" Value="0" 
+                        AutoToolTipPlacement="BottomRight" AutoToolTipPrecision="0"
+                        TickFrequency="10" TickPlacement="BottomRight" SmallChange="1" LargeChange="30" IsSnapToTickEnabled="False"
+                        ValueChanged="KeyLightDirectionSliderChanged"/>
+            </StackPanel>
+
+            <TextBlock FontWeight="Bold" FontSize="12" Foreground="Silver" Margin="0 5 0 0" Text="Light brightnesses:"/>
+
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                <TextBlock Text="Key light:" Foreground="Silver" Margin="10 0 0 0" Width="80"/>
+                <TextBlock Text="{Binding ElementName=KeyLightBrightnessSlider, Path=Value, StringFormat=0%}" Foreground="Silver" Width="30" Margin="5 0 0 0" />
+                <Slider Name="KeyLightBrightnessSlider" Width="150"
+                        Minimum="0" Maximum="1" Value="0.95" 
+                        AutoToolTipPlacement="BottomRight" AutoToolTipPrecision="0"
+                        TickFrequency="0.1" TickPlacement="BottomRight" SmallChange="0.01" LargeChange="0.1" IsSnapToTickEnabled="False"
+                        ValueChanged="LightBrightnessSliderChanged"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                <TextBlock Text="Fill light:" Foreground="Silver" Margin="10 0 0 0" Width="80"/>
+                <TextBlock Text="{Binding ElementName=FillLightBrightnessSlider, Path=Value, StringFormat=0%}" Foreground="Silver" Width="30" Margin="5 0 0 0" />
+                <Slider Name="FillLightBrightnessSlider" Width="150"
+                        Minimum="0" Maximum="1" Value="0.70" 
+                        AutoToolTipPlacement="BottomRight" AutoToolTipPrecision="0"
+                        TickFrequency="0.1" TickPlacement="BottomRight" SmallChange="0.01" LargeChange="0.1" IsSnapToTickEnabled="False"
+                        ValueChanged="LightBrightnessSliderChanged"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                <TextBlock Text="Back light:" Foreground="Silver" Margin="10 0 0 0" Width="80"/>
+                <TextBlock Text="{Binding ElementName=BackLightBrightnessSlider, Path=Value, StringFormat=0%}" Foreground="Silver" Width="30" Margin="5 0 0 0" />
+                <Slider Name="BackLightBrightnessSlider" Width="150"
+                        Minimum="0" Maximum="1" Value="0.35" 
+                        AutoToolTipPlacement="BottomRight" AutoToolTipPrecision="0"
+                        TickFrequency="0.1" TickPlacement="BottomRight" SmallChange="0.01" LargeChange="0.1" IsSnapToTickEnabled="False"
+                        ValueChanged="LightBrightnessSliderChanged"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                <TextBlock Text="Ambient light:" Foreground="Silver" Margin="10 0 0 0" Width="80"/>
+                <TextBlock Text="{Binding ElementName=AmbientLightBrightnessSlider, Path=Value, StringFormat=0%}" Foreground="Silver" Width="30" Margin="5 0 0 0" />
+                <Slider Name="AmbientLightBrightnessSlider" Width="150"
+                        Minimum="0" Maximum="1" Value="0.10" 
+                        AutoToolTipPlacement="BottomRight" AutoToolTipPrecision="0"
+                        TickFrequency="0.1" TickPlacement="BottomRight" SmallChange="0.01" LargeChange="0.1" IsSnapToTickEnabled="False"
+                        ValueChanged="LightBrightnessSliderChanged"/>
+            </StackPanel>
+        </StackPanel>
+
+        <TextBlock FontWeight="Bold" FontSize="20" Foreground="Silver" Margin="20 10" VerticalAlignment="Top" HorizontalAlignment="Left" Text="Add standard key, fill, back and ambient lighting to the scene with LightingRigVisual3D"/>
+    </Grid>
+</Page>

@@ -1,0 +1,29 @@
+﻿<UserControl x:Class="Ab3d.PowerToys.Samples.UseCases.InteractiveUserControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Ab3d.PowerToys.Samples.UseCases"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    
+    <Border Background="#AAFFFFFF" BorderBrush="Black" BorderThickness="2" Padding="10" >
+        
+        <StackPanel Orientation="Vertical">
+            <TextBlock Text="Object settings:" FontWeight="Bold" />
+
+            <RadioButton Name="BoxRadioButton" Content="Box" IsChecked="True" GroupName="ShapeType" Margin="0 15 0 0" Checked="OnShapeTypeCheckedChanged"/>
+            <RadioButton Name="SphereRadioButton" Content="Sphere" GroupName="ShapeType" Margin="0 2 0 0" Checked="OnShapeTypeCheckedChanged"/>
+
+            <ListBox x:Name="ColorListBox" Margin="0 10 0 0" SelectionChanged="ColorListBox_OnSelectionChanged" SelectedIndex="1">
+                <ListBoxItem Content="Blue" />
+                <ListBoxItem Content="Orange" />
+                <ListBoxItem Content="Yellow" />
+                <ListBoxItem Content="Green" />
+            </ListBox>
+            
+            <Button Name="AddNewButton" Content="Add new" Margin="0 15 0 0" Click="AddNewButton_OnClick" />
+        </StackPanel>
+        
+    </Border>
+</UserControl>

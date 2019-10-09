@@ -1,0 +1,182 @@
+﻿<Page x:Class="Ab3d.PowerToys.Samples.MouseCameraControllerSamples.QuickZoomSample"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:cameras="clr-namespace:Ab3d.Cameras;assembly=Ab3d.PowerToys"
+    xmlns:ab3d="clr-namespace:Ab3d.Controls;assembly=Ab3d.PowerToys"  
+    xmlns:visuals="clr-namespace:Ab3d.Visuals;assembly=Ab3d.PowerToys"
+    xmlns:common="clr-namespace:Ab3d.PowerToys.Samples.Common"
+    Title="AllModelsSample"
+    mc:Ignorable="d" 
+    d:DesignHeight="400" d:DesignWidth="600">
+    <Grid Name="MainGrid">
+        <Border Name="ViewportBorder" Background="Transparent">
+
+            <Viewport3D Name="MainViewport">
+                <visuals:BoxVisual3D CenterPosition="0 -2 0" Size="100 4 100" Material="Green" />
+
+
+                <visuals:BoxVisual3D x:Name="RedBox" CenterPosition="-40 5 -30" Size="10 10 10" Material="Red" />
+                <visuals:BoxVisual3D CenterPosition="-20 5 -30" Size="10 10 10" Material="Silver" />
+                <visuals:BoxVisual3D CenterPosition="0 5 -30"   Size="10 10 10" Material="Silver" />
+                <visuals:BoxVisual3D CenterPosition="20 5 -30"  Size="10 10 10" Material="Silver" />
+                <visuals:BoxVisual3D CenterPosition="40 5 -30"  Size="10 10 10" Material="Silver" />
+
+                <visuals:BoxVisual3D CenterPosition="-40 5 0" Size="10 10 10" Material="Silver" />
+                <visuals:BoxVisual3D CenterPosition="-20 5 0" Size="10 10 10" Material="Silver" />
+                <visuals:BoxVisual3D x:Name="YellowBox" CenterPosition="0 5 0"  Size="10 10 10" Material="Yellow" />
+                <visuals:BoxVisual3D CenterPosition="20 5 0"  Size="10 10 10" Material="Silver" />
+                <visuals:BoxVisual3D CenterPosition="40 5 0"  Size="10 10 10" Material="Silver" />
+                
+                <visuals:BoxVisual3D CenterPosition="-40 5 30" Size="10 10 10" Material="Silver" />
+                <visuals:BoxVisual3D CenterPosition="-20 5 30" Size="10 10 10" Material="Silver" />
+                <visuals:BoxVisual3D CenterPosition="0 5 30"   Size="10 10 10" Material="Silver" />
+                <visuals:BoxVisual3D CenterPosition="20 5 30"  Size="10 10 10" Material="Silver" />
+                <visuals:BoxVisual3D x:Name="OrangeBox" CenterPosition="40 5 30"  Size="10 10 10" Material="Orange" />
+
+                <ModelVisual3D>
+                    <ModelVisual3D.Content>
+                        <Model3DGroup>
+                            <AmbientLight Color="#333333"/>
+                        </Model3DGroup>
+                    </ModelVisual3D.Content>
+                </ModelVisual3D>
+            </Viewport3D>
+        </Border>
+
+        <cameras:TargetPositionCamera Name="Camera1"
+                                      Heading="30" Attitude="-20" Bank="0" 
+                                      Distance="200" TargetPosition="0 0 0" 
+                                      RotationCenterPosition="-40 5 -30"
+                                      ShowCameraLight="Always"
+                                      TargetViewport3D="{Binding ElementName=MainViewport}"/>
+
+        <!-- RotationCenterPosition also works with FreeCamera -->
+        <!--<cameras:FreeCamera Name="Camera1"
+                            CameraPosition="100 150 -300"
+                            TargetPosition="0 0 0" 
+                            RotationCenterPosition="-40 5 -30"
+                            ShowCameraLight="Always"
+                            TargetViewport3D="{Binding ElementName=MainViewport}"/>-->
+
+        <ab3d:MouseCameraController Name="MouseCameraController1"
+                                    ZoomMode="MousePosition"
+                                    ShowRotationCenterMarker="True"
+                                    RotateAroundMousePosition="True"
+                                    RotateCameraConditions="LeftMouseButtonPressed"
+                                    MoveCameraConditions="RightMouseButtonPressed"
+
+                                    QuickZoomConditions="LeftMouseButtonPressed, RightMouseButtonPressed"
+                                    QuickZoomMaxZoomInFactor="10"
+                                    QuickZoomMaxFactorScreenDistance="200"
+                                    ShowQuickZoomMarker="True"
+
+                                    MaxCameraDistance="5000"
+
+                                    EventsSourceElement="{Binding ElementName=ViewportBorder}"
+                                    TargetCamera="{Binding ElementName=Camera1}"/>
+
+        <StackPanel Orientation="Vertical" VerticalAlignment="Bottom" HorizontalAlignment="Left">
+
+            <!-- Use two MouseCameraControllerInfo so that with the second we can show Bold Quick zoom text -->
+            <ab3d:MouseCameraControllerInfo Name="MouseCameraControllerInfo1"
+                                            HorizontalAlignment="Left" VerticalAlignment="Bottom" 
+                                            ShowRotateInfo="True"
+                                            ShowMoveInfo="True"
+                                            ShowQuickZoomInfo="False"
+                                            MouseCameraController="{Binding ElementName=MouseCameraController1}" >
+                <ab3d:MouseCameraControllerInfo.LayoutTransform>
+                    <ScaleTransform ScaleX="2" ScaleY="2" />
+                </ab3d:MouseCameraControllerInfo.LayoutTransform>
+            </ab3d:MouseCameraControllerInfo>
+
+            <ab3d:MouseCameraControllerInfo Name="MouseCameraControllerInfo2"
+                                            HorizontalAlignment="Left" VerticalAlignment="Bottom" 
+                                            ShowRotateInfo="False"
+                                            ShowMoveInfo="False"
+                                            ShowQuickZoomInfo="True"
+                                            FontWeight="Bold"
+                                            MouseCameraController="{Binding ElementName=MouseCameraController1}" >
+                <ab3d:MouseCameraControllerInfo.LayoutTransform>
+                    <ScaleTransform ScaleX="2" ScaleY="2" />
+                </ab3d:MouseCameraControllerInfo.LayoutTransform>
+            </ab3d:MouseCameraControllerInfo>
+        </StackPanel>
+
+        <StackPanel Orientation="Vertical" VerticalAlignment="Bottom" HorizontalAlignment="Right">
+            <Border Margin="5" Background="#AAFFFFFF" BorderBrush="#222" BorderThickness="1" CornerRadius="0" Cursor="Arrow">
+                <StackPanel Orientation="Vertical" Margin="10">
+
+                    <TextBlock FontWeight="Bold" FontSize="15" Foreground="#333">QuickZoom settings:</TextBlock>
+                    
+                    <TextBlock Margin="0 10 0 0" FontWeight="Bold">QuickZoomConditions:</TextBlock>
+                    <TextBlock Margin="0 0 0 0">(default value: Disabled)</TextBlock>
+
+                    <Grid Margin="0 2 0 0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="20"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+
+                        <TextBlock Grid.Column="0" Grid.Row="0" Margin="0 2 0 0" TextDecorations="Underline" Text="Mouse button:"/>
+                        <CheckBox Name="LeftButtonCheckBox1" Grid.Column="0" Margin="0 2 0 0" Grid.Row="1" IsChecked="True" Checked="OnQuickZoomCheckBoxChanged" Unchecked="OnQuickZoomCheckBoxChanged">Left</CheckBox>
+                        <CheckBox Name="MiddleButtonCheckBox1" Grid.Column="0" Margin="0 2 0 0" Grid.Row="2" Checked="OnQuickZoomCheckBoxChanged" Unchecked="OnQuickZoomCheckBoxChanged">Middle</CheckBox>
+                        <CheckBox Name="RightButtonCheckBox1" Grid.Column="0" Grid.Row="3" IsChecked="True" Margin="0 2 0 0" Checked="OnQuickZoomCheckBoxChanged" Unchecked="OnQuickZoomCheckBoxChanged">Right</CheckBox>
+
+                        <TextBlock Grid.Column="2" Grid.Row="0" Margin="0 2 0 0" TextDecorations="Underline" Text="Modifier keys:"/>
+                        <CheckBox Name="ShiftKeyCheckBox1" Grid.Column="2" Margin="0 2 0 0" Grid.Row="1" Checked="OnQuickZoomCheckBoxChanged" Unchecked="OnQuickZoomCheckBoxChanged">Shift</CheckBox>
+                        <CheckBox Name="ControlKeyCheckBox1" Grid.Column="2" Margin="0 2 0 0" Grid.Row="2" Checked="OnQuickZoomCheckBoxChanged" Unchecked="OnQuickZoomCheckBoxChanged">Control</CheckBox>
+                        <CheckBox Name="AltKeyCheckBox1" Grid.Column="2" Grid.Row="3" Margin="0 2 0 0" Checked="OnQuickZoomCheckBoxChanged" Unchecked="OnQuickZoomCheckBoxChanged">Alt</CheckBox>
+                    </Grid>
+
+
+                    <StackPanel Orientation="Horizontal" Margin="0 15 0 0">
+                        <TextBlock Text="QuickZoomMaxZoomInFactor:" FontWeight="Bold" FontSize="12" Margin="0 0 3 0" VerticalAlignment="Center"/>
+                        <common:InfoControl x:Name="QuickZoomMaxZoomInFactorInfoControl" InfoWidth="400"/>
+                    </StackPanel>
+                    <ComboBox Name="QuickZoomMaxZoomInFactorComboBox" SelectionChanged="QuickZoomMaxZoomInFactorComboBox_OnSelectionChanged" />
+                    
+                    <StackPanel Orientation="Horizontal" Margin="0 10 0 0">
+                        <TextBlock Text="QuickZoomZoomOutFactor:" FontWeight="Bold" FontSize="12" Margin="0 0 3 0" VerticalAlignment="Center"/>
+                        <common:InfoControl x:Name="QuickZoomZoomOutFactorInfoControl" InfoWidth="450"/>
+                    </StackPanel>
+                    <ComboBox Name="QuickZoomZoomOutFactorComboBox" SelectionChanged="QuickZoomZoomOutFactorComboBox_OnSelectionChanged" />
+
+                    <StackPanel Orientation="Horizontal" Margin="0 10 0 0">
+                        <TextBlock Text="QuickZoomMaxFactorScreenDistance:" FontWeight="Bold" FontSize="12" Margin="0 0 3 0" VerticalAlignment="Center"/>
+                        <common:InfoControl x:Name="QuickZoomMaxFactorScreenDistanceInfoControl" InfoWidth="500"/>
+                    </StackPanel>
+                    <ComboBox Name="QuickZoomMaxFactorScreenDistanceComboBox" SelectionChanged="QuickZoomMaxFactorScreenDistanceComboBox_OnSelectionChanged" />
+
+                    <CheckBox Name="ShowQuickZoomMarkerCheckBox" Content="ShowQuickZoomMarker" IsChecked="True" FontWeight="Bold" Margin="0 10 0 0"
+                              Checked="OnShowQuickZoomMarkerCheckBoxCheckedChanged" Unchecked="OnShowQuickZoomMarkerCheckBoxCheckedChanged"/>
+
+                    <TextBlock Text="ZoomMode:" FontWeight="Bold" FontSize="12" Margin="0 15 0 0"/>
+                    <ComboBox Name="ZoomModeComboBox" SelectedIndex="4" SelectionChanged="ZoomModeComboBox_OnSelectionChanged" >
+                        <ComboBoxItem>Center of Viewport3D (default)</ComboBoxItem>
+                        <ComboBoxItem>Red box (-40 5 -30)</ComboBoxItem>
+                        <ComboBoxItem>Yellow box (0 5 0)</ComboBoxItem>
+                        <ComboBoxItem>Orange box (40 5 30)</ComboBoxItem>
+                        <ComboBoxItem>Position under the mouse</ComboBoxItem>
+                    </ComboBox>
+
+                    <TextBlock Text="MaxCameraDistance=&quot;5000&quot;" FontWeight="Bold" FontSize="12" Margin="0 15 0 0"/>
+
+                    <Button Name="ResetCameraButton" Content="Reset camera" Margin="0 15 0 0" Click="ResetCameraButton_OnClick" />
+                </StackPanel>
+            </Border>
+        </StackPanel>
+
+        <TextBlock FontWeight="Bold" FontSize="20" Foreground="#555" Margin="10" VerticalAlignment="Top" HorizontalAlignment="Left"
+                   Text="Quick zoom sample" />
+        
+    </Grid>
+</Page>

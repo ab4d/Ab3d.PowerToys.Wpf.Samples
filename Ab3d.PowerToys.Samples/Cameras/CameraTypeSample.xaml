@@ -1,0 +1,71 @@
+﻿<Page x:Class="Ab3d.PowerToys.Samples.Cameras.CameraTypeSample"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:cameras="clr-namespace:Ab3d.Cameras;assembly=Ab3d.PowerToys"
+      xmlns:ab3d="clr-namespace:Ab3d.Controls;assembly=Ab3d.PowerToys"  
+      xmlns:visuals="clr-namespace:Ab3d.Visuals;assembly=Ab3d.PowerToys"          
+      mc:Ignorable="d" 
+      d:DesignHeight="300" d:DesignWidth="300"
+	Title="CameraTypeSample">
+
+    <Page.Resources>
+        <DiffuseMaterial x:Key="ObjectsMaterial" Brush="#247589"/>
+    </Page.Resources>
+    <Grid Name="MainGrid">
+        <Border Name="ViewportBorder" Grid.Column="0" BorderBrush="Black" BorderThickness="2" Margin="5" CornerRadius="5">
+            <Border.Background>
+                <LinearGradientBrush StartPoint="0 0" EndPoint="0 1">
+                    <GradientStop Offset="0" Color="#033C62"/>
+                    <GradientStop Offset="1" Color="#01131F"/>
+                </LinearGradientBrush>
+            </Border.Background>
+            <Viewport3D Name="MainViewport">
+                <visuals:WireGridVisual3D CenterPosition="0 0 0" Size="100 100" WidthCellsCount="10" HeightCellsCount="10" LineColor="#555555" LineThickness="2"/>
+
+                <visuals:BoxVisual3D CenterPosition="0 10 -30" Size="20 20 20" Material="{StaticResource ObjectsMaterial}"/>
+                <visuals:BoxVisual3D CenterPosition="0 10 0" Size="20 20 20" Material="{StaticResource ObjectsMaterial}"/>
+                <visuals:BoxVisual3D CenterPosition="0 10 30" Size="20 20 20" Material="{StaticResource ObjectsMaterial}"/>
+
+                <ModelVisual3D>
+                    <ModelVisual3D.Content>
+                        <Model3DGroup>
+                            <AmbientLight Color="#333333"/>
+                        </Model3DGroup>
+                    </ModelVisual3D.Content>
+                </ModelVisual3D>
+            </Viewport3D>
+        </Border>
+
+        <cameras:SceneCamera Name="Camera1" Heading="-30" Attitude="-20" Bank="0" Distance="200" ShowCameraLight="Always" CameraType="OrthographicCamera" IsDesignTimeInfoIconShown="False"/>
+
+        <ab3d:MouseCameraController Name="MouseCameraController1" 
+                                    RotateCameraConditions="LeftMouseButtonPressed" 
+                                    MoveCameraConditions="LeftMouseButtonPressed, ControlKey"
+                                    TargetCamera="{Binding ElementName=Camera1}"
+                                    EventsSourceElement="{Binding ElementName=ViewportBorder}"/>
+
+        <ab3d:CameraControlPanel VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="5" Width="150" Height="75"/>
+
+        <TextBlock FontWeight="Bold" FontSize="20" Foreground="Silver" Margin="10" VerticalAlignment="Top" HorizontalAlignment="Left" Text="OrthographicCamera camera type sample"/>
+
+        <StackPanel VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="10 15 10 10">
+            <TextBlock FontWeight="Bold" FontSize="18" Foreground="Silver" Margin="0 3" Text="CameraType:"/>
+            <RadioButton Name="PerspectiveCameraRadioButton" Foreground="Silver" GroupName="CameraTypeGroup" Checked="OnCameraTypeChanged">PerspectiveCamera</RadioButton>
+            
+            <StackPanel Margin="15 2 0 0" Orientation="Horizontal">
+                <TextBlock VerticalAlignment="Center" Foreground="Silver" Text="Distance:"/>
+                <Label Name="DistanceLabel" Margin="5 0 0 0" ContentStringFormat="0" VerticalAlignment="Center" Padding="0" Foreground="Silver" Content="{Binding ElementName=Camera1, Path=Distance}"/>
+            </StackPanel>
+
+
+            <RadioButton Name="OrthographicCameraRadioButton" Margin="0 10 0 0" Foreground="Silver" IsChecked="True" GroupName="CameraTypeGroup" Checked="OnCameraTypeChanged">OrthographicCamera</RadioButton>
+
+            <StackPanel Margin="15 2 0 0" Orientation="Horizontal">
+                <TextBlock VerticalAlignment="Center" Foreground="Silver" Text="CameraWidth:"/>
+                <Label Name="CameraWidthLabel" Margin="5 0 0 0" ContentStringFormat="0" VerticalAlignment="Center" Padding="0" Foreground="Silver" Content="{Binding ElementName=Camera1, Path=CameraWidth}"/>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</Page>

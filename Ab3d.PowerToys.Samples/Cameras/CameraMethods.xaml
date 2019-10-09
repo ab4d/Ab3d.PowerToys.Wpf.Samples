@@ -1,0 +1,141 @@
+﻿<Page x:Class="Ab3d.PowerToys.Samples.Cameras.CameraMethods"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:visuals="clr-namespace:Ab3d.Visuals;assembly=Ab3d.PowerToys"
+      xmlns:cameras="clr-namespace:Ab3d.Cameras;assembly=Ab3d.PowerToys"
+      xmlns:controls="clr-namespace:Ab3d.Controls;assembly=Ab3d.PowerToys"
+      mc:Ignorable="d" 
+      d:DesignHeight="300" d:DesignWidth="800"
+      Title="FreeCameraSample">
+
+    <Grid>
+        <Border Name="ViewportBorder" Background="Transparent">
+
+            <Viewport3D Name="MainViewport">
+                <visuals:WireGridVisual3D CenterPosition="0 0 0" Size="100 100" WidthCellsCount="5" HeightCellsCount="5" LineColor="#555555" LineThickness="2"/>
+                
+                <visuals:ObjModelVisual3D Source="/Resources/ObjFiles/Teapot.obj" 
+                                          Position="0 0 0" SizeX="50" PositionType="BottomCenter" DefaultMaterial="s:32;Gold"/>
+            </Viewport3D>
+        </Border>
+
+        <cameras:TargetPositionCamera Name="TargetPositionCamera1" TargetPosition="0 0 0"
+                                                                   Heading="30" Attitude="-20" Bank="0"
+                                                                   Distance="100"
+                                                                   ShowCameraLight="Always"
+                                                                   IsAutoViewport3DFindingEnabled="False"
+                                                                   TargetViewport3D="{Binding ElementName=MainViewport}"/>
+        
+        <cameras:FreeCamera Name="FreeCamera1" TargetPosition="0 0 0"
+                                               CameraPosition="0 0 -100"
+                                               ShowCameraLight="Always"
+                                               IsAutoViewport3DFindingEnabled="False"/>
+
+        <cameras:FirstPersonCamera Name="FirstPersonCamera1" Position="-60 50 100"
+                                                             Heading="30" Attitude="-20" Bank="0"
+                                                             ShowCameraLight="Always"
+                                                             IsAutoViewport3DFindingEnabled="False"/>
+
+        <controls:MouseCameraController Name="MouseCameraController1"
+                                        RotateCameraConditions="LeftMouseButtonPressed"
+                                        MoveCameraConditions="LeftMouseButtonPressed, ControlKey"
+                                        EventsSourceElement="{Binding ElementName=ViewportBorder}"
+                                        TargetCamera="{Binding ElementName=TargetPositionCamera1}" />
+
+        <controls:CameraAxisPanel x:Name="CameraAxisPanel1" HorizontalAlignment="Left" VerticalAlignment="Bottom" 
+                                  TargetCamera="{Binding ElementName=TargetPositionCamera1}" />
+
+        <Border Margin="5" BorderBrush="DimGray" BorderThickness="2" Background="#BBFFFFFF" VerticalAlignment="Bottom" HorizontalAlignment="Right">
+            <StackPanel Orientation="Vertical">
+                
+                <StackPanel Orientation="Vertical" HorizontalAlignment="Left" Margin="5 10 5 5">
+                    <TextBlock Text="Camera type:" FontWeight="Bold" Margin="0 0 0 5" />
+                    <RadioButton Name="TargetPositionCameraRadioButton" Content="TargetPositionCamera" IsChecked="True" GroupName="CameraType" Checked="OnCameraTypeRadioButtonChecked" />
+                    <RadioButton Name="FirstPersonCameraRadioButton" Content="FirstPersonCamera" GroupName="CameraType" Checked="OnCameraTypeRadioButtonChecked" />
+                    <RadioButton Name="FreeCameraRadioButton" Content="FreeCamera" GroupName="CameraType" Checked="OnCameraTypeRadioButtonChecked" />
+                </StackPanel>
+                
+                <Rectangle HorizontalAlignment="Stretch" Height="1" Fill="Gray" SnapsToDevicePixels="True" Margin="5" />
+
+                <Grid Margin="0 0 0 5">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="0" Text="Standard camera methods:" FontWeight="Bold" Margin="5 0 0 5" />
+
+                    <StackPanel Grid.Column="0" Grid.Row="1" Orientation="Vertical">
+                        <Button Name="MoveUpButton" Content="MoveUp" Margin="5 2" Click="MoveUpButton_OnClick" />
+                        <Button Name="MoveDownButton" Content="MoveDown" Margin="5 2" Click="MoveDownButton_OnClick" />
+                        <Button Name="MoveLeftButton" Content="MoveLeft" Margin="5 2" Click="MoveLeftButton_OnClick" />
+                        <Button Name="MoveRightButton" Content="MoveRight" Margin="5 2" Click="MoveRightButton_OnClick" />
+                        <Button Name="MoveForwardButton" Content="MoveForward" Margin="5 2" Click="MoveForwardButton_OnClick" />
+                        <Button Name="MoveBackwardButton" Content="MoveBackward" Margin="5 2" Click="MoveBackwardButton_OnClick" />
+                    </StackPanel>
+
+                    <StackPanel Grid.Column="1" Grid.Row="1" Orientation="Vertical">
+                        
+                        <Button Name="RenderToBitmapButton" Content="RenderToBitmap" Margin="5 2" Click="RenderToBitmapButton_OnClick" />
+                        <Button Name="CreateFromButton" Content="CreateFrom" Margin="5 2" Click="CreateFromButton_OnClick" />
+                        <Button Name="CreateMouseRay3DButton" Content="CreateMouseRay3D" Margin="5 2" Click="CreateMouseRay3DButton_OnClick" />
+                    
+                        <Button Name="StartRotationButton" Content="StartRotation" Margin="5 2" Click="StartRotationButton_OnClick" />
+                        <Button Name="StopRotationButton" Content="StopRotation" Margin="5 2" Click="StopRotationButton_OnClick" />
+                        <Button Name="RotateCameraButton" Content="RotateCamera" Margin="5 2" Click="RotateCameraButton_OnClick" />
+                        
+                    </StackPanel>
+
+                    <StackPanel Grid.Column="2" Grid.Row="1" Orientation="Vertical">
+
+                        <Button Name="Point3DTo2DButton" Content="Point3DTo2D" Margin="5 2" Click="Point3DTo2DButton_OnClick" />
+                        <Button Name="Rect3DTo2DButton" Content="Rect3DTo2D" Margin="5 2" Click="Rect3DTo2DButton_OnClick" />
+
+                        <Button Name="GetCameraMatricesButton" Content="GetCameraMatrices" Margin="5 2" Click="GetCameraMatricesButton_OnClick" />
+                        <Button Name="GetCameraPlaneOrientationButton" Content="GetCameraPlaneOrientation" Margin="5 2" Click="GetCameraPlaneOrientationButton_OnClick" />
+                        <Button Name="GetMousePositionOnPlaneButton" Content="GetMousePositionOnPlane" Margin="5 2" Click="GetMousePositionOnPlaneButton_OnClick" />
+                        <Button Name="GetWorldToViewportMatrixButton" Content="GetWorldToViewportMatrix" Margin="5 2" Click="GetWorldToViewportMatrixButton_OnClick" />
+                        <Button Name="GetCameraPositionButton" Content="GetCameraPosition" Margin="5 2" Click="GetCameraPositionButton_OnClick" />
+                    </StackPanel>
+
+                    
+                    <TextBlock Name="CameraSpecificMethodsTitleTextBlock" Grid.Column="3" Grid.Row="0" Text="Special methods:" FontWeight="Bold" Margin="20 0 5 5" />
+                    
+                    <StackPanel Name="CameraSpecificMethodsPanel" Grid.Column="3" Grid.Row="1" Orientation="Vertical" Margin="20 0 5 0">
+
+                        <StackPanel Name="TargetPositionCameraMethodsPanel" Orientation="Vertical">
+                            <Button Name="FitIntoViewButton" Content="FitIntoView" Margin="0 2" Click="FitIntoView_OnClick" />
+                        </StackPanel>
+                        
+                        <StackPanel Name="FirstPersonCameraMethodsPanel" Orientation="Vertical">
+                            <Button Name="TurnToButton" Content="TurnTo" Margin="0 2" Click="TurnToButton_OnClick" />
+                        </StackPanel>
+
+                        <StackPanel Name="SphericalCameraMethodsPanel" Orientation="Vertical">
+                            <Button Name="GetNormalizedAnglesButton" Content="GetNormalized... methods" Margin="0 2" Click="GetNormalizedAnglesButton_OnClick" />
+                            <Button Name="NormalizeAnglesButton" Content="NormalizeAngles" Margin="0 2" Click="NormalizeAnglesButton_OnClick" />
+                            <Button Name="RotateForButton" Content="RotateFor" Margin="0 2" Click="RotateForButton_OnClick" />
+                            <Button Name="RotateToButton" Content="RotateTo" Margin="0 2" Click="RotateToButton_OnClick" />
+                        </StackPanel>
+                        
+                        <StackPanel Name="FreeCameraMethodsPanel" Orientation="Vertical">
+                            <Button Name="SetCameraPositionButton" Content="SetCameraPosition" Margin="0 2" Click="SetCameraPositionButton_OnClick" />
+                            <Button Name="SetTargetPositionButton" Content="SetTargetPosition" Margin="0 2" Click="SetTargetPositionButton_OnClick" />
+                        </StackPanel>
+                        
+                    </StackPanel>
+
+                </Grid>
+            </StackPanel>
+        </Border>
+        
+    </Grid>
+</Page>

@@ -1,0 +1,78 @@
+﻿<UserControl x:Class="Ab3d.PowerToys.Samples.EventManager3D.EventPanels.MouseDrag3DEventArgsPanel"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Height="auto" Width="auto">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>            
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0" FontWeight="Bold" Margin="0 5" Text="MouseDrag3DEventArgs:"/>
+        
+        <TextBlock Grid.Column="0" Grid.Row="1" Text="HitEventSource3D.CustomData" Margin="0 0 5 5"/>
+        <TextBlock Grid.Column="0" Grid.Row="2" Text="MouseData.LeftButton"/>
+        <TextBlock Grid.Column="0" Grid.Row="3" Text="MouseData.RightButton" Margin="0 0 0 5"/>
+        <TextBlock Grid.Column="0" Grid.Row="4" Text="StartDragMousePosition"/>
+        <TextBlock Grid.Column="0" Grid.Row="5" Text="CurrentMousePosition"/>
+        <TextBlock Grid.Column="0" Grid.Row="6" Text="MouseDiff" Margin="0 0 0 5"/>
+        <TextBlock Grid.Column="0" Grid.Row="7" Text="StartSurfaceHitPoint"/>
+        <TextBlock Grid.Column="0" Grid.Row="8" Text="CurrentSurfaceHitPoint"/>
+        <TextBlock Grid.Column="0" Grid.Row="9" Text="SurfaceHitPointDiff" Margin="0 0 0 5"/>
+        <TextBlock Grid.Column="0" Grid.Row="10" Text="HitSurface"/>
+        <TextBlock Grid.Column="0" Grid.Row="11" Text="RayHitResult.HitPoint"/>
+        <TextBlock Name="HitNameTitleTextBlock" Visibility="Collapsed" Margin="0 5 0 0" Grid.Column="0" Grid.Row="12" Text="ModelName / VisualName"/>
+
+        <TextBlock Name="HitObjectNameTextBlock" Grid.Column="1" Grid.Row="1" FontWeight="Bold" Text="{Binding HitEventSource3D.CustomData}"/> <!-- Model Name -->
+        <TextBlock Grid.Column="1" Grid.Row="2" Text="{Binding MouseData.LeftButton}"/>
+        <TextBlock Grid.Column="1" Grid.Row="3" Text="{Binding MouseData.RightButton}"/>
+        <StackPanel Grid.Column="1" Grid.Row="4" Orientation="Horizontal">
+            <TextBlock Text="{Binding Path=StartDragMousePosition.X, StringFormat=F0}"/>
+            <TextBlock Margin="5 0 0 0" Text="{Binding Path=StartDragMousePosition.Y, StringFormat=F0}"/>
+        </StackPanel>
+        <StackPanel Grid.Column="1" Grid.Row="5" Orientation="Horizontal">
+            <TextBlock Text="{Binding Path=CurrentMousePosition.X, StringFormat=F0}"/>
+            <TextBlock Margin="5 0 0 0" Text="{Binding Path=CurrentMousePosition.Y, StringFormat=F0}"/>
+        </StackPanel>
+        <StackPanel Grid.Column="1" Grid.Row="6" Orientation="Horizontal">
+            <TextBlock Text="{Binding Path=MouseDiff.X, StringFormat=F0}"/>
+            <TextBlock Margin="5 0 0 0" Text="{Binding Path=MouseDiff.Y, StringFormat=F0}"/>
+        </StackPanel>
+        <StackPanel Grid.Column="1" Grid.Row="7" Orientation="Horizontal">
+            <TextBlock Text="{Binding Path=StartSurfaceHitPoint.X, StringFormat=F0}"/>
+            <TextBlock Margin="5 0 0 0" Text="{Binding Path=StartSurfaceHitPoint.Y, StringFormat=F0}"/>
+            <TextBlock Margin="5 0 0 0" Text="{Binding Path=StartSurfaceHitPoint.Z, StringFormat=F0}"/>
+        </StackPanel>
+        <StackPanel Grid.Column="1" Grid.Row="8" Orientation="Horizontal">
+            <TextBlock Text="{Binding Path=CurrentSurfaceHitPoint.X, StringFormat=F0}"/>
+            <TextBlock Margin="5 0 0 0" Text="{Binding Path=CurrentSurfaceHitPoint.Y, StringFormat=F0}"/>
+            <TextBlock Margin="5 0 0 0" Text="{Binding Path=CurrentSurfaceHitPoint.Z, StringFormat=F0}"/>
+        </StackPanel>
+        <StackPanel Grid.Column="1" Grid.Row="9" Orientation="Horizontal">
+            <TextBlock Text="{Binding Path=SurfaceHitPointDiff.X, StringFormat=F0}"/>
+            <TextBlock Margin="5 0 0 0" Text="{Binding Path=SurfaceHitPointDiff.Y, StringFormat=F0}"/>
+            <TextBlock Margin="5 0 0 0" Text="{Binding Path=SurfaceHitPointDiff.Z, StringFormat=F0}"/>
+        </StackPanel>
+        <TextBlock Grid.Column="1" Grid.Row="10" Text="{Binding HitSurface.CustomData}"/>
+        <StackPanel Grid.Column="1" Grid.Row="11" Orientation="Horizontal">
+            <TextBlock Text="{Binding Path=RayHitResult.PointHit.X, StringFormat=F0}"/>
+            <TextBlock Margin="5 0 0 0" Text="{Binding Path=RayHitResult.PointHit.Y, StringFormat=F0}"/>
+            <TextBlock Margin="5 0 0 0" Text="{Binding Path=RayHitResult.PointHit.Z, StringFormat=F0}"/>
+        </StackPanel>
+        <TextBlock Name="HitNameValueTextBlock" Visibility="Collapsed" Grid.Column="1" Grid.Row="12" Text=""/>
+    </Grid>
+</UserControl>

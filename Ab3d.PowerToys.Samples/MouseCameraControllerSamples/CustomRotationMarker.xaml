@@ -1,0 +1,85 @@
+﻿<Page x:Class="Ab3d.PowerToys.Samples.MouseCameraControllerSamples.CustomRotationMarker"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:cameras="clr-namespace:Ab3d.Cameras;assembly=Ab3d.PowerToys"
+      xmlns:ab3d="clr-namespace:Ab3d.Controls;assembly=Ab3d.PowerToys"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:visuals="clr-namespace:Ab3d.Visuals;assembly=Ab3d.PowerToys"
+      mc:Ignorable="d"       
+      d:DesignHeight="500" d:DesignWidth="800"         
+      MinWidth="500"
+      Title="CamerasSample">
+    <Grid Name="RootGrid">
+        <Border Name="ViewportBorder" Background="Transparent">
+            <!-- Background must be set to a value (can be also Transparent) to enable getting mouse events on the control -->
+            <Viewport3D Name="MainViewport">
+                <visuals:BoxVisual3D CenterPosition="0 -2 0" Size="100 4 100" Material="Green" />
+
+
+                <visuals:BoxVisual3D x:Name="RedBox" CenterPosition="-40 5 -30" Size="10 10 10" Material="Red" />
+                <visuals:BoxVisual3D CenterPosition="-20 5 -30" Size="10 10 10" Material="Silver" />
+                <visuals:BoxVisual3D CenterPosition="0 5 -30"   Size="10 10 10" Material="Silver" />
+                <visuals:BoxVisual3D CenterPosition="20 5 -30"  Size="10 10 10" Material="Silver" />
+                <visuals:BoxVisual3D CenterPosition="40 5 -30"  Size="10 10 10" Material="Silver" />
+
+                <visuals:BoxVisual3D CenterPosition="-40 5 0" Size="10 10 10" Material="Silver" />
+                <visuals:BoxVisual3D CenterPosition="-20 5 0" Size="10 10 10" Material="Silver" />
+                <visuals:BoxVisual3D CenterPosition="0 5 0"  Size="10 10 10" Material="Silver" />
+                <visuals:BoxVisual3D CenterPosition="20 5 0"  Size="10 10 10" Material="Silver" />
+                <visuals:BoxVisual3D CenterPosition="40 5 0"  Size="10 10 10" Material="Silver" />
+
+                <visuals:BoxVisual3D CenterPosition="-40 5 30" Size="10 10 10" Material="Silver" />
+                <visuals:BoxVisual3D CenterPosition="-20 5 30" Size="10 10 10" Material="Silver" />
+                <visuals:BoxVisual3D CenterPosition="0 5 30"   Size="10 10 10" Material="Silver" />
+                <visuals:BoxVisual3D CenterPosition="20 5 30"  Size="10 10 10" Material="Silver" />
+                <visuals:BoxVisual3D CenterPosition="40 5 30"  Size="10 10 10" Material="Silver" />
+
+                <ModelVisual3D>
+                    <ModelVisual3D.Content>
+                        <Model3DGroup>
+                            <AmbientLight Color="#333333"/>
+                        </Model3DGroup>
+                    </ModelVisual3D.Content>
+                </ModelVisual3D>
+            </Viewport3D>
+        </Border>
+
+        <cameras:TargetPositionCamera Name="Camera1"
+                                      Heading="30" Attitude="-20" Bank="0" 
+                                      Distance="250" TargetPosition="0 0 0" 
+                                      RotationCenterPosition="-40 5 -30"
+                                      TargetViewport3D="{Binding ElementName=MainViewport}" />
+
+        <!--<ab3d:MouseCameraController Name="MouseCameraController1"
+                                    ShowRotationCenterMarker="True"
+                                    TargetCamera="{Binding ElementName=Camera1}" 
+                                    EventsSourceElement="{Binding ElementName=ViewportBorder}"
+                                    RotateCameraConditions="LeftMouseButtonPressed"
+                                    MoveCameraConditions="LeftMouseButtonPressed, ControlKey" />-->
+
+
+        <StackPanel Orientation="Vertical" VerticalAlignment="Bottom" HorizontalAlignment="Right">
+            <Border Margin="0 10 0 0" Background="#AAFFFFFF" BorderBrush="Gray" BorderThickness="1" CornerRadius="0" Cursor="Arrow">
+                <StackPanel Orientation="Vertical" Margin="5">
+                    <TextBlock Margin="5 15 5 5" FontWeight="Bold" FontSize="14">Rotation center marker type:</TextBlock>
+                    
+                    <RadioButton Name="StandardRadioButton" Content="Standard rotation marker" Margin="5 3 5 0" IsChecked="False" GroupName="RotationMarker" Checked="OnRotationMarkerRadioButtonChecked" />
+                    <TextBlock FontSize="9" Width="240" HorizontalAlignment="Left" Margin="22 0 0 0" TextWrapping="Wrap"
+                               Text="By default MouseCameraController is using Ab3d.Common.CameraTargetPositionAdorner to create the rotation marker. It is based on the one from Google Earth application." />
+
+                    <RadioButton Name="ChangedStandardRadioButton" Content="Changed standard rotation marker" Margin="5 8 5 0" GroupName="RotationMarker" Checked="OnRotationMarkerRadioButtonChecked" />
+                    <TextBlock FontSize="9" Width="240" HorizontalAlignment="Left" Margin="22 0 0 0" TextWrapping="Wrap"
+                               Text="The standard CameraTargetPositionAdorner is changed with adjusting its propertes." />
+                    
+                    <RadioButton Name="CustomRadioButton" Content="Custom rotation marker" Margin="5 8 5 0" IsChecked="True" GroupName="RotationMarker" Checked="OnRotationMarkerRadioButtonChecked" />
+                    <TextBlock FontSize="9" Width="240" HorizontalAlignment="Left" Margin="22 0 0 0" TextWrapping="Wrap"
+                               Text="A custom rotation marker is creating with deriving a new class from CameraTargetPositionAdorner and providing new implementation for its OnRender method." />
+                </StackPanel>
+            </Border>
+        </StackPanel>
+
+        <TextBlock FontWeight="Bold" FontSize="20" Foreground="DimGray" Margin="10" VerticalAlignment="Top" HorizontalAlignment="Left" 
+                   Text="Customizing the camera rotation marker"/>
+    </Grid>
+</Page>

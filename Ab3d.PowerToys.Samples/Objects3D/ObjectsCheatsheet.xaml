@@ -1,0 +1,903 @@
+﻿<Page x:Class="Ab3d.PowerToys.Samples.Objects3D.ObjectsCheatsheet"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:cameras="clr-namespace:Ab3d.Cameras;assembly=Ab3d.PowerToys"
+    xmlns:visuals="clr-namespace:Ab3d.Visuals;assembly=Ab3d.PowerToys" 
+    xmlns:uiElements="clr-namespace:Ab3d.UIElements;assembly=Ab3d.PowerToys"    
+    Title="ObjectsCheatsheet">
+    <Page.Resources>
+        <SolidColorBrush x:Key="VisualTextColor" Color="#0F253F"/>
+        <SolidColorBrush x:Key="UIElementTextColor" Color="#284E7C"/>
+        <SolidColorBrush x:Key="CodeTextColor" Color="#4F81BD"/>
+    </Page.Resources>
+    <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Visible">
+        <StackPanel Name="MainStackPanel">
+            <Grid Name="TitleGrid" Margin="20 0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock FontWeight="Bold" FontSize="20" Margin="2 5 5 0" Text="Main Ab3d.PowerToys 3D Objects"/>
+                <Button Name="PrintButton" Width="100" Click="InvokePrint">Print</Button>
+            </Grid>
+
+            <StackPanel Name="IntroPanel" Margin="20 0">
+                <TextBlock Margin="2 20 5 0" FontWeight="Bold" Text="All 3D objects in Ab3d.PowerToys library can be defined in three different ways:"/>
+
+                <TextBlock Foreground="{StaticResource VisualTextColor}" FontWeight="Bold" Margin="2 5 0 0" Text="1) as Visual3D objects"/>
+                <TextBlock Foreground="{StaticResource VisualTextColor}" Margin="20 0" Text="- can be defined in XAML and in code behind"/>
+                <TextBlock Foreground="{StaticResource VisualTextColor}" Margin="20 0" Text="- previewed in Visual Studio Designer"/>
+                <TextBlock Foreground="{StaticResource VisualTextColor}" Margin="20 0" Text="- lightweight - recommended when no events are needed on the object or when used with EventManager3D"/>
+
+                <TextBlock Foreground="{StaticResource UIElementTextColor}" FontWeight="Bold" Margin="2 5 0 0" Text="2) as UIElement3D objects"/>
+                <TextBlock Foreground="{StaticResource UIElementTextColor}" Margin="20 0" Text="- can be defined in XAML and in code behind"/>
+                <TextBlock Foreground="{StaticResource UIElementTextColor}" Margin="20 0" Text="- previewed in Visual Studio Designer"/>
+                <TextBlock Foreground="{StaticResource UIElementTextColor}" Margin="20 0" Text="- support ToolTip property to show ToolTip on 3D object"/>
+                <TextBlock Foreground="{StaticResource UIElementTextColor}" Margin="20 0" Text="- added some support for mouse events (without need to use EventManager3D)"/>
+
+                <TextBlock Foreground="{StaticResource CodeTextColor}" FontWeight="Bold" Margin="2 5 0 0" Text="3) as GeometryModel3D with Model3DFactory"/>
+                <TextBlock Foreground="{StaticResource CodeTextColor}" Margin="20 0" Text="- can be defined only in code behind"/>
+                <TextBlock Foreground="{StaticResource CodeTextColor}" Margin="20 0" Text="- no previewed in Visual Studio Designer"/>
+                <TextBlock Foreground="{StaticResource CodeTextColor}" Margin="20 0" Text="- the most lightwight 3D objects"/>
+                <TextBlock Foreground="{StaticResource CodeTextColor}" Margin="20 0" Text="- can be simply added to existing Model3DGroup objects (for example for objects imported from 3ds file)"/>
+            </StackPanel>
+
+            <StackPanel Name="FirstPage" Margin="20 0">
+
+                <TextBlock Margin="2 20 0 0" Text="To create 3D objects in XAML, you need to add the following namespace declarations to the root xaml element:"/>
+                <TextBlock Foreground="{StaticResource VisualTextColor}" FontWeight="Bold" Margin="5 0" Text="xmlns:visuals=&quot;clr-namespace:Ab3d.Visuals;assembly=Ab3d.PowerToys&quot;"/>
+                <TextBlock Foreground="{StaticResource UIElementTextColor}" FontWeight="Bold" Margin="5 0" Text="xmlns:uiElements=&quot;clr-namespace:Ab3d.UIElements;assembly=Ab3d.PowerToys&quot;"/>
+
+
+                <!-- BOX -->
+                <StackPanel Orientation="Vertical">
+                    <!-- enclosed into StackPanel so it is not broken when printing -->
+                    <TextBlock FontWeight="Bold" FontSize="18" Margin="2 20 5 0" Text="Box"/>
+
+                    <StackPanel Orientation="Horizontal">
+                        <Border Grid.Column="0" Grid.Row="1" Width="180" Height="120" BorderBrush="Black" BorderThickness="1" Margin="2">
+                            <Grid>
+                                <Viewport3D Name="BoxVisual3D_1" >
+                                    <visuals:WireGridVisual3D CenterPosition="0 0 0" Size="100 100" WidthCellsCount="10" HeightCellsCount="10" LineColor="#555555" LineThickness="2"/>
+                                    <visuals:BoxVisual3D Size="40 40 40" Material="LightBlue"/>
+                                </Viewport3D>
+                                <cameras:SceneCamera Grid.Column="0" Grid.Row="1" Heading="30" Attitude="-30" IsDistancePercent="True" Distance="2" TargetViewport3DName="BoxVisual3D_1"/>
+                                <Border VerticalAlignment="Top" HorizontalAlignment="Left" Width="20" Height="20" Background="Silver">
+                                    <TextBlock FontFamily="Arial Black" FontSize="16" TextAlignment="Center" Width="17" Height="20" Text="1"/>
+                                </Border>
+                            </Grid>
+                        </Border>
+
+                        <Border Grid.Column="1" Grid.Row="1" Width="180" Height="120" BorderBrush="Black" BorderThickness="1" Margin="2">
+                            <Grid>
+                                <Viewport3D Name="BoxVisual3D_2">
+                                    <visuals:WireGridVisual3D CenterPosition="0 0 0" Size="100 100" WidthCellsCount="10" HeightCellsCount="10" LineColor="#555555" LineThickness="2"/>
+                                    <visuals:BoxVisual3D CenterPosition="0 10 0" Size="60 20 40" Material="LightBlue"/>
+                                </Viewport3D>
+                                <cameras:SceneCamera Heading="30" Attitude="-30" IsDistancePercent="True" Distance="2" TargetViewport3DName="BoxVisual3D_2"/>
+                                <Border VerticalAlignment="Top" HorizontalAlignment="Left" Width="20" Height="20" Background="Silver">
+                                    <TextBlock FontFamily="Arial Black" FontSize="16" TextAlignment="Center" Width="17" Height="20" Text="2"/>
+                                </Border>
+                            </Grid>
+                        </Border>
+
+                        <Border Grid.Column="1" Grid.Row="1" Width="180" Height="120" BorderBrush="Black" BorderThickness="1" Margin="2">
+                            <Grid>
+                                <Viewport3D Name="BoxVisual3D_3">
+                                    <visuals:WireGridVisual3D CenterPosition="0 0 0" Size="100 100" WidthCellsCount="10" HeightCellsCount="10" LineColor="#555555" LineThickness="2"/>
+                                    <visuals:MultiMaterialBoxVisual3D CenterPosition="0 10 0" Size="60 20 40" TopMaterial="Blue" FallbackMaterial="LightBlue"/>
+                                </Viewport3D>
+                                <cameras:SceneCamera Heading="30" Attitude="-30" IsDistancePercent="True" Distance="2" TargetViewport3DName="BoxVisual3D_3"/>
+                                <Border VerticalAlignment="Top" HorizontalAlignment="Left" Width="20" Height="20" Background="Silver">
+                                    <TextBlock FontFamily="Arial Black" FontSize="16" TextAlignment="Center" Width="17" Height="20" Text="3"/>
+                                </Border>
+                            </Grid>
+                        </Border>
+
+                        <Border Grid.Column="1" Grid.Row="1" Width="180" Height="120" BorderBrush="Black" BorderThickness="1" Margin="2">
+                            <Grid>
+                                <Viewport3D Name="BoxVisual3D_4">
+                                    <visuals:WireGridVisual3D CenterPosition="0 0 0" Size="100 100" WidthCellsCount="10" HeightCellsCount="10" LineColor="#555555" LineThickness="2"/>
+                                    <visuals:MultiMaterialBoxVisual3D CenterPosition="0 11 0" Size="60 20 40" BottomMaterial="LightBlue" BackMaterial="LightBlue" IsTwoSidedMaterial="True"/>
+                                </Viewport3D>
+                                <cameras:SceneCamera Heading="30" Attitude="-30" IsDistancePercent="True" Distance="2" TargetViewport3DName="BoxVisual3D_4"/>
+                                <Border VerticalAlignment="Top" HorizontalAlignment="Left" Width="20" Height="20" Background="Silver">
+                                    <TextBlock FontFamily="Arial Black" FontSize="16" TextAlignment="Center" Width="17" Height="20" Text="4"/>
+                                </Border>
+                            </Grid>
+                        </Border>
+                    </StackPanel>
+
+                    <Rectangle Height="1" Fill="LightGray" Margin="0 5 0 0"/>
+
+                    <StackPanel Orientation="Horizontal">
+
+                        <Border VerticalAlignment="Top" HorizontalAlignment="Left" Width="20" Height="20" Background="Silver">
+                            <TextBlock FontFamily="Arial Black" FontSize="16" TextAlignment="Center" Width="17" Height="20" Text="1"/>
+                        </Border>
+
+                        <StackPanel Orientation="Vertical" Margin="5 0 0 0">
+                            <TextBlock Foreground="{StaticResource VisualTextColor}" FontSize="12" FontWeight="Bold" Margin="5 0" Text="&lt;visuals:BoxVisual3D CenterPosition=&quot;0 0 0&quot; Size=&quot;40 40 40&quot; Material=&quot;LightBlue&quot;/&gt;"/>
+                            <TextBlock Foreground="{StaticResource UIElementTextColor}" FontSize="12" FontWeight="Bold" Margin="5 0" Text="&lt;uiElements:BoxUIElement3D CenterPosition=&quot;0 0 0&quot; Size=&quot;40 40 40&quot; Material=&quot;LightBlue&quot;/&gt;"/>
+                            <TextBlock Foreground="{StaticResource CodeTextColor}" FontSize="12" FontWeight="Bold" Margin="5 0" Text="Ab3d.Models.Model3DFactory.CreateBox(new Point3D(0, 0, 0), new Size3D(40, 40, 40), material)"/>
+                        </StackPanel>
+
+                    </StackPanel>
+
+                    <Rectangle Height="1" Fill="LightGray" Margin="0 5 0 0"/>
+
+                    <StackPanel Orientation="Horizontal">
+
+                        <Border VerticalAlignment="Top" HorizontalAlignment="Left" Width="20" Height="20" Background="Silver">
+                            <TextBlock FontFamily="Arial Black" FontSize="16" TextAlignment="Center" Width="17" Height="20" Text="2"/>
+                        </Border>
+
+                        <StackPanel Orientation="Vertical" Margin="5 0 0 0">
+                            <TextBlock Foreground="{StaticResource VisualTextColor}" FontSize="12" FontWeight="Bold" Margin="5 0" Text="&lt;visuals:BoxVisual3D CenterPosition=&quot;0 10 0&quot; Size=&quot;60 20 40&quot; Material=&quot;LightBlue&quot;/&gt;"/>
+                            <TextBlock Foreground="{StaticResource UIElementTextColor}" FontSize="12" FontWeight="Bold" Margin="5 0" Text="&lt;uiElements:BoxUIElement3D CenterPosition=&quot;0 10 0&quot; Size=&quot;60 20 40&quot; Material=&quot;LightBlue&quot;/&gt;"/>
+                            <TextBlock Foreground="{StaticResource CodeTextColor}" FontSize="12" FontWeight="Bold" Margin="5 0" Text="Ab3d.Models.Model3DFactory.CreateBox(new Point3D(0, 10, 0), new Size3D(60, 20, 40), material)"/>
+                        </StackPanel>
+
+                    </StackPanel>
+
+                    <Rectangle Height="1" Fill="LightGray" Margin="0 5 0 0"/>
+
+                    <StackPanel Orientation="Horizontal">
+
+                        <Border VerticalAlignment="Top" HorizontalAlignment="Left" Width="20" Height="20" Background="Silver">
+                            <TextBlock FontFamily="Arial Black" FontSize="16" TextAlignment="Center" Width="17" Height="20" Text="3"/>
+                        </Border>
+
+                        <StackPanel Orientation="Vertical" Margin="5 0 0 0">
+                            <TextBlock Foreground="{StaticResource VisualTextColor}" FontSize="12" FontWeight="Bold" Margin="5 0" Text="&lt;visuals:MultiMaterialBoxVisual3D CenterPosition=&quot;0 10 0&quot; Size=&quot;60 20 40&quot; TopMaterial=&quot;Blue&quot; FallbackMaterial=&quot;LightBlue&quot;/&gt;"/>
+                            <TextBlock Foreground="{StaticResource UIElementTextColor}" FontSize="12" FontWeight="Bold" Margin="5 0" Text="&lt;uiElements:MultiMaterialBoxUIElement3D CenterPosition=&quot;0 10 0&quot; Size=&quot;60 20 40&quot; TopMaterial=&quot;Blue&quot; FallbackMaterial=&quot;LightBlue&quot;/&gt;"/>
+                            <TextBlock Foreground="{StaticResource CodeTextColor}" FontSize="12" FontWeight="Bold" Margin="5 0" Text="Ab3d.Models.Model3DFactory.CreateMultiMaterialBox(new Point3D(0, 10, 0), new Size3D(60, 20, 40), material, material, ...)"/>
+                        </StackPanel>
+
+                    </StackPanel>
+
+                    <Rectangle Height="1" Fill="LightGray" Margin="0 5 0 0"/>
+
+                    <StackPanel Orientation="Horizontal">
+
+                        <Border VerticalAlignment="Top" HorizontalAlignment="Left" Width="20" Height="20" Background="Silver">
+                            <TextBlock FontFamily="Arial Black" FontSize="16" TextAlignment="Center" Width="17" Height="20" Text="4"/>
+                        </Border>
+
+                        <StackPanel Orientation="Vertical" Margin="5 0 0 0">
+                            <TextBlock Foreground="{StaticResource VisualTextColor}" FontSize="12" FontWeight="Bold" Margin="5 0" Text="&lt;visuals:MultiMaterialBoxVisual3D CenterPosition=&quot;0 11 0&quot; Size=&quot;60 20 40&quot;"/>
+                            <TextBlock Foreground="{StaticResource VisualTextColor}" FontSize="12" FontWeight="Bold" Margin="207 0" Text="BottomMaterial=&quot;LightBlue&quot; BackMaterial=&quot;LightBlue&quot; IsTwoSidedMaterial=&quot;True&quot;/&gt;"/>
+
+                            <TextBlock Foreground="{StaticResource UIElementTextColor}" FontSize="12" FontWeight="Bold" Margin="5 0" Text="&lt;uiElements:MultiMaterialBoxUIElement3D CenterPosition=&quot;0 11 0&quot; Size=&quot;60 20 40&quot;"/>
+                            <TextBlock Foreground="{StaticResource UIElementTextColor}" FontSize="12" FontWeight="Bold" Margin="255 0" Text="BottomMaterial=&quot;LightBlue&quot; BackMaterial=&quot;LightBlue&quot; IsTwoSidedMaterial=&quot;True&quot;/&gt;"/>
+
+                            <TextBlock Foreground="{StaticResource CodeTextColor}" FontSize="12" FontWeight="Bold" Margin="5 0" Text="Ab3d.Models.Model3DFactory.CreateMultiMaterialBox(new Point3D(0, 11, 0), new Size3D(60, 20, 40), material, ...)"/>
+                        </StackPanel>
+
+                    </StackPanel>
+
+                    <Rectangle Height="1" Fill="LightGray" Margin="0 5 0 0"/>
+                </StackPanel>
+
+
+                <!-- SPHERE -->
+                <StackPanel Orientation="Vertical">
+                    <!-- enclosed into StackPanel so it is not broken when printing -->
+
+                    <TextBlock FontWeight="Bold" FontSize="18" Margin="2 30 5 0" Text="Sphere"/>
+
+                    <StackPanel Orientation="Horizontal">
+                        <Border Grid.Column="0" Grid.Row="1" Width="180" Height="120" BorderBrush="Black" BorderThickness="1" Margin="2">
+                            <Grid>
+                                <Viewport3D Name="SphereVisual3D_1" >
+                                    <visuals:WireGridVisual3D CenterPosition="0 0 0" Size="100 100" WidthCellsCount="10" HeightCellsCount="10" LineColor="#555555" LineThickness="2"/>
+                                    <visuals:SphereVisual3D Radius="25" Segments="20" Material="LightBlue"/>
+                                </Viewport3D>
+                                <cameras:SceneCamera Grid.Column="0" Grid.Row="1" Heading="30" Attitude="-30" IsDistancePercent="True" Distance="2" TargetViewport3DName="SphereVisual3D_1"/>
+                                <Border VerticalAlignment="Top" HorizontalAlignment="Left" Width="20" Height="20" Background="Silver">
+                                    <TextBlock FontFamily="Arial Black" FontSize="16" TextAlignment="Center" Width="17" Height="20" Text="1"/>
+                                </Border>
+                            </Grid>
+                        </Border>
+
+                        <Border Grid.Column="1" Grid.Row="1" Width="180" Height="120" BorderBrush="Black" BorderThickness="1" Margin="2">
+                            <Grid>
+                                <Viewport3D Name="SphereVisual3D_2">
+                                    <visuals:WireGridVisual3D CenterPosition="0 0 0" Size="100 100" WidthCellsCount="10" HeightCellsCount="10" LineColor="#555555" LineThickness="2"/>
+                                    <visuals:SphereVisual3D Radius="25" Segments="20" Material="LightBlue">
+                                        <visuals:SphereVisual3D.Transform>
+                                            <ScaleTransform3D ScaleY="0.4" ScaleZ="0.7"/>
+                                        </visuals:SphereVisual3D.Transform>
+                                    </visuals:SphereVisual3D>
+                                </Viewport3D>
+                                <cameras:SceneCamera Heading="30" Attitude="-30" IsDistancePercent="True" Distance="2" TargetViewport3DName="SphereVisual3D_2"/>
+                                <Border VerticalAlignment="Top" HorizontalAlignment="Left" Width="20" Height="20" Background="Silver">
+                                    <TextBlock FontFamily="Arial Black" FontSize="16" TextAlignment="Center" Width="17" Height="20" Text="2"/>
+                                </Border>
+                            </Grid>
+                        </Border>
+                    </StackPanel>
+
+                    <Rectangle Height="1" Fill="LightGray" Margin="0 5 0 0"/>
+
+                    <StackPanel Orientation="Horizontal">
+
+                        <Border VerticalAlignment="Top" HorizontalAlignment="Left" Width="20" Height="20" Background="Silver">
+                            <TextBlock FontFamily="Arial Black" FontSize="16" TextAlignment="Center" Width="17" Height="20" Text="1"/>
+                        </Border>
+
+                        <StackPanel Orientation="Vertical" Margin="5 0 0 0">
+                            <TextBlock Foreground="{StaticResource VisualTextColor}" FontSize="12" FontWeight="Bold" Margin="5 0" Text="&lt;visuals:BoxVisual3D CenterPosition=&quot;0 0 0&quot; Size=&quot;50 50 50&quot; Material=&quot;LightBlue&quot;/&gt;"/>
+                            <TextBlock Foreground="{StaticResource UIElementTextColor}" FontSize="12" FontWeight="Bold" Margin="5 0" Text="&lt;uiElements:BoxUIElement3D CenterPosition=&quot;0 0 0&quot; Size=&quot;50 50 50&quot; Material=&quot;LightBlue&quot;/&gt;"/>
+                            <TextBlock Foreground="{StaticResource CodeTextColor}" FontSize="12" FontWeight="Bold" Margin="5 0" Text="Ab3d.Models.Model3DFactory.CreateBox(new Point3D(0, 0, 0), new Size3D(50, 50, 50), material)"/>
+                        </StackPanel>
+
+                    </StackPanel>
+
+                    <Rectangle Height="1" Fill="LightGray" Margin="0 5 0 0"/>
+
+                    <StackPanel Orientation="Horizontal">
+
+                        <Border VerticalAlignment="Top" HorizontalAlignment="Left" Width="20" Height="20" Background="Silver">
+                            <TextBlock FontFamily="Arial Black" FontSize="16" TextAlignment="Center" Width="17" Height="20" Text="2"/>
+                        </Border>
+
+                        <StackPanel Orientation="Vertical" Margin="5 0 0 0">
+                            <TextBlock Foreground="{StaticResource VisualTextColor}" FontSize="12" FontWeight="Bold" Margin="5 0" Text="&lt;visuals:SphereVisual3D Radius=&quot;25&quot; Segments=&quot;20&quot; Material=&quot;LightBlue&quot;&gt;"/>
+                            <TextBlock Foreground="{StaticResource VisualTextColor}" FontSize="12" FontWeight="Bold" Margin="20 0" Text="&lt;visuals:SphereVisual3D.Transform&gt;"/>
+                            <TextBlock Foreground="{StaticResource VisualTextColor}" FontSize="12" FontWeight="Bold" Margin="35 0" Text="&lt;ScaleTransform3D ScaleY=&quot;0.4&quot; ScaleZ=&quot;0.7&quot;/&gt;"/>
+                            <TextBlock Foreground="{StaticResource VisualTextColor}" FontSize="12" FontWeight="Bold" Margin="20 0" Text="&lt;/visuals:SphereVisual3D.Transform&gt;"/>
+                            <TextBlock Foreground="{StaticResource VisualTextColor}" FontSize="12" FontWeight="Bold" Margin="5 0" Text="&lt;/visuals:SphereVisual3D&gt;"/>
+
+                            <TextBlock Foreground="{StaticResource UIElementTextColor}" FontSize="12" FontWeight="Bold" Margin="5 0" Text="&lt;uiElements:SphereUIElement3D Radius=&quot;25&quot; Segments=&quot;20&quot; Material=&quot;LightBlue&quot;/&gt;"/>
+                            <TextBlock Foreground="{StaticResource UIElementTextColor}" FontSize="12" FontWeight="Bold" Margin="20 0" Text="&lt;uiElements:SphereUIElement3D.Transform&gt;"/>
+                            <TextBlock Foreground="{StaticResource UIElementTextColor}" FontSize="12" FontWeight="Bold" Margin="35 0" Text="&lt;ScaleTransform3D ScaleY=&quot;0.4&quot; ScaleZ=&quot;0.7&quot;/&gt;"/>
+                            <TextBlock Foreground="{StaticResource UIElementTextColor}" FontSize="12" FontWeight="Bold" Margin="20 0" Text="&lt;/uiElements:SphereUIElement3D.Transform&gt;"/>
+                            <TextBlock Foreground="{StaticResource UIElementTextColor}" FontSize="12" FontWeight="Bold" Margin="5 0" Text="&lt;/uiElements:SphereUIElement3D&gt;"/>
+
+                            <TextBlock Foreground="{StaticResource CodeTextColor}" FontSize="12" FontWeight="Bold" Margin="5 0" Text="Model3D sphere = Ab3d.Models.Model3DFactory.CreateSphere(25, 20, material);"/>
+                            <TextBlock Foreground="{StaticResource CodeTextColor}" FontSize="12" FontWeight="Bold" Margin="5 0" Text="sphere.Transfrom = new ScaleTransform3D(0, 0.4, 0.7);"/>
+
+                        </StackPanel>
+
+                    </StackPanel>
+
+                    <Rectangle Height="1" Fill="LightGray" Margin="0 5 0 0"/>
+                </StackPanel>
+
+                <!-- CONE -->
+                <StackPanel Orientation="Vertical">
+                    <!-- enclosed into StackPanel so it is not broken when printing -->
+
+
+                    <TextBlock FontWeight="Bold" FontSize="18" Margin="2 30 5 0" Text="Cone"/>
+
+                    <StackPanel Orientation="Horizontal">
+                        <Border Grid.Column="0" Grid.Row="1" Width="180" Height="120" BorderBrush="Black" BorderThickness="1" Margin="2">
+                            <Grid>
+                                <Viewport3D Name="ConeVisual3D_1" >
+                                    <visuals:WireGridVisual3D CenterPosition="0 0 0" Size="100 100" WidthCellsCount="10" HeightCellsCount="10" LineColor="#555555" LineThickness="2"/>
+                                    <visuals:ConeVisual3D BottomCenterPosition="0 0 0" TopRadius="15" BottomRadius="30" Height="30" Material="LightBlue"/>
+                                </Viewport3D>
+                                <cameras:SceneCamera Grid.Column="0" Grid.Row="1" Heading="30" Attitude="-30" IsDistancePercent="True" Distance="2" TargetViewport3DName="ConeVisual3D_1"/>
+                                <Border VerticalAlignment="Top" HorizontalAlignment="Left" Width="20" Height="20" Background="Silver">
+                                    <TextBlock FontFamily="Arial Black" FontSize="16" TextAlignment="Center" Width="17" Height="20" Text="1"/>
+                                </Border>
+                            </Grid>
+                        </Border>
+
+                        <Border Grid.Column="1" Grid.Row="1" Width="180" Height="120" BorderBrush="Black" BorderThickness="1" Margin="2">
+                            <Grid>
+                                <Viewport3D Name="ConeVisual3D_2">
+                                    <visuals:WireGridVisual3D CenterPosition="0 0 0" Size="100 100" WidthCellsCount="10" HeightCellsCount="10" LineColor="#555555" LineThickness="2"/>
+                                    <visuals:ConeVisual3D BottomCenterPosition="0 0 0" TopRadius="0" BottomRadius="20" Height="30" Material="LightBlue"/>
+                                </Viewport3D>
+                                <cameras:SceneCamera Heading="30" Attitude="-30" IsDistancePercent="True" Distance="2" TargetViewport3DName="ConeVisual3D_2"/>
+                                <Border VerticalAlignment="Top" HorizontalAlignment="Left" Width="20" Height="20" Background="Silver">
+                                    <TextBlock FontFamily="Arial Black" FontSize="16" TextAlignment="Center" Width="17" Height="20" Text="2"/>
+                                </Border>
+                            </Grid>
+                        </Border>
+
+                        <Border Grid.Column="1" Grid.Row="1" Width="180" Height="120" BorderBrush="Black" BorderThickness="1" Margin="2">
+                            <Grid>
+                                <Viewport3D Name="ConeVisual3D_3">
+                                    <visuals:WireGridVisual3D CenterPosition="0 0 0" Size="100 100" WidthCellsCount="10" HeightCellsCount="10" LineColor="#555555" LineThickness="2"/>
+                                    <visuals:ConeVisual3D TopRadius="10" BottomRadius="20" Height="30" Segments="6" IsSmooth="False" Material="LightBlue"/>
+                                </Viewport3D>
+                                <cameras:SceneCamera Heading="30" Attitude="-30" IsDistancePercent="True" Distance="2" TargetViewport3DName="ConeVisual3D_3"/>
+                                <Border VerticalAlignment="Top" HorizontalAlignment="Left" Width="20" Height="20" Background="Silver">
+                                    <TextBlock FontFamily="Arial Black" FontSize="16" TextAlignment="Center" Width="17" Height="20" Text="3"/>
+                                </Border>
+                            </Grid>
+                        </Border>
+
+                    </StackPanel>
+
+                    <Rectangle Height="1" Fill="LightGray" Margin="0 5 0 0"/>
+
+                    <StackPanel Orientation="Horizontal">
+
+                        <Border VerticalAlignment="Top" HorizontalAlignment="Left" Width="20" Height="20" Background="Silver">
+                            <TextBlock FontFamily="Arial Black" FontSize="16" TextAlignment="Center" Width="17" Height="20" Text="1"/>
+                        </Border>
+
+                        <StackPanel Orientation="Vertical" Margin="5 0 0 0">
+                            <TextBlock Foreground="{StaticResource VisualTextColor}" FontSize="12" FontWeight="Bold" Margin="5 0" Text="&lt;visuals:ConeVisual3D BottomCenterPosition=&quot;0 0 0&quot; TopRadius=&quot;15&quot; BottomRadius=&quot;30&quot; Height=&quot;30&quot; Material=&quot;LightBlue&quot;/&gt;"/>
+                            <TextBlock Foreground="{StaticResource UIElementTextColor}" FontSize="12" FontWeight="Bold" Margin="5 0" Text="&lt;uiElements:ConeUIElement3D BottomCenterPosition=&quot;0 0 0&quot; TopRadius=&quot;15&quot; BottomRadius=&quot;30&quot; Height=&quot;30&quot; Material=&quot;LightBlue&quot;/&gt;"/>
+                            <TextBlock Foreground="{StaticResource CodeTextColor}" FontSize="12" FontWeight="Bold" Margin="5 0" Text="Ab3d.Models.Model3DFactory.CreateCone(new Point3D(0, 0, 0), 15, 30, 30, 30, true, material)"/>
+                        </StackPanel>
+
+                    </StackPanel>
+
+                    <Rectangle Height="1" Fill="LightGray" Margin="0 5 0 0"/>
+
+                    <StackPanel Orientation="Horizontal">
+
+                        <Border VerticalAlignment="Top" HorizontalAlignment="Left" Width="20" Height="20" Background="Silver">
+                            <TextBlock FontFamily="Arial Black" FontSize="16" TextAlignment="Center" Width="17" Height="20" Text="2"/>
+                        </Border>
+
+                        <StackPanel Orientation="Vertical" Margin="5 0 0 0">
+                            <TextBlock Foreground="{StaticResource VisualTextColor}" FontSize="12" FontWeight="Bold" Margin="5 0" Text="&lt;visuals:ConeVisual3D BottomCenterPosition=&quot;0 0 0&quot; TopRadius=&quot;0&quot; BottomRadius=&quot;20&quot; Height=&quot;30&quot; Material=&quot;LightBlue&quot;/&gt;"/>
+                            <TextBlock Foreground="{StaticResource UIElementTextColor}" FontSize="12" FontWeight="Bold" Margin="5 0" Text="&lt;uiElements:ConeUIElement3D BottomCenterPosition=&quot;0 0 0&quot; TopRadius=&quot;0&quot; BottomRadius=&quot;20&quot; Height=&quot;30&quot; Material=&quot;LightBlue&quot;/&gt;"/>
+                            <TextBlock Foreground="{StaticResource CodeTextColor}" FontSize="12" FontWeight="Bold" Margin="5 0" Text="Ab3d.Models.Model3DFactory.CreateCone(new Point3D(0, 0, 0), 0, 20, 30, 30, true, material)"/>
+                        </StackPanel>
+
+                    </StackPanel>
+
+                    <Rectangle Height="1" Fill="LightGray" Margin="0 5 0 0"/>
+
+                    <StackPanel Orientation="Horizontal">
+
+                        <Border VerticalAlignment="Top" HorizontalAlignment="Left" Width="20" Height="20" Background="Silver">
+                            <TextBlock FontFamily="Arial Black" FontSize="16" TextAlignment="Center" Width="17" Height="20" Text="3"/>
+                        </Border>
+
+                        <StackPanel Orientation="Vertical" Margin="5 0 0 0">
+                            <TextBlock Foreground="{StaticResource VisualTextColor}" FontSize="12" FontWeight="Bold" Margin="5 0" Text="&lt;visuals:ConeVisual3D TopRadius=&quot;10&quot; BottomRadius=&quot;20&quot; Height=&quot;30&quot; Segments=&quot;6&quot; IsSmooth=&quot;False&quot; Material=&quot;LightBlue&quot;/&gt;"/>
+                            <TextBlock Foreground="{StaticResource UIElementTextColor}" FontSize="12" FontWeight="Bold" Margin="5 0" Text="&lt;uiElements:ConeUIElement3D TopRadius=&quot;10&quot; BottomRadius=&quot;20&quot; Height=&quot;30&quot; Segments=&quot;6&quot; IsSmooth=&quot;False&quot; Material=&quot;LightBlue&quot;/&gt;"/>
+                            <TextBlock Foreground="{StaticResource CodeTextColor}" FontSize="12" FontWeight="Bold" Margin="5 0" Text="Ab3d.Models.Model3DFactory.CreateCone(new Point3D(0, 0, 0), 10, 20, 30, 6, false, material)"/>
+                        </StackPanel>
+
+                    </StackPanel>
+
+                    <Rectangle Height="1" Fill="LightGray" Margin="0 5 0 0"/>
+
+                </StackPanel>
+
+
+            </StackPanel>
+            <StackPanel Name="SecondPage" Margin="20 0">
+
+
+                <!-- PYRAMID -->
+                <StackPanel Orientation="Vertical">
+                    <!-- enclosed into StackPanel so it is not broken when printing -->
+
+
+                    <TextBlock FontWeight="Bold" FontSize="18" Margin="2 30 5 0" Text="Pyramid"/>
+
+                    <StackPanel Orientation="Horizontal">
+                        <Border Grid.Column="0" Grid.Row="1" Width="180" Height="120" BorderBrush="Black" BorderThickness="1" Margin="2">
+                            <Grid>
+                                <Viewport3D Name="PyramidVisual3D_1" >
+                                    <visuals:WireGridVisual3D CenterPosition="0 0 0" Size="100 100" WidthCellsCount="10" HeightCellsCount="10" LineColor="#555555" LineThickness="2"/>
+                                    <visuals:PyramidVisual3D BottomCenterPosition="0 0 0" Size="40 30 40" Material="LightBlue"/>
+                                </Viewport3D>
+                                <cameras:SceneCamera Grid.Column="0" Grid.Row="1" Heading="30" Attitude="-30" IsDistancePercent="True" Distance="2" TargetViewport3DName="PyramidVisual3D_1"/>
+                                <Border VerticalAlignment="Top" HorizontalAlignment="Left" Width="20" Height="20" Background="Silver">
+                                    <TextBlock FontFamily="Arial Black" FontSize="16" TextAlignment="Center" Width="17" Height="20" Text="1"/>
+                                </Border>
+                            </Grid>
+                        </Border>
+
+                    </StackPanel>
+
+                    <Rectangle Height="1" Fill="LightGray" Margin="0 5 0 0"/>
+
+                    <StackPanel Orientation="Horizontal">
+
+                        <Border VerticalAlignment="Top" HorizontalAlignment="Left" Width="20" Height="20" Background="Silver">
+                            <TextBlock FontFamily="Arial Black" FontSize="16" TextAlignment="Center" Width="17" Height="20" Text="1"/>
+                        </Border>
+
+                        <StackPanel Orientation="Vertical" Margin="5 0 0 0">
+                            <TextBlock Foreground="{StaticResource VisualTextColor}" FontSize="12" FontWeight="Bold" Margin="5 0" Text="&lt;visuals:PyramidVisual3D BottomCenterPosition=&quot;0 0 0&quot; Size=&quot;40 30 40&quot; Material=&quot;LightBlue&quot;/&gt;"/>
+                            <TextBlock Foreground="{StaticResource UIElementTextColor}" FontSize="12" FontWeight="Bold" Margin="5 0" Text="&lt;uiElements:PyramidUIElement3D BottomCenterPosition=&quot;0 0 0&quot; Size=&quot;40 30 40&quot; Material=&quot;LightBlue&quot;/&gt;"/>
+                            <TextBlock Foreground="{StaticResource CodeTextColor}" FontSize="12" FontWeight="Bold" Margin="5 0" Text="Ab3d.Models.Model3DFactory.CreatePyramid(new Point3D(0, 0, 0), new Size3D(40, 30, 40), material)"/>
+                        </StackPanel>
+
+                    </StackPanel>
+
+                    <Rectangle Height="1" Fill="LightGray" Margin="0 5 0 0"/>
+
+                </StackPanel>
+
+
+                <!-- CYLINDER -->
+                <StackPanel Orientation="Vertical">
+                    <!-- enclosed into StackPanel so it is not broken when printing -->
+
+
+                    <TextBlock FontWeight="Bold" FontSize="18" Margin="2 30 5 0" Text="Cylinder"/>
+
+                    <StackPanel Orientation="Horizontal">
+                        <Border Grid.Column="0" Grid.Row="1" Width="180" Height="120" BorderBrush="Black" BorderThickness="1" Margin="2">
+                            <Grid>
+                                <Viewport3D Name="CylinderVisual3D_1" >
+                                    <visuals:WireGridVisual3D CenterPosition="0 0 0" Size="100 100" WidthCellsCount="10" HeightCellsCount="10" LineColor="#555555" LineThickness="2"/>
+                                    <visuals:CylinderVisual3D BottomCenterPosition="0 0 0" Radius="30" Height="30" Material="LightBlue"/>
+                                </Viewport3D>
+                                <cameras:SceneCamera Grid.Column="0" Grid.Row="1" Heading="30" Attitude="-30" IsDistancePercent="True" Distance="2" TargetViewport3DName="CylinderVisual3D_1"/>
+                                <Border VerticalAlignment="Top" HorizontalAlignment="Left" Width="20" Height="20" Background="Silver">
+                                    <TextBlock FontFamily="Arial Black" FontSize="16" TextAlignment="Center" Width="17" Height="20" Text="1"/>
+                                </Border>
+                            </Grid>
+                        </Border>
+
+                        <Border Grid.Column="1" Grid.Row="1" Width="180" Height="120" BorderBrush="Black" BorderThickness="1" Margin="2">
+                            <Grid>
+                                <Viewport3D Name="CylinderVisual3D_2">
+                                    <visuals:WireGridVisual3D CenterPosition="0 0 0" Size="100 100" WidthCellsCount="10" HeightCellsCount="10" LineColor="#555555" LineThickness="2"/>
+                                    <visuals:CylinderVisual3D BottomCenterPosition="0 0 0" Radius="30" Height="30" Segments="20" IsSmooth="False" Material="LightBlue"/>
+                                </Viewport3D>
+                                <cameras:SceneCamera Heading="30" Attitude="-30" IsDistancePercent="True" Distance="2" TargetViewport3DName="CylinderVisual3D_2"/>
+                                <Border VerticalAlignment="Top" HorizontalAlignment="Left" Width="20" Height="20" Background="Silver">
+                                    <TextBlock FontFamily="Arial Black" FontSize="16" TextAlignment="Center" Width="17" Height="20" Text="2"/>
+                                </Border>
+                            </Grid>
+                        </Border>
+
+                        <Border Grid.Column="1" Grid.Row="1" Width="180" Height="120" BorderBrush="Black" BorderThickness="1" Margin="3">
+                            <Grid>
+                                <Viewport3D Name="CylinderVisual3D_3">
+                                    <visuals:WireGridVisual3D CenterPosition="0 0 0" Size="100 100" WidthCellsCount="10" HeightCellsCount="10" LineColor="#555555" LineThickness="2"/>
+                                    <visuals:CylinderVisual3D BottomCenterPosition="0 0 0" Radius="30" Height="10" Segments="3" IsSmooth="False" Material="LightBlue"/>
+                                </Viewport3D>
+                                <cameras:SceneCamera Heading="30" Attitude="-30" IsDistancePercent="True" Distance="2" TargetViewport3DName="CylinderVisual3D_3"/>
+                                <Border VerticalAlignment="Top" HorizontalAlignment="Left" Width="20" Height="20" Background="Silver">
+                                    <TextBlock FontFamily="Arial Black" FontSize="16" TextAlignment="Center" Width="17" Height="20" Text="2"/>
+                                </Border>
+                            </Grid>
+                        </Border>
+
+                    </StackPanel>
+
+                    <Rectangle Height="1" Fill="LightGray" Margin="0 5 0 0"/>
+
+                    <StackPanel Orientation="Horizontal">
+
+                        <Border VerticalAlignment="Top" HorizontalAlignment="Left" Width="20" Height="20" Background="Silver">
+                            <TextBlock FontFamily="Arial Black" FontSize="16" TextAlignment="Center" Width="17" Height="20" Text="1"/>
+                        </Border>
+
+                        <StackPanel Orientation="Vertical" Margin="5 0 0 0">
+                            <TextBlock Foreground="{StaticResource VisualTextColor}" FontSize="12" FontWeight="Bold" Margin="5 0" Text="&lt;visuals:CylinderVisual3D BottomCenterPosition=&quot;0 0 0&quot; Radius=&quot;30&quot; Height=&quot;30&quot; Material=&quot;LightBlue&quot;/&gt;"/>
+                            <TextBlock Foreground="{StaticResource UIElementTextColor}" FontSize="12" FontWeight="Bold" Margin="5 0" Text="&lt;uiElements:CylinderUIElement3D BottomCenterPosition=&quot;0 0 0&quot; Radius=&quot;30&quot; BottomRadius=&quot;30&quot; Height=&quot;30&quot; Material=&quot;LightBlue&quot;/&gt;"/>
+                            <TextBlock Foreground="{StaticResource CodeTextColor}" FontSize="12" FontWeight="Bold" Margin="5 0" Text="Ab3d.Models.Model3DFactory.CreateCylinder(new Point3D(0, 0, 0), 30, 30, 30, true, material)"/>
+                        </StackPanel>
+
+                    </StackPanel>
+
+                    <Rectangle Height="1" Fill="LightGray" Margin="0 5 0 0"/>
+
+                    <StackPanel Orientation="Horizontal">
+
+                        <Border VerticalAlignment="Top" HorizontalAlignment="Left" Width="20" Height="20" Background="Silver">
+                            <TextBlock FontFamily="Arial Black" FontSize="16" TextAlignment="Center" Width="17" Height="20" Text="2"/>
+                        </Border>
+
+                        <StackPanel Orientation="Vertical" Margin="5 0 0 0">
+                            <TextBlock Foreground="{StaticResource VisualTextColor}" FontSize="12" FontWeight="Bold" Margin="5 0" Text="&lt;visuals:CylinderVisual3D BottomCenterPosition=&quot;0 0 0&quot; Radius=&quot;30&quot; Height=&quot;30&quot; Segments=&quot;30&quot; IsSmooth=&quot;False&quot; Material=&quot;LightBlue&quot;/&gt;"/>
+                            <TextBlock Foreground="{StaticResource UIElementTextColor}" FontSize="12" FontWeight="Bold" Margin="5 0" Text="&lt;uiElements:CylinderUIElement3D BottomCenterPosition=&quot;0 0 0&quot; Radius=&quot;30&quot; Height=&quot;30&quot; Segments=&quot;30&quot; IsSmooth=&quot;False&quot; Material=&quot;LightBlue&quot;/&gt;"/>
+                            <TextBlock Foreground="{StaticResource CodeTextColor}" FontSize="12" FontWeight="Bold" Margin="5 0" Text="Ab3d.Models.Model3DFactory.CreateCylinder(new Point3D(0, 0, 0), 30, 30, 30, false, material)"/>
+                        </StackPanel>
+
+                    </StackPanel>
+
+                    <Rectangle Height="1" Fill="LightGray" Margin="0 5 0 0"/>
+
+                    <StackPanel Orientation="Horizontal">
+
+                        <Border VerticalAlignment="Top" HorizontalAlignment="Left" Width="20" Height="20" Background="Silver">
+                            <TextBlock FontFamily="Arial Black" FontSize="16" TextAlignment="Center" Width="17" Height="20" Text="3"/>
+                        </Border>
+
+                        <StackPanel Orientation="Vertical" Margin="5 0 0 0">
+                            <TextBlock Foreground="{StaticResource VisualTextColor}" FontSize="12" FontWeight="Bold" Margin="5 0" Text="&lt;visuals:CylinderVisual3D BottomCenterPosition=&quot;0 0 0&quot; Radius=&quot;30&quot; Height=&quot;10&quot; Segments=&quot;3&quot; IsSmooth=&quot;False&quot; Material=&quot;LightBlue&quot;/&gt;"/>
+                            <TextBlock Foreground="{StaticResource UIElementTextColor}" FontSize="12" FontWeight="Bold" Margin="5 0" Text="&lt;uiElements:CylinderUIElement3D BottomCenterPosition=&quot;0 0 0&quot; Radius=&quot;30&quot; Height=&quot;10&quot; Segments=&quot;3&quot; IsSmooth=&quot;False&quot; Material=&quot;LightBlue&quot;/&gt;"/>
+                            <TextBlock Foreground="{StaticResource CodeTextColor}" FontSize="12" FontWeight="Bold" Margin="5 0" Text="Ab3d.Models.Model3DFactory.CreateCylinder(new Point3D(0, 0, 0), 30, 10, 3, false, material)"/>
+                        </StackPanel>
+
+                    </StackPanel>
+
+                    <Rectangle Height="1" Fill="LightGray" Margin="0 5 0 0"/>
+
+                </StackPanel>
+
+                <!-- PLANE -->
+                <StackPanel Orientation="Vertical">
+                    <!-- enclosed into StackPanel so it is not broken when printing -->
+
+
+                    <TextBlock FontWeight="Bold" FontSize="18" Margin="2 30 5 0" Text="Plane"/>
+
+                    <StackPanel Orientation="Horizontal">
+                        <Border Grid.Column="0" Grid.Row="1" Width="180" Height="120" BorderBrush="Black" BorderThickness="1" Margin="2">
+                            <Grid>
+                                <Viewport3D Name="PlaneVisual3D_1" >
+                                    <visuals:WireGridVisual3D CenterPosition="0 0 0" Size="100 100" WidthCellsCount="10" HeightCellsCount="10" LineColor="#555555" LineThickness="2"/>
+                                    <visuals:HorizontalPlaneVisual3D CenterPosition="0 1 0" Size="40 40" Material="LightBlue"/>
+                                </Viewport3D>
+                                <cameras:SceneCamera Grid.Column="0" Grid.Row="1" Heading="30" Attitude="-30" IsDistancePercent="True" Distance="2" TargetViewport3DName="PlaneVisual3D_1"/>
+                                <Border VerticalAlignment="Top" HorizontalAlignment="Left" Width="20" Height="20" Background="Silver">
+                                    <TextBlock FontFamily="Arial Black" FontSize="16" TextAlignment="Center" Width="17" Height="20" Text="1"/>
+                                </Border>
+                            </Grid>
+                        </Border>
+
+                        <Border Grid.Column="1" Grid.Row="1" Width="180" Height="120" BorderBrush="Black" BorderThickness="1" Margin="2">
+                            <Grid>
+                                <Viewport3D Name="PlaneVisual3D_2">
+                                    <visuals:WireGridVisual3D CenterPosition="0 0 0" Size="100 100" WidthCellsCount="10" HeightCellsCount="10" LineColor="#555555" LineThickness="2"/>
+                                    <visuals:VerticalPlaneVisual3D Size="40 40" Material="LightBlue"/>
+                                </Viewport3D>
+                                <cameras:SceneCamera Heading="30" Attitude="-30" IsDistancePercent="True" Distance="2" TargetViewport3DName="PlaneVisual3D_2"/>
+                                <Border VerticalAlignment="Top" HorizontalAlignment="Left" Width="20" Height="20" Background="Silver">
+                                    <TextBlock FontFamily="Arial Black" FontSize="16" TextAlignment="Center" Width="17" Height="20" Text="2"/>
+                                </Border>
+                            </Grid>
+                        </Border>
+
+                        <Border Grid.Column="1" Grid.Row="1" Width="180" Height="120" BorderBrush="Black" BorderThickness="1" Margin="2">
+                            <Grid>
+                                <Viewport3D Name="PlaneVisual3D_3">
+                                    <visuals:WireGridVisual3D CenterPosition="0 0 0" Size="100 100" WidthCellsCount="10" HeightCellsCount="10" LineColor="#555555" LineThickness="2"/>
+                                    <visuals:PlaneVisual3D Size="40 40" Normal="-1 1 0" HeightDirection="1 1 0" Material="LightBlue"/>
+                                    <visuals:LineVisual3D StartPosition="0 0 0" EndPosition="-20 20 0" EndLineCap="ArrowAnchor" LineColor="Red" LineThickness="4"/>
+                                    <visuals:LineVisual3D StartPosition="-1 1 0" EndPosition="19 21 0" EndLineCap="ArrowAnchor" LineColor="Blue" LineThickness="4"/>
+                                </Viewport3D>
+                                <cameras:SceneCamera Heading="30" Attitude="-30" IsDistancePercent="True" Distance="2" TargetViewport3DName="PlaneVisual3D_3"/>
+                                <Border VerticalAlignment="Top" HorizontalAlignment="Left" Width="20" Height="20" Background="Silver">
+                                    <TextBlock FontFamily="Arial Black" FontSize="16" TextAlignment="Center" Width="17" Height="20" Text="3"/>
+                                </Border>
+                            </Grid>
+                        </Border>
+
+                        <Border Grid.Column="1" Grid.Row="1" Width="180" Height="120" BorderBrush="Black" BorderThickness="1" Margin="2">
+                            <Grid>
+                                <Viewport3D Name="PlaneVisual3D_4">
+                                    <visuals:WireGridVisual3D CenterPosition="0 0 0" Size="100 100" WidthCellsCount="10" HeightCellsCount="10" LineColor="#555555" LineThickness="2"/>
+                                    <visuals:PlaneVisual3D Size="40 40" Normal="0 0 1" HeightDirection="0.5 1 0" Material="LightBlue"/>
+                                    <visuals:LineVisual3D StartPosition="0 1 0" EndPosition="0 1 40" EndLineCap="ArrowAnchor" LineColor="Red" LineThickness="4"/>
+                                    <visuals:LineVisual3D StartPosition="0 0 1" EndPosition="10 20 1" EndLineCap="ArrowAnchor" LineColor="Blue" LineThickness="4"/>
+                                </Viewport3D>
+                                <cameras:SceneCamera Heading="30" Attitude="-30" IsDistancePercent="True" Distance="2" TargetViewport3DName="PlaneVisual3D_4"/>
+                                <Border VerticalAlignment="Top" HorizontalAlignment="Left" Width="20" Height="20" Background="Silver">
+                                    <TextBlock FontFamily="Arial Black" FontSize="16" TextAlignment="Center" Width="17" Height="20" Text="4"/>
+                                </Border>
+                            </Grid>
+                        </Border>
+                    </StackPanel>
+
+                    <Rectangle Height="1" Fill="LightGray" Margin="0 5 0 0"/>
+
+                    <StackPanel Orientation="Horizontal">
+
+                        <Border VerticalAlignment="Top" HorizontalAlignment="Left" Width="20" Height="20" Background="Silver">
+                            <TextBlock FontFamily="Arial Black" FontSize="16" TextAlignment="Center" Width="17" Height="20" Text="1"/>
+                        </Border>
+
+                        <StackPanel Orientation="Vertical" Margin="5 0 0 0">
+                            <TextBlock Foreground="{StaticResource VisualTextColor}" FontSize="12" FontWeight="Bold" Margin="5 0" Text="&lt;visuals:HorizontalPlaneVisual3D CenterPosition=&quot;0 0 0&quot; Size=&quot;40 40 40&quot; Material=&quot;LightBlue&quot;/&gt;"/>
+                            <TextBlock Foreground="{StaticResource UIElementTextColor}" FontSize="12" FontWeight="Bold" Margin="5 0" Text="&lt;uiElements:HorizontalPlaneUIElement3D CenterPosition=&quot;0 0 0&quot; Size=&quot;40 40 40&quot; Material=&quot;LightBlue&quot;/&gt;"/>
+                            <TextBlock Foreground="{StaticResource CodeTextColor}" FontSize="12" FontWeight="Bold" Margin="5 0" Text="Ab3d.Models.Model3DFactory.CreateHorizontalPlane(new Point3D(0, 0, 0), new Size3D(40, 40, 40), material)"/>
+                        </StackPanel>
+
+                    </StackPanel>
+
+                    <Rectangle Height="1" Fill="LightGray" Margin="0 5 0 0"/>
+
+                    <StackPanel Orientation="Horizontal">
+
+                        <Border VerticalAlignment="Top" HorizontalAlignment="Left" Width="20" Height="20" Background="Silver">
+                            <TextBlock FontFamily="Arial Black" FontSize="16" TextAlignment="Center" Width="17" Height="20" Text="2"/>
+                        </Border>
+
+                        <StackPanel Orientation="Vertical" Margin="5 0 0 0">
+                            <TextBlock Foreground="{StaticResource VisualTextColor}" FontSize="12" FontWeight="Bold" Margin="5 0" Text="&lt;visuals:VerticalPlaneVisual3D CenterPosition=&quot;0 0 0&quot; Size=&quot;40 40 40&quot; Material=&quot;LightBlue&quot;/&gt;"/>
+                            <TextBlock Foreground="{StaticResource UIElementTextColor}" FontSize="12" FontWeight="Bold" Margin="5 0" Text="&lt;uiElements:VerticalPlaneUIElement3D CenterPosition=&quot;0 0 0&quot; Size=&quot;40 40 40&quot; Material=&quot;LightBlue&quot;/&gt;"/>
+                            <TextBlock Foreground="{StaticResource CodeTextColor}" FontSize="12" FontWeight="Bold" Margin="5 0" Text="Ab3d.Models.Model3DFactory.CreateVerticalPlane(new Point3D(0, 0, 0), new Size3D(40, 40, 40), material)"/>
+                        </StackPanel>
+
+                    </StackPanel>
+
+                    <Rectangle Height="1" Fill="LightGray" Margin="0 5 0 0"/>
+
+                    <StackPanel Orientation="Horizontal">
+
+                        <Border VerticalAlignment="Top" HorizontalAlignment="Left" Width="20" Height="20" Background="Silver">
+                            <TextBlock FontFamily="Arial Black" FontSize="16" TextAlignment="Center" Width="17" Height="20" Text="3"/>
+                        </Border>
+
+                        <StackPanel Orientation="Vertical" Margin="5 0 0 0">
+                            <TextBlock Foreground="{StaticResource VisualTextColor}" FontSize="12" FontWeight="Bold" Margin="5 0">
+                        <Run>&lt;visuals:PlaneVisual3D CenterPosition=&quot;0 0 0&quot; Size=&quot;40 40 40&quot;</Run>
+                        <Run Foreground="Red">Normal="-1 1 0"</Run>
+                        <Run Foreground="Blue">HeightDirection="1 1 0"</Run>
+                        <Run>Material=&quot;LightBlue&quot;/&gt;</Run>
+                            </TextBlock>
+
+                            <TextBlock Foreground="{StaticResource UIElementTextColor}" FontSize="12" FontWeight="Bold" Margin="5 0">
+                        <Run>&lt;uiElements:PlaneUIElement3D CenterPosition=&quot;0 0 0&quot; Size=&quot;40 40 40&quot;</Run>
+                        <Run Foreground="Red">Normal="-1 1 0"</Run>
+                        <Run Foreground="Blue">HeightDirection="1 1 0"</Run>
+                        <Run>Material=&quot;LightBlue&quot;/&gt;</Run>
+                            </TextBlock>
+
+                            <TextBlock Foreground="{StaticResource CodeTextColor}" FontSize="12" FontWeight="Bold" Margin="5 0">
+                        <Run>Ab3d.Models.Model3DFactory.CreatePlane(new Point3D(0, 0, 0), new Size3D(40, 40, 40), new Vector3D</Run>
+                        <Run Foreground="Red">(-1, 1, 0)</Run>
+                        <Run>, new Vector3D</Run>
+                        <Run Foreground="Blue">(1, 1, 0)</Run>
+                        <Run>, material)</Run>
+                            </TextBlock>
+                        </StackPanel>
+
+                    </StackPanel>
+
+                    <Rectangle Height="1" Fill="LightGray" Margin="0 5 0 0"/>
+
+                    <StackPanel Orientation="Horizontal">
+
+                        <Border VerticalAlignment="Top" HorizontalAlignment="Left" Width="20" Height="20" Background="Silver">
+                            <TextBlock FontFamily="Arial Black" FontSize="16" TextAlignment="Center" Width="17" Height="20" Text="4"/>
+                        </Border>
+
+                        <StackPanel Orientation="Vertical" Margin="5 0 0 0">
+                            <TextBlock Foreground="{StaticResource VisualTextColor}" FontSize="12" FontWeight="Bold" Margin="5 0">
+                        <Run>&lt;visuals:PlaneVisual3D CenterPosition=&quot;0 0 0&quot; Size=&quot;40 40 40&quot;</Run>
+                        <Run Foreground="Red">Normal="0 0 1"</Run>
+                        <Run Foreground="Blue">HeightDirection="0.5 1 0"</Run>
+                        <Run>Material=&quot;LightBlue&quot;/&gt;</Run>
+                            </TextBlock>
+
+                            <TextBlock Foreground="{StaticResource UIElementTextColor}" FontSize="12" FontWeight="Bold" Margin="5 0">
+                        <Run>&lt;uiElements:PlaneUIElement3D CenterPosition=&quot;0 0 0&quot; Size=&quot;40 40 40&quot;</Run>
+                        <Run Foreground="Red">Normal="0 0 1"</Run>
+                        <Run Foreground="Blue">HeightDirection="0.5 1 0"</Run>
+                        <Run>Material=&quot;LightBlue&quot;/&gt;</Run>
+                            </TextBlock>
+
+                            <TextBlock Foreground="{StaticResource CodeTextColor}" FontSize="12" FontWeight="Bold" Margin="5 0">
+                        <Run>Ab3d.Models.Model3DFactory.CreatePlane(new Point3D(0, 0, 0), new Size3D(40, 40, 40), new Vector3D</Run>
+                        <Run Foreground="Red">(0, 0, 1)</Run>
+                        <Run>, new Vector3D(</Run>
+                        <Run Foreground="Blue">(0.5, 1, 0)</Run>
+                        <Run>, material)</Run>
+                            </TextBlock>
+                        </StackPanel>
+
+                    </StackPanel>
+
+                    <Rectangle Height="1" Fill="LightGray" Margin="0 5 0 0"/>
+
+                </StackPanel>
+
+
+                <!-- CIRCLE -->
+                <StackPanel Orientation="Vertical">
+                    <!-- enclosed into StackPanel so it is not broken when printing -->
+
+                    <TextBlock FontWeight="Bold" FontSize="18" Margin="2 30 5 0" Text="Circle"/>
+
+                    <StackPanel Orientation="Horizontal">
+                        <Border Grid.Column="0" Grid.Row="1" Width="180" Height="120" BorderBrush="Black" BorderThickness="1" Margin="2">
+                            <Grid>
+                                <Viewport3D Name="CircleVisual3D_1" >
+                                    <visuals:WireGridVisual3D CenterPosition="0 0 0" Size="100 100" WidthCellsCount="10" HeightCellsCount="10" LineColor="#555555" LineThickness="2"/>
+                                    <visuals:CircleVisual3D CenterPosition="0 1 0" Radius="20" Normal="0 1 0" UpDirection="0 0 -1" Material="LightBlue"/>
+                                    <visuals:LineVisual3D StartPosition="0 1 0" EndPosition="0 31 0" EndLineCap="ArrowAnchor" LineColor="Red" LineThickness="4"/>
+                                    <visuals:LineVisual3D StartPosition="0 1 0" EndPosition="0 1 -30" EndLineCap="ArrowAnchor" LineColor="Blue" LineThickness="4"/>
+                                </Viewport3D>
+                                <cameras:SceneCamera Grid.Column="0" Grid.Row="1" Heading="30" Attitude="-30" IsDistancePercent="True" Distance="2" TargetViewport3DName="CircleVisual3D_1"/>
+                                <Border VerticalAlignment="Top" HorizontalAlignment="Left" Width="20" Height="20" Background="Silver">
+                                    <TextBlock FontFamily="Arial Black" FontSize="16" TextAlignment="Center" Width="17" Height="20" Text="1"/>
+                                </Border>
+                            </Grid>
+                        </Border>
+
+                        <Border Grid.Column="1" Grid.Row="1" Width="180" Height="120" BorderBrush="Black" BorderThickness="1" Margin="2">
+                            <Grid>
+                                <Viewport3D Name="CircleVisual3D_2">
+                                    <visuals:WireGridVisual3D CenterPosition="0 0 0" Size="100 100" WidthCellsCount="10" HeightCellsCount="10" LineColor="#555555" LineThickness="2"/>
+                                    <visuals:CircleVisual3D Radius="20" Normal="0 0 1" UpDirection="0 1 0" Material="LightBlue"/>
+                                    <visuals:LineVisual3D StartPosition="0 0 1" EndPosition="0 1 40" EndLineCap="ArrowAnchor" LineColor="Red" LineThickness="4"/>
+                                    <visuals:LineVisual3D StartPosition="0 0 1" EndPosition="0 31 0" EndLineCap="ArrowAnchor" LineColor="Blue" LineThickness="4"/>
+                                </Viewport3D>
+                                <cameras:SceneCamera Heading="30" Attitude="-30" IsDistancePercent="True" Distance="2" TargetViewport3DName="CircleVisual3D_2"/>
+                                <Border VerticalAlignment="Top" HorizontalAlignment="Left" Width="20" Height="20" Background="Silver">
+                                    <TextBlock FontFamily="Arial Black" FontSize="16" TextAlignment="Center" Width="17" Height="20" Text="2"/>
+                                </Border>
+                            </Grid>
+                        </Border>
+
+                        <Border Grid.Column="1" Grid.Row="1" Width="180" Height="120" BorderBrush="Black" BorderThickness="1" Margin="2">
+                            <Grid>
+                                <Viewport3D Name="CircleVisual3D_3">
+                                    <visuals:WireGridVisual3D CenterPosition="0 0 0" Size="100 100" WidthCellsCount="10" HeightCellsCount="10" LineColor="#555555" LineThickness="2"/>
+                                    <visuals:CircleVisual3D Radius="20" Normal="-1 1 0" UpDirection="1 1 0" Material="LightBlue"/>
+                                    <visuals:LineVisual3D StartPosition="0 0 0" EndPosition="-20 20 0" EndLineCap="ArrowAnchor" LineColor="Red" LineThickness="4"/>
+                                    <visuals:LineVisual3D StartPosition="-1 1 0" EndPosition="19 21 0" EndLineCap="ArrowAnchor" LineColor="Blue" LineThickness="4"/>
+                                </Viewport3D>
+                                <cameras:SceneCamera Heading="30" Attitude="-30" IsDistancePercent="True" Distance="2" TargetViewport3DName="CircleVisual3D_3"/>
+                                <Border VerticalAlignment="Top" HorizontalAlignment="Left" Width="20" Height="20" Background="Silver">
+                                    <TextBlock FontFamily="Arial Black" FontSize="16" TextAlignment="Center" Width="17" Height="20" Text="3"/>
+                                </Border>
+                            </Grid>
+                        </Border>
+
+                        <Border Grid.Column="1" Grid.Row="1" Width="180" Height="120" BorderBrush="Black" BorderThickness="1" Margin="2">
+                            <Grid>
+                                <Viewport3D Name="CircleVisual3D_4">
+                                    <visuals:WireGridVisual3D CenterPosition="0 0 0" Size="100 100" WidthCellsCount="10" HeightCellsCount="10" LineColor="#555555" LineThickness="2"/>
+                                    <visuals:CircleVisual3D Radius="30" Normal="0 0 1" UpDirection="0.5 1 0" Segments="5" Material="LightBlue"/>
+                                    <visuals:LineVisual3D StartPosition="0 1 0" EndPosition="0 1 40" EndLineCap="ArrowAnchor" LineColor="Red" LineThickness="4"/>
+                                    <visuals:LineVisual3D StartPosition="0 0 1" EndPosition="15 30 1" EndLineCap="ArrowAnchor" LineColor="Blue" LineThickness="4"/>
+                                </Viewport3D>
+                                <cameras:SceneCamera Heading="30" Attitude="-30" IsDistancePercent="True" Distance="2" TargetViewport3DName="CircleVisual3D_4"/>
+                                <Border VerticalAlignment="Top" HorizontalAlignment="Left" Width="20" Height="20" Background="Silver">
+                                    <TextBlock FontFamily="Arial Black" FontSize="16" TextAlignment="Center" Width="17" Height="20" Text="4"/>
+                                </Border>
+                            </Grid>
+                        </Border>
+                    </StackPanel>
+
+                    <Rectangle Height="1" Fill="LightGray" Margin="0 5 0 0"/>
+
+                    <StackPanel Orientation="Horizontal">
+
+                        <Border VerticalAlignment="Top" HorizontalAlignment="Left" Width="20" Height="20" Background="Silver">
+                            <TextBlock FontFamily="Arial Black" FontSize="16" TextAlignment="Center" Width="17" Height="20" Text="1"/>
+                        </Border>
+
+                        <StackPanel Orientation="Vertical" Margin="5 0 0 0">
+                            <TextBlock Foreground="{StaticResource VisualTextColor}" FontSize="12" FontWeight="Bold" Margin="5 0">
+                        <Run>&lt;visuals:CircleVisual3D CenterPosition=&quot;0 0 0&quot; Radius=&quot;20&quot;</Run>
+                        <Run Foreground="Red">Normal="0 1 0"</Run>
+                        <Run Foreground="Blue">UpDirection="0 0 -1"</Run>
+                        <Run>Material=&quot;LightBlue&quot;/&gt;</Run>
+                            </TextBlock>
+
+                            <TextBlock Foreground="{StaticResource UIElementTextColor}" FontSize="12" FontWeight="Bold" Margin="5 0">
+                        <Run>&lt;uiElements:CircleUIElement3D CenterPosition=&quot;0 0 0&quot; Radius=&quot;20&quot;</Run>
+                        <Run Foreground="Red">Normal="0 1 0"</Run>
+                        <Run Foreground="Blue">UpDirection="0 0 -1"</Run>
+                        <Run>Material=&quot;LightBlue&quot;/&gt;</Run>
+                            </TextBlock>
+
+                            <TextBlock Foreground="{StaticResource CodeTextColor}" FontSize="12" FontWeight="Bold" Margin="5 0">
+                        <Run>Ab3d.Models.Model3DFactory.CreateCircle(new Point3D(0, 0, 0), new Vector3</Run>
+                        <Run Foreground="Red">(0, 1, 0)</Run>
+                        <Run>, new Vector3D</Run>
+                        <Run Foreground="Blue">(0, 0, -1)</Run>
+                        <Run>, 20, 30, material)</Run>
+                            </TextBlock>
+                        </StackPanel>
+
+                    </StackPanel>
+
+                    <Rectangle Height="1" Fill="LightGray" Margin="0 5 0 0"/>
+
+                    <StackPanel Orientation="Horizontal">
+
+                        <Border VerticalAlignment="Top" HorizontalAlignment="Left" Width="20" Height="20" Background="Silver">
+                            <TextBlock FontFamily="Arial Black" FontSize="16" TextAlignment="Center" Width="17" Height="20" Text="2"/>
+                        </Border>
+
+                        <StackPanel Orientation="Vertical" Margin="5 0 0 0">
+                            <TextBlock Foreground="{StaticResource VisualTextColor}" FontSize="12" FontWeight="Bold" Margin="5 0">
+                        <Run>&lt;visuals:CircleVisual3D CenterPosition=&quot;0 0 0&quot; Radius=&quot;20&quot;</Run>
+                        <Run Foreground="Red">Normal="0 0 1"</Run>
+                        <Run Foreground="Blue">UpDirection="0 1 0"</Run>
+                        <Run>Material=&quot;LightBlue&quot;/&gt;</Run>
+                            </TextBlock>
+
+                            <TextBlock Foreground="{StaticResource UIElementTextColor}" FontSize="12" FontWeight="Bold" Margin="5 0">
+                        <Run>&lt;uiElements:CircleUIElement3D CenterPosition=&quot;0 0 0&quot; Radius=&quot;20&quot;</Run>
+                        <Run Foreground="Red">Normal="0 0 1"</Run>
+                        <Run Foreground="Blue">UpDirection="0 1 0"</Run>
+                        <Run>Material=&quot;LightBlue&quot;/&gt;</Run>
+                            </TextBlock>
+
+                            <TextBlock Foreground="{StaticResource CodeTextColor}" FontSize="12" FontWeight="Bold" Margin="5 0">
+                        <Run>Ab3d.Models.Model3DFactory.CreateCircle(new Point3D(0, 0, 0), new Vector3</Run>
+                        <Run Foreground="Red">(0, 0, 1)</Run>
+                        <Run>, new Vector3D</Run>
+                        <Run Foreground="Blue">(0, 1, 0)</Run>
+                        <Run>, 20, 30, material)</Run>
+                            </TextBlock>
+                        </StackPanel>
+
+                    </StackPanel>
+
+                    <Rectangle Height="1" Fill="LightGray" Margin="0 5 0 0"/>
+
+                    <StackPanel Orientation="Horizontal">
+
+                        <Border VerticalAlignment="Top" HorizontalAlignment="Left" Width="20" Height="20" Background="Silver">
+                            <TextBlock FontFamily="Arial Black" FontSize="16" TextAlignment="Center" Width="17" Height="20" Text="3"/>
+                        </Border>
+
+                        <StackPanel Orientation="Vertical" Margin="5 0 0 0">
+                            <TextBlock Foreground="{StaticResource VisualTextColor}" FontSize="12" FontWeight="Bold" Margin="5 0">
+                        <Run>&lt;visuals:CircleVisual3D CenterPosition=&quot;0 0 0&quot; Radius=&quot;20&quot;</Run>
+                        <Run Foreground="Red">Normal="-1 1 0"</Run>
+                        <Run Foreground="Blue">UpDirection="1 1 0"</Run>
+                        <Run>Material=&quot;LightBlue&quot;/&gt;</Run>
+                            </TextBlock>
+
+                            <TextBlock Foreground="{StaticResource UIElementTextColor}" FontSize="12" FontWeight="Bold" Margin="5 0">
+                        <Run>&lt;uiElements:CircleUIElement3D CenterPosition=&quot;0 0 0&quot; Radius=&quot;20&quot;</Run>
+                        <Run Foreground="Red">Normal="-1 1 0"</Run>
+                        <Run Foreground="Blue">UpDirection="1 1 0"</Run>
+                        <Run>Material=&quot;LightBlue&quot;/&gt;</Run>
+                            </TextBlock>
+
+                            <TextBlock Foreground="{StaticResource CodeTextColor}" FontSize="12" FontWeight="Bold" Margin="5 0">
+                        <Run>Ab3d.Models.Model3DFactory.CreateCircle(new Point3D(0, 0, 0), new Vector3</Run>
+                        <Run Foreground="Red">(-1, 1, 0)</Run>
+                        <Run>, new Vector3D</Run>
+                        <Run Foreground="Blue">(1, 1, 0)</Run>
+                        <Run>, 20, 30, material)</Run>
+                            </TextBlock>
+                        </StackPanel>
+
+                    </StackPanel>
+
+                    <Rectangle Height="1" Fill="LightGray" Margin="0 5 0 0"/>
+
+                    <StackPanel Orientation="Horizontal">
+
+                        <Border VerticalAlignment="Top" HorizontalAlignment="Left" Width="20" Height="20" Background="Silver">
+                            <TextBlock FontFamily="Arial Black" FontSize="16" TextAlignment="Center" Width="17" Height="20" Text="4"/>
+                        </Border>
+
+                        <StackPanel Orientation="Vertical" Margin="5 0 0 0">
+                            <TextBlock Foreground="{StaticResource VisualTextColor}" FontSize="12" FontWeight="Bold" Margin="5 0">
+                        <Run>&lt;visuals:CircleVisual3D CenterPosition=&quot;0 0 0&quot; Radius=&quot;30&quot;</Run>
+                        <Run Foreground="Red">Normal="0 0 1"</Run>
+                        <Run Foreground="Blue">UpDirection="0.5 1 0"</Run>
+                        <Run>Segments=&quot;5&quot; Material=&quot;LightBlue&quot;/&gt;</Run>
+                            </TextBlock>
+
+                            <TextBlock Foreground="{StaticResource UIElementTextColor}" FontSize="12" FontWeight="Bold" Margin="5 0">
+                        <Run>&lt;uiElements:CircleUIElement3D CenterPosition=&quot;0 0 0&quot; Radius=&quot;30&quot;</Run>
+                        <Run Foreground="Red">Normal="0 0 1"</Run>
+                        <Run Foreground="Blue">UpDirection="0.5 1 0"</Run>
+                        <Run>Segments=&quot;5&quot; Material=&quot;LightBlue&quot;/&gt;</Run>
+                            </TextBlock>
+
+                            <TextBlock Foreground="{StaticResource CodeTextColor}" FontSize="12" FontWeight="Bold" Margin="5 0">
+                        <Run>Ab3d.Models.Model3DFactory.CreateCircle(new Point3D(0, 0, 0), new Vector3</Run>
+                        <Run Foreground="Red">(0, 0, 1)</Run>
+                        <Run>, new Vector3D</Run>
+                        <Run Foreground="Blue">(0.5, 1, 0)</Run>
+                        <Run>, 30, 5, material)</Run>
+                            </TextBlock>
+                        </StackPanel>
+
+                    </StackPanel>
+
+                    <Rectangle Height="1" Fill="LightGray" Margin="0 5 0 0"/>
+                </StackPanel>
+
+                <StackPanel Name="CopyrightPanel" Orientation="Vertical" Margin="0 30 0 0">
+                    <Rectangle Height="1" Width="500" HorizontalAlignment="Left" Fill="Black"/>
+                    <TextBlock Text="Copyright © AB4D d.o.o. (www.ab4d.com) All Rights Reserved."/>
+                </StackPanel>
+            </StackPanel>
+        </StackPanel>
+    </ScrollViewer>
+</Page>

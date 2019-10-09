@@ -1,0 +1,519 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Ab3d.PowerToys.Input</name>
+    </assembly>
+    <members>
+        <member name="T:Ab3d.Common.Mouse3DButtonEventHandler">
+            <summary>
+            Mouse3DButtonEventHandler delegate is used for <see cref="E:Ab3d.Utilities.Mouse3DConnector.ButtonPressed"/> and <see cref="E:Ab3d.Utilities.Mouse3DConnector.ButtonReleased"/> in <see cref="T:Ab3d.Utilities.Mouse3DConnector"/>.
+            </summary>
+            <param name="sender">sender</param>
+            <param name="e">Mouse3DButtonEventArgs</param>
+        </member>
+        <member name="T:Ab3d.Common.Mouse3DButtonEventArgs">
+            <summary>
+            Mouse3DButtonEventArgs is used in for <see cref="E:Ab3d.Utilities.Mouse3DConnector.ButtonPressed"/> and <see cref="E:Ab3d.Utilities.Mouse3DConnector.ButtonReleased"/> in <see cref="T:Ab3d.Utilities.Mouse3DConnector"/>.
+            </summary>
+        </member>
+        <member name="P:Ab3d.Common.Mouse3DButtonEventArgs.SpwEvent">
+            <summary>
+            Gets a original SiApp.SiSpwEvent event data
+            </summary>
+        </member>
+        <member name="P:Ab3d.Common.Mouse3DButtonEventArgs.FunctionNumber">
+            <summary>
+            Gets a function or button number
+            </summary>
+        </member>
+        <member name="P:Ab3d.Common.Mouse3DButtonEventArgs.ActionName">
+            <summary>
+            Gets an action name
+            </summary>
+        </member>
+        <member name="M:Ab3d.Common.Mouse3DButtonEventArgs.#ctor(System.Int32,System.String,_3Dconnexion.SiApp.SiSpwEvent)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="functionNumber">function or button number</param>
+            <param name="actionName">action name</param>
+            <param name="spwEvent">original SiApp.SiSpwEvent event data</param>
+        </member>
+        <member name="T:Ab3d.Common.XInputControllerButtonChangedHandler">
+            <summary>
+            XInputControllerButtonChangedHandler delegate is used for <see cref="E:Ab3d.Controls.XInputCameraController.ButtonChanged"/> event.
+            </summary>
+            <param name="sender">sender</param>
+            <param name="e">XInputControllerButtonChangedEventArgs</param>
+        </member>
+        <member name="T:Ab3d.Common.XInputControllerButtonChangedEventArgs">
+            <summary>
+            XInputControllerButtonChangedEventArgs event args is used in <see cref="T:Ab3d.Controls.XInputCameraController"/> class for <see cref="E:Ab3d.Controls.XInputCameraController.ButtonChanged"/> event.
+            It is possible to change the value of the <see cref="P:Ab3d.Common.XInputControllerButtonChangedEventArgs.NewButtonFlags"/> property before processing the change of buttons in XInputCameraController.
+            It is also possible to prevent processing the change of buttons in XInputCameraController with setting <see cref="P:Ab3d.Common.XInputControllerButtonChangedEventArgs.IsHandled"/> to true. 
+            </summary>
+        </member>
+        <member name="P:Ab3d.Common.XInputControllerButtonChangedEventArgs.OldButtonFlags">
+            <summary>
+            Gets previous value of the controller button flags.
+            </summary>
+        </member>
+        <member name="P:Ab3d.Common.XInputControllerButtonChangedEventArgs.NewButtonFlags">
+            <summary>
+            Gets current value of the controller button flags.
+            This value can be changed before it is processed by XInputCameraController.
+            </summary>
+        </member>
+        <member name="P:Ab3d.Common.XInputControllerButtonChangedEventArgs.IsHandled">
+            <summary>
+            Boolean value that can be set to true to prevent processing the change event by XInputCameraController.
+            </summary>
+        </member>
+        <member name="M:Ab3d.Common.XInputControllerButtonChangedEventArgs.#ctor">
+            <summary>
+            Constructor
+            </summary>
+        </member>
+        <member name="M:Ab3d.Common.XInputControllerButtonChangedEventArgs.#ctor(Ab3d.Common.GamepadButtonFlags,Ab3d.Common.GamepadButtonFlags)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="oldButtonFlags">old Button Flags</param>
+            <param name="newButtonFlags">new Button Flags</param>
+        </member>
+        <member name="T:Ab3d.Common.XInputControllerThumbChangedHandler">
+            <summary>
+            XInputControllerThumbChangedHandler delegate is used for <see cref="E:Ab3d.Controls.XInputCameraController.LeftThumbChanged"/> and <see cref="E:Ab3d.Controls.XInputCameraController.RightThumbChanged"/> events.
+            </summary>
+            <param name="sender">sender</param>
+            <param name="e">XInputControllerButtonChangedEventArgs</param>
+        </member>
+        <member name="T:Ab3d.Common.XInputControllerThumbChangedEventArgs">
+            <summary>
+            XInputControllerThumbChangedEventArgs event args is used in <see cref="T:Ab3d.Controls.XInputCameraController"/> class for <see cref="E:Ab3d.Controls.XInputCameraController.LeftThumbChanged"/> and <see cref="E:Ab3d.Controls.XInputCameraController.RightThumbChanged"/> events.
+            It is possible to change the value of <see cref="P:Ab3d.Common.XInputControllerThumbChangedEventArgs.NormalizedX"/> and <see cref="P:Ab3d.Common.XInputControllerThumbChangedEventArgs.NormalizedY"/> properties before processing the thumb change in XInputCameraController.
+            It is also possible to prevent processing the thumb change in XInputCameraController with setting <see cref="P:Ab3d.Common.XInputControllerThumbChangedEventArgs.IsHandled"/> to true. 
+            </summary>
+        </member>
+        <member name="P:Ab3d.Common.XInputControllerThumbChangedEventArgs.ThumbX">
+            <summary>
+            Original thumb x value
+            </summary>
+        </member>
+        <member name="P:Ab3d.Common.XInputControllerThumbChangedEventArgs.ThumbY">
+            <summary>
+            Original thumb y value
+            </summary>
+        </member>
+        <member name="P:Ab3d.Common.XInputControllerThumbChangedEventArgs.NormalizedX">
+            <summary>
+            Normalized thumb x value in range from 0 to 1.
+            This value can be changed before it is processed by XInputCameraController.
+            </summary>
+        </member>
+        <member name="P:Ab3d.Common.XInputControllerThumbChangedEventArgs.NormalizedY">
+            <summary>
+            Normalized thumb y value in range from 0 to 1.
+            This value can be changed before it is processed by XInputCameraController.
+            </summary>
+        </member>
+        <member name="P:Ab3d.Common.XInputControllerThumbChangedEventArgs.ElapsedSeconds">
+            <summary>
+            Number of seconds that elapsed from the last controller check.
+            </summary>
+        </member>
+        <member name="P:Ab3d.Common.XInputControllerThumbChangedEventArgs.IsHandled">
+            <summary>
+            Boolean value that can be set to true to prevent processing the change event by XInputCameraController.
+            </summary>
+        </member>
+        <member name="M:Ab3d.Common.XInputControllerThumbChangedEventArgs.#ctor">
+            <summary>
+            Constructor
+            </summary>
+        </member>
+        <member name="M:Ab3d.Common.XInputControllerThumbChangedEventArgs.#ctor(System.Int32,System.Int32,System.Double,System.Double,System.Double)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="thumbX">thumbX</param>
+            <param name="thumbY">thumbY</param>
+            <param name="normalizedX">normalizedX</param>
+            <param name="normalizedY">normalizedY</param>
+            <param name="elapsedSeconds">elapsedSeconds</param>
+        </member>
+        <member name="T:Ab3d.Controls.XInputCameraController">
+            <summary>
+            XInputCameraController is a camera controller that can be used to control the Ab3d.PowerToys camera with game controller that support XInput (for example XBOX game controller).
+            </summary>
+        </member>
+        <member name="P:Ab3d.Controls.XInputCameraController.IsControllerConnected">
+            <summary>
+            Gets a Boolean that specified is the controller with <see cref="P:Ab3d.Controls.XInputCameraController.ControllerIndex"/> index is currently connected.
+            See remarks for more info about checking and updating controller status.
+            </summary>
+            <remarks>
+            <para>
+            <b>IsControllerConnected</b> gets a Boolean that specified is the controller with <see cref="P:Ab3d.Controls.XInputCameraController.ControllerIndex"/> index is currently connected.
+            </para>
+            <para>
+            The value of IsControllerConnected property is updated in <see cref="M:Ab3d.Controls.XInputCameraController.CheckController(System.Boolean)"/> method.
+            When XInputCameraController is automatically checking the state of the contoller, then <see cref="M:Ab3d.Controls.XInputCameraController.CheckController(System.Boolean)"/> method is called from each Rendering event. 
+            Automatic state checking can be started with calling <see cref="M:Ab3d.Controls.XInputCameraController.StartCheckingController"/> method and stopped with calling <see cref="M:Ab3d.Controls.XInputCameraController.StopCheckingController"/> method.
+            When the XInputCameraController is loaded and the value of <see cref="P:Ab3d.Controls.XInputCameraController.AutomaticallyStartCheckingController"/> property is set to true, then the <see cref="M:Ab3d.Controls.XInputCameraController.StartCheckingController"/> method will be called.
+            </para>
+            </remarks>
+        </member>
+        <member name="P:Ab3d.Controls.XInputCameraController.ControllerIndex">
+            <summary>
+            ControllerIndex gets or sets an integer value from 0 to 3 and defines the index of the controller that we want to connect to.
+            </summary>
+        </member>
+        <member name="P:Ab3d.Controls.XInputCameraController.MovementSpeed">
+            <summary>
+            Gets or sets a double that specifies the speed of camera movement per second. Default value is 100 which moves that camera for 100 units in one second.
+            </summary>
+        </member>
+        <member name="P:Ab3d.Controls.XInputCameraController.RotationSpeed">
+            <summary>
+            Gets or sets a double that specifies the speed of camera rotation in degrees per second. Default value is 120 which rotates the camera for 120 degrees in one second.
+            </summary>
+        </member>
+        <member name="P:Ab3d.Controls.XInputCameraController.LeftThumbDeadZone">
+            <summary>
+            Gets or sets a controller dead-zone for the left thumb (see MSDN for more info).
+            </summary>
+        </member>
+        <member name="P:Ab3d.Controls.XInputCameraController.RightThumbDeadZone">
+            <summary>
+            Gets or sets a controller dead-zone for the right thumb (see MSDN for more info).
+            </summary>
+        </member>
+        <member name="P:Ab3d.Controls.XInputCameraController.InvertHeadingRotationDirection">
+            <summary>
+            Gets or sets a Boolean that specifies if the heading rotation direction is inverted.
+            </summary>
+        </member>
+        <member name="P:Ab3d.Controls.XInputCameraController.InvertAttitudeRotationDirection">
+            <summary>
+            Gets or sets a Boolean that specifies if the attitude rotation direction is inverted.
+            </summary>
+        </member>
+        <member name="P:Ab3d.Controls.XInputCameraController.InvertLeftAndRightMoveDirection">
+            <summary>
+            Gets or sets a Boolean that specifies if the left and right move direction is inverted (pressing left thumb right will decrees the camera position).
+            </summary>
+        </member>
+        <member name="P:Ab3d.Controls.XInputCameraController.MoveOnlyHorizontally">
+            <summary>
+            Gets or sets a Boolean that specifies if camera is moved only horizontally when moved with left thumb.
+            When MoveOnlyHorizontally is false and left thumb is moved forward, then the camera will move in the look direction (and user is looking down, then camera will also move down).
+            When MoveOnlyHorizontally is true the camera will move in the look direction but without changing y position - only on the horizontal plane.
+            Default value is true.
+            </summary>
+        </member>
+        <member name="P:Ab3d.Controls.XInputCameraController.RotateOnlyHorizontally">
+            <summary>
+            Gets or sets a Boolean that specifies if camera is rotated only horizontally.
+            When true, then only the value of Heading property is changed and the value of Attitude property is preserved (this can be used in virtual reality where camera attitude is controller only by the head mounted display).
+            Default value is false.
+            </summary>
+        </member>
+        <member name="P:Ab3d.Controls.XInputCameraController.MoveVerticallyWithDPadButtons">
+            <summary>
+            Gets or sets a Boolean that specifies if DPad Up and DPad Down buttons can be used to move camera up and down. 
+            When <see cref="P:Ab3d.Controls.XInputCameraController.MoveOnlyHorizontally"/> is true, the up direction is up vector (0, 1, 0); when MoveOnlyHorizontally is false, then the up direction is defined by camera's UpDirection.
+            Default value is true.
+            </summary>
+        </member>
+        <member name="P:Ab3d.Controls.XInputCameraController.AutomaticallyStartCheckingController">
+            <summary>
+            Gets or sets a Boolean that specifies if <see cref="M:Ab3d.Controls.XInputCameraController.StartCheckingController"/> method is automatically called when this XInputCameraController is loaded.
+            Default value is true.
+            </summary>
+        </member>
+        <member name="F:Ab3d.Controls.XInputCameraController.ControllerConnectedCheckInterval">
+            <summary>
+            Gets or sets a TimeSpan that defines how often the check if controller is connected is done.
+            Based on the MSDN, this should not be done on each frame but only after a few seconds. 
+            This value is used when <see cref="P:Ab3d.Controls.XInputCameraController.AutomaticallyStartCheckingController"/> is true or when <see cref="M:Ab3d.Controls.XInputCameraController.StartCheckingController"/> is called.
+            Default value is 2 seconds.
+            </summary>
+        </member>
+        <member name="E:Ab3d.Controls.XInputCameraController.IsConnectedChanged">
+            <summary>
+            IsConnectedChanged event is fired when controller connection is changed (controller is connected or disconnected).
+            To get the new controller connection state see the value of <see cref="P:Ab3d.Controls.XInputCameraController.IsControllerConnected"/>.
+            </summary>
+        </member>
+        <member name="E:Ab3d.Controls.XInputCameraController.LeftThumbChanged">
+            <summary>
+            LeftThumbChanged event is fired when left thumb is changed.
+            </summary>
+        </member>
+        <member name="E:Ab3d.Controls.XInputCameraController.RightThumbChanged">
+            <summary>
+            RightThumbChanged event is fired when right thumb is changed.
+            </summary>
+        </member>
+        <member name="E:Ab3d.Controls.XInputCameraController.ButtonChanged">
+            <summary>
+            ButtonChanged event is fired when any button state is changed.
+            </summary>
+        </member>
+        <member name="M:Ab3d.Controls.XInputCameraController.#ctor">
+            <summary>
+            Constructor
+            </summary>
+        </member>
+        <member name="M:Ab3d.Controls.XInputCameraController.StartCheckingController">
+            <summary>
+            StartCheckingController method starts checking game controller state and updates the camera accordingly.
+            If the controller is not connected, then this method starts periodic checking for any connected controller.
+            </summary>
+            <remarks>
+            <para>
+            StartCheckingController method subscribes to WPF's Rendering event and and starts checking game controller state and updates the camera accordingly.
+            If the controller is not connected, then this method starts periodic checking for any connected controller.
+            </para>
+            <para>
+            The period  check is done on interval that is defined by <see cref="F:Ab3d.Controls.XInputCameraController.ControllerConnectedCheckInterval"/>.
+            </para>
+            <para>
+            The period of checking if any controller is connected is done on interval that is defined by <see cref="F:Ab3d.Controls.XInputCameraController.ControllerConnectedCheckInterval"/>.
+            Based on the MSDN, this should not be done on each frame but only after a few seconds - therefore the default value of ControllerConnectedCheckInterval is set to 2 seconds.
+            </para>
+            <para>
+            If <see cref="P:Ab3d.Controls.XInputCameraController.AutomaticallyStartCheckingController"/> property is set to true (by default), then StartCheckingController method will be called in the XInputCameraController.Loaded event handler.
+            </para>
+            <para>
+            To stop checking call the <see cref="M:Ab3d.Controls.XInputCameraController.StopCheckingController"/> method.
+            </para>
+            </remarks>
+        </member>
+        <member name="M:Ab3d.Controls.XInputCameraController.StopCheckingController">
+            <summary>
+            StopCheckingController stops checking controller state with unsubscribing from Rendering event.
+            </summary>
+        </member>
+        <member name="M:Ab3d.Controls.XInputCameraController.CheckController(System.Boolean)">
+            <summary>
+            CheckController method checks the state of the controller and updates the IsControllerConnected property.
+            This method is automatically called from each Rendering event handler when XInputCameraController is automatically checking controller state - see <see cref="M:Ab3d.Controls.XInputCameraController.StartCheckingController"/> for more info.
+            </summary>
+            <param name="updateTargetCamera">When true and if the controller is connect, then the TargetCamera is updated based on the controller state; when false (by default) then only the state of the controller is get and the IsControllerConnected is updated.</param>
+        </member>
+        <member name="M:Ab3d.Controls.XInputCameraController.OnIsConnectedChanged">
+            <summary>
+            OnIsConnectedChanged
+            </summary>
+        </member>
+        <member name="M:Ab3d.Controls.XInputCameraController.OnLeftThumbChanged(Ab3d.Common.XInputControllerThumbChangedEventArgs)">
+            <summary>
+            OnLeftThumbChanged
+            </summary>
+            <param name="e">XInputControllerThumbChangedEventArgs</param>
+        </member>
+        <member name="M:Ab3d.Controls.XInputCameraController.OnRightThumbChanged(Ab3d.Common.XInputControllerThumbChangedEventArgs)">
+            <summary>
+            OnRightThumbChanged
+            </summary>
+            <param name="e">XInputControllerThumbChangedEventArgs</param>
+        </member>
+        <member name="M:Ab3d.Controls.XInputCameraController.OnButtonChanged(Ab3d.Common.XInputControllerButtonChangedEventArgs)">
+            <summary>
+            OnButtonChanged
+            </summary>
+            <param name="e">XInputControllerButtonChangedEventArgs</param>
+        </member>
+        <member name="T:Ab3d.Utilities.Mouse3DConnector">
+            <summary>
+            Mouse3DConnector class can be used to connect to 3D mouse from 3dconnexion company and to control the camera with the 3D mouse.
+            </summary>
+        </member>
+        <member name="P:Ab3d.Utilities.Mouse3DConnector.SiAppDeviceHandle">
+            <summary>
+            Gets a SiAppDeviceHandle
+            </summary>
+        </member>
+        <member name="T:Ab3d.Utilities.Mouse3DConnector.Mouse3DOperatingMode">
+            <summary>
+            Mouse3DOperatingMode defines the possible operating modes that defines how camera is rotated.
+            </summary>
+        </member>
+        <member name="F:Ab3d.Utilities.Mouse3DConnector.Mouse3DOperatingMode.ObjectMode">
+            <summary>
+            In ObjectMode navigation the user has the impression he is holding the object in his hand. 
+            The direction that the object moves needs is the same as the direction the user moves his hand, which is moving the devices cap. 
+            </summary>
+        </member>
+        <member name="F:Ab3d.Utilities.Mouse3DConnector.Mouse3DOperatingMode.CameraMode">
+            <summary>
+            In CameraMode navigation the user has the impression he is moving the camera.
+            In this mode the user moves and turns in the direction that the cap on the 3D Mouse moves.
+            This causes the objects displayed to move in the opposite direction to object mode described above.
+            </summary>
+        </member>
+        <member name="P:Ab3d.Utilities.Mouse3DConnector.OperatingMode">
+            <summary>
+            Gets or sets a <see cref="T:Ab3d.Utilities.Mouse3DConnector.Mouse3DOperatingMode"/>.
+            </summary>
+        </member>
+        <member name="P:Ab3d.Utilities.Mouse3DConnector.Camera">
+            <summary>
+            Gets or sets a Ab3d.PowerToys's camera that is controller by this Mouse3DConnector.
+            </summary>
+        </member>
+        <member name="P:Ab3d.Utilities.Mouse3DConnector.IsConnected">
+            <summary>
+            Gets a Boolean that specifies if a 3D mouse is connected.
+            </summary>
+        </member>
+        <member name="P:Ab3d.Utilities.Mouse3DConnector.LogAction">
+            <summary>
+            Gets or sets an Action that takes a string as parameter and is called when a 3D mouse log message arrives.
+            </summary>
+        </member>
+        <member name="E:Ab3d.Utilities.Mouse3DConnector.IsConnectedChanged">
+            <summary>
+            IsConnectedChanged event is firede when the device is connected or disconnected.
+            </summary>
+        </member>
+        <member name="E:Ab3d.Utilities.Mouse3DConnector.ButtonPressed">
+            <summary>
+            ButtonPressed event is fired when a button on 3D mouse is pressed.
+            </summary>
+        </member>
+        <member name="E:Ab3d.Utilities.Mouse3DConnector.ButtonReleased">
+            <summary>
+            ButtonPressed event is fired when a button on 3D mouse is released.
+            </summary>
+        </member>
+        <member name="P:Ab3d.Utilities.Mouse3DConnector.RotationSensitivity">
+            <summary>
+            Gets or sets a double value that specifies the sensitivity of rotation. This value is multiplied with the rotation amount. Default value is 1.0.
+            </summary>
+        </member>
+        <member name="P:Ab3d.Utilities.Mouse3DConnector.MovementSensitivity">
+            <summary>
+            Gets or sets a double value that specifies the sensitivity of movement. This value is multiplied with the movement amount. Default value is 1.0.
+            </summary>
+        </member>
+        <member name="P:Ab3d.Utilities.Mouse3DConnector.ZoomingSensitivity">
+            <summary>
+            Gets or sets a double value that specifies the sensitivity of zooming. This value is multiplied with the zooming amount. Default value is 1.0.
+            </summary>
+        </member>
+        <member name="P:Ab3d.Utilities.Mouse3DConnector.IsXMovementEnabled">
+            <summary>
+            Gets or sets a Boolean that specifies if movement in x direction is enabled. Default value is true.
+            </summary>
+        </member>
+        <member name="P:Ab3d.Utilities.Mouse3DConnector.IsYMovementEnabled">
+            <summary>
+            Gets or sets a Boolean that specifies if movement in y direction is enabled. Default value is true.
+            </summary>
+        </member>
+        <member name="P:Ab3d.Utilities.Mouse3DConnector.IsZMovementEnabled">
+            <summary>
+            Gets or sets a Boolean that specifies if movement in z direction is enabled. Default value is true.
+            </summary>
+        </member>
+        <member name="P:Ab3d.Utilities.Mouse3DConnector.IsHeadingRotationEnabled">
+            <summary>
+            Gets or sets a Boolean that specifies if heading rotation (around y axis) is enabled. Default value is true.
+            </summary>
+        </member>
+        <member name="P:Ab3d.Utilities.Mouse3DConnector.IsAttitudeRotationEnabled">
+            <summary>
+            Gets or sets a Boolean that specifies if attitude rotation (around x axis) is enabled. Default value is true.
+            </summary>
+        </member>
+        <member name="P:Ab3d.Utilities.Mouse3DConnector.IsBankRotationEnabled">
+            <summary>
+            Gets or sets a Boolean that specifies if bank rotation (around z axis) is enabled. Default value is true.
+            </summary>
+        </member>
+        <member name="M:Ab3d.Utilities.Mouse3DConnector.#ctor">
+            <summary>
+            Constructor
+            </summary>
+        </member>
+        <member name="M:Ab3d.Utilities.Mouse3DConnector.Is3DMouseInstalled">
+            <summary>
+            Returns true if 3Dconnexion's driver is installed on the system (checking for 3DxWare registry key). Otherwise false is returned.
+            </summary>
+            <returns>true if 3Dconnexion's driver is installed on the system</returns>
+        </member>
+        <member name="M:Ab3d.Utilities.Mouse3DConnector.Connect(System.String,System.Windows.Interop.HwndSource)">
+            <summary>
+            Connect method tries to connect to 3D mouse.
+            The method requires an application name (used for mapping for 3D mouse configuration) and a HwndSource or the main application window.
+            </summary>
+            <param name="applicationName">application name (used for mapping for 3D mouse configuration)</param>
+            <param name="hWndSource">HwndSource or the main application window</param>
+            <returns>true if 3D mouse was successfully connected</returns>
+        </member>
+        <member name="M:Ab3d.Utilities.Mouse3DConnector.Disconnect">
+            <summary>
+            Disconnects the 3D mouse.
+            </summary>
+        </member>
+        <member name="M:Ab3d.Utilities.Mouse3DConnector.GetDeviceName">
+            <summary>
+            Returns a string that specifies the name of the connected device.
+            </summary>
+            <returns>string that specifies the name of the connected device</returns>
+        </member>
+        <member name="M:Ab3d.Utilities.Mouse3DConnector.GetDeviceInfo">
+            <summary>
+            Returns a SiApp.SiDevInfo object that describes the connected device or null if no device is connected.
+            </summary>
+            <returns>SiApp.SiDevInfo object that describes the connected device or null if no device is connected</returns>
+        </member>
+        <member name="M:Ab3d.Utilities.Mouse3DConnector.ProcessSiAppEvent(_3Dconnexion.SiApp.SiSpwEvent)">
+            <summary>
+            ProcessSiAppEvent processes the spwEvent event data. 
+            In case of motion event it calls the <see cref="M:Ab3d.Utilities.Mouse3DConnector.UpdateCamera(System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32)"/> metod.
+            In case of button, command or application event it sends the <see cref="E:Ab3d.Utilities.Mouse3DConnector.ButtonPressed"/> or <see cref="E:Ab3d.Utilities.Mouse3DConnector.ButtonReleased"/> events.
+            This method can be overridden to provide custom event processing.
+            </summary>
+            <param name="spwEvent">SiApp.SiSpwEvent event data</param>
+        </member>
+        <member name="M:Ab3d.Utilities.Mouse3DConnector.UpdateCamera(System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            UpdateCamera method updates the <see cref="P:Ab3d.Utilities.Mouse3DConnector.Camera"/> based on the translation and rotation data from the 3D mouse.
+            The  translation and rotation data are supplied in arbitrary units (called a count unit). See 3DxWare SDK for more information on how to use the values.
+            This method can be overridden in a derived class to provide custom camera updates.
+            </summary>
+            <param name="translateX">translateX</param>
+            <param name="translateY">translateY</param>
+            <param name="translateZ">translateZ</param>
+            <param name="rotateX">rotateX</param>
+            <param name="rotateY">rotateY</param>
+            <param name="rotateZ">rotateZ</param>
+            <param name="period">period</param>
+        </member>
+        <member name="M:Ab3d.Utilities.Mouse3DConnector.OnIsConnectedChanged">
+            <summary>
+            OnIsConnectedChanged fires the IsConnectedChanged event.
+            </summary>
+        </member>
+        <member name="M:Ab3d.Utilities.Mouse3DConnector.OnButtonPressed(System.Int32,System.String,_3Dconnexion.SiApp.SiSpwEvent)">
+            <summary>
+            OnButtonPressed fires the ButtonPressed event.
+            </summary>
+            <param name="functionNumber">functionNumber</param>
+            <param name="actionName">actionName</param>
+            <param name="spwEvent">spwEvent</param>
+        </member>
+        <member name="M:Ab3d.Utilities.Mouse3DConnector.OnButtonReleased(System.Int32,System.String,_3Dconnexion.SiApp.SiSpwEvent)">
+            <summary>
+            OnButtonReleased fires the ButtonReleased event.
+            </summary>
+            <param name="functionNumber">functionNumber</param>
+            <param name="actionName">actionName</param>
+            <param name="spwEvent">spwEvent</param>        
+        </member>
+    </members>
+</doc>
