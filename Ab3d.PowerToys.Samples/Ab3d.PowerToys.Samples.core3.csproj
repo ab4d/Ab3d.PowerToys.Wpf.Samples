@@ -17,27 +17,27 @@
 
   <ItemGroup>
     <Reference Include="Ab3d.PowerToys">
-      <HintPath>lib\netcoreapp3.0\Ab3d.PowerToys.dll</HintPath>
+      <HintPath>..\lib\netcoreapp3.0\Ab3d.PowerToys.dll</HintPath>
     </Reference>
     <Reference Include="Ab3d.PowerToys.Input">
-      <HintPath>lib\netcoreapp3.0\Ab3d.PowerToys.Input.dll</HintPath>
+      <HintPath>..\lib\netcoreapp3.0\Ab3d.PowerToys.Input.dll</HintPath>
     </Reference>    
   </ItemGroup>
 
   <ItemGroup>
     <Reference Include="AssimpNet">
-      <HintPath>lib\AssimpNet.dll</HintPath>
+      <HintPath>..\lib\AssimpNet.dll</HintPath>
     </Reference>
     <Reference Include="AssimpNet">
-      <HintPath>lib\Ab3d.PowerToys.Assimp.dll</HintPath>
+      <HintPath>..\lib\Ab3d.PowerToys.Assimp.dll</HintPath>
     </Reference>    
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="lib\Assimp32.dll" Link="Assimp32.dll">
+    <Content Include="..\lib\Assimp32.dll" Link="Assimp32.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="lib\Assimp64.dll" Link="Assimp64.dll">
+    <Content Include="..\lib\Assimp64.dll" Link="Assimp64.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
