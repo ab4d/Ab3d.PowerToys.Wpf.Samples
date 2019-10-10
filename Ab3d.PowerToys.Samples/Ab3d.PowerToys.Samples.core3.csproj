@@ -16,12 +16,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Reference Include="Ab3d.PowerToys">
-      <HintPath>..\lib\netcoreapp3.0\Ab3d.PowerToys.dll</HintPath>
-    </Reference>
-    <Reference Include="Ab3d.PowerToys.Input">
-      <HintPath>..\lib\netcoreapp3.0\Ab3d.PowerToys.Input.dll</HintPath>
-    </Reference>    
+    <PackageReference Include="Ab3d.PowerToys" Version="9.0.7222-rc" />
+    <PackageReference Include="Ab3d.PowerToys.Input" Version="9.0.7222-rc" />
   </ItemGroup>
 
   <ItemGroup>
