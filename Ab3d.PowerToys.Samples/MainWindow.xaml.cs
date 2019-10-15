@@ -26,13 +26,10 @@ namespace Ab3d.PowerToys.Samples
 
         public MainWindow()
         {
-#if CORE3
             // To activate the commercial license uncomment and fill the following line of code (see your User Account web page for more info):
             //Ab3d.Licensing.PowerToys.LicenseHelper.SetLicense(companyName: "[CompanyName]", 
             //                                                  licenseType: "[LicenseType]", 
             //                                                  license: "[LicenseText]");
-#endif
-
 
             InitializeComponent();
 
