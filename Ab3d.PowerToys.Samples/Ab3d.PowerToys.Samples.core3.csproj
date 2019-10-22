@@ -16,8 +16,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Ab3d.PowerToys" Version="9.0.7222-rc" />
-    <PackageReference Include="Ab3d.PowerToys.Input" Version="9.0.7222-rc" />
+    <PackageReference Include="Ab3d.PowerToys" Version="9.0.7234" />
+    <PackageReference Include="Ab3d.PowerToys.Input" Version="9.0.7234" />
   </ItemGroup>
 
   <ItemGroup>
