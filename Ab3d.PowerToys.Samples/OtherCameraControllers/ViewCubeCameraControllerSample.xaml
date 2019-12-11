@@ -51,33 +51,46 @@
         <controls:CameraAxisPanel Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Bottom" TargetCamera="{Binding ElementName=Camera1}" />
 
         <StackPanel Grid.Column="1" Orientation="Vertical" VerticalAlignment="Center">
+
             <controls:ViewCubeCameraController x:Name="ViewCubeCameraController1"
                                                HorizontalAlignment="Center"
                                                TargetCamera="{Binding ElementName=Camera1}" />
             
             <TextBlock Text="Default ViewCubeCameraController" HorizontalAlignment="Center"/>
-            <Rectangle VerticalAlignment="Stretch" Height="1" Fill="Gray" Margin="10 4 10 15" SnapsToDevicePixels="True"/>
+
+            <Rectangle VerticalAlignment="Stretch" Height="1" Fill="Gray" Margin="10 10 10 15" SnapsToDevicePixels="True"/>
+
+
+            <controls:ViewCubeCameraController x:Name="ViewCubeCameraController2"
+                                               Width="150" Height="150"
+                                               Foreground="BurlyWood"
+                                               SelectionBrush="Beige"
+                                               PlaneBitmapSize="256"
+
+                                               Background="LightSkyBlue"
+                                               SelectionCursor="Cross"
+                                               BorderBrush="Black"
+                                               BorderThickness="2"
+
+                                               PlaneClickAnimationDuration="0.3"
+                                               
+                                               TargetCamera="{Binding ElementName=Camera1}" />
+
+            <TextBlock Text="Customized properties" HorizontalAlignment="Center" TextWrapping="Wrap"/>
+            <Rectangle VerticalAlignment="Stretch" Height="1" Fill="Gray" Margin="10 10 10 15" SnapsToDevicePixels="True"/>
 
 
             <controls:ViewCubeCameraController x:Name="ViewCubeCameraController3"
+                                               Width="150" Height="150"
                                                HorizontalAlignment="Center"
                                                TargetCamera="{Binding ElementName=Camera1}" />
 
             <TextBlock Text="Customized face bitmaps" HorizontalAlignment="Center"/>
             <TextBlock Text="(see code behind)" HorizontalAlignment="Center"/>
-            <Rectangle VerticalAlignment="Stretch" Height="1" Fill="Gray" Margin="10 4 10 15" SnapsToDevicePixels="True"/>
 
-
-            <controls:ViewCubeCameraController x:Name="ViewCubeCameraController2"
-                                               Width="150" Height="150"
-                                               Background="LightSkyBlue"
-                                               Foreground="BurlyWood"
-                                               SelectionCursor="Cross"
-                                               BorderBrush="Black"
-                                               BorderThickness="2"
-                                               TargetCamera="{Binding ElementName=Camera1}" />
-
-            <TextBlock Text="Customized properties" HorizontalAlignment="Center" TextWrapping="Wrap"/>
         </StackPanel>
+
+        <TextBlock Grid.Column="0" FontWeight="Bold" FontSize="20" Foreground="#444" Margin="10" VerticalAlignment="Top" HorizontalAlignment="Left" 
+                   Text="Using ViewCubeCameraController"/>
     </Grid>
 </Page>

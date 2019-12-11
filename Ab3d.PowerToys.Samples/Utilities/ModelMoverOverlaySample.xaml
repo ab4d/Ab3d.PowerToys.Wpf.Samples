@@ -39,7 +39,8 @@
                 <visuals:ModelMoverVisual3D x:Name="ModelMover" AxisLength="50" AxisRadius="1.5" AxisArrowRadius="5" 
                                             IsXAxisShown="{Binding ElementName=XAxisCheckBox, Path=IsChecked}"
                                             IsYAxisShown="{Binding ElementName=YAxisCheckBox, Path=IsChecked}"
-                                            IsZAxisShown="{Binding ElementName=ZAxisCheckBox, Path=IsChecked}"/>
+                                            IsZAxisShown="{Binding ElementName=ZAxisCheckBox, Path=IsChecked}"
+                                            ShowMovablePlanes="{Binding ElementName=ShowMovablePlanesCheckBox, Path=IsChecked}"/>
                 <ModelVisual3D.Content>
                     <DirectionalLight x:Name="OverlayViewportLight" />
                 </ModelVisual3D.Content>
@@ -59,6 +60,7 @@
             <CheckBox Name="XAxisCheckBox" Content="IsXAxisShown" IsChecked="True" Margin="0 3" />
             <CheckBox Name="YAxisCheckBox" Content="IsYAxisShown" IsChecked="True" Margin="0 3" />
             <CheckBox Name="ZAxisCheckBox" Content="IsZAxisShown" IsChecked="True" Margin="0 3" />
+            <CheckBox Name="ShowMovablePlanesCheckBox" Content="ShowMovablePlanes" IsChecked="True" Margin="0 3" />
         </StackPanel>
     </Grid>
 </Page>

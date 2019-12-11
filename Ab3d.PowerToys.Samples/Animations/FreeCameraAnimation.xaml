@@ -63,9 +63,15 @@
                                         InfoText="FreeCameraAnimationNode can animate FreeCamera's CameraPosition, TargetPosition and UpDirection. Note that CameraPosition, TargetPosition and UpDirection are animated with moving lineary from one position or vector to another. This means that if you only animate CameraPosition, then the distance to the TargetPosition will change during animation. If you want to circle the camera around the target object and preserve the distance, then use the CameraAnimationNode" />
                 </StackPanel>
 
+                <StackPanel Orientation="Horizontal">
+                    <CheckBox Name="SphericalInterpolationCheckBox" Content="SphericalInterpolation" IsChecked="True" />
+                    <common:InfoControl InfoWidth="500" VerticalAlignment="Center" Margin="5 0 0 0" ToolTipService.ShowDuration="60000"
+                                        InfoText="When checked then FreeCameraAnimationNode.AnimationType is set to SphericalInterpolation instead of LinearInterpolation. This mode rotates the camera around TargetPosition using Quaternions." />
+                </StackPanel>
 
                 <Button Name="FreeCameraRotateToTopButton" Content="Rotate to top down view" Margin="0 2" Padding="15 4" Click="FreeCameraRotateToTopButton_OnClick" />
                 <Button Name="FreeCameraRotateToFrontButton" Content="Rotate to front view" Margin="0 2" Padding="15 4" Click="FreeCameraRotateToFrontButton_OnClick" />
+                <Button Name="FreeCameraRotateToBackButton" Content="Rotate to back view" Margin="0 2" Padding="15 4" Click="FreeCameraRotateToBackButton_OnClick" />
                 <Button Name="FreeCameraRotateToLeftButton" Content="Rotate to left view" Margin="0 2" Padding="15 4" Click="FreeCameraRotateToLeftButton_OnClick" />
                 <Button Name="FreeCameraRotateToSideButton" Content="Rotate to side view" Margin="0 2" Padding="15 4" Click="FreeCameraRotateToSideButton_OnClick" />
 

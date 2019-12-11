@@ -35,11 +35,13 @@
 
         <ab3d:CameraAxisPanel HorizontalAlignment="Left" VerticalAlignment="Bottom" TargetCamera="{Binding ElementName=Camera1}" />
         
-        <StackPanel Orientation="Vertical" VerticalAlignment="Top" HorizontalAlignment="Left">
+        <StackPanel Orientation="Vertical" VerticalAlignment="Top" HorizontalAlignment="Stretch">
             <TextBlock FontWeight="Bold" FontSize="20" Foreground="#333" Margin="10 0" VerticalAlignment="Top" HorizontalAlignment="Left" 
                        Text="Reading 3D models from almost any file format with AssimpWpfImporter" />
 
-            <TextBlock Name="FileFormatsTextBlock" Margin="10 5 10 0" Text="" TextWrapping="Wrap" />
+            <Expander Style="{StaticResource MyExpanderStyle}" Header="Assimp info" IsExpanded="True">
+                <TextBlock Name="FileFormatsTextBlock" Margin="10 5 10 0" Text="" TextWrapping="Wrap" />
+            </Expander>
         </StackPanel>
 
         <Border HorizontalAlignment="Right" VerticalAlignment="Bottom" BorderBrush="Black" BorderThickness="2" Background="#55FFFFFF" Margin="5">

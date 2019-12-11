@@ -511,6 +511,11 @@
             File name of the 64-bit assimp library
             </summary>
         </member>
+        <member name="P:Ab3d.Assimp.AssimpWpfImporter.AssimpVersion">
+            <summary>
+            Gets the version of the native Assimp library.
+            </summary>
+        </member>
         <member name="P:Ab3d.Assimp.AssimpWpfImporter.AssimpPostProcessSteps">
             <summary>
             Gets or sets Assimp PostProcessSteps (see assimp documentation for more information).

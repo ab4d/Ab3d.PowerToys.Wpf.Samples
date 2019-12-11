@@ -39,7 +39,14 @@ namespace Ab3d.PowerToys.Samples.AssimpSamples
 
             var assimpWpfImporter = new AssimpWpfImporter();
             string[] supportedImportFormats = assimpWpfImporter.SupportedImportFormats;
-            FileFormatsTextBlock.Text = "The following file formats are supported:\r\n" + string.Join(", ", supportedImportFormats);
+
+            var assimpWpfExporter = new AssimpWpfExporter();
+            string[] supportedExportFormats = assimpWpfExporter.ExportFormatDescriptions.Select(f => f.FileExtension).ToArray();
+
+            FileFormatsTextBlock.Text = string.Format("Using native Assimp library version {0}.\r\n\r\nSupported import formats:\r\n{1}\r\n\r\nSupported export formats:\r\n{2}",
+                assimpWpfImporter.AssimpVersion, 
+                string.Join(", ", supportedImportFormats),
+                string.Join(", ", supportedExportFormats));
 
 
             var dragAndDropHelper = new DragAndDropHelper(this, ".*");
@@ -144,7 +151,7 @@ namespace Ab3d.PowerToys.Samples.AssimpSamples
 
 
                 Camera1.TargetPosition = modelCenter;
-                Camera1.Distance = modelSize * 1.5;
+                Camera1.Distance = modelSize * 2;
             }
 
             // If the read model already define some lights, then do not show the Camera's light
@@ -160,7 +167,7 @@ namespace Ab3d.PowerToys.Samples.AssimpSamples
         private void LoadButton_OnClick(object sender, RoutedEventArgs e)
         {
             var openFileDialog = new Microsoft.Win32.OpenFileDialog();
-            openFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+            openFileDialog.InitialDirectory = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Resources");
 
             openFileDialog.Filter = "3D model file (*.*)|*.*";
             openFileDialog.Title = "Open 3D model file file";

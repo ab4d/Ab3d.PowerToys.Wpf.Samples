@@ -27,7 +27,7 @@
                 </common:TextBlockEx>
                 <TextBlock Style="{StaticResource InfoContent}">
                     <Run>▪</Run>
-                    <Hyperlink NavigateUri="http://forum.ab4d.com/forumdisplay.php?fid=9" RequestNavigate="link_navigate">Ab3d.PowerToys Forum</Hyperlink>
+                    <Hyperlink NavigateUri="https://forum.ab4d.com/forumdisplay.php?fid=9" RequestNavigate="link_navigate">Ab3d.PowerToys Forum</Hyperlink>
                     <Run>(recommended for generic questions)</Run>
                     <LineBreak/>
                 </TextBlock>
@@ -73,7 +73,7 @@
                     <Run>You are also invited to check the</Run>
                     <Hyperlink NavigateUri="https://www.ab4d.com/PowerToys.aspx" RequestNavigate="link_navigate" >PowerToys web page</Hyperlink>
                     <Run>and</Run>
-                    <Hyperlink NavigateUri="http://blog.ab4d.com/category/Ab3dPowerToys.aspx" RequestNavigate="link_navigate" >Ab3d.PowerToys related blog posts</Hyperlink>
+                    <Hyperlink NavigateUri="https://blog.ab4d.com/category/Ab3dPowerToys.aspx" RequestNavigate="link_navigate" >Ab3d.PowerToys related blog posts</Hyperlink>
                 </TextBlock>
             </StackPanel>
         </ScrollViewer>

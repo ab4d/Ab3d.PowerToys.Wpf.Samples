@@ -40,6 +40,9 @@
                     It is also possible to subscribe the same events on more Model3D or Visual3D objects. In this case use \!MultiModelEventSource3D\! or \!MultiVisualEventSource3D\!.\n
                     \n
                     If you have read 3D objects with \!Ab3d.Reader3ds\! or have the 3D objects already organized in a Dictionary with name object pairs, you can define the objects or visuals by their name. In this case the \!NamedObjects\! dictionary must be set on EventManager3D.\n
+                    \n
+                    The last sample in this section shows \!standard WPF 3D hit testing\!.\n
+                    This type of hit testing is very useful in many situations where there are many possible hit objects and when the objects in the scene are dynamically added and removed. This type of hit testing is also internally used by the EventManger3D. EventManger3D is more useful for simple 3D scenes where the number of objects is low and does not change a lot.
                 </common:TextBlockEx>
             </StackPanel>
         </ScrollViewer>

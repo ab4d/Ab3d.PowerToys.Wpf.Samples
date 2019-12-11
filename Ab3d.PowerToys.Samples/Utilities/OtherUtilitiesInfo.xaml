@@ -1,0 +1,30 @@
+﻿<Page x:Class="Ab3d.PowerToys.Samples.Utilities.OtherUtilitiesInfo"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:common="clr-namespace:Ab3d.PowerToys.Samples.Common"
+      mc:Ignorable="d" 
+      d:DesignHeight="300" d:DesignWidth="300"
+	  Title="WinFormsInfo">
+
+    <StackPanel Margin="20 20 20 0" Orientation="Vertical">
+
+        <common:TextBlockEx Style="{StaticResource InfoTitle}" Margin="0 0 0 15">Other utilities</common:TextBlockEx>
+
+        <common:TextBlockEx Style="{StaticResource InfoContent}" Foreground="Black">
+            Ab3d.PowerToys library also defines many general purpose utility classes and helper methods.\n
+            You can get more information about them on the \!Online Reference Help\!:\n
+            \n
+            \*\@MathUtils:https://www.ab4d.com/help/PowerToys/html/T_Ab3d_Utilities_MathUtils.htm|\n
+            \*\@CameraUtils:https://www.ab4d.com/help/PowerToys/html/T_Ab3d_Utilities_CameraUtils.htm|\n
+            \*\@MeshUtils:https://www.ab4d.com/help/PowerToys/html/T_Ab3d_Utilities_MeshUtils.htm|\n
+            \*\@ModelUtils:https://www.ab4d.com/help/PowerToys/html/T_Ab3d_Utilities_ModelUtils.htm|\n
+            \*\@ModelIterator:https://www.ab4d.com/help/PowerToys/html/T_Ab3d_Utilities_ModelIterator.htm|\n
+            \*\@ModelOptimizer:https://www.ab4d.com/help/PowerToys/html/T_Ab3d_Utilities_ModelOptimizer.htm|\n
+            \*\@TransformationsHelper:https://www.ab4d.com/help/PowerToys/html/T_Ab3d_Utilities_TransformationsHelper.htm|\n
+            \*\@CompositionRenderingHelper:https://www.ab4d.com/help/PowerToys/html/T_Ab3d_Utilities_CompositionRenderingHelper.htm|\n
+            \*\@TransparencyHelper:https://www.ab4d.com/help/PowerToys/html/T_Ab3d_Utilities_TransparencyHelper.htm|\n
+        </common:TextBlockEx>
+    </StackPanel>
+</Page>

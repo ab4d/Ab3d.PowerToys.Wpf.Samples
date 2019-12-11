@@ -256,7 +256,7 @@ namespace Ab3d.PowerToys.Samples.UseCases
             {
                 CenterPosition = duckBounds.GetCenterPosition(),
                 Size           = duckBounds.Size,
-                LineColor      = Colors.Yellow,
+                LineColor      = Colors.DimGray,
                 LineThickness  = 1,
             };
 

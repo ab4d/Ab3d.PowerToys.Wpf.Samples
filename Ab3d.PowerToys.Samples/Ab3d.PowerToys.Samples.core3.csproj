@@ -2,9 +2,10 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
     <UseWPF>true</UseWPF>
     <AssemblyName>Ab3d.PowerToys.Samples</AssemblyName>
+    <ApplicationIcon>PowerToys.ico</ApplicationIcon>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -16,8 +17,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Ab3d.PowerToys" Version="9.0.7234" />
-    <PackageReference Include="Ab3d.PowerToys.Input" Version="9.0.7234" />
+    <PackageReference Include="Ab3d.PowerToys" Version="9.1.7279" />
+    <PackageReference Include="Ab3d.PowerToys.Input" Version="9.1.7279" />
   </ItemGroup>
 
   <ItemGroup>

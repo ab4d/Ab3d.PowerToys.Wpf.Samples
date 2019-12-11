@@ -283,9 +283,10 @@ namespace Ab3d.PowerToys.Samples.Utilities
 
         private void UpdatedShownAxes()
         {
-            _modelMover.IsXAxisShown = XAxisCheckBox.IsChecked ?? false;
-            _modelMover.IsYAxisShown = YAxisCheckBox.IsChecked ?? false;
-            _modelMover.IsZAxisShown = ZAxisCheckBox.IsChecked ?? false;
+            _modelMover.IsXAxisShown      = XAxisCheckBox.IsChecked ?? false;
+            _modelMover.IsYAxisShown      = YAxisCheckBox.IsChecked ?? false;
+            _modelMover.IsZAxisShown      = ZAxisCheckBox.IsChecked ?? false;
+            _modelMover.ShowMovablePlanes = ShowMovablePlanesCheckBox.IsChecked ?? false;
         }
 
 #if USE_GENERIC_MODEL3D

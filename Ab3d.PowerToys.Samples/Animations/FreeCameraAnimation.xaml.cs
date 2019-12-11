@@ -87,6 +87,11 @@ namespace Ab3d.PowerToys.Samples.Animations
             AnimateCameraRotationTo(targetCameraPosition: new Point3D(0, 0, 400), targetUpDirection: new Vector3D(0, 1, 0));
         }
 
+        private void FreeCameraRotateToBackButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            AnimateCameraRotationTo(targetCameraPosition: new Point3D(0, 0, -400), targetUpDirection: new Vector3D(0, 1, 0));
+        }
+
         private void FreeCameraRotateToLeftButton_OnClick(object sender, RoutedEventArgs e)
         {
             AnimateCameraRotationTo(targetCameraPosition: new Point3D(-400, 0, 0), targetUpDirection: new Vector3D(0, 1, 0));
@@ -122,6 +127,9 @@ namespace Ab3d.PowerToys.Samples.Animations
             // Create a new CameraAnimationNode that will animate the Camera1
             var freeCameraAnimationNode = new FreeCameraAnimationNode(Camera1);
 
+            freeCameraAnimationNode.AnimationType = (SphericalInterpolationCheckBox.IsChecked ?? false)
+                ? FreeCameraAnimationNode.FreeCameraAnimationTypes.SphericalInterpolation
+                : FreeCameraAnimationNode.FreeCameraAnimationTypes.LinearInterpolation;
 
             if (Camera1.CameraPosition != targetCameraPosition)
             {
@@ -140,6 +148,11 @@ namespace Ab3d.PowerToys.Samples.Animations
 
                 freeCameraAnimationNode.UpDirectionTrack.SetEasingFunctionToAllKeys(Ab3d.Animation.EasingFunctions.QuadraticEaseInOutFunction);
             }
+            
+            // It is possible to set different interpolation mode to each KeyFrame, but it is easier
+            // to set the same interpolation mode to all key frames with SetInterpolationToAllKeys method.
+            freeCameraAnimationNode.TargetPositionTrack.SetEasingFunctionToAllKeys(Ab3d.Animation.EasingFunctions.QuadraticEaseInOutFunction);
+
 
             // Set this animation as one-time only
             _animationController.AutoRepeat = false;

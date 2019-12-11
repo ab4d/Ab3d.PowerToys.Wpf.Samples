@@ -76,7 +76,7 @@ namespace Ab3d.PowerToys.Samples.AssimpSamples
 
             try
             {
-                readModel3D = assimpWpfImporter.ReadModel3D(fileName, texturesPath: null); // we can also define a textures path if the textures are located in some other directory (this is parameter can be skipped, but is defined here so you will know that you can use it)
+                readModel3D = assimpWpfImporter.ReadModel3D(fileName,  texturesPath: null); // we can also define a textures path if the textures are located in some other directory (this is parameter can be skipped, but is defined here so you will know that you can use it)
             }
             catch (Exception ex)
             {
@@ -102,7 +102,7 @@ namespace Ab3d.PowerToys.Samples.AssimpSamples
                 _assimpAnimationController.StopAnimation();
                 _assimpAnimationController = null;
             }
-
+            
 
             _assimpScene = assimpWpfImporter.ImportedAssimpScene;
 
@@ -153,7 +153,7 @@ namespace Ab3d.PowerToys.Samples.AssimpSamples
 
             AnimationSelectionComboBox.IsEnabled = true;
             AnimationSelectionComboBox.ItemsSource = animationNames;
-
+            
             int startupIndex = animationNames.IndexOf("Run"); // Start with "Run" animation if it exists
             if (startupIndex < 0)
                 startupIndex = 0;
@@ -233,7 +233,7 @@ namespace Ab3d.PowerToys.Samples.AssimpSamples
             if (skeletonNode.Parent != null)
             {
                 var startPositionMatrix = skeletonNode.Parent.CurrentWorldMatrix;
-                var endPositionMatrix = skeletonNode.CurrentWorldMatrix;
+                var endPositionMatrix   = skeletonNode.CurrentWorldMatrix;
 
                 var lineVisual3D = new LineVisual3D()
                 {
@@ -343,7 +343,7 @@ namespace Ab3d.PowerToys.Samples.AssimpSamples
                 return;
 
             double newMaterialOpacity = (ShowBonesCheckBox.IsChecked ?? false) ? 0.7 : 1.0;
-            SetMaterialOpacity(_lastLoadedModel3D, newMaterialOpacity);
+            Ab3d.Utilities.ModelUtils.SetMaterialOpacity(_lastLoadedModel3D, newMaterialOpacity);
         }
 
         private void AnimationSelectionComboBox_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -366,6 +366,9 @@ namespace Ab3d.PowerToys.Samples.AssimpSamples
 
             var sb = new StringBuilder();
 
+            var assimpSceneInfoText = AssimpDumper.GetDumpString(_assimpScene);
+            sb.AppendLine(assimpSceneInfoText);
+
             foreach (var skeleton in _assimpAnimationController.Skeletons)
             {
                 if (skeleton.AssimpMesh != null)
@@ -386,7 +389,7 @@ namespace Ab3d.PowerToys.Samples.AssimpSamples
 
             if (InfoTextBox.Visibility != Visibility.Visible)
             {
-                InfoRow.Height = new GridLength(160, GridUnitType.Pixel);
+                InfoRow.Height         = new GridLength(160, GridUnitType.Pixel);
                 InfoTextBox.Visibility = Visibility.Visible;
             }
         }
@@ -398,7 +401,7 @@ namespace Ab3d.PowerToys.Samples.AssimpSamples
 
             string indentString = indent == 0 ? "" : new string(' ', indent);
 
-
+            
             sb.Append(indentString)
               .Append('"' + skeletonNode.AssimpNode.Name + '"')
               .AppendLine();
@@ -428,116 +431,6 @@ namespace Ab3d.PowerToys.Samples.AssimpSamples
 
             foreach (var skeletonNodeChild in skeletonNode.Children)
                 AddBonesInfo(skeletonNodeChild, sb, indent + 4, skipNodesWithoutName);
-        }
-
-
-        // The following two methods will be part of Ab3d.PowerToys v9.1 (Ab3d.Utilities.ModelUtils)
-
-        /// <summary>
-        /// Goes through all models in the models hierarchy and sets the opacity (or alpha color) in all materials to the specified opacity.
-        /// </summary>
-        /// <param name="model">GeometryModel3D or Model3DGroup</param>
-        /// <param name="newOpacity">new opacity value that is set to materials (1 means fully opaque - no transparency; 0 means fully transparent)</param>
-        /// <param name="setAlphaColor">when true (by default) then in SolidColorBrush the Alpha color is changed instead of Brush's Opacity.</param>
-        /// <param name="preserveFrozenMaterial">when false (false by default) then frozen materials are cloned so that their opacity can be changed; when true frozen materials are not changed</param>
-        public static void SetMaterialOpacity(Model3D model, double newOpacity, bool setAlphaColor = true, bool preserveFrozenMaterial = false)
-        {
-            var originalGeometryModel3D = model as GeometryModel3D;
-            if (originalGeometryModel3D != null && !originalGeometryModel3D.IsFrozen)
-            {
-                var backMaterial = originalGeometryModel3D.BackMaterial;
-                if (backMaterial != null)
-                {
-                    if (backMaterial.IsFrozen)
-                    {
-                        if (preserveFrozenMaterial)
-                            return;
-
-                        backMaterial = backMaterial.Clone();
-                        originalGeometryModel3D.BackMaterial = backMaterial;
-                    }
-
-                    SetMaterialOpacity(backMaterial, newOpacity, preserveFrozenMaterial);
-                }
-
-                var material = originalGeometryModel3D.Material;
-                if (material != null)
-                {
-                    if (material.IsFrozen)
-                    {
-                        material = material.Clone();
-                        originalGeometryModel3D.Material = material;
-                    }
-
-                    SetMaterialOpacity(material, newOpacity, preserveFrozenMaterial);
-                }
-            }
-            else
-            {
-                var originalModel3DGroup = model as Model3DGroup;
-
-                if (originalModel3DGroup != null)
-                {
-                    foreach (Model3D childModel3D in originalModel3DGroup.Children)
-                        SetMaterialOpacity(childModel3D, newOpacity, preserveFrozenMaterial);
-                }
-                // else - probably Light
-            }
-        }
-
-        /// <summary>
-        /// Sets the opacity (or alpha color) of the specified material.
-        /// The material that is set as argument must not be frozen (it mush be cloned before sending to this method). Inner materials or brushes can be frozen - they will be cloned in this method when preserveFrozenMaterial is false.
-        /// </summary>
-        /// <param name="material">material that is changed</param>
-        /// <param name="newOpacity">new opacity value that is set to materials (1 means fully opaque - no transparency; 0 means fully transparent)</param>
-        /// <param name="setAlphaColor">when true (by default) then in SolidColorBrush the Alpha color is changed instead of Brush's Opacity.</param>
-        /// <param name="preserveFrozenMaterial">when false (false by default) then frozen materials are cloned so that their opacity can be changed; when true frozen materials are not changed</param>
-        public static void SetMaterialOpacity(System.Windows.Media.Media3D.Material material, double newOpacity, bool setAlphaColor = true, bool preserveFrozenMaterial = false)
-        {
-            var diffuseMaterial = material as DiffuseMaterial;
-            if (diffuseMaterial != null)
-            {
-                var diffuseMaterialBrush = diffuseMaterial.Brush;
-                if (diffuseMaterialBrush != null)
-                {
-                    double currentOpacity = diffuseMaterialBrush.Opacity;
-
-                    var solidColorBrush = diffuseMaterialBrush as SolidColorBrush;
-                    if (solidColorBrush != null)
-                        currentOpacity *= ((double)solidColorBrush.Color.A) / 255.0;
-
-                    if (!MathUtils.IsSame(currentOpacity, newOpacity))
-                    {
-                        if (material.IsFrozen && !preserveFrozenMaterial)
-                            throw new Exception("Frozen material needs to be cloned before calling this method");
-
-                        if (diffuseMaterialBrush.IsFrozen && !preserveFrozenMaterial)
-                        {
-                            var clonedBrush = diffuseMaterialBrush.Clone();
-                            diffuseMaterial.Brush = clonedBrush;
-
-                            SetMaterialOpacity(diffuseMaterial, newOpacity, false);
-                        }
-                        else
-                        {
-                            if (solidColorBrush != null && setAlphaColor)
-                                solidColorBrush.Color = solidColorBrush.Color = Color.FromArgb((byte)(newOpacity * 255.0), solidColorBrush.Color.R, solidColorBrush.Color.G, solidColorBrush.Color.B);
-                            else
-                                diffuseMaterialBrush.Opacity = newOpacity;
-                        }
-                    }
-                }
-            }
-            else
-            {
-                var materialGroup = material as MaterialGroup;
-                if (materialGroup != null)
-                {
-                    foreach (var childMaterial in materialGroup.Children)
-                        SetMaterialOpacity(childMaterial, newOpacity, preserveFrozenMaterial);
-                }
-            }
         }
     }
 }

@@ -38,6 +38,7 @@
             <CheckBox Name="XAxisCheckBox" Content="IsXAxisShown" IsChecked="True" Margin="0 3" Checked="OnAxisCheckBoxChanged" Unchecked="OnAxisCheckBoxChanged"/>
             <CheckBox Name="YAxisCheckBox" Content="IsYAxisShown" IsChecked="True" Margin="0 3" Checked="OnAxisCheckBoxChanged" Unchecked="OnAxisCheckBoxChanged"/>
             <CheckBox Name="ZAxisCheckBox" Content="IsZAxisShown" IsChecked="True" Margin="0 3" Checked="OnAxisCheckBoxChanged" Unchecked="OnAxisCheckBoxChanged"/>
+            <CheckBox Name="ShowMovablePlanesCheckBox" Content="ShowMovablePlanes" IsChecked="True" Margin="0 3" Checked="OnAxisCheckBoxChanged" Unchecked="OnAxisCheckBoxChanged"/>
         </StackPanel>
     </Grid>
 </Page>

@@ -1,0 +1,494 @@
+﻿<Page x:Class="Ab3d.PowerToys.Samples.Objects3D.BasicWpf3dObjectsTutorial"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:common="clr-namespace:Ab3d.PowerToys.Samples.Common"
+      xmlns:cameras="clr-namespace:Ab3d.Cameras;assembly=Ab3d.PowerToys"
+      xmlns:ab3d="clr-namespace:Ab3d.Controls;assembly=Ab3d.PowerToys"  
+      xmlns:visuals="clr-namespace:Ab3d.Visuals;assembly=Ab3d.PowerToys"       
+      xmlns:local="clr-namespace:Ab3d.PowerToys.Samples.Objects3D"
+      mc:Ignorable="d" 
+      d:DesignHeight="6000" d:DesignWidth="800"
+      Title="BasicWpf3dObjectsTutorial">
+    <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Visible">
+        <StackPanel Name="MainStackPanel" Orientation="Vertical" Margin="20 0">
+
+            <Grid Name="TitleGrid" Margin="0 0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock FontWeight="Bold" FontSize="20" Margin="0 10 5 0" Text="Basic WPF 3D objects tutorial"/>
+                <!--<Button Name="PrintButton" Width="100" Click="InvokePrint">Print</Button>-->
+            </Grid>
+
+            <common:TextBlockEx Style="{StaticResource InfoContent}" Margin="0 20 0 0">
+                This basic tutorial will give you some basic information about how 3D objects in WPF are defined.\n
+                To get some additional online resources, check the \@Links web page:https://www.ab4d.com/Links.aspx|.\n
+                \n
+                WPF 3D uses \!right-handed coordinate system\! where x-axis is points to the right, y-axis points up and z-axis points toward the viewer:
+            </common:TextBlockEx>
+
+            <cameras:TargetPositionCamera Name="Camera1" TargetPosition="0 0 0"
+                                          Heading="20" Attitude="-30" Bank="0" 
+                                          Distance="300" />
+            <ab3d:CameraAxisPanel TargetCamera="{Binding ElementName=Camera1}" HorizontalAlignment="Left" />
+
+            <TextBlock Text="MeshGeometry3D" FontWeight="Bold" FontSize="15" Margin="0 5 0 10" Style="{StaticResource InfoContent}" />
+
+            <common:TextBlockEx Style="{StaticResource InfoContent}" Margin="0 0 0 0">
+                The basic building block in WPF 3D graphics is a \!MeshGeometry3D\! object that defines the triangles that form a 3D mesh.\n
+                The main two properties of MeshGeometry3 are:\n
+                \*\!Positions\! - define the vertices of the triangles contained in the mesh.\n
+                \*\!TriangleIndices\! - describes the connections between the vertices to form triangles. For example "0, 2, 3" means that a triangle is formed with using the first (index is 0), third (index is 2) and forth (index = 3) vertex from the Positions collection.\n
+                \n
+                The following code defines a simple 3D mesh with 2 triangles:
+            </common:TextBlockEx>
+            <common:TextBlockEx FontFamily="Consolas" Style="{StaticResource InfoContent}" Margin="0 0 0 0">
+                var mesh1 = new MeshGeometry3D()\n
+                {\n
+                \____Positions = new Point3DCollection(new[]\n
+                \____{\n
+                \________new Point3D(5,   0, 5),\n
+                \________new Point3D(100, 0, 5),\n
+                \________new Point3D(100, 0, 50),\n
+                \________new Point3D(5,   0, 50)\n
+                \____}),\n
+                \____\n
+                \____TriangleIndices = new Int32Collection(new[]\n
+                \____{\n
+                \________0, 2, 1,\n
+                \________3, 2, 0\n
+                \____})\n
+                };\n
+            </common:TextBlockEx>
+
+            <common:TextBlockEx Style="{StaticResource InfoContent}" Margin="0 0 0 0">
+                This mesh defines the following 3D model (observe the indexes of positions and triangles):
+            </common:TextBlockEx>
+
+            <Grid>
+                <Border Name="ViewportBorder2" Width="400" Height="200" HorizontalAlignment="Left" BorderThickness="1" BorderBrush="Black">
+                    <Viewport3D Name="Viewport2">
+                        <visuals:WireGridVisual3D CenterPosition="50 0 25" Size="200 150" WidthCellsCount="20" HeightCellsCount="15" LineColor="Silver" LineThickness="1"/>
+                        <visuals:ColoredAxisVisual3D Length="30" Position="0 0.5 0" />
+                        <ModelVisual3D>
+                            <ModelVisual3D.Content>
+                                <AmbientLight Color="LightGray" />
+                            </ModelVisual3D.Content>
+                        </ModelVisual3D>
+                    </Viewport3D>
+                </Border>
+
+                <ab3d:MeshInspectorOverlay Name="MeshInspector2" 
+                                           Camera="{Binding ElementName=Camera2}"
+                                           AutoUpdateWhenCameraIsChanged="True"
+                                           ShowPositionIndexes="True" PositionsTextColor="Black" PositionsTextFontSize="15" PositionsTextFontWeight="Bold"
+                                           ShowTriangleIndexes="True" TriangleIndexesTextColor="Orange" TriangleIndexesTextFontSize="12" TriangleIndexesTextFontWeight="Normal"
+                                           ShowTriangles="True" ShowOnlyFrontFacingTriangles="True" CombinePositionIndexes="WithSame2DScreenPosition"/>
+                <TextBlock Name="MeshInspectorInfoTextBlock" Margin="405 0 0 0" FontSize="12" FontWeight="Bold" VerticalAlignment="Bottom">
+                    <Run Foreground="Black">Black - Position indexes</Run>
+                    <LineBreak />
+                    <Run Foreground="Orange">Orange - Triangle indexes</Run>
+                </TextBlock>
+            </Grid>
+            
+            <cameras:TargetPositionCamera x:Name="Camera2" TargetPosition="50 0 25" 
+                                          Heading="30" Attitude="-45" Bank="0" 
+                                          Distance="200" 
+                                          ShowCameraLight="Never"
+                                          TargetViewport3D="{Binding ElementName=Viewport2}"/>
+
+            <ab3d:MouseCameraController Name="MouseCameraController2"
+                                        RotateCameraConditions="LeftMouseButtonPressed"
+                                        EventsSourceElement="{Binding ElementName=ViewportBorder2}"
+                                        TargetCamera="{Binding ElementName=Camera2}" />
+
+
+            <common:TextBlockEx Style="{StaticResource InfoContent}" Margin="0 0 0 0">
+                \n
+                Check that the orange lines end with an arrow. 
+                This is very important because the \!order in which the positions are defined\! in a triangle define
+                the orientation of the triangle. \!Orientation of a triangle\! defines which side of the triangle is \!front\! side
+                and which side is its \!back\! side.\n
+                \n
+                For example the 3D model above is define to show green material for front side of the triangles and red material for its back side (use mouse to rotate the camera to see the back side of the rectangle).\n
+                \n
+                Observe what happens if we define the TriangleIndices in the following way (switching the first two indexes: "0, 2, 1" => "2, 0, 1"):\n
+            </common:TextBlockEx>
+
+            <Grid>
+                <Border Name="ViewportBorder3" Width="400" Height="200" HorizontalAlignment="Left" BorderThickness="1" BorderBrush="Black">
+                    <Viewport3D Name="Viewport3">
+                        <visuals:WireGridVisual3D CenterPosition="50 0 25" Size="200 150" WidthCellsCount="20" HeightCellsCount="15" LineColor="Silver" LineThickness="1"/>
+                        <visuals:ColoredAxisVisual3D Length="30" Position="0 0.5 0" />
+                        <ModelVisual3D>
+                            <ModelVisual3D.Content>
+                                <AmbientLight Color="LightGray" />
+                            </ModelVisual3D.Content>
+                        </ModelVisual3D>
+                    </Viewport3D>
+                </Border>
+
+                <ab3d:MeshInspectorOverlay Name="MeshInspector3" 
+                                           Camera="{Binding ElementName=Camera3}"
+                                           AutoUpdateWhenCameraIsChanged="True"
+                                           ShowPositionIndexes="True" PositionsTextColor="Black" PositionsTextFontSize="15" PositionsTextFontWeight="Bold"
+                                           ShowTriangleIndexes="True" TriangleIndexesTextColor="Orange" TriangleIndexesTextFontSize="12" TriangleIndexesTextFontWeight="Normal"
+                                           ShowTriangles="True" ShowOnlyFrontFacingTriangles="False" CombinePositionIndexes="WithSame2DScreenPosition"/>
+
+                <CheckBox Name="OnlyFrontFacingTrianglesCheckBox1" Content="Show only front facing triangles" Margin="405 0 0 0" VerticalAlignment="Bottom" Checked="OnOnlyFrontFacingTrianglesCheckBox1CheckedChanged" Unchecked="OnOnlyFrontFacingTrianglesCheckBox1CheckedChanged"/>
+            </Grid>
+
+            <cameras:TargetPositionCamera x:Name="Camera3" TargetPosition="50 0 25" 
+                                          Heading="30" Attitude="-45" Bank="0" 
+                                          Distance="200" 
+                                          ShowCameraLight="Never"
+                                          TargetViewport3D="{Binding ElementName=Viewport3}"/>
+
+            <ab3d:MouseCameraController Name="MouseCameraController3"
+                                        RotateCameraConditions="LeftMouseButtonPressed"
+                                        EventsSourceElement="{Binding ElementName=ViewportBorder3}"
+                                        TargetCamera="{Binding ElementName=Camera3}" />
+
+            <common:TextBlockEx Style="{StaticResource InfoContent}" Margin="0 0 0 0">
+                \n
+                The same 3D model from below:\n
+            </common:TextBlockEx>
+
+            <Grid>
+                <Border Name="ViewportBorder4" Width="400" Height="200" HorizontalAlignment="Left" BorderThickness="1" BorderBrush="Black">
+                    <Viewport3D Name="Viewport4">
+                        <visuals:WireGridVisual3D CenterPosition="50 0 25" Size="200 150" WidthCellsCount="20" HeightCellsCount="15" LineColor="Silver" LineThickness="1"/>
+                        <visuals:ColoredAxisVisual3D Length="30" Position="0 0.5 0" />
+                        <ModelVisual3D>
+                            <ModelVisual3D.Content>
+                                <AmbientLight Color="LightGray" />
+                            </ModelVisual3D.Content>
+                        </ModelVisual3D>
+                    </Viewport3D>
+                </Border>
+
+                <ab3d:MeshInspectorOverlay Name="MeshInspector4" 
+                                           Camera="{Binding ElementName=Camera4}"
+                                           AutoUpdateWhenCameraIsChanged="True"
+                                           ShowPositionIndexes="True" PositionsTextColor="Black" PositionsTextFontSize="15" PositionsTextFontWeight="Bold"
+                                           ShowTriangleIndexes="True" TriangleIndexesTextColor="Orange" TriangleIndexesTextFontSize="12" TriangleIndexesTextFontWeight="Normal"
+                                           ShowTriangles="True" ShowOnlyFrontFacingTriangles="False" CombinePositionIndexes="WithSame2DScreenPosition"/>
+            </Grid>
+
+            <cameras:TargetPositionCamera x:Name="Camera4" TargetPosition="50 0 25" 
+                                          Heading="30" Attitude="45" Bank="0" 
+                                          Distance="200" 
+                                          ShowCameraLight="Never"
+                                          TargetViewport3D="{Binding ElementName=Viewport4}"/>
+
+            <ab3d:MouseCameraController Name="MouseCameraController4"
+                                        RotateCameraConditions="LeftMouseButtonPressed"
+                                        EventsSourceElement="{Binding ElementName=ViewportBorder4}"
+                                        TargetCamera="{Binding ElementName=Camera4}" />
+
+
+            <common:TextBlockEx Style="{StaticResource InfoContent}" Margin="0 0 0 0">
+                \n
+                This shows that order of triangles is very important.\n
+                When defining your own meshes I would recommend you to use \!a piece of paper and a pencil\! and sketch your 3D object with position indexes. 
+                Then define triangles based on the position indexes.\n
+                Once Positions and TriangleIndexes are defined, you can use another very useful tool that comes with Ab3d.PowerToys library - it is the \!MeshInspectorOverlay\! control that shows an overlay as in the previous 3D scenes.\n
+                \n
+                \n
+                MeshGeometry3D also has two additional properties:\n
+                \*\!Normals\! - normals provide 3D vectors that define the orientation of the triangle (used for light shading). WPF can calculate the normals automatically, but you can provide them if you want.\n
+                \*\!TextureCoordinates\! - are needed when using texture images and for each position provide mapping to the 2D coordinates on the texture.\n
+                \n
+                The following MeshGeometry3D uses Positions and TriangleIndices from the first mesh and \!adds TextureCoordinates\!:
+            </common:TextBlockEx>
+            <common:TextBlockEx FontFamily="Consolas" Style="{StaticResource InfoContent}" Margin="0 0 0 0">
+                var mesh5 = new MeshGeometry3D()\n
+                {\n
+                \____Positions = mesh1.Positions,\n
+                \____TriangleIndices = mesh1.TriangleIndices,\n
+                \____TextureCoordinates = new PointCollection(new[]\n
+                \____{\n
+                \________new Point(0, 0),\n
+                \________new Point(1, 0),\n
+                \________new Point(1, 1),\n
+                \________new Point(0, 1),\n
+                \____})\n
+                };\n
+            </common:TextBlockEx>
+            <common:TextBlockEx Style="{StaticResource InfoContent}" Margin="0 0 0 0">
+                The number of TextureCoordinates should be the same as the number of Positions. 
+                This is needed because each TextureCoordinate defines the 2D coordinate for the 3D Position with the same index.\n
+                \n
+                By default the TextureCoordinates are defined in \!relative values\! - so 1 means 100% of the width or height of the image (right most or bottom most pixel);
+                0.5 means in the middle. So for example (0, 0) means top left pixel and (1, 1) means bottom right pixel.\n
+                \n
+                For example, the first "Point(0, 0)" means that when the graphics card will render the first 3D Position ("Point3D(5, 0, 5)")
+                it should get the color from pixel at (0, 0) from the texture image. 
+                The second 3D Position ("Point3D(100, 0, 5)") will get the color from pixel at (1, 0) - top right pixel in the texture image.
+                The colors for the pixels between the first and second 3D Positions will be interpolated so that the colors from the texture image will be taken (from the top left to the top right).\n
+                \n
+                For example:
+            </common:TextBlockEx>
+
+            <Grid>
+                <Border Name="ViewportBorder5" Width="400" Height="200" HorizontalAlignment="Left" BorderThickness="1" BorderBrush="Black">
+                    <Viewport3D Name="Viewport5">
+                        <visuals:WireGridVisual3D CenterPosition="50 0 25" Size="200 150" WidthCellsCount="20" HeightCellsCount="15" LineColor="Silver" LineThickness="1"/>
+                        <visuals:ColoredAxisVisual3D Length="30" Position="0 0.5 0" />
+                        <ModelVisual3D>
+                            <ModelVisual3D.Content>
+                                <AmbientLight Color="LightGray" />
+                            </ModelVisual3D.Content>
+                        </ModelVisual3D>
+                    </Viewport3D>
+                </Border>
+
+                <ab3d:MeshInspectorOverlay Name="MeshInspector5" 
+                                           Camera="{Binding ElementName=Camera5}"
+                                           AutoUpdateWhenCameraIsChanged="True"
+                                           ShowPositionIndexes="True" PositionsTextColor="Black" PositionsTextFontSize="15" PositionsTextFontWeight="Bold"
+                                           ShowTriangleIndexes="True" TriangleIndexesTextColor="Orange" TriangleIndexesTextFontSize="12" TriangleIndexesTextFontWeight="Normal"
+                                           ShowTriangles="True" ShowOnlyFrontFacingTriangles="False" CombinePositionIndexes="WithSame2DScreenPosition"/>
+            </Grid>
+
+            <cameras:TargetPositionCamera x:Name="Camera5" TargetPosition="50 0 20" 
+                                          Heading="0" Attitude="-80" Bank="0" 
+                                          Distance="160" 
+                                          ShowCameraLight="Never"
+                                          TargetViewport3D="{Binding ElementName=Viewport5}"/>
+
+            <ab3d:MouseCameraController Name="MouseCameraController5"
+                                        RotateCameraConditions="LeftMouseButtonPressed"
+                                        EventsSourceElement="{Binding ElementName=ViewportBorder5}"
+                                        TargetCamera="{Binding ElementName=Camera5}" />
+
+
+            <common:TextBlockEx Style="{StaticResource InfoContent}" Margin="0 0 0 0">
+                \n
+                The TextureCoordinates for our sample mesh are very simple because we have only 4 positions. 
+                If we would add additional 2 positions in the middle ar (5, 0, 25) and (100, 0, 25), then we would need to add two TextureCoordinates for 
+                those two positions: (0, 0.5) and (1, 0.5) - they would point to the left and right pixel in the vertical middle of the texture.\n
+                \n
+                Ab3d.PowerToys provides tools that can generate MeshGeometry3D objects for many common objects. See Ab3d.Meshes namespace for more into.
+                Some examples:\n
+            </common:TextBlockEx>
+
+            <common:TextBlockEx FontFamily="Consolas" Style="{StaticResource InfoContent}" Margin="0 0 0 0">
+                var planeMesh1 = new Ab3d.Meshes.PlaneMesh3D(centerPosition: new Point3D(30, 0, 0), planeNormal: new Vector3D(0, 1, 0), planeHeightDirection: new Vector3D(0, 0, -1), size: new Size(200, 100), widthSegments: 1, heightSegments: 1).Geometry;\n
+                \n
+                var boxMesh1 = new Ab3d.Meshes.BoxMesh3D(centerPosition: new Point3D(0, 0, 0), size: new Size3D(80, 40, 60), xSegments: 1, ySegments: 1, zSegments: 1).Geometry;\n
+                \n
+                var sphereMesh1 = new Ab3d.Meshes.SphereMesh3D(centerPosition: new Point3D(30, 0, 0), radius: 10, segments: 30).Geometry;\n
+            </common:TextBlockEx>
+
+            <TextBlock Text="GeometryModel3D" FontWeight="Bold" FontSize="15" Margin="0 15 0 10" Style="{StaticResource InfoContent}" />
+
+            <common:TextBlockEx Style="{StaticResource InfoContent}" Margin="0 0 0 0">
+                The MeshGeometry3D defines only the geometry or mesh of the 3D objects. To show the object we also need to define its \!material\!.\n
+                \n
+                This is done with creating a \!GeometryModel3D\!.\n
+                \n
+                There are a few examples:
+            </common:TextBlockEx>
+
+            <common:TextBlockEx FontFamily="Consolas" Style="{StaticResource InfoContent}" Margin="0 0 0 0">
+                var geometryModel6 = new GeometryModel3D()\n
+                {\n
+                \____Geometry = mesh2,\n
+                \____Material = new DiffuseMaterial(Brushes.Blue)\n
+                };\n
+                \n
+                // The same with passing parameters to constructor\n
+                var geometryModel7 = new GeometryModel3D(mesh2, new DiffuseMaterial(Brushes.Blue));\n
+                \n
+                // Using custom color\n
+                var geometryModel8 = new GeometryModel3D(mesh2, new DiffuseMaterial(new SolidColorBrush(Color.FromRgb(0, 123, 0))));\n
+                \n
+                // Using texture image\n
+                var textureImage1 = new BitmapImage(new Uri(@"c:\images\texture.png")); // Read image from file\n
+                var textureImage2 = new BitmapImage(new Uri("pack://application:,,,/Resources/10x10-texture.png")); // Read image from resources\n
+                var geometryModel9 = new GeometryModel3D(mesh2, new DiffuseMaterial(new ImageBrush(textureImage1)));\n
+                \n
+                var geometryModel10 = new GeometryModel3D()\n
+                {\n
+                \____Geometry = mesh2,\n
+                \____Material = new DiffuseMaterial(Brushes.Green),\n
+                \____BackMaterial = new DiffuseMaterial(Brushes.Red)\n
+                };\n
+            </common:TextBlockEx>
+
+            <common:TextBlockEx Style="{StaticResource InfoContent}" Margin="0 0 0 0">
+                The last definition also defines the BackMaterial property that shows the specified material to the back side of the triangles (as seen in one of the previous samples).\n
+                \n
+                Note that one MeshGeometry3D can be reused by many GeometryModel3D objects.\n
+                \n
+                The DiffuseMaterial is the most common type of material in WPF 3D. It simulates a diffuse surface where the amount of reflected color is determined by the angle between the surface and the light.\n
+                \n
+                There are also some additional types of materials:\n
+                \*\!SpecularMaterial\! - renders specular hightlight (usually used in combination with a DiffuseMaterial - see sample below).\n
+                \*\!EmissiveMaterial\! - material that is always rendered with the specified Brush no matter from where the light shines.\n
+                \*\!MaterialGroup\! - can group multiple materials together (used to group SpecularMaterial or EmissiveMaterial with a DiffuseMaterial).\n
+                \n
+                Here are some examples:
+            </common:TextBlockEx>
+
+            <common:TextBlockEx FontFamily="Consolas" Style="{StaticResource InfoContent}" Margin="0 0 0 0">
+                var specularMaterialGroup = new MaterialGroup();\n
+                specularMaterialGroup.Children.Add(new DiffuseMaterial(Brushes.Green));\n
+                specularMaterialGroup.Children.Add(new SpecularMaterial(Brushes.White, 16));\n
+                \n
+                var emissiveMaterialGroup = new MaterialGroup();\n
+                // Add black DiffuseMaterial to EmissiveMaterial to make it opaque\n
+                emissiveMaterialGroup.Children.Add(new DiffuseMaterial(Brushes.Black));\n
+                emissiveMaterialGroup.Children.Add(new EmissiveMaterial(Brushes.Green));\n
+            </common:TextBlockEx>
+
+            <common:TextBlockEx Style="{StaticResource InfoContent}" Margin="0 0 0 0">
+                The following example shows all three options. 
+                The closes sphere uses only DiffuseMaterial, the middle sphere uses DiffuseMaterial and SpecularMaterial, 
+                and the last sphere uses DiffuseMaterial and EmissiveMaterial:
+            </common:TextBlockEx>
+
+            <Border Name="ViewportBorder6" Width="400" Height="200" HorizontalAlignment="Left" BorderThickness="1" BorderBrush="Black">
+                <Viewport3D Name="Viewport6">
+                    <ModelVisual3D>
+                        <ModelVisual3D.Content>
+                            <Model3DGroup>
+                                <AmbientLight Color="#222" />
+                                <PointLight Position="0 0 100" Color="White" />
+                            </Model3DGroup>
+                        </ModelVisual3D.Content>
+                    </ModelVisual3D>
+                </Viewport3D>
+            </Border>
+
+            <cameras:TargetPositionCamera x:Name="Camera6" TargetPosition="0 0 0" 
+                                          Heading="63" Attitude="-20" Bank="0" 
+                                          Distance="120" 
+                                          ShowCameraLight="Never"
+                                          TargetViewport3D="{Binding ElementName=Viewport6}"/>
+
+            <ab3d:MouseCameraController Name="MouseCameraController6"
+                                        RotateCameraConditions="LeftMouseButtonPressed"
+                                        EventsSourceElement="{Binding ElementName=ViewportBorder6}"
+                                        TargetCamera="{Binding ElementName=Camera6}" />
+
+
+            <TextBlock Text="Model3DGroup" FontWeight="Bold" FontSize="15" Margin="0 20 0 10" Style="{StaticResource InfoContent}" />
+
+            <common:TextBlockEx Style="{StaticResource InfoContent}" Margin="0 0 0 0">
+                Many complex 3D objects are defined from many parts. In WPF 3D world each part can be defined with one GeometryModel3D.
+                Those GeometryModel3D can be organized into hierarchy with using \!Model3DGroup\!.\n
+                \n
+                Model3DGroup defines a \!Children\! property that is a collection of \!Model3D\! objects. 
+                Because both GeometryModel3D and Model3DGroup are derived from Model3D objects, this means that one Model3DGroup
+                can contain many other GeometryModel3D or Model3DGroup objects are its children.\n
+                \n
+                For example:\n
+            </common:TextBlockEx>
+
+            <common:TextBlockEx FontFamily="Consolas" Style="{StaticResource InfoContent}" Margin="0 0 0 0">
+                var childModel3DGroup = new Model3DGroup();\n
+                childModel3DGroup.Children.Add(geometryModel11);\n
+                childModel3DGroup.Children.Add(geometryModel12);\n
+                \n
+                var rootModel3DGroup = new Model3DGroup();\n
+                rootModel3DGroup.Children.Add(geometryModel2);\n
+                rootModel3DGroup.Children.Add(geometryModel5);\n
+                rootModel3DGroup.Children.Add(childModel3DGroup);\n
+            </common:TextBlockEx>
+
+            <common:TextBlockEx Style="{StaticResource InfoContent}" Margin="0 0 0 0">
+                The following example is showing objects hierarchy from the "robot arm" sample model (see the "Utilities / Planar Shadows" sample to see that 3D model):
+            </common:TextBlockEx>
+
+            <TextBox Name="RobotArmSampleTextBox" FontFamily="Consolas" FontSize="11" Height="240" HorizontalAlignment="Stretch" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" />
+
+            <common:TextBlockEx Style="{StaticResource InfoContent}" Margin="0 0 0 0">
+                \n
+                If you will check the previous text carefully, you will see that each Model3D also has a \!Transformation\! property.\n
+                \n
+                WPF 3D defines the following transformations:\n
+                \*\!TranslateTransform3D\! - translates (moves) the objects for the specified offset,\n
+                \*\!ScaleTransform3D\! - scales the object,\n
+                \*\!RotateTransform3D\! - rotates the object (using \!AxisAngleRotation3D\! or \!QuaternionRotation3D\!),\n
+                \*\!MatrixTransform3D\! - applies a 4x4 matrix to all objects,\n
+                \*\!Transform3DGroup\! - can be used to group multiple transformations.\n
+                \n
+                Note that when using multiple transformation, then the \!order of transformations is very important\!
+                Usually you first scale, then rotate and finally translate. If you would first translate the object and then rotate it, then you will end up in a much different position as in the first case). 
+                Transformations are very useful because:\n
+                \* they are \!very fast\! because the MeshGeometry3D can be preserved (no need to change individual Positions; transformations are applied on the graphics card),\n
+                \* they are \!easy to understand\! and can be grouped,\n 
+                \* when 3D objects are grouped into hierarchy, then transforming the parent object also transforms all the children. 
+                For example, in case of robot arm, when the base is rotated then also all its children are rotated.\n
+                \n
+                Usage example:
+            </common:TextBlockEx>
+            <common:TextBlockEx FontFamily="Consolas" Style="{StaticResource InfoContent}" Margin="0 0 0 0">
+                var transform3DGroup = new Transform3DGroup();\n
+                transform3DGroup.Children.Add(new ScaleTransform3D(2, 3, 2));\n
+                transform3DGroup.Children.Add(new RotateTransform3D(new AxisAngleRotation3D(new Vector3D(0, 1, 0), 45)));\n
+                transform3DGroup.Children.Add(new TranslateTransform3D(100, 0, 0));\n
+                \n
+                geometryModel2.Transform = transform3DGroup;
+            </common:TextBlockEx>
+
+            <TextBlock Text="ModelVisual3D" FontWeight="Bold" FontSize="15" Margin="0 20 0 10" Style="{StaticResource InfoContent}" />
+
+            <common:TextBlockEx Style="{StaticResource InfoContent}" Margin="0 0 0 0">
+                The GeometryModel3D and Model3DGroup objects still cannot be shown. To be able to add them to the \!Viewport3D\! element, 
+                you need to enclose them into a ModelVisual3D object (you can only add Visual3D to the Viewport3D.Children collection).\n
+                \n
+                This can be easily done with:\n
+            </common:TextBlockEx>
+
+            <common:TextBlockEx FontFamily="Consolas" Style="{StaticResource InfoContent}" Margin="0 0 0 0">
+                var modelVisual2 = new ModelVisual3D()\n
+                {\n
+                \____Content = geometryModel2\n
+                };\n
+                \n
+                Viewport2.Children.Add(modelVisual2);\n
+                \n
+                // Using CreateModelVisual3D extension method from Ab3d.PowerToys\n
+                var modelVisual3 = geometryModel2.CreateModelVisual3D();\n
+                Viewport2.Children.Add(modelVisual3);\n
+                \n
+                // in one line:\n
+                Viewport2.Children.Add(geometryModel2.CreateModelVisual3D());
+            </common:TextBlockEx>
+
+            <common:TextBlockEx Style="{StaticResource InfoContent}" Margin="0 0 0 0">
+                The last line shows you how to use \!CreateModelVisual3D\! extension method from Ab3d.PowerToys library.\n
+                \n
+                Besides \!Content\! property that takes Model3D object, the ModelVisual3D also defines \!Children\! collection that allows building a hierarchy 
+                of Visual3D objects.\n
+                \n
+                The ModelVisual3D is also allows \!deriving\! your own objects from it (it is not possible to derive from Model3D objects). 
+                For that reason many base shapes in Ab3d.PowerToys are derived from ModelVisual3D object: SphereVisual3D, BoxVisual3D, PlaneVisual3D, etc.\n
+                \n
+                If you will build you own 3D objects, you can derive them from ModelVisual3D or use some higher level base class from Ab3d.PowerToys:\n
+                \*\!BaseVisual3D\! - provides \!IsVisible\! and \!Tag\! properties.\n
+                \*\!BaseModelVisual3D\! - is derived from BaseVisual3D and provides Material, BackMaterial properties and GeometryChanged event.\n
+            </common:TextBlockEx>
+
+            <TextBlock Text="Other" FontWeight="Bold" FontSize="15" Margin="0 20 0 10" Style="{StaticResource InfoContent}" />
+
+            <common:TextBlockEx Style="{StaticResource InfoContent}" Margin="0 0 0 0">
+                \!WPF 3D hit testing\! is described in the "EventManager3D / Standard WPF hit testing" sample.\n
+                \n
+                WPF 3D also defines many other objects that are not covered in this simple tutorial. Some of them are:\n
+                \*\!UIElement3D\!: similar to Visual3D objects but provide some additional hit testing support (note: that additional support does not work with Ab3d.DXEngine).\n
+                \*\!Lights\!: DirectionalLight, PointLight, SpotLight, AmbientLight.\n
+                \*\!Cameras\!: PerspectiveCamera and OrthographicCamera (it is better to use cameras from Ab3d.PowerToys).\n
+                \n
+                To get some additional resources about those and other WPF 3D objects check the \@Links web page:https://www.ab4d.com/Links.aspx|.
+            </common:TextBlockEx>
+        </StackPanel>
+
+    </ScrollViewer>
+</Page>
