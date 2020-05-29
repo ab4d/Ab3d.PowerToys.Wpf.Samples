@@ -15,7 +15,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Ab3d.Assimp;
 
-namespace Ab3d.PowerToys.Samples.Objects3D
+namespace Ab3d.PowerToys.Samples.Other
 {
     /// <summary>
     /// Interaction logic for BasicWpf3dObjectsTutorial.xaml

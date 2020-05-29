@@ -41,6 +41,7 @@
                 <StackPanel Orientation="Vertical" Margin="5">
                     <TextBlock FontWeight="Bold" TextDecorations="Underline" FontSize="14">CameraAxisPanel:</TextBlock>
                     <ab3d:CameraAxisPanel Name="CameraAxisPanel1" Width="80" Height="80" 
+                                          TargetCamera="{Binding ElementName=SceneCamera1}"
                                           Is3DAxesShown="{Binding ElementName=Is3DAxesShownCheckBox, Path=IsChecked}"
                                           IsAxisNameShown="{Binding ElementName=ShowAxisNamesCheckBox, Path=IsChecked}"/>
                     
@@ -54,6 +55,7 @@
                 <StackPanel Orientation="Vertical" Margin="5" Width="175">
                     <TextBlock FontWeight="Bold" TextDecorations="Underline" FontSize="14">Custom CameraAxisPanel:</TextBlock>
                     <ab3d:CameraAxisPanel Name="CustomCameraAxisPanel1" Width="80" Height="80" 
+                                          TargetCamera="{Binding ElementName=SceneCamera1}"
                                           Is3DAxesShown="{Binding ElementName=Is3DAxesShownCheckBox, Path=IsChecked}"
                                           IsAxisNameShown="{Binding ElementName=ShowAxisNamesCheckBox, Path=IsChecked}"/>
                     

@@ -1,4 +1,4 @@
-﻿<Page x:Class="Ab3d.PowerToys.Samples.Objects3D.BasicWpf3dObjectsTutorial"
+﻿<Page x:Class="Ab3d.PowerToys.Samples.Other.BasicWpf3dObjectsTutorial"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -25,9 +25,12 @@
 
             <common:TextBlockEx Style="{StaticResource InfoContent}" Margin="0 20 0 0">
                 This basic tutorial will give you some basic information about how 3D objects in WPF are defined.\n
+                All the images in this tutorial are interactive - you can rotate and zoom the camera.\n
+                The full source of the tutorial is available in the Other/BasicWpf3dObjectsTutorial.xaml and its cs file.\n
+                \n
                 To get some additional online resources, check the \@Links web page:https://www.ab4d.com/Links.aspx|.\n
                 \n
-                WPF 3D uses \!right-handed coordinate system\! where x-axis is points to the right, y-axis points up and z-axis points toward the viewer:
+                WPF 3D uses \!right-handed coordinate system\! where x-axis points to the right, y-axis points up and z-axis points toward the viewer:
             </common:TextBlockEx>
 
             <cameras:TargetPositionCamera Name="Camera1" TargetPosition="0 0 0"
@@ -69,7 +72,7 @@
             </common:TextBlockEx>
 
             <Grid>
-                <Border Name="ViewportBorder2" Width="400" Height="200" HorizontalAlignment="Left" BorderThickness="1" BorderBrush="Black">
+                <Border Name="ViewportBorder2" Width="400" Height="200" HorizontalAlignment="Left" BorderThickness="1" BorderBrush="Black" Background="Transparent">
                     <Viewport3D Name="Viewport2">
                         <visuals:WireGridVisual3D CenterPosition="50 0 25" Size="200 150" WidthCellsCount="20" HeightCellsCount="15" LineColor="Silver" LineThickness="1"/>
                         <visuals:ColoredAxisVisual3D Length="30" Position="0 0.5 0" />
@@ -119,7 +122,7 @@
             </common:TextBlockEx>
 
             <Grid>
-                <Border Name="ViewportBorder3" Width="400" Height="200" HorizontalAlignment="Left" BorderThickness="1" BorderBrush="Black">
+                <Border Name="ViewportBorder3" Width="400" Height="200" HorizontalAlignment="Left" BorderThickness="1" BorderBrush="Black" Background="Transparent">
                     <Viewport3D Name="Viewport3">
                         <visuals:WireGridVisual3D CenterPosition="50 0 25" Size="200 150" WidthCellsCount="20" HeightCellsCount="15" LineColor="Silver" LineThickness="1"/>
                         <visuals:ColoredAxisVisual3D Length="30" Position="0 0.5 0" />
@@ -158,7 +161,7 @@
             </common:TextBlockEx>
 
             <Grid>
-                <Border Name="ViewportBorder4" Width="400" Height="200" HorizontalAlignment="Left" BorderThickness="1" BorderBrush="Black">
+                <Border Name="ViewportBorder4" Width="400" Height="200" HorizontalAlignment="Left" BorderThickness="1" BorderBrush="Black" Background="Transparent">
                     <Viewport3D Name="Viewport4">
                         <visuals:WireGridVisual3D CenterPosition="50 0 25" Size="200 150" WidthCellsCount="20" HeightCellsCount="15" LineColor="Silver" LineThickness="1"/>
                         <visuals:ColoredAxisVisual3D Length="30" Position="0 0.5 0" />
@@ -234,9 +237,9 @@
             </common:TextBlockEx>
 
             <Grid>
-                <Border Name="ViewportBorder5" Width="400" Height="200" HorizontalAlignment="Left" BorderThickness="1" BorderBrush="Black">
+                <Border Name="ViewportBorder5" Width="400" Height="200" HorizontalAlignment="Left" BorderThickness="1" BorderBrush="Black" Background="Transparent">
                     <Viewport3D Name="Viewport5">
-                        <visuals:WireGridVisual3D CenterPosition="50 0 25" Size="200 150" WidthCellsCount="20" HeightCellsCount="15" LineColor="Silver" LineThickness="1"/>
+                        <visuals:WireGridVisual3D CenterPosition="50 -1 25" Size="200 150" WidthCellsCount="20" HeightCellsCount="15" LineColor="Silver" LineThickness="1"/>
                         <visuals:ColoredAxisVisual3D Length="30" Position="0 0.5 0" />
                         <ModelVisual3D>
                             <ModelVisual3D.Content>
@@ -352,7 +355,7 @@
                 and the last sphere uses DiffuseMaterial and EmissiveMaterial:
             </common:TextBlockEx>
 
-            <Border Name="ViewportBorder6" Width="400" Height="200" HorizontalAlignment="Left" BorderThickness="1" BorderBrush="Black">
+            <Border Name="ViewportBorder6" Width="400" Height="200" HorizontalAlignment="Left" BorderThickness="1" BorderBrush="Black" Background="Transparent">
                 <Viewport3D Name="Viewport6">
                     <ModelVisual3D>
                         <ModelVisual3D.Content>

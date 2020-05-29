@@ -17,11 +17,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Ab3d.PowerToys" Version="9.1.7279" />
-    <PackageReference Include="Ab3d.PowerToys.Input" Version="9.1.7279" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Reference Include="AssimpNet">
       <HintPath>..\lib\AssimpNet.dll</HintPath>
     </Reference>
@@ -206,6 +201,11 @@
 
   <ItemGroup>
     <Folder Include="Properties\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Ab3d.PowerToys" Version="9.2.7447" />
+    <PackageReference Include="Ab3d.PowerToys.Input" Version="9.2.7447" />
   </ItemGroup>
 
   <ItemGroup>

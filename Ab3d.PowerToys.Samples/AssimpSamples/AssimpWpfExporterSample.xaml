@@ -87,7 +87,7 @@
 
             <TextBox Name="OutputFileName" Grid.Column="1" MinWidth="100" Margin="5 0" VerticalAlignment="Center"/>
             
-            <Button Name="OpenExportedButton" Grid.Column="2" Content="Show exported file" Visibility="Hidden" Padding="10 3" Margin="20 0 5 0" Click="OpenExportedButton_OnClick" />
+            <Button Name="OpenExportedButton" Grid.Column="2" Content="Show exported file" Visibility="Collapsed" Padding="10 3" Margin="20 0 5 0" Click="OpenExportedButton_OnClick" />
 
             <TextBlock Text="Export type:" Grid.Column="3" Margin="15 0 5 0" VerticalAlignment="Center"/>
             <ComboBox Name="ExportTypeComboBox" Grid.Column="4" MinWidth="100" SelectionChanged="ExportTypeComboBox_OnSelectionChanged" />

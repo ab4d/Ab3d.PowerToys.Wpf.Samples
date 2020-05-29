@@ -26,24 +26,6 @@ namespace Ab3d.PowerToys.Samples.OtherCameraControllers
         private BitmapSource[] _normalViewCubeBitmaps;
         private BitmapSource[] _selectedViewCubeBitmaps;
 
-        private void Test()
-        {
-var textColor = Color.FromRgb(40, 40, 40);
-var borderBrush = new SolidColorBrush(Color.FromRgb(40, 40, 40));
-var innerBorderBrush = Brushes.LightGreen;
-var backgroundBrush = Brushes.White;
-int fontSize = 27;
-
-var bitmaps = new BitmapSource[6];
-for (var i = 0; i < 6; i++)
-{
-    string planeText = ViewCubeCameraController3.DefaultCubePlaneTexts[i]; // Use default texts
-    bitmaps[i] = ViewCubeCameraController.RenderViewCubeBitmap(planeText, fontSize, textColor, borderBrush, backgroundBrush, innerBorderBrush, 2, 16, 128);
-}
-
-ViewCubeCameraController1.SetViewCubeBitmaps(bitmaps);
-        }
-
         public ViewCubeCameraControllerSample()
         {
             InitializeComponent();

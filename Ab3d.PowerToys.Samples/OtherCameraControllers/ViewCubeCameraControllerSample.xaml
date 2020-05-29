@@ -17,7 +17,7 @@
             <ColumnDefinition Width="220"/>
         </Grid.ColumnDefinitions>
 
-        <Border Name="ViewportBorder">
+        <Border Name="ViewportBorder" Grid.Column="0">
 
             <Viewport3D Name="MainViewport">
                 <ModelVisual3D x:Name="SceneModel1" Content="{StaticResource HouseWithTreesModel}"/>
