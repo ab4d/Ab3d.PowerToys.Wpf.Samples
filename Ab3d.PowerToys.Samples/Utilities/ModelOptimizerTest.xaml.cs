@@ -47,11 +47,11 @@ namespace Ab3d.PowerToys.Samples.Utilities
             InitializeComponent();
 
             var dragAndDropHelper = new DragAndDropHelper(this, ".obj");
-            dragAndDropHelper.FileDroped += (sender, e) => LoadFile(e.FileName);
+            dragAndDropHelper.FileDropped += (sender, e) => LoadFile(e.FileName);
 
             this.Loaded += delegate (object sender, RoutedEventArgs args)
             {
-                LoadFile(AppDomain.CurrentDomain.BaseDirectory + @"..\..\Resources\ObjFiles\ship_boat.obj");
+                LoadFile(AppDomain.CurrentDomain.BaseDirectory + @"Resources\ObjFiles\ship_boat.obj");
 
                 StartCameraRotation();
 

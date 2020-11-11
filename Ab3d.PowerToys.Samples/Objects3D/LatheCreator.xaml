@@ -99,9 +99,8 @@
                 <StackPanel Orientation="Horizontal" Margin="5 5 0 5">
                     <TextBlock Text="StartAngleVector3D:" Margin="0 0 5 0"/>
                     <TextBox Name="StartAngleVector3DTextBox" Text="1 0 0" Width="50" TextChanged="OnTextChanged" />
-                    <Image Name="StartAngleVector3DInfoImage" Source="/Resources/infoIcon.png" SnapsToDevicePixels="True" Width="16" Height="16" VerticalAlignment="Center"
-                           Margin="5 -2 0 0" ToolTipService.ShowDuration="30000" 
-                           ToolTip="When using custom start and end angles, the StartAngleVector3D specifies a Vector3D&#x0a;that is used to define the direction in which the segment with StartAngle is facing.&#x0a;When clearing the TextBox or entering an invalid value, the StartAngleVector3D is set to null." />
+                    <common:InfoControl x:Name="StartAngleVector3DInfoControl" Margin="5 0 0 0" 
+                                        InfoText="When using custom start and end angles, the StartAngleVector3D specifies a Vector3D&#x0a;that is used to define the direction in which the segment with StartAngle is facing.&#x0a;When clearing the TextBox or entering an invalid value, the StartAngleVector3D is set to null." />
                 </StackPanel>
 
                 <CheckBox Name="TextureCheckBox" IsChecked="False" Content="Show Texture" Margin="5 5 0 0" Checked="OnCheckboxChanged" Unchecked="OnCheckboxChanged"/>

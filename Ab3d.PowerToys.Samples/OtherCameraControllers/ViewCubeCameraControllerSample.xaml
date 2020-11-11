@@ -12,12 +12,7 @@
       Title="ViewBoxSample">
 
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="220"/>
-        </Grid.ColumnDefinitions>
-
-        <Border Name="ViewportBorder" Grid.Column="0">
+        <Border Name="ViewportBorder">
 
             <Viewport3D Name="MainViewport">
                 <ModelVisual3D x:Name="SceneModel1" Content="{StaticResource HouseWithTreesModel}"/>
@@ -33,14 +28,14 @@
             </Viewport3D>
         </Border>
 
-        <cameras:TargetPositionCamera Name="Camera1"  Grid.Column="0"
-                                      TargetPosition="0 0 0" 
+        <cameras:TargetPositionCamera Name="Camera1"
+                                      TargetPosition="80 0 0" RotationCenterPosition="0 0 0"
                                       Heading="0" Attitude="-20" Bank="0" 
                                       Distance="1000" 
                                       ShowCameraLight="Always"
                                       TargetViewport3D="{Binding ElementName=MainViewport}"/>
 
-        <controls:MouseCameraController Name="MouseCameraController1" Grid.Column="0"
+        <controls:MouseCameraController Name="MouseCameraController1"
                                         RotateCameraConditions="LeftMouseButtonPressed"
                                         MoveCameraConditions="LeftMouseButtonPressed, ControlKey"
                                         IsRotationDirectionAdjusted="False"
@@ -48,48 +43,105 @@
                                         EventsSourceElement="{Binding ElementName=ViewportBorder}"
                                         TargetCamera="{Binding ElementName=Camera1}" />
 
-        <controls:CameraAxisPanel Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Bottom" TargetCamera="{Binding ElementName=Camera1}" />
+        <controls:CameraAxisPanel HorizontalAlignment="Left" VerticalAlignment="Bottom" TargetCamera="{Binding ElementName=Camera1}" />
 
-        <StackPanel Grid.Column="1" Orientation="Vertical" VerticalAlignment="Center">
+        <Border Background="#BBFFFFFF" VerticalAlignment="Bottom" HorizontalAlignment="Right">
+            <StackPanel Orientation="Vertical" Width="200" Margin="10">
 
-            <controls:ViewCubeCameraController x:Name="ViewCubeCameraController1"
-                                               HorizontalAlignment="Center"
-                                               TargetCamera="{Binding ElementName=Camera1}" />
-            
-            <TextBlock Text="Default ViewCubeCameraController" HorizontalAlignment="Center"/>
+                <controls:ViewCubeCameraController x:Name="ViewCubeCameraController1"
+                                                   HorizontalAlignment="Right"
+                                                   Width="200" Height="200"
+                                                   IsEdgeSelectionEnabled="True"
+                                                   IsRotationCircleShown="{Binding ElementName=IsRotationCircleShownCheckBox, Path=IsChecked}"
+                                                   TargetCamera="{Binding ElementName=Camera1}" />
 
-            <Rectangle VerticalAlignment="Stretch" Height="1" Fill="Gray" Margin="10 10 10 15" SnapsToDevicePixels="True"/>
+                <CheckBox Name="IsEdgeSelectionEnabledCheckBox" Content="IsEdgeSelectionEnabled" IsChecked="True" FontWeight="Bold" Margin="0 8 0 2" 
+                          Checked="OnIsEdgeSelectionEnabledCheckBoxCheckedChanged" Unchecked="OnIsEdgeSelectionEnabledCheckBoxCheckedChanged"/>
 
+                <CheckBox Name="IsRotationCircleShownCheckBox" Content="IsRotationCircleShown" IsChecked="True" Margin="0 4 0 2" FontWeight="Bold" />
 
-            <controls:ViewCubeCameraController x:Name="ViewCubeCameraController2"
-                                               Width="150" Height="150"
-                                               Foreground="BurlyWood"
-                                               SelectionBrush="Beige"
-                                               PlaneBitmapSize="256"
-
-                                               Background="LightSkyBlue"
-                                               SelectionCursor="Cross"
-                                               BorderBrush="Black"
-                                               BorderThickness="2"
-
-                                               PlaneClickAnimationDuration="0.3"
-                                               
-                                               TargetCamera="{Binding ElementName=Camera1}" />
-
-            <TextBlock Text="Customized properties" HorizontalAlignment="Center" TextWrapping="Wrap"/>
-            <Rectangle VerticalAlignment="Stretch" Height="1" Fill="Gray" Margin="10 10 10 15" SnapsToDevicePixels="True"/>
+                <CheckBox Name="IsCustomBitmapsShownCheckBox" Content="Is using custom bitmaps" IsChecked="False" FontWeight="Bold"
+                          Checked="OnIsCustomBitmapsShownCheckBoxCheckedChanged" Unchecked="OnIsCustomBitmapsShownCheckBoxCheckedChanged" />
 
 
-            <controls:ViewCubeCameraController x:Name="ViewCubeCameraController3"
-                                               Width="150" Height="150"
-                                               HorizontalAlignment="Center"
-                                               TargetCamera="{Binding ElementName=Camera1}" />
+                <TextBlock Text="Width, Height:" Margin="0 8 0 2" FontWeight="Bold" />
+                <ComboBox Name="SizeComboBox" SelectedIndex="2" SelectionChanged="OnViewCubeSettingsChanged">
+                    <ComboBoxItem>100, 100 (default)</ComboBoxItem>
+                    <ComboBoxItem>150, 150</ComboBoxItem>
+                    <ComboBoxItem>200, 200</ComboBoxItem>
+                </ComboBox>
 
-            <TextBlock Text="Customized face bitmaps" HorizontalAlignment="Center"/>
-            <TextBlock Text="(see code behind)" HorizontalAlignment="Center"/>
+                <TextBlock Name="ForegroundTextBlock" Text="Foreground:" Margin="0 8 0 2" FontWeight="Bold" />
+                <ComboBox Name="ForegroundComboBox" SelectedIndex="1" SelectionChanged="OnViewCubeSettingsChanged">
+                    <ComboBoxItem>White</ComboBoxItem>
+                    <ComboBoxItem>LightGray (default)</ComboBoxItem>
+                    <ComboBoxItem>Yellow</ComboBoxItem>
+                </ComboBox>
 
-        </StackPanel>
+                <TextBlock Name="SelectionBrushTextBlock" Text="SelectionBrush:" Margin="0 8 0 2" FontWeight="Bold" />
+                <ComboBox Name="SelectionBrushComboBox" SelectedIndex="0" SelectionChanged="OnViewCubeSettingsChanged">
+                    <ComboBoxItem>White (default)</ComboBoxItem>
+                    <ComboBoxItem>LightGray</ComboBoxItem>
+                    <ComboBoxItem>SkyBlue</ComboBoxItem>
+                </ComboBox>
 
+                <TextBlock Text="AmbientLightColor:" Margin="0 8 0 2" FontWeight="Bold" />
+                <ComboBox Name="AmbientLightColorComboBox" SelectedIndex="1" SelectionChanged="OnViewCubeSettingsChanged">
+                    <ComboBoxItem>#000000 (no ambient light)</ComboBoxItem>
+                    <ComboBoxItem>#333333 (default)</ComboBoxItem>
+                    <ComboBoxItem>#555555</ComboBoxItem>
+                    <ComboBoxItem>#AAAAAA</ComboBoxItem>
+                    <ComboBoxItem>#FFFFFF (100% ambient light)</ComboBoxItem>
+                </ComboBox>
+
+                <TextBlock Text="Background:" Margin="0 8 0 2" FontWeight="Bold" />
+                <ComboBox Name="BackgroundComboBox" SelectedIndex="0" SelectionChanged="OnViewCubeSettingsChanged">
+                    <ComboBoxItem>Transparent</ComboBoxItem>
+                    <ComboBoxItem>White</ComboBoxItem>
+                    <ComboBoxItem>LightSkyBlue</ComboBoxItem>
+                </ComboBox>
+
+                <TextBlock Text="Other properties:" Margin="0 8 0 2" FontWeight="Bold" />
+                <TextBlock Text="BorderBrush, BorderThickness, CubeSize, CubeEdgeSize, PlaneClickAnimationDuration, SelectionCursor, PlaneBitmapSize" TextWrapping="Wrap" />
+
+                <!--<controls:ViewCubeCameraController x:Name="ViewCubeCameraController1"
+                                                   HorizontalAlignment="Center"
+                                                   TargetCamera="{Binding ElementName=Camera1}" />
+                
+                <TextBlock Text="Default ViewCubeCameraController" HorizontalAlignment="Center"/>
+
+                <Rectangle VerticalAlignment="Stretch" Height="1" Fill="Gray" Margin="10 10 10 15" SnapsToDevicePixels="True"/>
+
+
+                <controls:ViewCubeCameraController x:Name="ViewCubeCameraController2"
+                                                   Width="150" Height="150"
+                                                   Foreground="BurlyWood"
+                                                   SelectionBrush="Beige"
+                                                   PlaneBitmapSize="256"
+
+                                                   Background="LightSkyBlue"
+                                                   SelectionCursor="Cross"
+                                                   BorderBrush="Black"
+                                                   BorderThickness="2"
+
+                                                   PlaneClickAnimationDuration="0.3"
+                                                   
+                                                   TargetCamera="{Binding ElementName=Camera1}" />
+
+                <TextBlock Text="Customized properties" HorizontalAlignment="Center" TextWrapping="Wrap"/>
+                <Rectangle VerticalAlignment="Stretch" Height="1" Fill="Gray" Margin="10 10 10 15" SnapsToDevicePixels="True"/>
+
+
+                <controls:ViewCubeCameraController x:Name="ViewCubeCameraController3"
+                                                   Width="150" Height="150"
+                                                   HorizontalAlignment="Center"
+                                                   TargetCamera="{Binding ElementName=Camera1}" />
+
+                <TextBlock Text="Customized face bitmaps" HorizontalAlignment="Center"/>
+                <TextBlock Text="(see code behind)" HorizontalAlignment="Center"/>-->
+
+            </StackPanel>
+        </Border>
         <TextBlock Grid.Column="0" FontWeight="Bold" FontSize="20" Foreground="#444" Margin="10" VerticalAlignment="Top" HorizontalAlignment="Left" 
                    Text="Using ViewCubeCameraController"/>
     </Grid>

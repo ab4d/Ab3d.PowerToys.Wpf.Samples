@@ -8,7 +8,27 @@ namespace Ab3d.Assimp
 {
     public static class AssimpLoader
     {
+        /// <summary>
+        /// Loads native assimp library from the AppDomain.CurrentDomain.BaseDirectory.
+        /// </summary>
         public static void LoadAssimpNativeLibrary()
+        {
+            string assimpLibraryFolder = AppDomain.CurrentDomain.BaseDirectory;
+            LoadAssimpNativeLibrary(assimpLibraryFolder, assimpLibraryFolder);
+        }
+
+        /// <summary>
+        /// Loads native assimp library from the specified folder.
+        /// </summary>
+        public static void LoadAssimpNativeLibrary(string assimpLibraryFolder)
+        {
+            LoadAssimpNativeLibrary(assimpLibraryFolder, assimpLibraryFolder);
+        }
+
+        /// <summary>
+        /// Loads native assimp library from the specified folders.
+        /// </summary>
+        public static void LoadAssimpNativeLibrary(string assimp32BitLibraryFolder, string assimp64BitLibraryFolder)
         {
             // IMPORTANT:
 
@@ -28,18 +48,22 @@ namespace Ab3d.Assimp
             //    If your project is not compiled for AnyCPU, then you can distribute only the version for your target platform.
             //
             //
-            // 2) Ensure that Visual C++ Redistributable for Visual Studio 2015 in available on the system
+            // 2) Ensure that Visual C++Redistributable for Visual Studio 2019 in available on the system
+            // 
+            //    The native Assimp library requires that the Visual C++ Redistributable for Visual Studio 2019 is available on the system.
+            //    
+            //    Visual C++ Redistributable for Visual Studio 2019 is installed on all Windows 10 systems and should be installed on
+            //    all Windows Vista and newer systems that have automatic windows update enabled.
+            //    More information about that can be read in the following article: https://docs.microsoft.com/en-us/cpp/windows/universal-crt-deployment?view=vs-2019/
+            //    
+            //    If your application is deployed to a system prior to Windows 10 and without installed windows updates, then you have to provide the required dlls by yourself.
             //
-            //  The native Assimp library requires that the Visual C++ Redistributable for Visual Studio 2015 is available on the system.
-            //  
-            //  Visual C++ Redistributable for Visual Studio 2015 is installed on all Windows 10 systems and should be installed on 
-            //  all Windows Vista and newer systems that have automatic windows update enabled. 
-            //  More information about "Distributing Software that uses the Universal CRT" can be read in the following MSDN article: https://blogs.msdn.microsoft.com/vcblog/2015/03/03/introducing-the-universal-crt
-            //  
-            //  If your application is deployed to a system prior to Windows 10 and without installed windows updates, 
-            //  then you have to provide the required dlls by yourself. You have two options:
-            //  a) The recommended way is to Install Visual Studio 2015 VCRedist (redistributable package files) to the target system,
-            //  b) It is also possible to copy all required dlls with your application (see 6th point under "Distributing Software that uses the Universal CRT" in the link above).
+            //    You have two options:
+            //    a) The recommended way is to Install Visual Studio VCRedist (redistributable package files) to the target system.
+            //       Installer can be downloaded from the https://support.microsoft.com/en-us/help/2977003/the-latest-supported-visual-c-downloads
+            //       (click on vc_redist.x86.exe or vc_redist.x64.exe),
+            //    
+            //    b) It is also possible to copy all required dlls with your application(see "Local deployment" part from the first link above).
             //
             //
             // 3) Add reference to managed libraries
@@ -47,7 +71,6 @@ namespace Ab3d.Assimp
             //    After you have the native part set up, then you only need to add reference to:
             //    - Assimp.Net library (AssimpNet.dll file) that provides a managed wrapper for the native addimp library,
             //    - Ab3d.PowerToys.Assimp library (Ab3d.PowerToys.Assimp.dll file) that provides logic to convert assimp objects into WPF 3D objects.
-
 
 
             // In this sample both Assimp32.dll and Assimp64.dll are copied to output directory
@@ -63,12 +86,10 @@ namespace Ab3d.Assimp
             //string assimp64Folder = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Assimp64");
 
             // Here both Assimp32.dll and Assimp64.dll are available in output directory
-            string assimp32Folder = AppDomain.CurrentDomain.BaseDirectory;
-            string assimp64Folder = assimp32Folder;
 
             try
             {
-                AssimpWpfImporter.LoadAssimpNativeLibrary(assimp32Folder, assimp64Folder); // This method can be called multiple times without problems
+                AssimpWpfImporter.LoadAssimpNativeLibrary(assimp32BitLibraryFolder, assimp64BitLibraryFolder); // This method can be called multiple times without problems
             }
             catch (AssimpException ex)
             {
@@ -76,7 +97,7 @@ namespace Ab3d.Assimp
 @"Error loading native assimp library!
 
 The most common cause of this error is that the 
-Visual C++ Redistributable for Visual Studio 2015
+Visual C++ Redistributable for Visual Studio 2019
 is not installed on the system. 
 
 Please install it manually or contact support of the application.

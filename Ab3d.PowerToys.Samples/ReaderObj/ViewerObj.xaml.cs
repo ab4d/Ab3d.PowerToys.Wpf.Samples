@@ -35,9 +35,9 @@ namespace Ab3d.PowerToys.Samples.ReaderObj
         public ViewerObj()
         {
             InitializeComponent();
-            
+
             _dragAndDropHelper = new DragAndDropHelper(this, ".obj");
-            _dragAndDropHelper.FileDroped += (sender, args) => LoadObj(args.FileName);
+            _dragAndDropHelper.FileDropped += (sender, args) => LoadObj(args.FileName);
 
             _readerObj = new Ab3d.ReaderObj();
             _readerObj.IgnoreErrors = true; // If error is found in obj file this will not throw exception but instead continue reading obj file. The error will be written to _readerObj.Errors list.
@@ -48,8 +48,25 @@ namespace Ab3d.PowerToys.Samples.ReaderObj
         private void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
             // Read the robotarm.obj from the project's source files (the file is embedded into the project to be also used in the ReadObjFromResources sample)
-            string fileName = AppDomain.CurrentDomain.BaseDirectory + @"..\..\Resources\ObjFiles\robotarm.obj";
-            LoadObj(fileName);           
+
+            // Get path to the Resources folder in the project
+            // The code below works also for netcore projects with output folder: "bin\Debug\netcoreapp3.1\" 
+            string basePath = AppDomain.CurrentDomain.BaseDirectory;
+            int pos = basePath.IndexOf(@"\bin\");
+
+            if (pos == -1)
+            {
+                MessageBox.Show("Cannot get path to TemplatePage.xaml file");
+                return;
+            }
+
+            basePath = basePath.Substring(0, pos);
+
+            string fileName = basePath + @"\Resources\ObjFiles\robotarm.obj";
+
+            //string fileName = AppDomain.CurrentDomain.BaseDirectory + @"..\..\Resources\ObjFiles\robotarm.obj"; // This works only for .net framework projects
+
+            LoadObj(fileName);
         }
 
         private void LoadButton_OnClick(object sender, RoutedEventArgs e)
@@ -119,7 +136,7 @@ namespace Ab3d.PowerToys.Samples.ReaderObj
                     // _wpf3DModel.GetName();
 
                     var defaultMaterial = new DiffuseMaterial(Brushes.Silver);
-                    
+
                     _wpf3DModel = _readerObj.ReadModel3D(_fileName, texturesPath, defaultMaterial);
 
                     if (_wpf3DModel != null)

@@ -21,24 +21,45 @@ namespace Ab3d.PowerToys.Samples.MouseCameraControllerSamples
     /// </summary>
     public partial class MouseCameraControllerOptions : Page
     {
+        private string[] _rotateAndMoveCursorNames;
+        private Cursor[] _rotateAndMoveCursors;
+        
+        private string[] _quickZoomCursorNames;
+        private Cursor[] _quickZoomCursors;
+
         public MouseCameraControllerOptions()
         {
             InitializeComponent();
-        }
-        
-        private void CustomCursorRadioButton_Checked(object sender, RoutedEventArgs e)
-        {
-            MouseCameraController1.RotationCursor = Cursors.Hand;
+
+            _rotateAndMoveCursorNames = new string[] { "SizeAll (default)", "ScrollAll", "Cross", "Hand", "OpenedHandCursor", "ClosedHandCursor", "RotateCursorRight", "RotateCursorLeft" };
+            _rotateAndMoveCursors     = new Cursor[] { Cursors.SizeAll, Cursors.ScrollAll, Cursors.Cross, Cursors.Hand, MouseCameraController1.OpenedHandCursor, MouseCameraController1.ClosedHandCursor, MouseCameraController1.RotateCursorRight, MouseCameraController1.RotateCursorLeft };
+
+            RotationCursorComoBox.ItemsSource   = _rotateAndMoveCursorNames;
+            RotationCursorComoBox.SelectedIndex = 0;
+
+            MovementCursorComoBox.ItemsSource   = _rotateAndMoveCursorNames;
+            MovementCursorComoBox.SelectedIndex = 0;
+
+
+            _quickZoomCursorNames = new string[] { "ScrollNS", "SizeNS", "Hand" };
+            _quickZoomCursors     = new Cursor[] { Cursors.ScrollNS, Cursors.SizeNS, Cursors.Hand };
+
+            QuickZoomCursorComoBox.ItemsSource   = _quickZoomCursorNames;
+            QuickZoomCursorComoBox.SelectedIndex = 0;
+
+            this.Loaded += delegate(object sender, RoutedEventArgs args)
+            {
+                UpdateCursor();
+            };
         }
 
-        private void RotateCursorRightRadioButton_Checked(object sender, RoutedEventArgs e)
+        private void UpdateCursor()
         {
-            MouseCameraController1.RotationCursor = MouseCameraController1.RotateCursorRight;
-        }
+            MouseCameraController1.RotationCursor = _rotateAndMoveCursors[RotationCursorComoBox.SelectedIndex];
 
-        private void RotateCursorLeftRadioButton_Checked(object sender, RoutedEventArgs e)
-        {
-            MouseCameraController1.RotationCursor = MouseCameraController1.RotateCursorLeft;
+            MouseCameraController1.MovementCursor = _rotateAndMoveCursors[MovementCursorComoBox.SelectedIndex];
+
+            MouseCameraController1.QuickZoomCursor = _quickZoomCursors[QuickZoomCursorComoBox.SelectedIndex];
         }
 
         private void RotationInertiaRatioSlider_OnValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
@@ -51,6 +72,43 @@ namespace Ab3d.PowerToys.Samples.MouseCameraControllerSamples
             // It is also possible to change the RotationEasingFunction
             // The CubicEaseOut method (defined in CameraAnimationSample) is the function that is used by default 
             //MouseCameraController1.RotationEasingFunction = Ab3d.PowerToys.Samples.Cameras.CameraAnimationSample.CubicEaseOut;
+        }
+
+        private void OnIsRotateCursorShownOnMouseOverCheckBoxCheckedChanged(object sender, RoutedEventArgs e)
+        {
+            if (!this.IsLoaded)
+                return;
+
+            MouseCameraController1.IsRotateCursorShownOnMouseOver = IsRotateCursorShownOnMouseOverCheckBox.IsChecked ?? false;
+        }
+
+        private void OnCursorComoBoxChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (!this.IsLoaded)
+                return;
+
+            UpdateCursor();
+        }
+
+        private void CustomCursorsButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            // This buttons shows how to set up open hand and closed hand cursors.
+            // To do this we first disable setting RotateCursor by the MouseCameraController.
+            // This way we can manually set our own cursor (opened hand) to the EventsSourceElement:
+
+            IsRotateCursorShownOnMouseOverCheckBox.IsChecked = false;
+            //MouseCameraController1.IsRotateCursorShownOnMouseOver = false;
+
+
+            // Then we set RotationCursor to ClosedHandCursor - this cursor is shown when user is rotating the camera:
+
+            RotationCursorComoBox.SelectedIndex = 5; // 5 = ClosedHandCursor
+             // MouseCameraController1.RotationCursor = MouseCameraController1.ClosedHandCursor;
+
+
+            // And finally set the OpenedHandCursor to the EventsSourceElement:
+
+            MouseCameraController1.EventsSourceElement.Cursor = MouseCameraController1.OpenedHandCursor;
         }
     }
 }

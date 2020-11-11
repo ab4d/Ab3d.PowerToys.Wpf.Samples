@@ -62,9 +62,6 @@
                 </StackPanel>
 
             </StackPanel>
-
-
-            <local:SceneEditorMenu Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="4" />
         </Grid>
 
         <Border Name="ViewportBorder" Grid.Row="1" Background="White"

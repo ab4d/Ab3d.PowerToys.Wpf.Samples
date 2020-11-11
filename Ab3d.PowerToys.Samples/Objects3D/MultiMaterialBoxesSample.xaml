@@ -44,10 +44,13 @@
         </Border>
 
         <cameras:SceneCamera Name="Camera1" Heading="30" Attitude="-20" Bank="0" Distance="400" ShowCameraLight="Always"/>
-        <ab3d:CameraControlPanel VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="5" Width="225" Height="75" ShowMoveButtons="True"/>
+
+        <ab3d:CameraAxisPanel VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="5" TargetCamera="{Binding ElementName=Camera1}" />
+
         <ab3d:MouseCameraController Name="MouseCameraController1"
                                     RotateCameraConditions="LeftMouseButtonPressed"
                                     MoveCameraConditions="LeftMouseButtonPressed, ControlKey"
+                                    TargetCamera="{Binding ElementName=Camera1}"
                                     EventsSourceElementName="ViewportBorder"/>
 
         <TextBlock FontWeight="Bold" FontSize="20" Foreground="Silver" Margin="10" VerticalAlignment="Top" HorizontalAlignment="Left" Text="MultiMaterialBoxVisual3D samples"/>

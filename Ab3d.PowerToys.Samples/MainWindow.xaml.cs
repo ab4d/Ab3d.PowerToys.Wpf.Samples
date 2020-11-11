@@ -22,17 +22,12 @@ namespace Ab3d.PowerToys.Samples
     public partial class MainWindow : Window
     {
         // Uncomment the _startupPage declaration to always start the samples with the specified page
-        private string _startupPage = null; //"UseCases/DucksLakeDemo.xaml";
+        //private string _startupPage = "Lines3D/DynamicEdgeLinesSample.xaml";
+        private string _startupPage = null;
 
         public MainWindow()
         {
-            // To activate the commercial license uncomment and fill the following line of code (see your User Account web page for more info):
-            //Ab3d.Licensing.PowerToys.LicenseHelper.SetLicense(licenseOwner: "[CompanyName]", 
-            //                                                  licenseType: "[LicenseType]", 
-            //                                                  license: "[LicenseText]");
-
             InitializeComponent();
-
 
             // SelectionChanged event handler is used to start the samples with the page set with _startupPage field.
             // SelectionChanged is used because SelectItem cannot be set from this.Loaded event.
@@ -51,7 +46,6 @@ namespace Ab3d.PowerToys.Samples
         public void ShowSupportPage()
         {
             SelectItem("Other/SupportPage.xaml");
-            SampleListScrollViewer.ScrollToEnd();
         }
 
         private void SelectItem(string pageName)

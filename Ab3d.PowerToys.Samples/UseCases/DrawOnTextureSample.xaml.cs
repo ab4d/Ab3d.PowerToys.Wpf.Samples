@@ -111,10 +111,6 @@ namespace Ab3d.PowerToys.Samples.UseCases
 
             MainViewport.Children.Add(targetModelVisual3D);
 
-            // With clearing all childen we have also removed the camera's light. 
-            // Refresh the camera now to recreate the light
-            Camera1.Refresh();
-
             SetupMouseEventHandlers(targetModelVisual3D);
         }
 

@@ -60,7 +60,7 @@
                                     TargetCamera="{Binding ElementName=Camera1}"
                                     EventsSourceElement="{Binding ElementName=ViewportBorder}"/>
 
-        <ab3d:CameraControlPanel VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="5" Width="225" Height="75" ShowMoveButtons="True"/>
+        <ab3d:CameraAxisPanel VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="5" TargetCamera="{Binding ElementName=Camera1}" />
 
         <StackPanel VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="10">
             <TextBlock FontWeight="Bold" FontSize="18" Foreground="Silver" Margin="0 3" TextDecorations="Underline" Text="ArrowVisual3D"/>

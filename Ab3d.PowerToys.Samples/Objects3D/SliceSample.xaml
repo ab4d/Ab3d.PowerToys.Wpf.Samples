@@ -44,7 +44,7 @@
                                     EventsSourceElement="{Binding ElementName=ViewportBorder}"
                                     TargetCamera="{Binding ElementName=Camera1}"/>
 
-        <controls:CameraAxisPanel VerticalAlignment="Bottom" HorizontalAlignment="Left" />
+        <controls:CameraAxisPanel VerticalAlignment="Bottom" HorizontalAlignment="Left" TargetCamera="{Binding ElementName=Camera1}" />
 
 
         <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="10">

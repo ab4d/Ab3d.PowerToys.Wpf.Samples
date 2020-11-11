@@ -48,7 +48,7 @@ namespace Ab3d.PowerToys.Samples.AssimpSamples
             LoadFileWithSkinnedAnimation(fileName);
 
             var dragAndDropHelper = new DragAndDropHelper(ViewportBorder, ".*");
-            dragAndDropHelper.FileDroped += (sender, e) =>
+            dragAndDropHelper.FileDropped += (sender, e) =>
             {
                 LoadFileWithSkinnedAnimation(e.FileName);
             };

@@ -15,23 +15,6 @@
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
     <ApplicationIcon>PowerToys.ico</ApplicationIcon>
-    <TargetFrameworkProfile>
-    </TargetFrameworkProfile>
-    <PublishUrl>publish\</PublishUrl>
-    <Install>true</Install>
-    <InstallFrom>Disk</InstallFrom>
-    <UpdateEnabled>false</UpdateEnabled>
-    <UpdateMode>Foreground</UpdateMode>
-    <UpdateInterval>7</UpdateInterval>
-    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
-    <UpdatePeriodically>false</UpdatePeriodically>
-    <UpdateRequired>false</UpdateRequired>
-    <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>0</ApplicationRevision>
-    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
-    <UseApplicationTrust>false</UseApplicationTrust>
-    <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -56,11 +39,13 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Ab3d.PowerToys, Version=9.2.7447.2045, Culture=neutral, PublicKeyToken=d45c8e156fba2841, processorArchitecture=MSIL">
-      <HintPath>..\packages\Ab3d.PowerToys.9.2.7447\lib\net45\Ab3d.PowerToys.dll</HintPath>
+    <Reference Include="Ab3d.PowerToys, Version=9.2.7447.1045, Culture=neutral, PublicKeyToken=d45c8e156fba2841, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Ab3d.PowerToys.9.3.7619\lib\net45\Ab3d.PowerToys.dll</HintPath>
     </Reference>
-    <Reference Include="Ab3d.PowerToys.Input, Version=9.2.7447.2045, Culture=neutral, PublicKeyToken=d45c8e156fba2841, processorArchitecture=MSIL">
-      <HintPath>..\packages\Ab3d.PowerToys.Input.9.2.7447\lib\net45\Ab3d.PowerToys.Input.dll</HintPath>
+    <Reference Include="Ab3d.PowerToys.Input, Version=9.2.7447.1045, Culture=neutral, PublicKeyToken=d45c8e156fba2841, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Ab3d.PowerToys.Input.9.3.7619\lib\net45\Ab3d.PowerToys.Input.dll</HintPath>
     </Reference>
     <Reference Include="AssimpNet">
       <SpecificVersion>False</SpecificVersion>
@@ -93,14 +78,54 @@
     <Compile Include="EventManager3D\StandardWpfHitTestingDemo.xaml.cs">
       <DependentUpon>StandardWpfHitTestingDemo.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Lines3D\StaticLineMeshesSample.xaml.cs">
+      <DependentUpon>StaticLineMeshesSample.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Objects3D\TubeLineVisual3DSample.xaml.cs">
+      <DependentUpon>TubeLineVisual3DSample.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Objects3D\HierarchyWithContentVisual3D.xaml.cs">
+      <DependentUpon>HierarchyWithContentVisual3D.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Other\BasicWpf3dObjectsTutorial.xaml.cs">
       <DependentUpon>BasicWpf3dObjectsTutorial.xaml</DependentUpon>
     </Compile>
     <Compile Include="OtherCameraControllers\FreeCameraViewCubeCameraControllerSample.xaml.cs">
       <DependentUpon>FreeCameraViewCubeCameraControllerSample.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UseCases\HeatmapRenderingSample.xaml.cs">
+      <DependentUpon>HeatmapRenderingSample.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Lines3D\DynamicEdgeLinesSample.xaml.cs">
+      <DependentUpon>DynamicEdgeLinesSample.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Lines3D\StaticEdgeLinesCreationSample.xaml.cs">
+      <DependentUpon>StaticEdgeLinesCreationSample.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Utilities\ModelMoverOverlayWithZUpAxisSample.xaml.cs">
+      <DependentUpon>ModelMoverOverlayWithZUpAxisSample.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Utilities\OtherUtilitiesInfo.xaml.cs">
       <DependentUpon>OtherUtilitiesInfo.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Wpf3DFile\ImportWpf3DFileWindow.xaml.cs">
+      <DependentUpon>ImportWpf3DFileWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Wpf3DFile\Wpf3DFileImporterSample.xaml.cs">
+      <DependentUpon>Wpf3DFileImporterSample.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Wpf3DFile\Wpf3DFileInfoControl.xaml.cs">
+      <DependentUpon>Wpf3DFileInfoControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Wpf3DFile\Wpf3DFileIntroPage.xaml.cs">
+      <DependentUpon>Wpf3DFileIntroPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Wpf3DFile\Wpf3DFileExporterSample.xaml.cs">
+      <DependentUpon>Wpf3DFileExporterSample.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Wpf3DFile\Wpf3DFile.cs" />
+    <Compile Include="Wpf3DFile\Wpf3DFileExportUserControl.xaml.cs">
+      <DependentUpon>Wpf3DFileExportUserControl.xaml</DependentUpon>
     </Compile>
     <Page Include="Animations\AnimationEasingSample.xaml">
       <SubType>Designer</SubType>
@@ -146,6 +171,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Lines3D\StaticLineMeshesSample.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Lines3D\WireGridVisual3DSample.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -166,11 +195,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Other\BasicWpf3dObjectsTutorial.xaml">
-      <SubType>Designer</SubType>
+    <Page Include="Objects3D\TubeLineVisual3DSample.xaml">
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
-    <Page Include="Objects3D\ContentVisual3DSample.xaml">
+    <Page Include="Objects3D\HierarchyWithContentVisual3D.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Other\BasicWpf3dObjectsTutorial.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -197,10 +230,6 @@
     <Page Include="SceneEditor\SceneEditor.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="SceneEditor\SceneEditorMenu.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UseCases\DucksLakeDemo.xaml">
       <SubType>Designer</SubType>
@@ -508,15 +537,31 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="UseCases\HeatmapRenderingSample.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="UseCases\WireframeSelection.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Lines3D\DynamicEdgeLinesSample.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Lines3D\StaticEdgeLinesCreationSample.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Utilities\MeshInspectorOverlaySample.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Utilities\ModelMoverAndRotatorSample.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Utilities\ModelMoverOverlayWithZUpAxisSample.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -909,9 +954,6 @@
     <Compile Include="MouseCameraControllerSamples\ZoomToCustomPoint.xaml.cs">
       <DependentUpon>ZoomToCustomPoint.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Objects3D\ContentVisual3DSample.xaml.cs">
-      <DependentUpon>ContentVisual3DSample.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Objects3D\ExtrudeAlongPathSample.xaml.cs">
       <DependentUpon>ExtrudeAlongPathSample.xaml</DependentUpon>
     </Compile>
@@ -930,9 +972,6 @@
       <DependentUpon>SceneEditor.xaml</DependentUpon>
     </Compile>
     <Compile Include="SceneEditor\SceneEditorContext.cs" />
-    <Compile Include="SceneEditor\SceneEditorMenu.xaml.cs">
-      <DependentUpon>SceneEditorMenu.xaml</DependentUpon>
-    </Compile>
     <Compile Include="UseCases\DucksLakeDemo.xaml.cs">
       <DependentUpon>DucksLakeDemo.xaml</DependentUpon>
     </Compile>
@@ -1092,6 +1131,30 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Utilities\OtherUtilitiesInfo.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Wpf3DFile\ImportWpf3DFileWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Wpf3DFile\Wpf3DFileImporterSample.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Wpf3DFile\Wpf3DFileInfoControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Wpf3DFile\Wpf3DFileIntroPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Wpf3DFile\Wpf3DFileExporterSample.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Wpf3DFile\Wpf3DFileExportUserControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -1404,6 +1467,27 @@
     <Content Include="Resources\robotarm-upper-part.3DS">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Resources\ObjFiles\teapot-hires.obj">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\robotarm.3DS">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\wpf3d\duckCM.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\wpf3d\duck.wpf3d">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\wpf3d\house with trees.wpf3d">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\wpf3d\robotarm.wpf3d">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\wpf3d\teapot-hires.wpf3d">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Resource Include="Resources\DXEngine-ArrowsSample.png" />
     <Content Include="..\lib\Assimp32.dll">
       <Link>Assimp32.dll</Link>
@@ -1552,7 +1636,6 @@
     </Content>
     <Resource Include="Resources\PowerToysWinFormsSample.jpg" />
     <Resource Include="Resources\ObjFiles\robotarm.png" />
-    <Resource Include="Resources\infoIcon.png" />
     <Content Include="Resources\HeightMaps\readme.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

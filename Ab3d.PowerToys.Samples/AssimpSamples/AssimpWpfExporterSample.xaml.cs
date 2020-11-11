@@ -84,7 +84,9 @@ namespace Ab3d.PowerToys.Samples.AssimpSamples
         {
             InitializeComponent();
 
-            AssimpWpfImporter.LoadAssimpNativeLibrary(AppDomain.CurrentDomain.BaseDirectory);
+            // Use helper class (defined in this sample project) to load the native assimp libraries.
+            // IMPORTANT: See commend in the AssimpLoader class for details on how to prepare your project to use assimp library.
+            AssimpLoader.LoadAssimpNativeLibrary();
 
 
             var assimpWpfExporter = new AssimpWpfExporter();
@@ -107,9 +109,7 @@ namespace Ab3d.PowerToys.Samples.AssimpSamples
             _selectedExportFormatId = _exportFormatDescriptions[ExportTypeComboBox.SelectedIndex].FormatId;
 
 
-            // Use helper class (defined in this sample project) to load the native assimp libraries
-            // IMPORTANT: See commend in the AssimpLoader class for details on how to prepare your project to use assimp library.
-            AssimpLoader.LoadAssimpNativeLibrary();
+
 
             _assimpWpfImporter = new AssimpWpfImporter();
             _assimpWpfImporter.AssimpPostProcessSteps = PostProcessSteps.Triangulate;
@@ -121,7 +121,7 @@ namespace Ab3d.PowerToys.Samples.AssimpSamples
 
             // Add drag and drop handler for all file extensions
             var dragAndDropHelper = new DragAndDropHelper(ViewportBorder, "*");
-            dragAndDropHelper.FileDroped += (sender, e) => LoadModel(e.FileName);
+            dragAndDropHelper.FileDropped += (sender, e) => LoadModel(e.FileName);
         }
 
         // Export specified model3D (we could also export Visual3D or entire Viewport3D - see commented code below)
@@ -131,8 +131,8 @@ namespace Ab3d.PowerToys.Samples.AssimpSamples
             var assimpWpfExporter = new AssimpWpfExporter();
 
             // To export objects with names, we can use one of the following methods:
-            // 1) Set object names with SetName extension method that is added by Ab3d.PowerToys (for example: boxVisual3D.SetName("BoxVisual1");
-            // 2) Set assimpWpfExporter.NamedObjects to a Dictionary<string, object> dictionary with set names as keys and objects as values
+            // 1) Set object names with SetName extension method that is added by Ab3d.PowerToys (for example: boxVisual3D.SetName("BoxVisual1"); or
+            // 2) Set assimpWpfExporter.NamedObjects to a Dictionary<string, object> dictionary with set names as keys and objects as values or
             // 3) Set assimpWpfExporter.ObjectNames to a Dictionary<object, string> dictionary with set objects as keys and names as values
 
             // Here we use NamedObjects because NamedObjects dictionary is also set when the 3D models are read from file
@@ -203,8 +203,6 @@ namespace Ab3d.PowerToys.Samples.AssimpSamples
             Camera2.Heading = Camera1.Heading;
             Camera2.Attitude = Camera1.Attitude;
             Camera2.Distance = Camera1.Distance;
-
-            Camera2.Refresh(); // This will regenerate light that was cleared with MainViewport2.Children.Clear()
 
             ExportedSceneTitleTextBlock.Text = "Scene imported from " + fileName;
         }
@@ -306,20 +304,8 @@ namespace Ab3d.PowerToys.Samples.AssimpSamples
 
             // Calculate the center of the model and its size
             // This will be used to position the camera
-
-            var bounds = model3D.Bounds;
-
-            var modelCenter = new Point3D(bounds.X + bounds.SizeX / 2,
-                                          bounds.Y + bounds.SizeY / 2,
-                                          bounds.Z + bounds.SizeZ / 2);
-
-            var modelSize = Math.Sqrt(bounds.SizeX * bounds.SizeX +
-                                      bounds.SizeY * bounds.SizeY +
-                                      bounds.SizeZ * bounds.SizeZ);
-
-
-            Camera1.TargetPosition = modelCenter;
-            Camera1.Distance = modelSize * 2;
+            Camera1.TargetPosition = model3D.Bounds.GetCenterPosition();
+            Camera1.Distance       = model3D.Bounds.GetDiagonalLength() * 1.2;
 
             // If the read model already define some lights, then do not show the Camera's light
             if (ModelUtils.HasAnyLight(model3D))

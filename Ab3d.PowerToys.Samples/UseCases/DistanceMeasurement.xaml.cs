@@ -99,8 +99,6 @@ namespace Ab3d.PowerToys.Samples.UseCases
                 CreateEuropeHeightMap();
             else if (LandscapeRadioButton.IsChecked ?? false)
                 CreateLandscapeModel();
-            else if (File3dsRadioButton.IsChecked ?? false)
-                Selected3dsFile();
         }
 
         private void CreateEuropeHeightMap()
@@ -199,11 +197,6 @@ namespace Ab3d.PowerToys.Samples.UseCases
                 return;
 
             UpdateDisplayedDistanceMeasurement(); // Recreate the lines and text that show the distance
-        }
-
-        private void OpenFileButton_OnClick(object sender, RoutedEventArgs e)
-        {
-            Selected3dsFile();
         }
 
         private void Reset()
@@ -451,44 +444,6 @@ namespace Ab3d.PowerToys.Samples.UseCases
             }
 
             UpdateDisplayedDistanceMeasurement();
-        }
-
-        private void Selected3dsFile()
-        {
-            // Ab3d.PowerToys samples by default does not have reference to Ab3d.Reader3ds
-            // If you want to use this sample with custom 3ds mode, uncomment the content of the next method (Read3dsFile)
-
-            MessageBox.Show("To read 3ds file, please add reference to Ab3d.Reader3ds\r\nand than uncomment the code in Read3dsFile method.");
-            return;
-
-            Microsoft.Win32.OpenFileDialog openFileDialog;
-
-            openFileDialog = new Microsoft.Win32.OpenFileDialog();
-            openFileDialog.DefaultExt = "3ds";
-            openFileDialog.Filter = "3ds files (*.3ds)|*.3ds";
-            openFileDialog.Multiselect = false;
-            openFileDialog.Title = "Select 3ds file to open";
-            openFileDialog.ValidateNames = true;
-
-            if (openFileDialog.ShowDialog() ?? false)
-                Read3dsFile(openFileDialog.FileName);
-        }
-
-        private void Read3dsFile(string fileName)
-        {
-            //var reader3ds = new Ab3d.Reader3ds();
-            //Model3DGroup readModel = reader3ds.ReadFile(fileName);
-
-            //SetContent(readModel);
-            //MainCamera.Distance = _contentSize * 2.0;
-
-            //SizeXTextBlock.Text = string.Format(System.Globalization.CultureInfo.InvariantCulture, "Size X: {0:0} m", readModel.Bounds.SizeX);
-            //SizeYTextBlock.Text = string.Format(System.Globalization.CultureInfo.InvariantCulture, "Size Y: {0:0} m", readModel.Bounds.SizeY);
-            //SizeZTextBlock.Text = string.Format(System.Globalization.CultureInfo.InvariantCulture, "Size Z: {0:0} m", readModel.Bounds.SizeZ);
-
-            //Reset();
-
-            //File3dsRadioButton.IsChecked = true;
         }
 
         private BitmapSource RenderTextToBitmap(string text, Brush textForegroundBrush)

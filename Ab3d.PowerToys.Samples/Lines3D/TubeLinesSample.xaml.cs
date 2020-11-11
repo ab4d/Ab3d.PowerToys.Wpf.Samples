@@ -35,7 +35,7 @@ namespace Ab3d.PowerToys.Samples.Lines3D
             CreateCurveWithVisuals();
             CreateCurveWithMeshes();
 
-            EmissiveMaterialInfoImage.ToolTip =
+            EmissiveMaterialInfoControl.InfoText =
 @"If unchecked then the standard DiffuseMaterial is used to show the tube lines.
 This means that the tube lines will be affected by rendered based on their and light positions and properties.
 

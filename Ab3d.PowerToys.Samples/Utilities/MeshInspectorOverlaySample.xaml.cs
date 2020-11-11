@@ -106,8 +106,6 @@ namespace Ab3d.PowerToys.Samples.Utilities
             MainViewport.Children.Add(geometryModel3D.CreateModelVisual3D());
 
             MeshInspector.MeshGeometry3D = _rootMesh;
-
-            Camera1.Refresh(); // Recreate the camera's light
         }
 
         private void PositionsTextColorComboBox_OnSelectionChanged(object sender, SelectionChangedEventArgs e)

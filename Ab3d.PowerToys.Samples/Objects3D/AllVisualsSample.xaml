@@ -55,10 +55,10 @@
             </Viewport3D>
         </Border>
 
-        <cameras:TargetPositionCamera Name="Camera1" Heading="30" Attitude="-20" Bank="0" 
-                                      Distance="200" TargetPosition="15 10 0" 
+        <cameras:TargetPositionCamera Name="Camera1" 
+                                      TargetPosition="15 10 0"
+                                      Heading="30" Attitude="-20" Distance="200" 
                                       ShowCameraLight="Always"
-                                      CameraType="PerspectiveCamera" CameraWidth="200"
                                       TargetViewport3D="{Binding ElementName=MainViewport}"/>
 
         <ab3d:MouseCameraController Name="MouseCameraController1"

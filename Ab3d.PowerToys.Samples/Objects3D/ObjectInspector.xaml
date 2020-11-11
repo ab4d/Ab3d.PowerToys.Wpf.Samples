@@ -48,9 +48,8 @@
                                       TargetPosition="0 0 0"
                                       ShowCameraLight="Always"
                                       TargetViewport3D="{Binding ElementName=MainViewport}"/>
-        
-        <ab3d:CameraControlPanel Grid.Column="0" Grid.Row="0" VerticalAlignment="Bottom" HorizontalAlignment="Left" 
-                                 Margin="5" Width="225" Height="75" ShowMoveButtons="True" TargetCamera="{Binding ElementName=Camera1}"/>
+
+        <ab3d:CameraAxisPanel Grid.Column="0" Grid.Row="0" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="5" TargetCamera="{Binding ElementName=Camera1}" />
 
         <ab3d:MouseCameraController Name="MouseCameraController1" Grid.Column="0" Grid.Row="0" 
                                     RotateCameraConditions="LeftMouseButtonPressed" 

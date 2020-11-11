@@ -11,7 +11,7 @@
     d:DesignHeight="700" d:DesignWidth="800"
     Title="EventManagerSample">
     <Grid>
-        <Border Name="ViewportBorder" BorderBrush="Black" BorderThickness="2" Margin="5" CornerRadius="5" Background="Transparent">
+        <Border Name="ViewportBorder" Background="Transparent">
             <Viewport3D Name="MainViewport">
                 
                 <visuals:WireGridVisual3D x:Name="WireGridVisual3D1" 
@@ -48,7 +48,7 @@
 
         <ab3d:CameraAxisPanel VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="5" TargetCamera="{Binding ElementName=Camera1}"/>
 
-        <Border VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="10" 
+        <Border VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="10 0 0 0"
                 Background="#EEFFFFFF" BorderBrush="#555" BorderThickness="1" CornerRadius="0" Cursor="Arrow" SnapsToDevicePixels="True">
             <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
                 <StackPanel Margin="10 8">

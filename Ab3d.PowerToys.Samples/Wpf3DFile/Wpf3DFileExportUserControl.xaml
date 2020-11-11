@@ -1,0 +1,50 @@
+﻿<UserControl x:Class="Ab3d.PowerToys.Samples.Wpf3DFile.Wpf3DFileExportUserControl"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Grid>
+        <StackPanel Orientation="Vertical" Margin="10">
+            <TextBlock Text="Export to .wpf3d file" FontSize="16" FontWeight="Bold" Foreground="#555" />
+
+            <StackPanel Orientation="Horizontal">
+                
+                <Border BorderBrush="Black" BorderThickness="2" Width="128" Height="128" HorizontalAlignment="Left" Margin="0 20 0 0" SnapsToDevicePixels="True" UseLayoutRounding="True">
+                    <Image Name="ThumbnailImage"/>
+                </Border>
+
+                <StackPanel Orientation="Vertical" VerticalAlignment="Bottom" Margin="10 0 0 0">
+                    <CheckBox Name="SaveNormalsCheckBox" Content="Save normals" IsChecked="True" Margin="0 5 0 0"/>
+                    <CheckBox Name="SaveTextureCoordinatesCheckBox" Content="Save texture coordinates" IsChecked="True" Margin="0 5 0 0"/>
+                    <CheckBox Name="SaveThumbnailCheckBox" Content="Save thumbnail" IsChecked="True" Margin="0 5 0 0"/>
+                </StackPanel>
+            
+            </StackPanel>
+
+            <TextBlock Margin="0 15 0 0" Text="Description:"/>
+            <TextBox Name="DescriptionTextBox" AcceptsReturn="True" AcceptsTab="True" Height="60" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" />
+
+            <TextBlock Margin="0 15 0 0" Text="Comment (any additional information in text format):"/>
+            <TextBox Name="CommentTextBox" AcceptsReturn="True" AcceptsTab="True" Height="60" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" />
+
+            <TextBlock Margin="0 15 0 0" Text="Data precision:"/>
+            <ComboBox Name="PrecisionComboBox" HorizontalAlignment="Left" SelectedIndex="1" Width="200">
+                <ComboBoxItem>Double (64 bit)</ComboBoxItem>
+                <ComboBoxItem>Float (32 bit)</ComboBoxItem>
+            </ComboBox>
+
+            <TextBlock Margin="0 15 0 0" Text="File name:"/>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <TextBox Name="FileNameTextBox" Grid.Column="0" Text="file.wpf3d" />
+                <Button Name="SelectFileButton" Grid.Column="1" Margin="5 0 0 0" Width="20" Content="..." Click="SelectFileButton_Click"/>
+            </Grid>
+            
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0 30 0 0">
+                <Button Name="CancelButton" Width="80" Height="30" IsCancel="True" Content="CANCEL" Click="CancelButton_Click"></Button>
+                <Button Name="SaveButton" Margin="10 0 0 0" Width="80" Height="30" IsDefault="True" Content="SAVE" Click="SaveButton_Click"></Button>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</UserControl>

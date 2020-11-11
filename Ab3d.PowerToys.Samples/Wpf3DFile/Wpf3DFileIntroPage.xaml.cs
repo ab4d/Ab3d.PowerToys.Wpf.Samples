@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -12,15 +11,16 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Ab3d.Assimp;
 
-namespace Ab3d.PowerToys.Samples.SceneEditor
+namespace Ab3d.PowerToys.Samples.Wpf3DFile
 {
     /// <summary>
-    /// Interaction logic for SceneEditorMenu.xaml
+    /// Interaction logic for Wpf3DFileIntroPage.xaml
     /// </summary>
-    public partial class SceneEditorMenu : UserControl
+    public partial class Wpf3DFileIntroPage : Page
     {
-        public SceneEditorMenu()
+        public Wpf3DFileIntroPage()
         {
             InitializeComponent();
         }

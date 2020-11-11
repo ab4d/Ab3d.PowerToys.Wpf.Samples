@@ -126,7 +126,7 @@ namespace Ab3d.PowerToys.Samples.UseCases
             }
             else if (ThirdPersonCameraCamera1.IsEnabled)
             {
-                // Call Refresh becasue the position of CenterObject is changed
+                // Call Refresh because the position of CenterObject is changed
                 // NOTE:
                 // It would be also possible to set IsDynamic property on ThirdPersonCamera to true
                 // This would automatically update the camera when the CenterObject is changed

@@ -3,7 +3,8 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:cameras="clr-namespace:Ab3d.Cameras;assembly=Ab3d.PowerToys"
     xmlns:ab3d="clr-namespace:Ab3d.Controls;assembly=Ab3d.PowerToys"  
-    xmlns:visuals="clr-namespace:Ab3d.Visuals;assembly=Ab3d.PowerToys"        
+    xmlns:visuals="clr-namespace:Ab3d.Visuals;assembly=Ab3d.PowerToys"
+    xmlns:common="clr-namespace:Ab3d.PowerToys.Samples.Common"
     Title="AllModelsSample"
     MinHeight="300"
     MinWidth="600">
@@ -108,7 +109,12 @@
         <ab3d:CameraControlPanel VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="5" Width="225" Height="75" ShowMoveButtons="True"
                                  TargetCamera="{Binding ElementName=Camera1}" />
 
-        <TextBlock FontWeight="Bold" FontSize="20" Foreground="Silver" Margin="10" VerticalAlignment="Top" HorizontalAlignment="Left" Text="3D lines and 3D axis created with Ab3d.Visuals"/>
+        <StackPanel Orientation="Vertical" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10">
+            <TextBlock FontWeight="Bold" FontSize="20" Foreground="Silver" Margin="0" HorizontalAlignment="Left" 
+                       Text="3D lines and 3D axis created with Ab3d.Visuals"/>
+            <TextBlock FontWeight="Bold" FontSize="14" Foreground="Red" Margin="0 3 0 0" HorizontalAlignment="Left" TextWrapping="Wrap"
+                       Text="Note: Rendering many 3D lines with Ab3d.PowerToys and WPF 3D can be slow. Consider using Ab3d.DXEngine to render many 3D lines."/>
+        </StackPanel>
 
         <Border VerticalAlignment="Bottom" HorizontalAlignment="Right" Background="#33000000" BorderBrush="Black" BorderThickness="2" CornerRadius="3">
             <Grid Margin="10">
@@ -129,9 +135,7 @@
                     <ComboBoxItem>30</ComboBoxItem>
                     <ComboBoxItem>45</ComboBoxItem>
                 </ComboBox>
-                <Image Grid.Row="0" Grid.Column="2" Source="/Resources/infoIcon.png" SnapsToDevicePixels="True" Width="16" Height="16" VerticalAlignment="Center"
-                       Margin="5 -2 0 0" ToolTipService.ShowDuration="30000" ToolTip="Sets the angle of the arrow in degrees" />
-
+                <common:InfoControl Grid.Row="0" Grid.Column="2" Margin="5 0 0 0" InfoText="Sets the angle of the arrow in degrees" />
 
                 <TextBlock Grid.Column="0" Grid.Row="1" Foreground="Silver" VerticalAlignment="Center" Margin="0 3 5 0" Text="Max arrow length:"/>
                 <ComboBox Name="LengthComboBox" Grid.Column="1" Grid.Row="1" SelectedIndex="1" Width="60" Margin="0 3" SelectionChanged="LengthComboBox_OnSelectionChanged">
@@ -141,8 +145,7 @@
                     <ComboBoxItem>0.4</ComboBoxItem>
                     <ComboBoxItem>0.5</ComboBoxItem>
                 </ComboBox>
-                <Image Name="ArrowLengthInfoImage" Grid.Row="1" Grid.Column="2" Source="/Resources/infoIcon.png" SnapsToDevicePixels="True" Width="16" Height="16" VerticalAlignment="Center"
-                       Margin="5 -2 0 0" ToolTipService.ShowDuration="30000" />
+                <common:InfoControl x:Name="ArrowLengthInfoControl" Grid.Row="1" Grid.Column="2" Margin="5 0 0 0" />
             </Grid>
         </Border>
     </Grid>

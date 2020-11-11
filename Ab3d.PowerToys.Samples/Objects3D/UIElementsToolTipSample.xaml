@@ -79,14 +79,19 @@
             </Viewport3D>
         </Border>
 
-        <cameras:TargetPositionCamera Name="Camera1" Heading="30" Attitude="-20" Bank="0" Distance="100" TargetPosition="0 0 0" ShowCameraLight="Always"/>
-        
+        <cameras:TargetPositionCamera Name="Camera1" TargetPosition="0 0 0"
+                                      Heading="30" Attitude="-20" Bank="0" 
+                                      Distance="300" 
+                                      ShowCameraLight="Always"
+                                      TargetViewport3D="{Binding ElementName=MainViewport}"/>
+
         <ab3d:MouseCameraController Name="MouseCameraController1"
                                     RotateCameraConditions="LeftMouseButtonPressed"
                                     MoveCameraConditions="LeftMouseButtonPressed, ControlKey"
+                                    TargetCamera="{Binding ElementName=Camera1}"
                                     IsRotateCursorShownOnMouseOver="False" EventsSourceElement="{Binding ElementName=ViewportBorder}"/>
 
-        <ab3d:CameraControlPanel VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="5" Width="225" Height="75" ShowMoveButtons="True"/>
+        <ab3d:CameraControlPanel VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="5" Width="225" Height="75" ShowMoveButtons="True" TargetCamera="{Binding ElementName=Camera1}"/>
         
         <TextBlock FontWeight="Bold" FontSize="20" Foreground="Silver" Margin="10" VerticalAlignment="Top" HorizontalAlignment="Left" Text="Sample ToolTips on Ab3d.UIElements3D"/>
     </Grid>

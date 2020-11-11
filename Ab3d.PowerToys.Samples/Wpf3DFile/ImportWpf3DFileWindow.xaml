@@ -1,0 +1,47 @@
+﻿<Window x:Class="Ab3d.PowerToys.Samples.Wpf3DFile.ImportWpf3DFileWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Ab3d.PowerToys.Samples.Wpf3DFile"
+        mc:Ignorable="d"
+        Title="Import wpf3d file" Height="450" Width="800">
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>      
+
+        <TextBlock Grid.Row="0" Text="Select wpf3d file to import" FontSize="14" FontWeight="Bold" Foreground="#444" />
+
+        <Grid Row="1" Margin="0 10 0 0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Grid.Column="0" Text="Folder:" />
+            <TextBox Name="FolderTextBox" Grid.Column="1" Margin="5 0 3 0" />
+            <Button Name="RefreshButton" Grid.Column="2" Content="Refresh" Padding="6 1" Click="RefreshButton_OnClick" />
+        </Grid>
+
+        <ListBox Name="FilesListBox" Grid.Row="2" Margin="0 5 0 10" ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
+                 SelectionChanged="FilesListBox_OnSelectionChanged">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <local:Wpf3DFileInfoControl Margin="5 10" />
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+            <ListBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel IsItemsHost="True" Orientation="Horizontal"  />
+                </ItemsPanelTemplate>
+            </ListBox.ItemsPanel>
+        </ListBox>
+
+        <Button Name="CancelButton" Grid.Row="3" Content="Cancel" Width="100" Padding="10 4" IsCancel="True" HorizontalAlignment="Right" Click="CancelButton_OnClick" />
+    </Grid>
+</Window>

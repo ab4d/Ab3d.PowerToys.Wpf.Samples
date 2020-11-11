@@ -45,7 +45,7 @@
                                    ShowTriangles="True" ShowOnlyFrontFacingTriangles="True" CombinePositionIndexes="WithSame2DScreenPosition"/>
 
         <cameras:TargetPositionCamera Name="Camera1" TargetPosition="0 0 0"
-                                      Heading="120" Attitude="-30" Bank="0" 
+                                      Heading="30" Attitude="-30" Bank="0" 
                                       Distance="400" 
                                       ShowCameraLight="Always"
                                       TargetViewport3D="{Binding ElementName=MainViewport}"/>
@@ -56,7 +56,7 @@
                                     TargetCamera="{Binding ElementName=Camera1}"
                                     EventsSourceElement="{Binding ElementName=ViewportBorder}"/>
 
-        <ab3d:CameraControlPanel VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="5" Width="225" Height="75" ShowMoveButtons="True"/>
+        <ab3d:CameraAxisPanel VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="5" TargetCamera="{Binding ElementName=Camera1}" />
 
         <StackPanel VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="10">
             <TextBlock FontWeight="Bold" FontSize="18" Foreground="Silver" Margin="0 3" TextDecorations="Underline" Text="CylinderVisual3D"/>

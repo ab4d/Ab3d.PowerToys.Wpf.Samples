@@ -246,9 +246,6 @@ namespace Ab3d.PowerToys.Samples.EventManager3D
             _glassPlaneVisual3D.SetName("GlassPlaneVisual3D");
 
             MainViewport.Children.Add(_glassPlaneVisual3D);
-
-
-            Camera1.Refresh(); // This will recreate camera's light that was removed when we called MainViewport.Children.Clear()
         }
 
         private void LogMessage(string message)

@@ -30,7 +30,7 @@ namespace Ab3d.PowerToys.Samples.UseCases
                 Orientation = Orientation.Vertical
             };
 
-            
+
             // titleTextBlock is defined here because it is not part of standard XAML
             var titleTextBlock = new TextBlock()
             {
@@ -43,7 +43,7 @@ namespace Ab3d.PowerToys.Samples.UseCases
                 TextWrapping = TextWrapping.Wrap
             };
 
-            titleTextBlock.Text = 
+            titleTextBlock.Text =
 @"This page represents an XAML template for the most commonly used Ab3d.PowerToys controls and classes.
 You can simply grab the XAML and copy it to your UserControl, Page or Window to quickly add the standard boilerplate for any 3D content.";
 
@@ -71,7 +71,23 @@ You can simply grab the XAML and copy it to your UserControl, Page or Window to 
         {
             try
             {
-                string fileName = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\UseCases\TemplatePage.xaml");
+                // Get path to the TemplatePage.xaml in the project
+                // The code below works also for netcore projects with output folder: "bin\Debug\netcoreapp3.1\" 
+                string basePath = AppDomain.CurrentDomain.BaseDirectory;
+                int pos = basePath.IndexOf(@"\bin\");
+
+                if (pos == -1)
+                {
+                    MessageBox.Show("Cannot get path to TemplatePage.xaml file");
+                    return;
+                }
+
+                basePath = basePath.Substring(0, pos);
+
+                string fileName = basePath + @"\UseCases\TemplatePage.xaml";
+
+                //string fileName = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\UseCases\TemplatePage.xaml"); // This works only for .net framework projects
+
 
                 string xaml = File.ReadAllText(fileName);
 

@@ -5,7 +5,7 @@
     xmlns:common="clr-namespace:Ab3d.PowerToys.Samples.Common"
     Title="Ab3d.PowerToys Samples"
     Icon="PowerToys.ico"
-    Width="1300" Height="820" 
+    Width="1300" Height="760" 
     Background="{DynamicResource BackgroundBrush}">
     <Window.Resources>
 
@@ -86,7 +86,7 @@
     </Window.Resources>
     <Grid Margin="5,3,5,7">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="260" />
+            <ColumnDefinition Width="270" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
@@ -94,23 +94,35 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <ScrollViewer Name="SampleListScrollViewer" Grid.Column="0" Grid.Row="0" Grid.RowSpan="2" Margin="0 0 5 5" VerticalAlignment="Center" 
-                      HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Auto">
-            <StackPanel Orientation="Vertical">
-                <Image Name="LogoImage" Source="Resources/ab4d-logo.png" Width="128" Height="35" Margin="15 5 0 0" HorizontalAlignment="Left" Cursor="Hand" MouseUp="LogoImage_OnMouseUp"
-                       ToolTip="Click to visit the AB4D company web site"/>
+        <!-- LEFT SIDE: -->
 
-                <ListBox Name="SampleList"
-	                 SelectedIndex="0"
+        <Grid Name="LeftSideGrid" Grid.Column="0" Grid.Row="0" Grid.RowSpan="2">
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <TextBlock Grid.Row="0" Margin="10 15 5 0" HorizontalAlignment="Left" Text="Ab3d.PowerToys by"
+                       FontWeight="Bold" FontSize="16" Foreground="{StaticResource HeaderBrush}"/>
+
+            <Image Name="LogoImage" Grid.Row="1" Margin="10 5 5 0" HorizontalAlignment="Left" Cursor="Hand" MouseUp="LogoImage_OnMouseUp"
+                   Source="Resources/ab4d-logo.png" Width="128" ToolTip="Click to visit the AB4D company web site"/>
+
+            <ListBox Name="SampleList"
+                     Grid.Column="0" Grid.Row="2"  
+                     Margin="0 15 0 5" Padding="0 0 0 0"
+                     SelectedIndex="0"
                      ItemsSource="{Binding Source={StaticResource SamplesXml}, XPath=Samples/Sample}"
                      ItemTemplate="{StaticResource SamplesTemplate}"    
                      ItemContainerStyle="{StaticResource SimpleListBoxItem}" 
                      Background="{StaticResource BackgroundBrush}"
                      BorderThickness="1"
-                     BorderBrush="{StaticResource BackgroundBrush}"
-	                 Padding="5"/>
-            </StackPanel>
-        </ScrollViewer>
+                     BorderBrush="{StaticResource BackgroundBrush}"/>
+        </Grid>
+
+        <!-- RIGHT SIDE: -->
 
         <common:FeedbackControl Grid.Column="1" Grid.Row="0" HorizontalAlignment="Right" Margin="0 0 10 -3"/>
 
@@ -119,10 +131,6 @@
                 DataContext="{Binding ElementName=SampleList, Path=SelectedItem}"
                 DataContextChanged="TextBlock_DataContextChanged">
             <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="955*"/>
-                    <ColumnDefinition Width="53*"/>
-                </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="Auto"/>
@@ -133,13 +141,15 @@
                 <Expander Name="DescriptionExpander" Grid.Row="1"  
                           Style="{StaticResource MyExpanderStyle}"
                           Header="Description" IsExpanded="True" Padding="0"
-                          Visibility="{Binding Converter={StaticResource IsStringEmptyConverter}}" Grid.ColumnSpan="2">
-                    <common:TextBlockEx x:Name="DescriptionTextBlock" Margin="40 5 0 0"
-							            TextWrapping="Wrap" TextAlignment="Left" FontSize="12"
-                                        ContentText="{Binding XPath=@Description}"/>
+                          Visibility="{Binding Converter={StaticResource IsStringEmptyConverter}}">
+                        <common:TextBlockEx x:Name="DescriptionTextBlock" Margin="40 5 0 0"
+							                TextWrapping="Wrap" TextAlignment="Left" FontSize="12"
+                                            ContentText="{Binding XPath=@Description}"/>
                 </Expander>
             </Grid>
         </Border>
+
+        <GridSplitter Grid.Column="1" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Stretch" Margin="1 0 0 0" Width="3" Background="{StaticResource BackgroundBrush}" />
 
     </Grid>
 </Window>

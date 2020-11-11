@@ -14,6 +14,7 @@ using System.Windows.Media.Media3D;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
+using Ab3d.Assimp;
 using Ab3d.Common.EventManager3D;
 using Ab3d.Utilities;
 

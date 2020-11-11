@@ -6,6 +6,9 @@
     <UseWPF>true</UseWPF>
     <AssemblyName>Ab3d.PowerToys.Samples</AssemblyName>
     <ApplicationIcon>PowerToys.ico</ApplicationIcon>
+    <Version>9.3.7619</Version>
+    <AssemblyVersion>9.3.7619.2300</AssemblyVersion>
+    <FileVersion>9.3.7619.2300</FileVersion>        
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -97,6 +100,7 @@
     <None Remove="Resources\ObjFiles\ship_boat.mtl" />
     <None Remove="Resources\ObjFiles\ship_boat.obj" />
     <None Remove="Resources\ObjFiles\ship_boat_readme.txt" />
+    <None Remove="Resources\ObjFiles\teapot-hires.obj" />
     <None Remove="Resources\ObjFiles\Teapot.obj" />
     <None Remove="Resources\ObjFiles\WaltHead.mtl" />
     <None Remove="Resources\ObjFiles\WaltHead.obj" />
@@ -107,6 +111,7 @@
     <None Remove="Resources\PowerToys_box_side.jpg" />
     <None Remove="Resources\PowerToys_Model3ds.jpg" />
     <None Remove="Resources\robotarm-upper-part.3DS" />
+    <None Remove="Resources\robotarm.3DS" />
     <None Remove="Resources\Settings.png" />
     <None Remove="Resources\SkyboxTextures\CloudyLightRaysBack512.png" />
     <None Remove="Resources\SkyboxTextures\CloudyLightRaysDown512.png" />
@@ -123,6 +128,11 @@
     <None Remove="Resources\TransparencyUseCaseModels\OAKPLY1.JPG" />
     <None Remove="Resources\TreeTexture.png" />
     <None Remove="Resources\updated_icon.png" />
+    <None Remove="Resources\wpf3d\duck.wpf3d" />
+    <None Remove="Resources\wpf3d\duckCM.png" />
+    <None Remove="Resources\wpf3d\house with trees.wpf3d" />
+    <None Remove="Resources\wpf3d\robotarm.wpf3d" />
+    <None Remove="Resources\wpf3d\teapot-hires.wpf3d" />
     <None Remove="Resources\XBox-controller.jpg" />
     <None Remove="Samples.xml" />
   </ItemGroup>
@@ -176,6 +186,9 @@
     <Content Include="Resources\ObjFiles\ship_boat_readme.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Resources\ObjFiles\teapot-hires.obj">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Resources\ObjFiles\Teapot.obj">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -188,6 +201,9 @@
     <Content Include="Resources\robotarm-upper-part.3DS">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Resources\robotarm.3DS">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Resources\soldier.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -197,6 +213,21 @@
     <Content Include="Resources\streamlines.csv">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Resources\wpf3d\duck.wpf3d">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\wpf3d\duckCM.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\wpf3d\house with trees.wpf3d">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\wpf3d\robotarm.wpf3d">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\wpf3d\teapot-hires.wpf3d">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
   <ItemGroup>
@@ -204,8 +235,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Ab3d.PowerToys" Version="9.2.7447" />
-    <PackageReference Include="Ab3d.PowerToys.Input" Version="9.2.7447" />
+    <PackageReference Include="Ab3d.PowerToys" Version="9.3.7619" />
+    <PackageReference Include="Ab3d.PowerToys.Input" Version="9.3.7619" />
   </ItemGroup>
 
   <ItemGroup>
@@ -239,7 +270,6 @@
     <Resource Include="Resources\CustomControlPanel\rotateUp.png" />
     <Resource Include="Resources\CustomControlPanel\rotateUp_selected.png" />
     <Resource Include="Resources\DXEngine-ArrowsSample.png" />
-    <Resource Include="Resources\infoIcon.png" />
     <Resource Include="Resources\KinectSample.jpg" />
     <Resource Include="Resources\landscapeTexture.jpg" />
     <Resource Include="Resources\new_icon.png" />

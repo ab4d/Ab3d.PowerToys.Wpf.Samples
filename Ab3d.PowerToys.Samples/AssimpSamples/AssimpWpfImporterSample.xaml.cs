@@ -33,7 +33,8 @@ namespace Ab3d.PowerToys.Samples.AssimpSamples
             InitializeComponent();
 
 
-            // Use helper class (defined in this sample project) to load the native assimp libraries
+            // Use helper class (defined in this sample project) to load the native assimp libraries.
+            // IMPORTANT: See commend in the AssimpLoader class for details on how to prepare your project to use assimp library.
             AssimpLoader.LoadAssimpNativeLibrary();
 
 
@@ -50,7 +51,7 @@ namespace Ab3d.PowerToys.Samples.AssimpSamples
 
 
             var dragAndDropHelper = new DragAndDropHelper(this, ".*");
-            dragAndDropHelper.FileDroped += (sender, args) => LoadModel(args.FileName);
+            dragAndDropHelper.FileDropped += (sender, args) => LoadModel(args.FileName);
 
 
             string startUpFileName = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Resources\Collada\duck.dae");
@@ -124,6 +125,9 @@ namespace Ab3d.PowerToys.Samples.AssimpSamples
         private void ShowModel(Model3D model3D, bool updateCamera)
         {
             ContentVisual.Content = model3D;
+
+            if (model3D == null)
+                return;
 
             // NOTE:
             // We could show both solid model and wireframe in WireframeVisual3D (ContentWireframeVisual) with using WireframeWithOriginalSolidModel for WireframeType.

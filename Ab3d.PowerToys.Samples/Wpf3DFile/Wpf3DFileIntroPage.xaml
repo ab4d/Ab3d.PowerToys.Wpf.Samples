@@ -1,0 +1,31 @@
+﻿<Page x:Class="Ab3d.PowerToys.Samples.Wpf3DFile.Wpf3DFileIntroPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:common="clr-namespace:Ab3d.PowerToys.Samples.Common"
+      mc:Ignorable="d" 
+      d:DesignHeight="500" d:DesignWidth="800"
+      Background="{StaticResource GrayTitlePageGradient}"
+	Title="ReaderObjIntroPage">
+    <Grid Margin="10">
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
+            <StackPanel Orientation="Vertical" Margin="20 10">
+
+                <common:TextBlockEx Style="{StaticResource InfoTitle}" Foreground="Black">
+                    wpf3d file reader and writer
+                </common:TextBlockEx>
+
+                <common:TextBlockEx Style="{StaticResource InfoContent}">
+                    \!wpf3d\! is a custom binary file format that can store Model3D (GeometryModel3D and Model3DGroup) objects. The file format is designed by AB3D company and is created to work best with WPF 3D objects.\n
+                    \n
+                    The \!source code\! for the file reader and writer is available in the Wpf3DFile.cs file that is part of this sample project. The source code can be changed if you want to extent the capabilities of the file format. The source code also provides the description of the file format.\n
+                    \n
+                    The wpf3d file can store the full hierarchy of Model3DGroup and GeometryModel3D objects. It can also store a \!thumbnail image\! of the 3D model and a \!description\! of the model. If you want to add some additional data about the model, you can serialize it to text and store that in a \!Comment property\!. File format also provides option to save positions, normals and texture coordinates as \!double or float\! values (using float reduces the file size by almost half). The file format cannot store animations and do not embed textures (only texture file names can be saved).\n
+                    \n
+                    Saving 3D models into wpf3d file is useful so you do not need to distribute \!assimp importer\! with your application. You can convert all 3D models from fbx and other files into wpf3d files and then load the models in your application with a very efficient and 100% managed file loader.
+                </common:TextBlockEx>
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</Page>

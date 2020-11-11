@@ -50,9 +50,6 @@
             <TextBlock Text="Scene selection:" FontWeight="Bold"/>
             <RadioButton Name="EuropeMapRadioButton" Content="Europe map" IsChecked="True" Margin="0 0 0 2" GroupName="SceneType" Checked="OnSceneTypeChanged" />
             <RadioButton Name="LandscapeRadioButton" Content="Landscape" GroupName="SceneType" Margin="0 0 0 2" Checked="OnSceneTypeChanged" />
-            <RadioButton Name="File3dsRadioButton" GroupName="SceneType">
-                <Button Name="OpenFileButton" Content="Read 3ds file" Click="OpenFileButton_OnClick" />
-            </RadioButton>
 
             <!--<TextBlock Text="Object bounds:" FontWeight="Bold"/>
             <TextBlock Name="SizeXTextBlock" />

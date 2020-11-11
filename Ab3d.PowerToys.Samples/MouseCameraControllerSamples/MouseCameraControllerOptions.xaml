@@ -5,6 +5,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
     xmlns:cameras="clr-namespace:Ab3d.Cameras;assembly=Ab3d.PowerToys"
     xmlns:ab3d="clr-namespace:Ab3d.Controls;assembly=Ab3d.PowerToys"
+    xmlns:common="clr-namespace:Ab3d.PowerToys.Samples.Common"
     mc:Ignorable="d" 
     d:DesignHeight="600" d:DesignWidth="800"
     Title="CamerasSample">
@@ -29,7 +30,8 @@
         <ab3d:MouseCameraController Name="MouseCameraController1" Grid.Column="0"
                                     ShowRotationCenterMarker="True"
                                     RotateCameraConditions="LeftMouseButtonPressed"
-                                    MoveCameraConditions="LeftMouseButtonPressed, ControlKey"
+                                    MoveCameraConditions="RightMouseButtonPressed"
+                                    QuickZoomConditions="LeftMouseButtonPressed, RightMouseButtonPressed"
                                     TargetCamera="{Binding ElementName=Camera1}" 
                                     EventsSourceElement="{Binding ElementName=ViewportBorder}"
                                     
@@ -44,50 +46,85 @@
                 <StackPanel Orientation="Vertical" Margin="5">
 
                     <TextBlock Margin="5 5 5 0" FontWeight="Bold" TextDecorations="Underline" FontSize="14">MouseCameraController</TextBlock>
-                    <TextBlock Margin="5 5 5 5" FontWeight="Bold" FontSize="14">Additional properties:</TextBlock>
+
+                    <TextBlock Text="RotateCameraConditions: Left" Margin="5 10 0 3" />
+                    <TextBlock Text="MoveCameraConditions: Right" Margin="5 0 0 3" />
+                    <TextBlock Text="QuickZoomCameraConditions: Left, Right" Margin="5 0 0 3" />
+
+                    <TextBlock Margin="5 10 5 5" FontWeight="Bold" FontSize="12">Additional properties:</TextBlock>
 
                     <CheckBox Name="IsXAxisInvertedCheckBox" Margin="5" IsChecked="False">IsXAxisInverted</CheckBox>
                     <CheckBox Name="IsYAxisInvertedCheckBox" Margin="5" IsChecked="False">IsYAxisInverted</CheckBox>
 
-                    <TextBlock Margin="5 10 0 0">RotationCursor:</TextBlock>
-                    <RadioButton Name="RotateCursorRight" Margin="10 0" IsChecked="True" GroupName="RotationCursorGroup" Checked="RotateCursorRightRadioButton_Checked">RotateCursorRight</RadioButton>
-                    <RadioButton Name="RotateCursorLeft" Margin="10 2" IsChecked="False" GroupName="RotationCursorGroup" Checked="RotateCursorLeftRadioButton_Checked">RotateCursorLeft</RadioButton>
-                    <RadioButton Name="CustomCursorRadio" Margin="10 0" IsChecked="False" GroupName="RotationCursorGroup" Checked="CustomCursorRadioButton_Checked">Custom cursor</RadioButton>
-
                     <CheckBox Name="IsMouseWheelZoomEnabledCheckBox" Margin="5 15 0 0" IsChecked="True">IsMouseWheelZoomEnabled</CheckBox>
 
-                    <TextBlock Margin="5 20 0 0">MouseWheelDistanceChangeFactor:</TextBlock>
+                    <StackPanel Orientation="Horizontal" Margin="5 20 0 0">
+                        <TextBlock>MouseWheelDistanceChangeFactor:</TextBlock>
+                        <common:InfoControl Margin="5 0 0 0" InfoWidth="400" 
+                                            InfoText="MouseWheelDistanceChangeFactor specifies a value that is used when zooming with mouse wheel. When zooming out the Camera's Distance or CameraWidth is multiplied with this value. When zooming in the Camera's Distance or CameraWidth is divided with this value. Default value is 1.05. Bigger value increases the speed of zooming with mouse wheel." />
+                    </StackPanel>
+
                     <StackPanel Orientation="Horizontal" Margin="5 5 0 0">
                         <Slider Name="MouseWheelDistanceChangeFactorSlider" Minimum="1.01" Maximum="1.3" Value="1.05" Width="150" TickFrequency="0.05" TickPlacement="BottomRight" SmallChange="0.05"/>
                         <TextBlock Margin="5 0" VerticalAlignment="Center" Text="{Binding ElementName=MouseWheelDistanceChangeFactorSlider, Path=Value, StringFormat=F2}"/>
                     </StackPanel>
 
-                    <TextBlock FontSize="9" Width="240" HorizontalAlignment="Left" Margin="5 5 0 0" TextWrapping="Wrap"
-                               Text="MouseWheelDistanceChangeFactor specifies a value that is used when zooming with mouse wheel. When zooming out the Camera's Distance or CameraWidth is multiplied with this value. When zooming in the Camera's Distance or CameraWidth is divided with this value. Default value is 1.05. Bigger value increases the speed of zooming with mouse wheel." />
+                    <StackPanel Orientation="Horizontal" Margin="5 20 0 0">
+                        <TextBlock>EventsSourceElementRotationChange:</TextBlock>
+                        <common:InfoControl Margin="5 0 0 0" InfoWidth="400" 
+                                            InfoText="EventsSourceElementRotationChange defines how many degrees the camera rotates when mouse travels from one side ot the EventSourceElement to another side." />
+                    </StackPanel>
 
-                    
-                    <TextBlock Margin="5 20 0 0">EventsSourceElementRotationChange:</TextBlock>
                     <StackPanel Orientation="Horizontal" Margin="5 5 0 0">
                         <Slider Name="EventsSourceElementRotationChangeSlider" Minimum="90" Maximum="720" Value="270" Width="150" TickFrequency="90" IsSnapToTickEnabled="True" TickPlacement="BottomRight" SmallChange="90"/>
                         <TextBlock Margin="5 0" VerticalAlignment="Center" Text="{Binding ElementName=EventsSourceElementRotationChangeSlider, Path=Value}"/>
                         <TextBlock VerticalAlignment="Center" Text="degrees"/>
                     </StackPanel>
 
-                    <TextBlock FontSize="9" Width="240" HorizontalAlignment="Left" Margin="5 5 0 0" TextWrapping="Wrap"
-                               Text="EventsSourceElementRotationChange defines how many degrees the camera rotates when mouse travels from one side ot the EventSourceElement to another side." />
-
-
-                    <TextBlock Margin="5 20 0 0">RotationInertiaRatio:</TextBlock>
+                    <StackPanel Orientation="Horizontal" Margin="5 20 0 0">
+                        <TextBlock>RotationInertiaRatio:</TextBlock>
+                        <common:InfoControl Margin="5 0 0 0" InfoWidth="400" 
+                                            InfoText="RotationInertiaRatio property controls how the rotation velocity is preserved after user stops rotating the camera. It is also possible to set the RotationEasingFunction property to better control the deceleration speed (see code behind)." />
+                    </StackPanel>
                     <StackPanel Orientation="Horizontal" Margin="5 0 0 0">
                         <Slider Name="RotationInertiaRatioSlider" Minimum="0" Maximum="3" Value="1" Width="150" TickFrequency="0.1" IsSnapToTickEnabled="True" TickPlacement="BottomRight" SmallChange="0.1" ValueChanged="RotationInertiaRatioSlider_OnValueChanged"/>
                         <TextBlock Margin="5 0" VerticalAlignment="Center" Text="{Binding ElementName=RotationInertiaRatioSlider, Path=Value, StringFormat=0.0}"/>
                     </StackPanel>
 
-                    <TextBlock FontSize="9" Width="240" HorizontalAlignment="Left" Margin="5 0 0 0" TextWrapping="Wrap"
-                               Text="RotationInertiaRatio property controls how the rotation velocity is preserved after user stops rotating the camera. It is also possible to set the RotationEasingFunction property to better control the deceleration speed (see code behind)." />
+
+                    <TextBlock Margin="5 20 5 5" FontWeight="Bold" FontSize="12">Cursor properties:</TextBlock>
+
+                    <common:SimpleGrid ColumnsCount="2" ColumnSpacing="5" RowSpacing="2" Margin="5 5 0 5">
+                        <TextBlock Text="RotationCursor:" />
+                        <ComboBox Name="RotationCursorComoBox" Width="140" SelectionChanged="OnCursorComoBoxChanged" />
+
+                        <TextBlock Text="MovementCursor:" />
+                        <ComboBox Name="MovementCursorComoBox" Width="140" SelectionChanged="OnCursorComoBoxChanged" />
+
+                        <TextBlock Text="QuickZoomCursor:" />
+                        <ComboBox Name="QuickZoomCursorComoBox" Width="140" SelectionChanged="OnCursorComoBoxChanged" />
+                    </common:SimpleGrid>
+
+                    <StackPanel Orientation="Horizontal" Margin="5 15 0 0">
+                        <CheckBox Name="IsRotateCursorShownOnMouseOverCheckBox" Content="IsRotateCursorShownOnMouseOver" IsChecked="True" 
+                                  Checked="OnIsRotateCursorShownOnMouseOverCheckBoxCheckedChanged" Unchecked="OnIsRotateCursorShownOnMouseOverCheckBoxCheckedChanged" />
+                        <common:InfoControl Margin="5 0 0 0" InfoWidth="400" 
+                                            InfoText="When checked and when left mouse button without any key modifier is used for rotation, then the RotationCursor is shown over the EventSourceElement. Otherwise RotationCursor is shown only during rotation." />
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" Margin="5 15 0 0">
+                        <Button Name="CustomCursorsButton" Content="Setup custom hand cursors" Padding="8 3" HorizontalAlignment="Left" 
+                                Click="CustomCursorsButton_OnClick"/>
+                        <common:InfoControl Margin="5 0 0 0" InfoWidth="400" 
+                                            InfoText="This buttons shows how to set up open hand and closed hand cursors. See code behind for more info." />
+                    </StackPanel>
 
                 </StackPanel>
             </Border>
         </StackPanel>
+
+        <ab3d:MouseCameraControllerInfo Grid.Column="0" ShowRotateInfo="True" ShowMoveInfo="True" ShowQuickZoomInfo="True" 
+                                        MouseCameraController="{Binding ElementName=MouseCameraController1}"
+                                        VerticalAlignment="Bottom" HorizontalAlignment="Left" />
     </Grid>
 </Page>
