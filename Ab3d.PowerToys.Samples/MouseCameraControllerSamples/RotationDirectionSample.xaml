@@ -61,7 +61,6 @@
                                     TargetCamera="{Binding ElementName=Camera1}"
                                     
                                     IsRotationDirectionAdjusted="{Binding ElementName=AdjustRotationCheckBox, Path=IsChecked}"
-                                    MoveOnlyHorizontally="{Binding ElementName=MoveOnlyHorizontallyCheckBox, Path=IsChecked}"
                                     
                                     CameraRotateStarted="OnCameraRotateStarted"
                                     CameraRotateEnded="OnCameraRotateEnded"

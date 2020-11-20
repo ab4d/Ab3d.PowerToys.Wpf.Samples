@@ -25,6 +25,8 @@ namespace Ab3d.PowerToys.Samples.Other
         {
             InitializeComponent();
 
+            // Try to find path to DXEngine's samples solution
+            // NOTE: This only works for installed samples and not for samples from GitHub - there we cannot know where the DXEngine samples are
             _sampleSolutionPath = System.IO.Path.Combine(
                                         AppDomain.CurrentDomain.BaseDirectory,
                                         @"..\..\..\..\Ab3d.DXEngine\Ab3d.DXEngine MAIN SAMPLES.sln");

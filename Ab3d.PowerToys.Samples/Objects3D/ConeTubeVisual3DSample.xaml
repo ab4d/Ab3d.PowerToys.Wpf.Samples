@@ -100,7 +100,7 @@
             
             <StackPanel Orientation="Horizontal" Margin="0 6 0 0">
                 <TextBlock Foreground="Silver" Margin="0 3 0 0" Text="TopOuterRadius:"/>
-                <TextBlock Foreground="Silver" Margin="5 3 0 0" Text="{Binding ElementName=OuterRadiusSlider, Path=Value, StringFormat=F0}"/>
+                <TextBlock Foreground="Silver" Margin="5 3 0 0" Text="{Binding ElementName=TopOuterRadiusSlider, Path=Value, StringFormat=F0}"/>
             </StackPanel>
             <Slider Name="TopOuterRadiusSlider"  Width="160"
                             Minimum="0" Maximum="100" Value="60" 
@@ -108,7 +108,7 @@
                             TickFrequency="10" TickPlacement="BottomRight" SmallChange="1" LargeChange="10" IsSnapToTickEnabled="False"/>
             <StackPanel Orientation="Horizontal">
                 <TextBlock Foreground="Silver" Margin="0 3 0 0" Text="TopInnerRadius:"/>
-                <TextBlock Foreground="Silver" Margin="5 3 0 0" Text="{Binding ElementName=InnerRadiusSlider, Path=Value, StringFormat=F0}"/>
+                <TextBlock Foreground="Silver" Margin="5 3 0 0" Text="{Binding ElementName=TopInnerRadiusSlider, Path=Value, StringFormat=F0}"/>
             </StackPanel>
             <Slider Name="TopInnerRadiusSlider"  Width="160"
                             Minimum="0" Maximum="100" Value="40" 
@@ -118,7 +118,7 @@
             
             <StackPanel Orientation="Horizontal" Margin="0 6 0 0">
                 <TextBlock Foreground="Silver" Margin="0 3 0 0" Text="BottomOuterRadius:"/>
-                <TextBlock Foreground="Silver" Margin="5 3 0 0" Text="{Binding ElementName=OuterRadiusSlider, Path=Value, StringFormat=F0}"/>
+                <TextBlock Foreground="Silver" Margin="5 3 0 0" Text="{Binding ElementName=BottomOuterRadiusSlider, Path=Value, StringFormat=F0}"/>
             </StackPanel>
             <Slider Name="BottomOuterRadiusSlider"  Width="160"
                             Minimum="0" Maximum="100" Value="100" 
@@ -126,7 +126,7 @@
                             TickFrequency="10" TickPlacement="BottomRight" SmallChange="1" LargeChange="10" IsSnapToTickEnabled="False"/>
             <StackPanel Orientation="Horizontal">
                 <TextBlock Foreground="Silver" Margin="0 3 0 0" Text="BottomInnerRadius:"/>
-                <TextBlock Foreground="Silver" Margin="5 3 0 0" Text="{Binding ElementName=InnerRadiusSlider, Path=Value, StringFormat=F0}"/>
+                <TextBlock Foreground="Silver" Margin="5 3 0 0" Text="{Binding ElementName=BottomInnerRadiusSlider, Path=Value, StringFormat=F0}"/>
             </StackPanel>
             <Slider Name="BottomInnerRadiusSlider"  Width="160"
                             Minimum="0" Maximum="100" Value="80" 

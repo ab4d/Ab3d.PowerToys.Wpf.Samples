@@ -87,15 +87,15 @@
                 <TextBlock Margin="5 15 0 0" FontWeight="Bold" Text="Current camera data:"/>
                 <StackPanel Orientation="Horizontal" Margin="5 0">
                     <TextBlock Width="55" Text="Heading:"/>
-                    <TextBlock Text="{Binding ElementName=SceneCamera1, Path=Heading, StringFormat=F1}"/>
+                    <TextBlock Text="{Binding ElementName=Camera1, Path=Heading, StringFormat=F1}"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Margin="5 0">
                     <TextBlock Width="55" Text="Attitude:"/>
-                    <TextBlock Text="{Binding ElementName=SceneCamera1, Path=Attitude, StringFormat=F1}"/>
+                    <TextBlock Text="{Binding ElementName=Camera1, Path=Attitude, StringFormat=F1}"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Margin="5 0">
                     <TextBlock Width="55" Text="Distance:"/>
-                    <TextBlock Text="{Binding ElementName=SceneCamera1, Path=Distance, StringFormat=F1}"/>
+                    <TextBlock Text="{Binding ElementName=Camera1, Path=Distance, StringFormat=F1}"/>
                 </StackPanel>
 
                 <TextBlock Margin="5 15 0 0" FontWeight="Bold" Text="Counters:"/>

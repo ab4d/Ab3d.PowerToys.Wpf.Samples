@@ -19,8 +19,7 @@
         
         <ab3d:MouseCameraController Name="MouseCameraController1"
                                     TargetCamera="{Binding ElementName=SceneCamera1}" 
-                                    IsMouseWheelZoomEnabled="{Binding ElementName=IsMouseWheelZoomEnabledCheckBox, Path=IsChecked}"
-                                    EventsSourceElementRotationChange="{Binding ElementName=EventsSourceElementRotationChangeSlider, Path=Value}"/>
+                                    EventsSourceElementRotationChange="{Binding ElementName=CameraControlPanelRotationChangeSlider, Path=Value}"/>
 
         <Border HorizontalAlignment="Left" VerticalAlignment="Bottom"
                 Background="#AAFFFFFF" BorderBrush="Gray" BorderThickness="1" SnapsToDevicePixels="True">
