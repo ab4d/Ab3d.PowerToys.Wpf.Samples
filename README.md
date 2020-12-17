@@ -14,7 +14,8 @@ The Ab3d.PowerToys is a commercial library. You can start a 60-day trial when it
 
 The Ab3d.DXEngine.Wpf.Samples repository contains two Visual Studio solutions:
 * Ab3d.PowerToys MAIN WPF Samples.sln (**.NET Framework 4.5**)
-* Ab3d.PowerToys MAIN WPF netcoreapp3 Samples.sln (**.NET Core 3.0**)
+* Ab3d.PowerToys MAIN WPF core31 Samples.sln (**.NET Core 3.1**)
+* Ab3d.PowerToys MAIN WPF net50 Samples.sln (**.NET 5.0**)
 
 ## Dependencies
 
