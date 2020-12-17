@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Ab3d.PowerToys.Samples</RootNamespace>
     <AssemblyName>Ab3d.PowerToys.Samples</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
@@ -39,13 +39,13 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Ab3d.PowerToys, Version=9.2.7447.1045, Culture=neutral, PublicKeyToken=d45c8e156fba2841, processorArchitecture=MSIL">
+    <Reference Include="Ab3d.PowerToys, Version=9.4.7656.1045, Culture=neutral, PublicKeyToken=d45c8e156fba2841, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Ab3d.PowerToys.9.3.7619\lib\net45\Ab3d.PowerToys.dll</HintPath>
+      <HintPath>..\packages\Ab3d.PowerToys.9.4.7656\lib\net45\Ab3d.PowerToys.dll</HintPath>
     </Reference>
-    <Reference Include="Ab3d.PowerToys.Input, Version=9.2.7447.1045, Culture=neutral, PublicKeyToken=d45c8e156fba2841, processorArchitecture=MSIL">
+    <Reference Include="Ab3d.PowerToys.Input, Version=9.4.7656.1045, Culture=neutral, PublicKeyToken=d45c8e156fba2841, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Ab3d.PowerToys.Input.9.3.7619\lib\net45\Ab3d.PowerToys.Input.dll</HintPath>
+      <HintPath>..\packages\Ab3d.PowerToys.Input.9.4.7656\lib\net45\Ab3d.PowerToys.Input.dll</HintPath>
     </Reference>
     <Reference Include="AssimpNet">
       <SpecificVersion>False</SpecificVersion>

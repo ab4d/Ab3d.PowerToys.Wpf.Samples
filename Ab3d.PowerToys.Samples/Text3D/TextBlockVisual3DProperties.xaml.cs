@@ -39,14 +39,11 @@ provides the easiest way to show
 control text and border style.";
 
 
-            AddComboBox(OptionsGrid, TextBlockVisual3D.PositionProperty, 0, new string[] {"0 0 0", "-50 0 0", "0 50 0", "50 0 0"},
-                "Position property defines the position of the Text. See also PositionType to see what point on the 3D model the Position property represents.",
+            var positionTextBlock = AddComboBox(OptionsGrid, TextBlockVisual3D.PositionProperty, 0, new string[] {"0 0 0", "-50 0 0", "0 50 0", "50 0 0"},
+                "Position property defines the position of the Text. See also PositionType to see what point on the 3D model the Position property represents.\nSelected position is marked with a red cross.",
                 2, null, OnPositionChanged);
 
-            var textBlock = AddTextBlock(OptionsGrid, "Selected position is marked with a red cross.");
-            textBlock.FontWeight = FontWeights.Normal;
-            textBlock.Foreground = Brushes.Red;
-            textBlock.Margin = new Thickness(0, 0, 0, 10);
+            positionTextBlock.Foreground = Brushes.Red;
 
             AddComboBox(OptionsGrid, TextBlockVisual3D.PositionTypeProperty, 0, new string[] { "Center", "Left", "Right", "Top", "Bottom", "TopLeft", "BottomLeft", "TopRight", "BottomRight" },
                 "PositionType specifies what point on the 3D model the Position property represents.");
@@ -73,7 +70,7 @@ control text and border style.";
             AddComboBox(OptionsGrid, TextBlockVisual3D.FontSizeProperty, 0, new string[] {"10", "12", "16", "20", "30"},
                 "FontSize defines the size of the text in TextBlock element.", 8);
 
-            AddComboBox(OptionsGrid, TextBlockVisual3D.ForegroundProperty, 1, new string[] { "Black", "Green", "Yellow", "White" },
+            AddComboBox(OptionsGrid, TextBlockVisual3D.ForegroundProperty, 1, new string[] { "Black", "Green", "Yellow", "White", "LightBlue" },
                 "Foreground defines the foreground brush of the text in TextBlock element.");
 
             //AddComboBox(OptionsGrid, TextBlockVisual3D.FontWeightProperty, 1, new string[] { "Normal", "Bold", "Black" },
@@ -96,6 +93,7 @@ control text and border style.";
                 "Thickness that specifies the padding of the TextBlock element inside the Border element.");
 
 
+            // The BorderSizeProperty is skipped because there is not enough space to show all:
             //AddComboBox(OptionsGrid, TextBlockVisual3D.BorderSizeProperty, 0, new string[] { "Size.Empty", "0 20", "0 40", "100 0", "200 0", "200 40", "200 100" },
             //    "BorderSize can be set to define the 2D size of the Border element. By default BorderSize is set to Size.Empty. This automatically scales the Border element to show the whole TextBlock element. But when you want to trim the text, you need to set the BorderSize to a valid size value.",
             //    8,
@@ -114,12 +112,16 @@ control text and border style.";
             AddComboBox(OptionsGrid, TextBlockVisual3D.IsBackSidedTextFlippedProperty, 0, new string[] { "true", "false" },
                 "IsBackSidedTextFlipped property specifies if the text on the back side is horizontally flipped so that it appears correct when viewing from the back side.");
 
+            AddComboBox(OptionsGrid, TextBlockVisual3D.RenderBitmapSizeProperty, 0, new string[] { "Size.Empty", "128 64", "256 128", "512 256", "1024 512" },
+                "When RenderBitmapSize is set to a valid size value (not Empty or with 0 Width or Height), then TextBlock and Border elements are rendered to bitmap and that bitmap is then shown on a 3D model. When set to Empty then TextBlockVisual3D is using a DiffuseMaterial with a VisualBrush that show TextBlock and Border.\n\nSetting RenderBitmapSize can increase initialization time but can significantly improve rendering performance.\n\nDefault value is Size.Empty; but when rendered with Ab3d.DXEngine the default value is set to TextBlockVisual3D.DefaultDXEngineRenderBitmapSize (512 x 256)",
+                8,
+                resolveItemText: delegate (string itemText)
+                {
+                    if (itemText == "Size.Empty")
+                        return (object)Size.Empty;
 
-            // When the TextBlockVisual3D is used with DXEngine,
-            // it is highly recommended to set the desired size of the bitmap that is used to show the rendered TextBlock:
-
-            //TextBlockVisual1.RenderBitmapSize = new Size(128, 64);
-            //TextBlockVisual1.RenderBitmapSize = new Size(512, 256);
+                    return null;
+                });
 
 
             TextBlockVisual1.EndInit();
@@ -150,7 +152,7 @@ control text and border style.";
             }
         }
 
-        private void AddComboBox(Grid parentGrid, DependencyProperty dependencyProperty, int initialItemIndex, string[] comboBoxItems, string tooltipText, 
+        private TextBlock AddComboBox(Grid parentGrid, DependencyProperty dependencyProperty, int initialItemIndex, string[] comboBoxItems, string tooltipText, 
                                  double topMargin = 2,
                                  Func<string, object> resolveItemText = null,
                                  Action<ComboBox, object> selectionChanged = null)
@@ -198,6 +200,8 @@ control text and border style.";
                 Grid.SetRow(infoControl, rowIndex);
                 parentGrid.Children.Add(infoControl);
             }
+
+            return textBlock;
         }
 
         private TextBlock AddTextBlock(Grid parentGrid, string text)

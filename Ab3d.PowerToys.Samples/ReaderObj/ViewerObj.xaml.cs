@@ -35,7 +35,7 @@ namespace Ab3d.PowerToys.Samples.ReaderObj
         public ViewerObj()
         {
             InitializeComponent();
-
+            
             _dragAndDropHelper = new DragAndDropHelper(this, ".obj");
             _dragAndDropHelper.FileDropped += (sender, args) => LoadObj(args.FileName);
 
@@ -66,7 +66,7 @@ namespace Ab3d.PowerToys.Samples.ReaderObj
 
             //string fileName = AppDomain.CurrentDomain.BaseDirectory + @"..\..\Resources\ObjFiles\robotarm.obj"; // This works only for .net framework projects
 
-            LoadObj(fileName);
+            LoadObj(fileName);           
         }
 
         private void LoadButton_OnClick(object sender, RoutedEventArgs e)
@@ -136,7 +136,7 @@ namespace Ab3d.PowerToys.Samples.ReaderObj
                     // _wpf3DModel.GetName();
 
                     var defaultMaterial = new DiffuseMaterial(Brushes.Silver);
-
+                    
                     _wpf3DModel = _readerObj.ReadModel3D(_fileName, texturesPath, defaultMaterial);
 
                     if (_wpf3DModel != null)

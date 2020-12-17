@@ -6,6 +6,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:visuals="clr-namespace:Ab3d.Visuals;assembly=Ab3d.PowerToys"
+      xmlns:common="clr-namespace:Ab3d.PowerToys.Samples.Common"
       mc:Ignorable="d"       
       d:DesignHeight="500" d:DesignWidth="800"         
       MinWidth="500"
@@ -15,6 +16,8 @@
             <!-- Background must be set to a value (can be also Transparent) to enable getting mouse events on the control -->
             <Viewport3D Name="MainViewport">
                 <visuals:BoxVisual3D CenterPosition="0 -2 0" Size="100 4 100" Material="Green" />
+
+                <ModelVisual3D x:Name="BoxesRootVisual3D" />
 
                 <ModelVisual3D>
                     <ModelVisual3D.Content>
@@ -33,6 +36,7 @@
 
         <ab3d:MouseCameraController Name="MouseCameraController1"
                                     TargetCamera="{Binding ElementName=Camera1}" 
+                                    ShowRotationCenterMarker="True"
                                     EventsSourceElement="{Binding ElementName=ViewportBorder}"
                                     RotateCameraConditions="LeftMouseButtonPressed"
                                     MoveCameraConditions="LeftMouseButtonPressed, ControlKey" />
@@ -44,5 +48,22 @@
         
         <TextBlock FontWeight="Bold" FontSize="20" Foreground="DimGray" Margin="10" VerticalAlignment="Top" HorizontalAlignment="Left" 
                    Text="Mouse selection with the same mouse button as camera rotation"/>
+
+        <StackPanel Orientation="Vertical" VerticalAlignment="Bottom" HorizontalAlignment="Right">
+            <StackPanel.LayoutTransform>
+                <ScaleTransform ScaleX="1.6" ScaleY="1.6" />
+            </StackPanel.LayoutTransform>
+
+            <StackPanel Orientation="Horizontal">
+                <RadioButton Name="UsePreviewEventsRadioButton" Content="UsePreviewEvents" IsChecked="True" GroupName="RotateOptions" FontWeight="Bold" Checked="OnOptionsRadioButtonsChanged" />
+                <common:InfoControl x:Name="UsePreviewEventsInfoControl" Margin="5 0 0 0" InfoWidth="400" />
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" Margin="0 3 0 0">
+                <RadioButton Name="UseMouseMoveThresholdRadioButton" Content="Use MouseMoveThreshold" IsChecked="False" GroupName="RotateOptions" FontWeight="Bold" Checked="OnOptionsRadioButtonsChanged" />
+                <common:InfoControl x:Name="UseMouseMoveThresholdInfoControl" Margin="5 0 0 0" InfoWidth="400" />
+            </StackPanel>
+            
+        </StackPanel>
     </Grid>
 </Page>

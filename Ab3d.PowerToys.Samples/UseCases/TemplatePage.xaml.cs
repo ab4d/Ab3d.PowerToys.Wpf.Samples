@@ -30,7 +30,7 @@ namespace Ab3d.PowerToys.Samples.UseCases
                 Orientation = Orientation.Vertical
             };
 
-
+            
             // titleTextBlock is defined here because it is not part of standard XAML
             var titleTextBlock = new TextBlock()
             {
@@ -43,7 +43,7 @@ namespace Ab3d.PowerToys.Samples.UseCases
                 TextWrapping = TextWrapping.Wrap
             };
 
-            titleTextBlock.Text =
+            titleTextBlock.Text = 
 @"This page represents an XAML template for the most commonly used Ab3d.PowerToys controls and classes.
 You can simply grab the XAML and copy it to your UserControl, Page or Window to quickly add the standard boilerplate for any 3D content.";
 

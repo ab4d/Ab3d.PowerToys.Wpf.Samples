@@ -130,7 +130,7 @@ namespace Ab3d.PowerToys.Samples.Objects3D
                 return;
 
             // Get the 3D vector for the positions x axis direction (upVector3D is direction of y axis)
-            Vector3D shapeXVector3D = Vector3D.CrossProduct(extrudeVector, shapeYVector3D);
+            Vector3D shapeXVector3D = Vector3D.CrossProduct(shapeYVector3D, extrudeVector);
 
             if (shapeXVector3D.LengthSquared < 0.001)
             {

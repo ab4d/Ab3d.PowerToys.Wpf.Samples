@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29209.152
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ab3d.PowerToys.Samples", "Ab3d.PowerToys.Samples\Ab3d.PowerToys.Samples.csproj", "{3A03EEA1-567C-4E18-9A3E-5951EFF558D4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ab3d.PowerToys.Samples", "Ab3d.PowerToys.Samples\Ab3d.PowerToys.Samples.core31.csproj", "{3A03EEA1-567C-4E18-9A3E-5951EFF558D4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

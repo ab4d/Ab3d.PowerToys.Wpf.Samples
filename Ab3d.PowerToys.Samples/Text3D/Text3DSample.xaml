@@ -119,6 +119,9 @@
                 </CheckBox>
             </StackPanel>
         </Grid>
+
+        <TextBlock Grid.Row="0" FontWeight="Bold" FontSize="18" Foreground="Silver" Margin="10" VerticalAlignment="Top" HorizontalAlignment="Left" 
+                   Text="TextVisual3D and CenteredTextVisual3D use old plotter font to show text by 3D lines"/>
     </Grid>
 </Page>
     

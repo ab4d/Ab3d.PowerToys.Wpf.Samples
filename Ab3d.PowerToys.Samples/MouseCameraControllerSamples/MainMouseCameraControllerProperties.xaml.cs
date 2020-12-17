@@ -16,6 +16,10 @@ namespace Ab3d.PowerToys.Samples.MouseCameraControllerSamples
         {
             InitializeComponent();
 
+
+            MouseMoveThresholdComboBox.ItemsSource   = new double[] { 0.0, 1.0, 2.0, 3.0, 4.0, 5.0, 10.0};
+            MouseMoveThresholdComboBox.SelectedIndex = 0;
+
             EventsSourceElementInfoControl.InfoText =
 @"EventsSourceElement defines an element that is used for mouse and touch events. 
 
@@ -31,6 +35,13 @@ This can be tried with selecting Viewport3D RadioBox below (instead of Border)."
             MaxCameraDistanceInfoControl.InfoText =
 @"When MaxCameraDistance is set to a value that is not double.NaN, than it specifies the maximum Distance of the camera or the maximum CameraWidth when OrthographicCamera is used.
 This property can be set to a reasonable number to prevent float imprecision when the camera distance is very big. Default value is double.NaN.";
+
+            MouseMoveThresholdInfoControl.InfoText =
+@"This property specifies how much user needs to move the mouse before rotation, movement or quick zoom are started.
+
+Because MouseCameraController does not handle mouse events until mouse is moved for the specified amount, the events can be get by the user code (for example to handle mouse click; it is not needed to use Preview mouse events for that).
+
+When 0 (by default), then rotation, movement or quick zoom are started immediately when the correct mouse buttons and keyboard modifiers are pressed (no mouse movement needed).";
 
 
             MouseCameraController1.Loaded += MouseCameraController1_Loaded;

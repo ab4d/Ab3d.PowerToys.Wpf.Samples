@@ -87,8 +87,17 @@ namespace Ab3d.PowerToys.Samples.MouseCameraControllerSamples
             if (!IsLoaded)
                 return;
 
-            CameraTargetPositionAdorner newCameraTargetPositionAdorner;
+            if ((NoneRadioButton.IsChecked ?? false))
+            {
+                _standardMouseCameraController.ShowRotationCenterMarker = false;
+                return;
+            }
+
+            _standardMouseCameraController.ShowRotationCenterMarker = true;
+
             
+            CameraTargetPositionAdorner newCameraTargetPositionAdorner;
+
             if (ChangedStandardRadioButton.IsChecked ?? false)
             {
                 newCameraTargetPositionAdorner = _adjustedCameraTargetPositionAdorner;

@@ -33,7 +33,9 @@
                                     TargetCamera="{Binding ElementName=Camera1}" 
                                     EventsSourceElement="{Binding ElementName=ViewportBorder}"
                                     RotateCameraConditions="LeftMouseButtonPressed"
-                                    MoveCameraConditions="LeftMouseButtonPressed, ControlKey" />
+                                    MoveCameraConditions="LeftMouseButtonPressed, ControlKey" 
+                                    QuickZoomConditions="Disabled"
+                                    MouseMoveThreshold="{Binding ElementName=MouseMoveThresholdComboBox, Path=SelectedItem}"/>
 
 
         <StackPanel Grid.Column="1" Orientation="Vertical" VerticalAlignment="Bottom" HorizontalAlignment="Right">
@@ -41,12 +43,12 @@
                 <StackPanel Orientation="Vertical" Margin="5">
                     <TextBlock Margin="5 5 5 0" FontWeight="Bold" TextDecorations="Underline" FontSize="14">MouseCameraController</TextBlock>
 
-                    <TextBlock FontSize="9" Width="240" HorizontalAlignment="Left" Margin="5 0 0 0" TextWrapping="Wrap"
+                    <TextBlock FontSize="10" Width="240" HorizontalAlignment="Left" Margin="5 0 0 0" TextWrapping="Wrap"
                                Text="MouseCameraController enables rotating, moving and zooming the camera with the mouse or touch." />
 
-                    <TextBlock Margin="5 15 5 5" FontWeight="Bold" FontSize="14">Main properties:</TextBlock>
+                    <TextBlock Margin="5 10 5 5" FontWeight="Bold" FontSize="14">Main properties:</TextBlock>
 
-                    <TextBlock Margin="5 15 5 0" FontWeight="Bold">TargetCamera:</TextBlock>
+                    <TextBlock Margin="5 5 5 0" FontWeight="Bold">TargetCamera:</TextBlock>
                     <TextBlock Margin="5 0 5 0">{Binding ElementName=Camera1}</TextBlock>
 
                     <StackPanel Margin="5 15 5 0" Orientation="Horizontal">
@@ -112,7 +114,19 @@
                         <CheckBox Name="AltKeyCheckBox2" Grid.Column="2" Grid.Row="3" Margin="0 2 0 0" Checked="OnMoveCheckBoxChanged" Unchecked="OnMoveCheckBoxChanged">Alt</CheckBox>
                     </Grid>
 
-                    <StackPanel Orientation="Horizontal" Margin="5 10 0 0">
+                    <TextBlock Margin="5 15 5 0">
+                        <Run FontWeight="Bold">QuickZoomConditions:</Run>
+                        <Run>Disabled</Run>
+                    </TextBlock>
+                    <TextBlock Margin="5 0 5 0">(See &quot;Quick zoom&quot; sample for more info)</TextBlock>
+
+                    <StackPanel Margin="5 15 0 0" Orientation="Horizontal">
+                        <TextBlock FontWeight="Bold" Text="MouseMoveThreshold:" VerticalAlignment="Center" Margin="0 0 3 0"/>
+                        <ComboBox Name="MouseMoveThresholdComboBox" Width="60" SelectedIndex="0" />
+                        <common:InfoControl x:Name="MouseMoveThresholdInfoControl" InfoWidth="500" VerticalAlignment="Center" Margin="5 0 0 0" ToolTipService.ShowDuration="60000" />
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" Margin="5 15 0 0">
                         <CheckBox Name="UseMousePositionForMovementSpeedCheckBox" Content="UseMousePositionForMovementSpeed" IsChecked="True" Checked="OnUseMousePositionForMovementSpeedCheckBoxChanged" Unchecked="OnUseMousePositionForMovementSpeedCheckBoxChanged" VerticalAlignment="Center"/>
                         <common:InfoControl x:Name="UseMousePositionForMovementSpeedInfoControl" InfoWidth="500" VerticalAlignment="Center" Margin="5 0 0 0" ToolTipService.ShowDuration="60000" />
                     </StackPanel>

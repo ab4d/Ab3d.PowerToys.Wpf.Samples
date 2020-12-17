@@ -55,7 +55,7 @@ namespace Ab3d.PowerToys.Samples.Text3D
                     TextDirection = new Vector3D(1, 0, 0),
                     UpDirection = new Vector3D(0, 1, 0),
                     Size = new Size(20, 40),
-                    Foreground = Brushes.Black,
+                    Foreground = Brushes.LightGray,
                     IsTwoSidedText = true,
                     IsBackSidedTextFlipped = false
                 };
@@ -80,7 +80,7 @@ namespace Ab3d.PowerToys.Samples.Text3D
                 {
                     var hitTextBlockVisual3D = e.HitObject as TextBlockVisual3D;
                     if (hitTextBlockVisual3D != null && hitTextBlockVisual3D.Foreground != Brushes.Red)
-                        hitTextBlockVisual3D.Foreground = Brushes.Black;
+                        hitTextBlockVisual3D.Foreground = Brushes.LightGray;
 
                     Mouse.OverrideCursor = null;
                 };
