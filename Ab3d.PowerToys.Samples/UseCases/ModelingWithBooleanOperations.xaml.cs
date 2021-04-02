@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -30,7 +31,8 @@ namespace Ab3d.PowerToys.Samples.UseCases
         private MaterialGroup _textureMaterial;
 
         // See also:
-        // - Objects3D/BooleanOperationsSample to see other boolean operations
+        // - Objects3D/BooleanOperationsSample.xaml.cs to see general recommendations about using boolean operations
+        // - Objects3D/AdvancedBooleanOperations
         // - Utilities/TextureCoordinatesGeneratorSample to see other options to define TextureCoordinates that are needed to show texture images
 
         public ModelingWithBooleanOperations()
@@ -45,15 +47,6 @@ namespace Ab3d.PowerToys.Samples.UseCases
             // Create it manually with MeshGeometry3D
             MeshGeometry3D initialBoxMesh3D = new Ab3d.Meshes.BoxMesh3D(new Point3D(-100, 25, 0), new Size3D(200, 50, 100), 1, 1, 1).Geometry;
 
-            // Without boolean operations, we could simply create the box with:
-            //var boxVisual3D = new BoxVisual3D()
-            //{
-            //    CenterPosition = new Point3D(-100, 25, 0),
-            //    Size = new Size3D(200, 50, 100),
-            //    UseCachedMeshGeometry3D = false, // we should not use the cached 
-            //    Material = _orangeMaterial
-            //};
-
 
             // Define MeshGeometry3D objects that will be used for subtractions
             var centerSphereMesh = new Ab3d.Meshes.SphereMesh3D(new Point3D(-100, 50, 0), 40, 16).Geometry;
@@ -66,41 +59,16 @@ namespace Ab3d.PowerToys.Samples.UseCases
             var cylinder2Mesh3D = new Ab3d.Meshes.CylinderMesh3D(new Point3D(-20, 0, 0),   8, 200, segments: 16, isSmooth: false).Geometry;
             var cylinder3Mesh3D = new Ab3d.Meshes.CylinderMesh3D(new Point3D(-20, 0, 30),  8, 200, segments: 16, isSmooth: false).Geometry;
 
+            // When you need to do multiple boolean operations on one object,
+            // then it is recommended to combine all other meshes into one mesh
+            // by using the Ab3d.Utilities.MeshUtils.CombineMeshes method (this is very fast).
+            // This way you can do the boolean operation only once and this is much
+            // faster then doing multiple boolean operations.
+            var combinedMesh = Ab3d.Utilities.MeshUtils.CombineMeshes(centerSphereMesh, box1Mesh, box2Mesh, box3Mesh, cylinder1Mesh3D, cylinder2Mesh3D, cylinder3Mesh3D);
 
-            // When doing multiple boolean operations one after another,
-            // it is recommended (and mush faster) to use BooleanMesh3D object.
-
-            var booleanMesh3D = new Ab3d.Meshes.BooleanMesh3D(initialBoxMesh3D);
-
-            booleanMesh3D.Subtract(centerSphereMesh);
-
-            booleanMesh3D.Subtract(box1Mesh);
-            booleanMesh3D.Subtract(box2Mesh);
-            booleanMesh3D.Subtract(box3Mesh);
-
-            booleanMesh3D.Subtract(cylinder1Mesh3D);
-            booleanMesh3D.Subtract(cylinder2Mesh3D);
-            booleanMesh3D.Subtract(cylinder3Mesh3D);
-
-
-            // It is also possible to use Subtract method on BoxVisual3D object:
-            //boxVisual3D.Subtract(centerSphereMesh);
-            //boxVisual3D.Subtract(box1Mesh);
-            //boxVisual3D.Subtract(box2Mesh);
-            //boxVisual3D.Subtract(box3Mesh);
-            //boxVisual3D.Subtract(cylinder1Mesh3D);
-            //boxVisual3D.Subtract(cylinder2Mesh3D);
-            //boxVisual3D.Subtract(cylinder3Mesh3D);
-
-
-            // We could also use the static methods on Ab3d.Utilities.MeshBooleanOperations class:
-            //Ab3d.Utilities.MeshBooleanOperations.Subtract(boxVisual3D, sphereMesh);
-            //Ab3d.Utilities.MeshBooleanOperations.Subtract(boxVisual3D, boxMesh);
-
-
-            // When calling the Geometry getter, the BooleanMesh3D converts the internal object into MeshGeometry3D.
-            var meshGeometry3D = booleanMesh3D.Geometry;
-
+            // Subtract
+            var meshGeometry3D = Ab3d.Utilities.MeshBooleanOperations.Subtract(initialBoxMesh3D, combinedMesh, false);
+            
             var initialGeometryModel3D = new GeometryModel3D(meshGeometry3D, _orangeMaterial);
             var boxVisual3D            = initialGeometryModel3D.CreateModelVisual3D();
 
@@ -113,7 +81,7 @@ namespace Ab3d.PowerToys.Samples.UseCases
             // To prevent blocking UI thread, we can do the boolean operations in the background thread.
             // To do this we need to freeze the MeshGeometry3D that are send to the background thread and back to UI thread.
             //
-            // The following code is using spheres with 30 segments to demonstrate a longer boolean operations.
+            // The following code is using spheres with 30 segments to demonstrate a longer boolean operation.
             // 
 
             // First define the original MeshGeometry3D

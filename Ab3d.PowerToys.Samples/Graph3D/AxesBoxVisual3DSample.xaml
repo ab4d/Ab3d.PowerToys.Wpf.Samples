@@ -1,0 +1,126 @@
+﻿<Page x:Class="Ab3d.PowerToys.Samples.Graph3D.AxesBoxVisual3DSample"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+    xmlns:cameras="clr-namespace:Ab3d.Cameras;assembly=Ab3d.PowerToys"
+    xmlns:ab3d="clr-namespace:Ab3d.Controls;assembly=Ab3d.PowerToys"  
+    xmlns:visuals="clr-namespace:Ab3d.Visuals;assembly=Ab3d.PowerToys"
+    Title="AxisWithLabel"
+    mc:Ignorable="d" 
+    d:DesignHeight="400" d:DesignWidth="800">
+    <Grid>
+        <Border Name="ViewportBorder" Background="White">
+            <Viewport3D Name="MainViewport">
+
+                <visuals:AxesBoxVisual3D x:Name="AxesBox"
+                                         CenterPosition="0 0 0"
+                                         Size="100 100 100"
+                                         
+                                         Camera="{Binding ElementName=Camera1}"
+                                         OverlayCanvas="{Binding ElementName=AxisOverlayCanvas}"
+                                         
+                                         Is3DTextShown="{Binding ElementName=Is3DTextShownCheckBox, Path=IsChecked}"
+                                         IsWireBoxFullyClosed="{Binding ElementName=IsWireBoxFullyClosedCheckBox, Path=IsChecked}"
+                                         AxisShowingStrategy="{Binding ElementName=AxisShowingStrategyComboBox, Path=SelectedItem}"
+                                         
+                                         ShowBottomConnectionLines="{Binding ElementName=ShowBottomConnectionLinesCheckBox, Path=IsChecked}"
+                                         ShowBackConnectionLines="{Binding ElementName=ShowBackConnectionLinesCheckBox, Path=IsChecked}"
+                                         ShowXAxisConnectionLines="{Binding ElementName=ShowXAxisConnectionLinesCheckBox, Path=IsChecked}"
+                                         ShowYAxisConnectionLines="{Binding ElementName=ShowYAxisConnectionLinesCheckBox, Path=IsChecked}"
+                                         ShowZAxisConnectionLines="{Binding ElementName=ShowZAxisConnectionLinesCheckBox, Path=IsChecked}"
+                                         
+                                         AxisTitleBrush="Black"
+                                         AxisTitleFontSize="6"
+                                         AxisTitleFontWeight="Bold"
+
+                                         ValueLabelsBrush="Black"
+                                         ValueLabelsFontSize="6"
+                                         ValueLabelsFontWeight="Normal"
+                                         ValueLabelsPadding="3"
+                                         ValueDisplayFormatString="#,##0"
+                                         
+                                         AxisLineColor="Black"
+                                         AxisLineThickness="2"
+                                         
+                                         TicksLineColor="Black"
+                                         TicksLineThickness="1"
+                                         
+                                         ConnectionLinesColor="Gray"
+                                         ConnectionLinesThickness="0.5"
+                                         
+                                         MajorTicksLength="5"
+                                         MinorTicksLength="2.5" />
+                                         <!-- Axes line data ranges and axes titles are set in code behind -->
+            </Viewport3D>
+        </Border>
+
+        <Canvas Name="AxisOverlayCanvas" IsHitTestVisible="False"/>
+
+
+        <cameras:TargetPositionCamera Name="Camera1" 
+                                      TargetPosition="30 0 0" RotationCenterPosition="0 0 0"
+                                      Heading="30" Attitude="-30" Bank="0" 
+                                      Distance="400" 
+                                      ShowCameraLight="Always"
+                                      TargetViewport3D="{Binding ElementName=MainViewport}"/>
+
+        <ab3d:MouseCameraController Name="MouseCameraController1"
+                                    RotateCameraConditions="LeftMouseButtonPressed"
+                                    MoveCameraConditions="LeftMouseButtonPressed, ControlKey"
+                                    TargetCamera="{Binding ElementName=Camera1}"
+                                    EventsSourceElement="{Binding ElementName=ViewportBorder}"/>
+
+        <StackPanel Orientation="Vertical" VerticalAlignment="Bottom" HorizontalAlignment="Left">
+            <TextBlock Text="Graph 3D axes:" />
+            <ab3d:CameraAxisPanel x:Name="AxisPanel" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="5" TargetCamera="{Binding ElementName=Camera1}" />
+
+            <TextBlock Text="WPF 3D axes:" Margin="0 10 0 0"/>
+            <ab3d:CameraAxisPanel x:Name="AxisPanel2" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="5" TargetCamera="{Binding ElementName=Camera1}" />
+        </StackPanel>
+
+        <Border BorderThickness="1" BorderBrush="Black" Background="#CCFFFFFF" Margin="5" VerticalAlignment="Bottom" HorizontalAlignment="Right" SnapsToDevicePixels="True" UseLayoutRounding="True">
+            <StackPanel Orientation="Vertical" Margin="10 7">
+                <TextBlock FontWeight="Bold" FontSize="18" Margin="0 3" TextDecorations="Underline" Text="AxesBoxVisual3D"/>
+
+                <CheckBox Name="Is3DTextShownCheckBox" Content="Is3DTextShown" Margin="0 3 0 0" IsChecked="True" />
+                <CheckBox Name="IsWireBoxFullyClosedCheckBox" Content="IsWireBoxFullyClosed" Margin="0 3 0 0" IsChecked="False" />
+
+                <StackPanel Orientation="Horizontal" Margin="0 3 0 0">
+                    <TextBlock Text="Strategy:" VerticalAlignment="Center" />
+                    <ComboBox Name="AxisShowingStrategyComboBox" Width="150" Margin="5 0 0 0" />
+                </StackPanel>
+
+                <TextBlock FontWeight="Bold" FontSize="13" Margin="0 10 0 0" Text="Axes visibility:"/>
+                <CheckBox Name="ShowXAxis1CheckBox" Content="Show XAxis1" Margin="0 3 0 0" IsChecked="True" Checked="OnAxesVisibilityChanged" Unchecked="OnAxesVisibilityChanged" />
+                <CheckBox Name="ShowYAxis1CheckBox" Content="Show YAxis1" Margin="0 3 0 0" IsChecked="True" Checked="OnAxesVisibilityChanged" Unchecked="OnAxesVisibilityChanged" />
+                <CheckBox Name="ShowZAxis1CheckBox" Content="Show ZAxis1" Margin="0 3 0 0" IsChecked="True" Checked="OnAxesVisibilityChanged" Unchecked="OnAxesVisibilityChanged" />
+                <CheckBox Name="ShowXAxis2CheckBox" Content="Show XAxis2" Margin="0 6 0 0" IsChecked="True" Checked="OnAxesVisibilityChanged" Unchecked="OnAxesVisibilityChanged" />
+                <CheckBox Name="ShowYAxis2CheckBox" Content="Show YAxis2" Margin="0 3 0 0" IsChecked="True" Checked="OnAxesVisibilityChanged" Unchecked="OnAxesVisibilityChanged" />
+                <CheckBox Name="ShowZAxis2CheckBox" Content="Show ZAxis2" Margin="0 3 0 0" IsChecked="True" Checked="OnAxesVisibilityChanged" Unchecked="OnAxesVisibilityChanged" />
+
+                <TextBlock FontWeight="Bold" FontSize="13" Margin="0 10 0 0" Text="Connection Lines visibility:"/>
+                <CheckBox Name="ShowBottomConnectionLinesCheckBox" Content="ShowBottomConnectionLines" Margin="0 3 0 0" IsChecked="True" />
+                <CheckBox Name="ShowBackConnectionLinesCheckBox" Content="ShowBackConnectionLines" Margin="0 3 0 0" IsChecked="True" />
+                <CheckBox Name="ShowXAxisConnectionLinesCheckBox" Content="ShowXAxisConnectionLines" Margin="0 6 0 0" IsChecked="False" />
+                <CheckBox Name="ShowYAxisConnectionLinesCheckBox" Content="ShowYAxisConnectionLines" Margin="0 3 0 0" IsChecked="False" />
+                <CheckBox Name="ShowZAxisConnectionLinesCheckBox" Content="ShowZAxisConnectionLines" Margin="0 6 0 0" IsChecked="True" />
+
+                <Button Name="CustomizeButton" Content="Randomize axes settings" Margin="0 10 0 0" Click="CustomizeButton_OnClick" />
+
+                <TextBlock Margin="0 15 0 0" TextWrapping="Wrap" Width="200"
+                           Text="Axes colors and line thicknesses are set in XAML. Axes line data ranges and axes titles are set code behind.&#x0a;&#x0a;To further customize the axes see the following two samples." />
+            </StackPanel>
+        </Border>
+
+        <TextBlock Margin="10" VerticalAlignment="Top" HorizontalAlignment="Left">
+            <Run FontWeight="Bold" FontSize="20" Foreground="#444">AxesBoxVisual3D</Run>
+            <LineBreak />
+            <Run FontSize="14">can show all 6 axes with tick lines and value labels.</Run>
+            <LineBreak />
+            <Run FontSize="14">It automatically switches and orients the shown axes.</Run>
+            <LineBreak />
+            <Run FontSize="14">Tick lines and value labels can be shown as 3D text or as 2D text.</Run>
+        </TextBlock>
+    </Grid>
+</Page>

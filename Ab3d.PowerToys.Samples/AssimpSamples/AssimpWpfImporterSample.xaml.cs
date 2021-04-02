@@ -95,6 +95,13 @@ namespace Ab3d.PowerToys.Samples.AssimpSamples
                 {
                     readModel3D = assimpWpfImporter.ReadModel3D(fileName, texturesPath: null); // we can also define a textures path if the textures are located in some other directory (this is parameter can be skipped, but is defined here so you will know that you can use it)
 
+                    // To read 3D model from stream, use the following code:
+                    //var extension = System.IO.Path.GetExtension(fileName); // extension is needed as a format hint so assimp will know which importer to use
+                    //using (var fileStream = System.IO.File.OpenRead(fileName))
+                    //{
+                    //    readModel3D = assimpWpfImporter.ReadModel3D(fileStream, extension, resolveResourceFunc: null); // when reading models with texture, you will need to define the resolveResourceFunc
+                    //}
+
                     isNewFile = (_fileName != fileName);
                     _fileName = fileName;
                 }

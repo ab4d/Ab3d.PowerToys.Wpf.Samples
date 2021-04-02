@@ -1,4 +1,4 @@
-﻿<Page x:Class="Ab3d.PowerToys.Samples.UseCases.Plot3DSample"
+﻿<Page x:Class="Ab3d.PowerToys.Samples.Graph3D.Plot3DSample"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -27,28 +27,38 @@
         <Border Name="ViewportBorder" Grid.Column="0" Background="Transparent">
             <Grid>
                 <Viewport3D Name="MainViewport">
-                    
-                    <visuals:HeightMapVisual3D x:Name="HeightMap1" Material="Silver" BackMaterial="Gray" Size="100 30 100"
-                                               WireframeColor="#AAA" WireframeThickness="0.8"
-                                               IsWireframeShown="{Binding ElementName=ShowWireframeCheckBox, Path=IsChecked}"/>
 
-                    <common:AxisWireBoxVisual3D x:Name="AxisWireBox"
-                                                CenterPosition="0 15 0" Size="100 30 100" 
-                                                WireBoxLineColor="White" AxisLinesColor="LightGray" 
-                                                OverlayCanvas="{Binding ElementName=AxisOverlayCanvas}"
-                                                Camera="{Binding ElementName=Camera1}"
-                                                IsVisible="{Binding ElementName=ShowWireBoxCheckBox, Path=IsChecked}"/>
+                    <visuals:HeightMapVisual3D x:Name="HeightMap1" Size="100 20 100"
+                                               Material="Silver" BackMaterial="Gray" 
+                                               WireframeColor="Black" WireframeThickness="0.8"
+                                               IsWireframeShown="{Binding ElementName=WireframeRadioButton, Path=IsChecked}"/>
 
-                    <visuals:WireGridVisual3D x:Name="BottomWireGrid" LineColor="#777" LineThickness="1" WidthCellsCount="20" HeightCellsCount="20" Size="100 100"
-                                              IsVisible="{Binding ElementName=ShowBottomGridCheckBox, Path=IsChecked}">
-                        <visuals:WireGridVisual3D.Transform>
-                            <TranslateTransform3D x:Name="BottomWireGridTransform" OffsetY="0"/>
-                        </visuals:WireGridVisual3D.Transform>
-                    </visuals:WireGridVisual3D>
+                    <visuals:MultiLineVisual3D x:Name="ContourLinesVisual3D" LineColor="Black" LineThickness="1"
+                                               IsVisible="{Binding ElementName=ContourLinesRadioButton, Path=IsChecked}"/>
+
+                    <visuals:ContentVisual3D x:Name="BottomContourLinesVisual3D" />
+
+                    <!-- AxesBoxVisual3D must be defined after other 3D objects because it can use (in case Is3DTextShown is true) semi-transparent text 
+                         that is correctly rendered only when render after other objects - see transparency problem sample for more info -->
+                    <visuals:AxesBoxVisual3D x:Name="AxesBox"
+                                             CenterPosition="0 15 0" Size="100 80 100" 
+                                             Is3DTextShown="False"
+                                             AxisShowingStrategy="LeftmostAxis"
+                                             IsWireBoxFullyClosed="True"
+                                             AxisTitleBrush="White" ValueLabelsBrush="White" AxisLineColor="White" TicksLineColor="LightGray" ConnectionLinesColor="Gray"
+                                             IsXAxis1Visible="False" IsXAxis2Visible="False"
+                                             IsYAxis1Visible="False" IsYAxis2Visible="False"
+                                             IsZAxis1Visible="True" IsZAxis2Visible="True"
+                                             ZAxis1Title="" ZAxis2Title=""
+                                             ValueLabelsFontSize="14" MajorTicksLength="3" MinorTicksLength="1.5"
+                                             ShowBottomConnectionLines="{Binding ElementName=ShowBottomGridCheckBox, Path=IsChecked}"
+                                             IsVisible="{Binding ElementName=ShowAxesBoxVisual3DCheckBox, Path=IsChecked}"
+                                             OverlayCanvas="{Binding ElementName=AxisOverlayCanvas}"
+                                             Camera="{Binding ElementName=Camera1}" />
                     
                 </Viewport3D>
 
-                <Canvas Name="AxisOverlayCanvas" Visibility="{Binding ElementName=ShowWireBoxCheckBox, Path=IsChecked, Converter={StaticResource VisibilityOfBool}}"/>
+                <Canvas Name="AxisOverlayCanvas" IsHitTestVisible="False" Visibility="{Binding ElementName=ShowAxesBoxVisual3DCheckBox, Path=IsChecked, Converter={StaticResource VisibilityOfBool}}"/>
             </Grid>
         </Border>
         
@@ -72,28 +82,21 @@
                                      TargetCamera="{Binding ElementName=Camera1}"/>
         </StackPanel>
 
-        <ScrollViewer Grid.Column="1" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="10" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
-            <StackPanel Orientation="Vertical" Margin="0 0 10 0">
+        <ScrollViewer Grid.Column="1" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="10 0 10 0" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+            <StackPanel Orientation="Vertical" Margin="0 0 10 10">
                 <TextBlock FontWeight="Bold" FontSize="18" Foreground="Silver" Margin="0 3 0 10" TextDecorations="Underline" Text="3D Plot"/>
 
-                <CheckBox Name="ShowWireBoxCheckBox" IsChecked="True" Margin="0 0 0 3" Foreground="Silver">Show WireBox</CheckBox>
+                <CheckBox Name="ShowAxesBoxVisual3DCheckBox" Content="Show AxesBoxVisual3D" IsChecked="True" Margin="0 0 0 3" Foreground="Silver" />
 
-                <CheckBox Name="ShowWireframeCheckBox" IsChecked="True" Margin="0 0 0 3" Foreground="Silver">Show Wireframe</CheckBox>
+                <CheckBox Name="ShowBottomGridCheckBox" Content="Show bottom grid" IsChecked="True" Margin="0 0 0 3" Foreground="Silver"
+                          Checked="OnBottomLinesSettingsChanged" Unchecked="OnBottomLinesSettingsChanged"/>
 
-                <CheckBox Name="ShowBottomGridCheckBox" IsChecked="True" Margin="0 0 0 3" Foreground="Silver">Show bottom grid</CheckBox>
-
-            
-                <StackPanel Orientation="Horizontal" Margin="0 20 0 0">
-                    <TextBlock Foreground="Silver" Margin="0 3 0 0" Text="Y data scale:"/>
-                    <TextBlock Foreground="Silver" Margin="5 3 0 0" Text="{Binding ElementName=HeightSlider, Path=Value}"/>
-                </StackPanel>
-                <Slider Name="HeightSlider"  Width="160" Minimum="10" Maximum="60" Value="20" 
-                        AutoToolTipPlacement="BottomRight" AutoToolTipPrecision="0"
-                        TickFrequency="5" TickPlacement="BottomRight" SmallChange="5" LargeChange="10" IsSnapToTickEnabled="True"
-                        ValueChanged="HeightSlider_ValueChanged"/>
+                <RadioButton Name="ContourLinesRadioButton" Content="Contour lines" IsChecked="True" GroupName="ValueLines" Margin="0 6 0 2" Foreground="Silver" Checked="OnBottomLinesSettingsChanged"/>
+                <RadioButton Name="WireframeRadioButton" Content="Wireframe lines" GroupName="ValueLines" Margin="0 0 0 2" Foreground="Silver" Checked="OnBottomLinesSettingsChanged"/>
+                <RadioButton Name="NoLinesRadioButton" Content="No value lines" GroupName="ValueLines" Margin="0 0 0 2" Foreground="Silver" Checked="OnBottomLinesSettingsChanged"/>
 
 
-                <TextBlock FontWeight="Bold" FontSize="14" Foreground="Silver" Margin="0 20 0 3" Text="Function:"/>
+                <TextBlock FontWeight="Bold" FontSize="14" Foreground="Silver" Margin="0 15 0 3" Text="Function:"/>
                 <RadioButton Name="Function1RadioButton" Foreground="Silver" Margin="0 3 0 0" GroupName="Function" IsChecked="True" Checked="FunctionRadioButton_Checked" Content="y(x,z) = cos(x*z) * (x*x - z*z)"/>
                 <RadioButton Name="Function2RadioButton" Foreground="Silver" Margin="0 3 0 0" GroupName="Function" Checked="FunctionRadioButton_Checked" Content="y(x,z) = sin(sqrt(x*x + z*z))"/>
                 <RadioButton Name="Function3RadioButton" Foreground="Silver" Margin="0 3 0 0" GroupName="Function" Checked="FunctionRadioButton_Checked" Content="y(x,z) = x * z^3 - z * x^3"/>
@@ -102,20 +105,13 @@
                 <Button Name="ChangeDataButton" Margin="0 10 0 0" Content="Change data" Height="22" HorizontalAlignment="Stretch" Click="ChangeDataButton_OnClick"/>
             
 
-                <TextBlock FontWeight="Bold" FontSize="14" Foreground="Silver" Margin="0 20 0 3" Text="Data array size:"/>
-                <RadioButton Name="ArraySize1RadioButton" Foreground="Silver" GroupName="ArraySize" Checked="ArraySizeRadioButton_Checked" IsChecked="True" Content="20 x 20"/>
-                <RadioButton Name="ArraySize2RadioButton" Foreground="Silver" Margin="0 3 0 0" GroupName="ArraySize" Checked="ArraySizeRadioButton_Checked" Content="40 x 40"/>
-                <RadioButton Name="ArraySize3RadioButton" Foreground="Silver" Margin="0 3 0 0" GroupName="ArraySize" Checked="ArraySizeRadioButton_Checked" Content="80 x 80"/>
+                <TextBlock FontWeight="Bold" FontSize="14" Foreground="Silver" Margin="0 15 0 3" Text="Data array size:"/>
+                <RadioButton Name="ArraySize1RadioButton" Foreground="Silver" GroupName="ArraySize" Checked="ArraySizeRadioButton_Checked" Content="20 x 20"/>
+                <RadioButton Name="ArraySize2RadioButton" Foreground="Silver" IsChecked="True" GroupName="ArraySize" Margin="0 3 0 0" Checked="ArraySizeRadioButton_Checked" Content="40 x 40"/>
+                <RadioButton Name="ArraySize3RadioButton" Foreground="Silver" GroupName="ArraySize" Margin="0 3 0 0" Checked="ArraySizeRadioButton_Checked" Content="80 x 80"/>
 
 
-                <TextBlock FontWeight="Bold" FontSize="14" Foreground="Silver" Margin="0 20 0 3" Text="Axis values count:"/>
-                <StackPanel Orientation="Horizontal">
-                    <RadioButton Name="Axis5RadioButton" Foreground="Silver" Margin="0 0 20 0" GroupName="AxisCount" Checked="AxisCountRadioButton_Checked" IsChecked="True" Content="5"/>
-                    <RadioButton Name="Axis7RadioButton" Foreground="Silver" Margin="0 0 20 0" GroupName="AxisCount" Checked="AxisCountRadioButton_Checked" Content="7"/>
-                    <RadioButton Name="Axis8RadioButton" Foreground="Silver" Margin="0 0 20 0" GroupName="AxisCount" Checked="AxisCountRadioButton_Checked" Content="9"/>
-                </StackPanel>
-
-                <TextBlock FontWeight="Bold" FontSize="14" Foreground="Silver" Margin="0 20 0 3" Text="Height gradient:"/>
+                <TextBlock FontWeight="Bold" FontSize="14" Foreground="Silver" Margin="0 15 0 3" Text="Height gradient:"/>
 
                 <Grid>
                     <Grid.ColumnDefinitions>

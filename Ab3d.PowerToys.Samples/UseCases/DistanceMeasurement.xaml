@@ -16,7 +16,7 @@
             <ColumnDefinition Width="200" />
         </Grid.ColumnDefinitions>
 
-        <Border Name="ViewportBorder" Grid.Column="0" Background="Black" CornerRadius="3" Margin="10">
+        <Border Name="ViewportBorder" Grid.Column="0" Background="Black" Margin="10">
             <Viewport3D Name="MainViewport">
                 <ModelVisual3D x:Name="ContentVisual" />
 

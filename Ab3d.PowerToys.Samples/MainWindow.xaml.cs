@@ -22,7 +22,7 @@ namespace Ab3d.PowerToys.Samples
     public partial class MainWindow : Window
     {
         // Uncomment the _startupPage declaration to always start the samples with the specified page
-        //private string _startupPage = "Lines3D/DynamicEdgeLinesSample.xaml";
+        //private string _startupPage = "Graph3D/AxesBoxVisual3DSample.xaml";
         private string _startupPage = null;
 
         public MainWindow()
@@ -58,7 +58,7 @@ namespace Ab3d.PowerToys.Samples
             SampleList.ScrollIntoView(supportPageElement);
         }
 
-        private void TextBlock_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
+        private void RightSideBorder_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
             string newDescriptionText = "";
 
@@ -66,13 +66,81 @@ namespace Ab3d.PowerToys.Samples
 
             if (node != null && node.Attributes != null)
             {
-                System.Xml.XmlAttribute attribute = node.Attributes["Description"];
+                var descriptionAttribute = node.Attributes["Description"];
 
-                if (attribute != null)
-                    newDescriptionText = attribute.Value;
+                if (descriptionAttribute != null)
+                    newDescriptionText = descriptionAttribute.Value;
+
+
+                var seeAlsoAttribute = node.Attributes["SeeAlso"];
+
+                if (seeAlsoAttribute != null)
+                {
+                    var seeAlsoText = seeAlsoAttribute.Value;
+                    var seeAlsoParts = seeAlsoText.Split(';');
+
+                    var seeAlsoContent = new StringBuilder();
+                    for (var i = 0; i < seeAlsoParts.Length; i++)
+                    {
+                        var seeAlsoPart = seeAlsoParts[i].Trim();
+                        if (seeAlsoPart.Length == 0)
+                            continue;
+
+                        if (seeAlsoContent.Length > 0)
+                            seeAlsoContent.Append(", ");
+
+                        // TextBlockEx support links, for example: "click here \@Ab3d.PowerToys:https://www.ab4d.com/PowerToys.aspx| to learn more"
+                        if (seeAlsoPart.StartsWith("\\@"))
+                        {
+                            seeAlsoContent.Append(seeAlsoPart);
+                        }
+                        else
+                        {
+                            string linkDescription;
+
+                            // remove prefix that specifies the type ("T_"), property ("P_"), event ("E_"), ...
+                            if (seeAlsoPart[1] == '_') // "T_Ab3d_Controls_MouseCameraController", "P_Ab3d_Controls_MouseCameraController_ClosedHandCursor", ...
+                                linkDescription = seeAlsoPart.Substring(2);
+                            else
+                                linkDescription = seeAlsoPart;
+
+                            linkDescription = linkDescription.Replace('_', '.')                // Convert '_' to '.'
+                                                             .Replace("Ab3d.Controls.", "")    // Remove the most common namespaces (preserve less common, for example Ab3d.Utilities)
+                                                             .Replace("Ab3d.Visuals.", "")
+                                                             .Replace("Ab3d.Cameras.", "")
+                                                             .Replace(".1", " (overload)")      // replace end _1: M_Ab3d_Cameras_BaseCamera_StartRotation_1.htm
+                                                             .Replace(".2", " (overload)")
+                                                             .Replace(".3", " (overload)");
+
+                            if (seeAlsoPart.EndsWith(".html") || seeAlsoPart.EndsWith(".htm"))
+                                linkDescription = linkDescription.Replace(".html", "").Replace(".htm", ""); // remove .html / .htm from linkDescription
+                            else
+                                seeAlsoPart += ".htm";                                                      // and make sure that the link will end with .htm
+
+                            seeAlsoContent.AppendFormat("\\@{0}:https://www.ab4d.com/help/PowerToys/html/{1}|", linkDescription, seeAlsoPart);
+                        }
+                    }
+
+                    if (seeAlsoContent.Length > 0)
+                    {
+                        if (newDescriptionText.Length > 0 && !newDescriptionText.EndsWith("\\n"))
+                            newDescriptionText += "\\n"; // Add new line for TextBlockEx
+
+                        newDescriptionText += "See also: " + seeAlsoContent.ToString();
+                    }
+                }
             }
 
-            DescriptionTextBlock.ContentText = newDescriptionText;
+            if (newDescriptionText.Length > 0)
+            {
+                DescriptionTextBlock.ContentText = newDescriptionText;
+                DescriptionExpander.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                DescriptionTextBlock.ContentText = null;
+                DescriptionExpander.Visibility = Visibility.Collapsed;
+            }
         }
 
         private void LogoImage_OnMouseUp(object sender, MouseButtonEventArgs e)

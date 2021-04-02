@@ -20,25 +20,23 @@ using Ab3d.Meshes;
 using Ab3d.Utilities;
 using Ab3d.Visuals;
 
-namespace Ab3d.PowerToys.Samples.UseCases
+namespace Ab3d.PowerToys.Samples.Graph3D
 {
     /// <summary>
     /// Interaction logic for Graph3D.xaml
     /// </summary>
     public partial class Graph3D : Page
     {
-        private List<SphereDataView> _allPositionsData;
-
-        private static Random _rnd = new Random();
+        private List<SphereDataView> _allSpheresData;
 
         private bool _isSelecting;
         private bool _isSelectStarting;
         private Point _startSelectionPosition;
 
         private List<SphereData> _sampleData;
+        private Rect _xyDataRange;
 
-        private Size _locationSize = new Size(10, 10);
-        private double _maxSize = 10;
+        private Color[] _gradientColorsArray;
 
         public Graph3D()
         {
@@ -46,70 +44,163 @@ namespace Ab3d.PowerToys.Samples.UseCases
 
             CameraControllerInfo.AddCustomInfoLine(0, Ab3d.Controls.MouseCameraController.MouseAndKeyboardConditions.LeftMouseButtonPressed, "Click to select sphere\r\nDrag for rectangular section");
 
-            _sampleData = InitializeData();
-            ShowData(_sampleData);
+
+            var linearGradientBrush = CreateGradientBrush();
+            _gradientColorsArray = HeightMapMesh3D.GetGradientColorsArray(linearGradientBrush, 30);
+
+            LegendRectangle.Fill = linearGradientBrush;
+
+
+            _xyDataRange = new Rect(-10, -10, 20, 20);
+            _sampleData = GenerateRandomData(_xyDataRange, relativeMargin: 0.2, dataCount: 20);
+
+
+            // Setup axis limits and shown values
+            AxesBox.SetAxisDataRange(AxesBoxVisual3D.AxisTypes.XAxis, minimumValue: 0, maximumValue: _sampleData.Count, majorTicksStep: 2, minorTicksStep: 0, snapMaximumValueToMajorTicks: true);
+            AxesBox.SetAxisDataRange(AxesBoxVisual3D.AxisTypes.YAxis, minimumValue: _xyDataRange.Y, maximumValue: _xyDataRange.Y + _xyDataRange.Height, majorTicksStep: 5, minorTicksStep: 2.5, snapMaximumValueToMajorTicks: true);
+            AxesBox.SetAxisDataRange(AxesBoxVisual3D.AxisTypes.ZAxis, minimumValue: _xyDataRange.X, maximumValue: _xyDataRange.X + _xyDataRange.Width,  majorTicksStep: 5, minorTicksStep: 2.5, snapMaximumValueToMajorTicks: true);
+
+
+            // All data will be displayed in a 3D box defined below:
+            var displayedDataBounds = new Rect3D(AxesBox.CenterPosition.X - AxesBox.Size.X * 0.5,
+                                                 AxesBox.CenterPosition.Y - AxesBox.Size.Y * 0.5,
+                                                 AxesBox.CenterPosition.Z - AxesBox.Size.Z * 0.5,
+                                                 AxesBox.Size.X,
+                                                 AxesBox.Size.Y,
+                                                 AxesBox.Size.Z);
+
+            ShowData(_sampleData, displayedDataBounds, _xyDataRange);
+
+            UpdateSelectedSpheresData();
+
+            MinValueTextBlock.Text = string.Format("{0:0}", _xyDataRange.Y);
+            MaxValueTextBlock.Text = string.Format("{0:0}", _xyDataRange.Y + _xyDataRange.Height);
 
             // Subscribe mouse events that will be used to create selection rectangle
             ViewportBorder.MouseLeftButtonDown += SelectionOverlayCanvasOnMouseLeftButtonDown;
-            ViewportBorder.MouseMove += SelectionOverlayCanvasOnMouseMove;
-            ViewportBorder.MouseLeftButtonUp += SelectionOverlayCanvasOnMouseLeftButtonUp;
+            ViewportBorder.MouseMove           += SelectionOverlayCanvasOnMouseMove;
+            ViewportBorder.MouseLeftButtonUp   += SelectionOverlayCanvasOnMouseLeftButtonUp;
         }
 
-        public List<SphereData> InitializeData()
+        public static List<SphereData> GenerateRandomData(Rect xyDataRange, double relativeMargin, int dataCount)
         {
             // originalData will hold our original random data
             var originalData = new List<SphereData>();
 
             // Start in the middle
-            double x = _locationSize.Width / 2;
-            double y = _locationSize.Height / 2;
+            var minX = xyDataRange.X;
+            var minY = xyDataRange.Y;
+            var maxX = xyDataRange.X + xyDataRange.Width;
+            var maxY = xyDataRange.Y + xyDataRange.Height;
 
-            double randomizationFactor = 0.5; // How much can the data go up and down
+            minX += relativeMargin * xyDataRange.Width * 0.5;
+            minY += relativeMargin * xyDataRange.Height * 0.5;
+            maxX -= relativeMargin * xyDataRange.Width * 0.5;
+            maxY -= relativeMargin * xyDataRange.Height * 0.5;
+            
 
-            // Add some random data
-            for (int i = 0; i < 20; i++)
+            // Set the initial position at the center of the xyDataRange
+            double x = xyDataRange.X + xyDataRange.Width * 0.5;
+            double y = xyDataRange.Y + xyDataRange.Height * 0.5;
+
+            double vx = 0; // velocity
+            double vy = 0;
+
+            var rnd = new Random();
+            double randomizationFactor = 0.1; // How much data can adjust its position in one step (30%)
+            
+            // Add some random data - start at (x,y) and then move in random mostly positive direction
+            for (int i = 0; i < dataCount; i++)
             {
-                // Get random offset
-                double dx = _locationSize.Width * randomizationFactor * (_rnd.NextDouble() - 0.5);  //_rnd.NextDouble() * locationSize.Width * randomizationFactor - locationSize.Width * randomizationFactor * 0.5;
-                double dy = _locationSize.Height * randomizationFactor * (_rnd.NextDouble() - 0.5); // _rnd.NextDouble() * locationSize.Height * randomizationFactor - locationSize.Height * randomizationFactor * 0.5;
+                // Get random positive offset
+                double dx = xyDataRange.Width  * randomizationFactor * (rnd.NextDouble() * 2 - 1); // random from -1 to +1
+                double dy = xyDataRange.Height * randomizationFactor * (rnd.NextDouble() * 2 - 1);
 
-                x += dx;
-                y += dy;
+                // Change velocity
+                vx += dx;
+                vy += dy;
+                
+                // change position based on current velocity
+                x += vx;
+                y += vy;
 
-                // Prevent going out of limits (0,0 ... locationSize)
-                if (x < 0)
-                    x = -x;
-                else if (x > _locationSize.Width)
-                    x = _locationSize.Width - 1 * (x - _locationSize.Width);
 
-                if (y < 0)
-                    y = -y;
-                else if (y > _locationSize.Height)
-                    y = _locationSize.Height - 1 * (y - _locationSize.Height);
+                // Prevent going out of limits
+                if (x < minX)
+                {
+                    x = minX + (minX - x);
+                    vx = -vx;
+                }
+                else if (x > maxX)
+                {
+                    x = maxX - (x - maxX);
+                    vx = -vx;
+                }
 
-                double power = _rnd.NextDouble() * _maxSize;
+                if (y < minY)
+                {
+                    y = minY + (minY - y);
+                    vy = -vy;
+                }
+                else if (y > maxY)
+                {
+                    y = maxY - (y - maxY);
+                    vy = -vy;
+                }
 
-                var sphereData = new SphereData(i, new Point(x, y), power);
+
+                // Just in case velocity is very high, we ensure that the values does not go out of bounds
+                x = Math.Max(minX, Math.Min(maxX, x));
+                y = Math.Max(minY, Math.Min(maxY, y));
+
+
+                double sphereSize = rnd.NextDouble() * 3 + 1;
+
+                var sphereData = new SphereData(time: i + 1, location: new Point(x, y), size: sphereSize);
                 originalData.Add(sphereData);
-
-                //System.Diagnostics.Debug.WriteLine(string.Format(System.Globalization.CultureInfo.InvariantCulture, "originalData.Add(new SphereData({0}, new Point({1:0}, {2:0}), {3:0.00}));", i, x, y, power));
             }
 
             return originalData;
         }
 
-        public void ShowData(List<SphereData> originalData)
+        private LinearGradientBrush CreateGradientBrush()
+        {
+            // We use HeightMapMesh3D.GetGradientColorsArray to create an array with color values created from the gradient. The array size is 30.
+            var gradientStopCollection = new GradientStopCollection();
+            gradientStopCollection.Add(new GradientStop(Colors.Red, 1));
+            gradientStopCollection.Add(new GradientStop(Colors.Yellow, 0.5));
+            gradientStopCollection.Add(new GradientStop(Colors.DodgerBlue, 0));
+            var linearGradientBrush = new LinearGradientBrush(gradientStopCollection, new Point(0, 1), new Point(0, 0));
+
+            return linearGradientBrush;
+        }
+
+
+        public void ShowData(List<SphereData> originalData, Rect3D displayedDataBounds, Rect xyDataRange)
         { 
             // Now use original data to create our data view objects
 
             // All data will be displayed in a 3D box defined below:
-            var displayedDataBounds = new Rect3D(-40, -20, -40, 80, 40, 80);
+            //var displayedDataBounds = new Rect3D(AxesBox.CenterPosition.X - AxesBox.Size.X * 0.5,
+            //                                     AxesBox.CenterPosition.Y - AxesBox.Size.Y * 0.5,
+            //                                     AxesBox.CenterPosition.Z - AxesBox.Size.Z * 0.5,
+            //                                     AxesBox.Size.X,
+            //                                     AxesBox.Size.Y,
+            //                                     AxesBox.Size.Z);
 
-            _allPositionsData = new List<SphereDataView>(originalData.Count);
+            _allSpheresData = new List<SphereDataView>(originalData.Count);
 
             foreach (var originalSphereData in originalData)
             {
-                var sphereDataView = SphereDataView.Create(originalSphereData, displayedDataBounds, originalData.Count, _locationSize, _maxSize);
+                // Set color of the sphere based on its y position
+                // We choose the color from the gradient defined in EnsureGradientColorsArray
+                double relativeY = (originalSphereData.Location.Y - xyDataRange.Y) / xyDataRange.Height;
+
+                int colorArrayIndex = (int)(relativeY * (_gradientColorsArray.Length - 1));
+                Color color = _gradientColorsArray[colorArrayIndex];
+
+
+                var sphereDataView = SphereDataView.Create(originalSphereData, displayedDataBounds, originalData.Count, xyDataRange, color);
 
                 sphereDataView.IsSelectedChanged += delegate (object sender, EventArgs args)
                 {
@@ -122,26 +213,18 @@ namespace Ab3d.PowerToys.Samples.UseCases
                     UpdateSelectedSpheresData();
                 };
 
-                _allPositionsData.Add(sphereDataView);
+                _allSpheresData.Add(sphereDataView);
             }
 
-
-            // Setup axis limits and shown values
-            AxisWireBox.MinYValue = 0;
-            AxisWireBox.MaxYValue = 10;
-
-            AxisWireBox.YAxisValues = new double[] { 0, 2, 4, 6, 8, 10 };
-
-
             // Bind positions data to ListBox
-            DataListBox.ItemsSource = _allPositionsData;
+            DataListBox.ItemsSource = _allSpheresData;
 
             
             // Create curve through all positions
             // This is done by first creating all points that define the curve (10 points between each position that define the curve)
             List<Point3D> allPositions = new List<Point3D>();
 
-            foreach (var positionData in _allPositionsData)
+            foreach (var positionData in _allSpheresData)
                 allPositions.Add(positionData.Position);
 
             BezierCurve bezierCurve = Ab3d.Utilities.BezierCurve.CreateFromCurvePositions(allPositions);
@@ -161,7 +244,7 @@ namespace Ab3d.PowerToys.Samples.UseCases
 
 
             // Add 3D sphere for each position
-            foreach (var positionData in _allPositionsData)
+            foreach (var positionData in _allSpheresData)
             {
                 SpheresModelVisual.Children.Add(positionData.ModelVisual3D); // Sphere Visual3D is created in SphereDataView object
 
@@ -176,7 +259,7 @@ namespace Ab3d.PowerToys.Samples.UseCases
                     Mouse.OverrideCursor = Cursors.Hand;
 
                     // Find selected position data
-                    var selectedPositionData = _allPositionsData.FirstOrDefault(p => p.ModelVisual3D == e.HitObject);
+                    var selectedPositionData = _allSpheresData.FirstOrDefault(p => p.ModelVisual3D == e.HitObject);
 
                     SelectData(selectedPositionData, e.CurrentMousePosition);
                 };
@@ -196,7 +279,7 @@ namespace Ab3d.PowerToys.Samples.UseCases
                 visualEventSource3D.MouseClick += delegate (object sender, MouseButton3DEventArgs e)
                 {
                     // Select / deselect on mouse click
-                    var clickedPositionData = _allPositionsData.FirstOrDefault(p => p.ModelVisual3D == e.HitObject);
+                    var clickedPositionData = _allSpheresData.FirstOrDefault(p => p.ModelVisual3D == e.HitObject);
 
                     if (clickedPositionData != null)
                         positionData.IsSelected = !clickedPositionData.IsSelected;
@@ -219,7 +302,10 @@ namespace Ab3d.PowerToys.Samples.UseCases
 
 
             // Add additional 3D lines that will show where the sphere is in the 3D space
-            double wireBoxBottom = AxisWireBox.CenterPosition.Y - AxisWireBox.Size.Y * 0.5;
+            var centerPosition = AxesBox.CenterPosition;
+            var size = AxesBox.Size;
+
+            double wireBoxBottom = centerPosition.Y - size.Y * 0.5;
 
             var verticalLineVisual3D = new Ab3d.Visuals.LineVisual3D()
             {
@@ -231,8 +317,8 @@ namespace Ab3d.PowerToys.Samples.UseCases
 
             SelectedSphereLinesVisual.Children.Add(verticalLineVisual3D);
 
-            double x1 = AxisWireBox.CenterPosition.X - AxisWireBox.Size.X * 0.5;
-            double x2 = AxisWireBox.CenterPosition.X + AxisWireBox.Size.X * 0.5;
+            double x1 = centerPosition.X - size.X * 0.5;
+            double x2 = centerPosition.X + size.X * 0.5;
 
             var xLineVisual3D = new Ab3d.Visuals.LineVisual3D()
             {
@@ -244,8 +330,8 @@ namespace Ab3d.PowerToys.Samples.UseCases
 
             SelectedSphereLinesVisual.Children.Add(xLineVisual3D);
 
-            double z1 = AxisWireBox.CenterPosition.Z - AxisWireBox.Size.Z * 0.5;
-            double z2 = AxisWireBox.CenterPosition.Z + AxisWireBox.Size.Z * 0.5;
+            double z1 = centerPosition.Z - size.Z * 0.5;
+            double z2 = centerPosition.Z + size.Z * 0.5;
 
             var zLineVisual3D = new Ab3d.Visuals.LineVisual3D()
             {
@@ -270,20 +356,32 @@ namespace Ab3d.PowerToys.Samples.UseCases
 
         private void RecreateDataButtonOnClick(object sender, RoutedEventArgs e)
         {
-            _sampleData = InitializeData();
-            ShowData(_sampleData);
+            _sampleData = GenerateRandomData(_xyDataRange, relativeMargin: 0.2, dataCount: 20);
+
+            // All data will be displayed in a 3D box defined below:
+            var displayedDataBounds = new Rect3D(AxesBox.CenterPosition.X - AxesBox.Size.X * 0.5,
+                                                 AxesBox.CenterPosition.Y - AxesBox.Size.Y * 0.5,
+                                                 AxesBox.CenterPosition.Z - AxesBox.Size.Z * 0.5,
+                                                 AxesBox.Size.X,
+                                                 AxesBox.Size.Y,
+                                                 AxesBox.Size.Z);
+
+            ShowData(_sampleData, displayedDataBounds, _xyDataRange);
         }
 
         private void UpdateSelectedSpheresData()
         {
             if (DataListBox.SelectedItems == null || DataListBox.SelectedItems.Count == 0)
             {
-                SelectionDataTextBlock.Text = "no spheres selected";
+                SelectionDataTextBlock.Text = "No spheres selected\r\n";
+                ClearSelectionButton.IsEnabled = false;
                 return;
             }
 
             double totalSize = DataListBox.SelectedItems.OfType<SphereDataView>().Sum(d => d.OriginalSphereData.Size);
             SelectionDataTextBlock.Text = string.Format("Count: {0}\r\nTotal size: {1:0.0}", DataListBox.SelectedItems.Count, totalSize);
+
+            ClearSelectionButton.IsEnabled = true;
         }
 
         #region Rectangular selection
@@ -298,7 +396,7 @@ namespace Ab3d.PowerToys.Samples.UseCases
             _startSelectionPosition = position;
 
             // Calculate screen positions for all spheres so that we can do a quick check if a sphere is inside selection rectangle
-            foreach (var positionData in _allPositionsData)
+            foreach (var positionData in _allSpheresData)
                 positionData.ScreenPosition = Camera1.Point3DTo2D(positionData.Position);
 
             e.Handled = true;
@@ -356,7 +454,7 @@ namespace Ab3d.PowerToys.Samples.UseCases
             Rect selectionRect = new Rect(x, y, width, height);
 
             // Select all spheres that are inside selection rectangle
-            foreach (var positionData in _allPositionsData)
+            foreach (var positionData in _allSpheresData)
                 positionData.IsSelected = positionData.IsInScreenRectangle(selectionRect);
 
             e.Handled = true;
@@ -374,7 +472,7 @@ namespace Ab3d.PowerToys.Samples.UseCases
 
         private void ClearSelectionButtonOnClick(object sender, RoutedEventArgs e)
         {
-            foreach (var sphereDataView in _allPositionsData)
+            foreach (var sphereDataView in _allSpheresData)
                 sphereDataView.IsSelected = false;
         }
         #endregion
@@ -405,7 +503,7 @@ namespace Ab3d.PowerToys.Samples.UseCases
         private SphereVisual3D _sphere;
 
         private DiffuseMaterial _selectedMaterial = new DiffuseMaterial(Brushes.Red);
-        private static Color[] _gradientColorsArray;
+        
 
 
         // Initial data:
@@ -460,20 +558,12 @@ namespace Ab3d.PowerToys.Samples.UseCases
             ScreenPosition = new Point(double.NaN, double.NaN);
         }
 
-        public static SphereDataView Create(SphereData originalSphereData, Rect3D displayedDataBounds, double maxTime, Size locationBounds, double maxSize)
+        public static SphereDataView Create(SphereData originalSphereData, Rect3D displayedDataBounds, double maxTime, Rect xyDataRange, Color color)
         {
             // First calculate normalized values (from 0 to 1)
             double x = originalSphereData.Time / maxTime;
-            double y = originalSphereData.Location.Y / locationBounds.Height;
-            double z = originalSphereData.Location.X / locationBounds.Width;
-
-
-            // Set color of the sphere based on its y position
-            // We choose the color from the gradient defined in EnsureGradientColorsArray
-            EnsureGradientColorsArray();
-
-            int colorArrayIndex = (int)(y * _gradientColorsArray.Length);
-            Color color = _gradientColorsArray[colorArrayIndex];
+            double y = (originalSphereData.Location.Y - xyDataRange.Y) / xyDataRange.Height;
+            double z = (originalSphereData.Location.X - xyDataRange.X) / xyDataRange.Width;
 
 
             // Now put normalized values into a 3D space that is defined by displayedDataBounds
@@ -483,13 +573,8 @@ namespace Ab3d.PowerToys.Samples.UseCases
 
             Point3D position3D = new Point3D(x, y, z);
 
-
-            // Use Size value to define the sphere radius in a range from 1 to 3
-            double sphereRadius = (originalSphereData.Size / maxSize) * 2 + 1;
-
-
             // Now we have all the data to create the SphereDataView
-            var sphereDataView = new SphereDataView(originalSphereData, position3D, color, sphereRadius);
+            var sphereDataView = new SphereDataView(originalSphereData, position3D, color, originalSphereData.Size);
 
             return sphereDataView;
         }
@@ -502,18 +587,6 @@ namespace Ab3d.PowerToys.Samples.UseCases
 
             return selectionRectangle.X < ScreenPosition.X && ScreenPosition.X < (selectionRectangle.X + selectionRectangle.Width) &&
                    selectionRectangle.Y < ScreenPosition.Y && ScreenPosition.Y < (selectionRectangle.Y + selectionRectangle.Height);
-        }
-
-
-        private static void EnsureGradientColorsArray()
-        {
-            // We use HeightMapMesh3D.GetGradientColorsArray to create an array with color values created from the gradient. The array size is 30.
-            var gradientStopCollection = new GradientStopCollection();
-            gradientStopCollection.Add(new GradientStop(Colors.Yellow, 1));
-            gradientStopCollection.Add(new GradientStop(Colors.DodgerBlue, 0));
-            var linearGradientBrush = new LinearGradientBrush(gradientStopCollection, new Point(0, 0), new Point(0, 1));
-
-            _gradientColorsArray = HeightMapMesh3D.GetGradientColorsArray(linearGradientBrush, 30);
         }
 
         private SphereVisual3D CreateSphereVisual3D()

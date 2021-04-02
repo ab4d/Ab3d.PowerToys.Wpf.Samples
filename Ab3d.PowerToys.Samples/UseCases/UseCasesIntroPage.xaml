@@ -14,8 +14,6 @@
                 <!-- NOTE: In the previous versions of the samples FlowDocumentReader was used to show info pages. But because this control always thrown an exception that 'PresentationUI.Aero2' was not found (the exception was handled by .Net code, but it always stopped the debugger if stop on exception was turned on), I have upgraded TextBlock to add some additional markup. -->
                 <common:TextBlockEx Style="{StaticResource InfoTitle}">\!Use Cases\! show the power of \!Ab3d.PowerToys\! in a real-world like scenarios.</common:TextBlockEx>
                 <common:TextBlockEx Style="{StaticResource InfoContent}">
-                    The \!3D Plot\! and \!3D Earth view\! samples show how to use height map to create great looking 3D plots of some interesting functions and how to use height map and satellite images data and create 3D Earth view.\n
-                    \n
                     The \!Cannon simulation\! use case shows how easy is to create a physical simulation in 3D with help from Ab3d.PowerToys classes. The use case demonstrates the use of various Cameras, 3D Visuals and 3D Lines.\n
                     \n
                     The \!Wind Power Generators\! use case shows a landscape with 5 wind generators positioned on the hill.\n
@@ -23,8 +21,6 @@
                     The user can also move the wind generators around the landscape by simply dragging and dropping the wind generator by the mouse.\n
                     To make the scene even more realistic it is possible to set the wind speed with the slider on the right. This will also make the wind generators to rotate.\n
                     Note: The landscape and wind generator models were converted from 3ds file into xaml with Viewer3ds.\n
-                    \n
-                    The \!Scene Editor\! sample show how to create a simple scene editor. It also demonstrates how to adjust the camera to show all the objects in the scene (fit camera to view). It also uses custom hit testing where first a 3D ray from the current mouse position and current camera is calculated. Than an intersection from the ray and the XZ plane is calculated - it use to get the current mouse position in 3D space.\n
                     \n
                     The \!Distance measurement\! uses many features from Ab3d.PowerToys. It shows how to create a 3D scene where user can measure the distance on a 3D scene.\n
                     \n

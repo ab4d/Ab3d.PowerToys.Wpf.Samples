@@ -57,7 +57,7 @@
 
             <TextBlock Grid.Column="0" VerticalAlignment="Bottom" FontWeight="Bold" FontSize="13" Foreground="#BBBBBB" Margin="5 3" HorizontalAlignment="Left" Text="Wind generator model converted from 3ds file to xaml with Viewer3ds and Ab3d.Reader3ds library."/>
             
-            <Border Grid.Column="1" VerticalAlignment="Bottom" Background="#99FFFFFF" BorderBrush="Gray" BorderThickness="1" CornerRadius="0">
+            <Border Grid.Column="1" VerticalAlignment="Bottom" Background="#99FFFFFF" BorderBrush="Gray" BorderThickness="1">
                 <StackPanel Orientation="Vertical" Margin="5">
 
                     <TextBlock Text="Wind&#x0a;speed" HorizontalAlignment="Right" FontWeight="Bold" Foreground="#222222" FontSize="13"/>
@@ -66,7 +66,7 @@
                 </StackPanel>
             </Border>
 
-            <Border Grid.Column="2" VerticalAlignment="Bottom" Background="#99FFFFFF" BorderBrush="#222222" BorderThickness="1" CornerRadius="0">
+            <Border Grid.Column="2" VerticalAlignment="Bottom" Background="#99FFFFFF" BorderBrush="#222222" BorderThickness="1">
                 <StackPanel Orientation="Vertical">
 
                     <TextBlock Text="Camera center object:" FontWeight="Bold" FontSize="13" Foreground="#222222" Margin="5 5 0 0" HorizontalAlignment="Left"/>

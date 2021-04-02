@@ -39,13 +39,13 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Ab3d.PowerToys, Version=9.4.7657.1045, Culture=neutral, PublicKeyToken=d45c8e156fba2841, processorArchitecture=MSIL">
+    <Reference Include="Ab3d.PowerToys, Version=9.5.7760.2045, Culture=neutral, PublicKeyToken=d45c8e156fba2841, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Ab3d.PowerToys.9.4.7657\lib\net45\Ab3d.PowerToys.dll</HintPath>
+      <HintPath>..\packages\Ab3d.PowerToys.9.5.7760\lib\net45\Ab3d.PowerToys.dll</HintPath>
     </Reference>
-    <Reference Include="Ab3d.PowerToys.Input, Version=9.4.7657.1045, Culture=neutral, PublicKeyToken=d45c8e156fba2841, processorArchitecture=MSIL">
+    <Reference Include="Ab3d.PowerToys.Input, Version=9.5.7760.2045, Culture=neutral, PublicKeyToken=d45c8e156fba2841, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Ab3d.PowerToys.Input.9.4.7657\lib\net45\Ab3d.PowerToys.Input.dll</HintPath>
+      <HintPath>..\packages\Ab3d.PowerToys.Input.9.5.7760\lib\net45\Ab3d.PowerToys.Input.dll</HintPath>
     </Reference>
     <Reference Include="AssimpNet">
       <SpecificVersion>False</SpecificVersion>
@@ -78,8 +78,20 @@
     <Compile Include="EventManager3D\StandardWpfHitTestingDemo.xaml.cs">
       <DependentUpon>StandardWpfHitTestingDemo.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Graph3D\Graph3DIntroPage.xaml.cs">
+      <DependentUpon>Graph3DIntroPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Graph3D\ContourLinesSample.xaml.cs">
+      <DependentUpon>ContourLinesSample.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Lines3D\StaticLineMeshesSample.xaml.cs">
       <DependentUpon>StaticLineMeshesSample.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Objects3D\AdvancedBooleanOperations.xaml.cs">
+      <DependentUpon>AdvancedBooleanOperations.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Objects3D\TorusKnotVisual3DSample.xaml.cs">
+      <DependentUpon>TorusKnotVisual3DSample.xaml</DependentUpon>
     </Compile>
     <Compile Include="Objects3D\TubeLineVisual3DSample.xaml.cs">
       <DependentUpon>TubeLineVisual3DSample.xaml</DependentUpon>
@@ -102,11 +114,26 @@
     <Compile Include="Lines3D\StaticEdgeLinesCreationSample.xaml.cs">
       <DependentUpon>StaticEdgeLinesCreationSample.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Graph3D\AxisWithOverlayLabelsSample.xaml.cs">
+      <DependentUpon>AxisWithOverlayLabelsSample.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Graph3D\AxisWith3DLabelsSample.xaml.cs">
+      <DependentUpon>AxisWith3DLabelsSample.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Graph3D\AxesBoxVisual3DSample.xaml.cs">
+      <DependentUpon>AxesBoxVisual3DSample.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Utilities\ModelMoverOverlayWithZUpAxisSample.xaml.cs">
       <DependentUpon>ModelMoverOverlayWithZUpAxisSample.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Utilities\ModelRotatorWithStandardTransformSample.xaml.cs">
+      <DependentUpon>ModelRotatorWithStandardTransformSample.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Utilities\OtherUtilitiesInfo.xaml.cs">
       <DependentUpon>OtherUtilitiesInfo.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Utilities\StandardTransformSample.xaml.cs">
+      <DependentUpon>StandardTransformSample.xaml</DependentUpon>
     </Compile>
     <Compile Include="Wpf3DFile\ImportWpf3DFileWindow.xaml.cs">
       <DependentUpon>ImportWpf3DFileWindow.xaml</DependentUpon>
@@ -171,6 +198,14 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Graph3D\Graph3DIntroPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Graph3D\ContourLinesSample.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Lines3D\StaticLineMeshesSample.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -192,6 +227,14 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="MouseCameraControllerSamples\ZoomToCustomPoint.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Objects3D\AdvancedBooleanOperations.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Objects3D\TorusKnotVisual3DSample.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -405,10 +448,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Common\FeedbackControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="EventManager3D\EventManagerClickSample.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -525,7 +564,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UseCases\Graph3D.xaml">
+    <Page Include="Graph3D\Graph3D.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -553,6 +592,18 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Graph3D\AxisWithOverlayLabelsSample.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Graph3D\AxisWith3DLabelsSample.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Graph3D\AxesBoxVisual3DSample.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Utilities\MeshInspectorOverlaySample.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -562,6 +613,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Utilities\ModelMoverOverlayWithZUpAxisSample.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Utilities\ModelRotatorWithStandardTransformSample.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -577,6 +632,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Utilities\StandardTransformSample.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Utilities\TextureCoordinatesGeneratorSample.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -586,10 +645,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Objects3D\TrapezoidVisual3DSample.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Other\UserControlForWinForms.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -625,7 +680,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UseCases\Plot3DSample.xaml">
+    <Page Include="Graph3D\Plot3DSample.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -1077,11 +1132,7 @@
     <Compile Include="Cameras\FreeCameraSample.xaml.cs">
       <DependentUpon>FreeCameraSample.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Common\AxisWireBoxVisual3D.cs" />
     <Compile Include="Common\DragAndDropHelper.cs" />
-    <Compile Include="Common\FeedbackControl.xaml.cs">
-      <DependentUpon>FeedbackControl.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Common\SimpleGrid.cs" />
     <Compile Include="Common\TextBlockEx.cs" />
     <Compile Include="EventManager3D\EventManagerClickSample.xaml.cs">
@@ -1224,7 +1275,7 @@
     <Compile Include="UseCases\DrawOnTextureSample.xaml.cs">
       <DependentUpon>DrawOnTextureSample.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UseCases\Graph3D.xaml.cs">
+    <Compile Include="Graph3D\Graph3D.xaml.cs">
       <DependentUpon>Graph3D.xaml</DependentUpon>
     </Compile>
     <Compile Include="Common\SceneLayout.cs" />
@@ -1262,9 +1313,6 @@
     <Compile Include="Objects3D\TrapezoidVisual3DSample.xaml.cs">
       <DependentUpon>TrapezoidVisual3DSample.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Other\UserControlForWinForms.xaml.cs">
-      <DependentUpon>UserControlForWinForms.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Other\WinFormsInfo.xaml.cs">
       <DependentUpon>WinFormsInfo.xaml</DependentUpon>
     </Compile>
@@ -1289,7 +1337,7 @@
     <Compile Include="UseCases\MultipleSceneViewSample.xaml.cs">
       <DependentUpon>MultipleSceneViewSample.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UseCases\Plot3DSample.xaml.cs">
+    <Compile Include="Graph3D\Plot3DSample.xaml.cs">
       <DependentUpon>Plot3DSample.xaml</DependentUpon>
     </Compile>
     <Compile Include="UseCases\EarthView.xaml.cs">
@@ -1539,7 +1587,6 @@
     <None Include="app.config">
       <SubType>Designer</SubType>
     </None>
-    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

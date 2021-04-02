@@ -28,6 +28,8 @@ namespace Ab3d.PowerToys.Samples.Objects3D
 
             _heightMapFileName = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Resources\\HeightMaps\\simpleHeightMap.png");
             OpenHeightMapDataFile(_heightMapFileName);
+
+            UpdateHeightMapMaterial();
         }
 
         private void MaterialRadioButton_Checked(object sender, RoutedEventArgs e)
@@ -35,28 +37,29 @@ namespace Ab3d.PowerToys.Samples.Objects3D
             if (!this.IsLoaded)
                 return;
 
-            if (Material1RadioButton.IsChecked ?? false)
-            {
-                HeigthMap1.Material = new DiffuseMaterial(Brushes.Silver);
-            }
-            else if (Material2RadioButton.IsChecked ?? false)
-            {
-                HeigthMap1.Material = new DiffuseMaterial(new ImageBrush(new BitmapImage(new Uri("pack://application:,,,/Resources/PowerToysTexture.png", UriKind.RelativeOrAbsolute))));
-            }
-            else
-            {
-                // Create the following LinearGradientBrush
-                //<LinearGradientBrush StartPoint="0 1" EndPoint="0 0">
-                //    <LinearGradientBrush.GradientStops>
-                //        <GradientStop Color="Red" Offset="0"/>
-                //        <GradientStop Color="Yellow" Offset="1"/>
-                //    </LinearGradientBrush.GradientStops>
-                //</LinearGradientBrush>
+            UpdateHeightMapMaterial();
+        }
 
+        private void UpdateHeightMapMaterial()
+        { 
+            if (SmoothGradientMaterialRadioButton.IsChecked ?? false)
+            {
+                // When using gradient texture then it is recommended to set UseHeightValuesAsTextureCoordinates to true.
+                // In this case height values are used for texture coordinates - texture coordinate (0, 0.5) is set the minimum height value and texture coordinate (1, 0.5) is set to the maximum height value.
+                // This requires a one dimensional gradient texture and usually produces more accurate results than when UseHeightValuesAsTextureCoordinates is false.
+                // This should not be used for cases when a bitmap is shown on the height map
+                //
+                // // To demonstrate the quality different between different values of UseHeightValuesAsTextureCoordinates, set its value to false in the next if (for HardGradientMaterialRadioButton):
+                HeigthMap1.UseHeightValuesAsTextureCoordinates = true;
+
+                // Define the gradient
                 GradientStopCollection stops = new GradientStopCollection();
-                stops.Add(new GradientStop(Colors.Yellow, 1));
-                stops.Add(new GradientStop(Colors.Red, 0));
-                
+                stops.Add(new GradientStop(Colors.Red, 1));
+                stops.Add(new GradientStop(Colors.Yellow, 0.75));
+                stops.Add(new GradientStop(Colors.LightGreen, 0.5));
+                stops.Add(new GradientStop(Colors.Aqua, 0.25));
+                stops.Add(new GradientStop(Colors.Blue, 0));
+
 
                 LinearGradientBrush gradient = new LinearGradientBrush(stops);
                 // NOTE: We do not have to specify the StartPoint and EndPoint
@@ -79,6 +82,47 @@ namespace Ab3d.PowerToys.Samples.Objects3D
 
                 // After that we set the Material of the HeightMap1
                 ////HeightMap1.Material = new DiffuseMaterial(new ImageBrush(texture));
+            }
+            else if (HardGradientMaterialRadioButton.IsChecked ?? false)
+            {
+                // NOTE:
+                // To demonstrate the quality different between different values of UseHeightValuesAsTextureCoordinates, set the following to false:
+                HeigthMap1.UseHeightValuesAsTextureCoordinates = true;
+
+                // The gradient with hard transition is defined by making the transition from one color to another very small (for example from 0.89 to 0.90)
+                GradientStopCollection stops = new GradientStopCollection();
+                stops.Add(new GradientStop(Colors.Red, 1));
+                stops.Add(new GradientStop(Colors.Red, 0.9));
+                stops.Add(new GradientStop(Colors.Yellow, 0.89));
+                stops.Add(new GradientStop(Colors.Yellow, 0.75));
+                stops.Add(new GradientStop(Colors.LightGreen, 0.749));
+                stops.Add(new GradientStop(Colors.LightGreen, 0.5));
+                stops.Add(new GradientStop(Colors.Aqua, 0.499));
+                stops.Add(new GradientStop(Colors.Aqua, 0.25));
+                stops.Add(new GradientStop(Colors.Blue, 0.249));
+                stops.Add(new GradientStop(Colors.Blue, 0));
+
+
+                LinearGradientBrush gradient = new LinearGradientBrush(stops);
+                // NOTE: We do not have to specify the StartPoint and EndPoint
+
+                // It will be used in the CreateHeightTextureFromGradient method 
+                // to create the texture from the actual height map data and with the specified LinearGradientBrush
+
+                HeigthMap1.CreateHeightTextureFromGradient(gradient);
+            }
+            else if (BitmapMaterialRadioButton.IsChecked ?? false)
+            {
+                // When showing texture on the height map, the UseHeightValuesAsTextureCoordinates must be set to false (this is its default value).
+                // This way the texture coordinates will be set based on their position on the height map (texture coordinate (0, 0) is used for the first position and (1, 1) for the last position).
+                HeigthMap1.UseHeightValuesAsTextureCoordinates = false;
+
+                HeigthMap1.Material = new DiffuseMaterial(new ImageBrush(new BitmapImage(new Uri("pack://application:,,,/Resources/PowerToysTexture.png", UriKind.RelativeOrAbsolute))));
+            }
+            else
+            {
+                // When using solid color material, then the value of UseHeightValuesAsTextureCoordinates is irrelevant.
+                HeigthMap1.Material = new DiffuseMaterial(Brushes.Silver);
             }
         }
 
@@ -104,45 +148,56 @@ namespace Ab3d.PowerToys.Samples.Objects3D
         }
 
 
+        // Returns value in range from 0 to 1
         public static double[,] OpenHeightMapDataFile(BitmapSource heightImage, bool invertData)
         {
-            if (heightImage.Format != PixelFormats.Gray8 && heightImage.Format != PixelFormats.Indexed8)
-            {
-                MessageBox.Show("This sample support only 8-bit grayscale images for height map data!");
-                return null;
-            }
+            var width         = heightImage.PixelWidth;
+            var height        = heightImage.PixelHeight;
+            var bytesPerPixel = heightImage.Format.BitsPerPixel / 8;
 
-            byte[] heightImageArray = new byte[heightImage.PixelWidth * heightImage.PixelHeight];
-            heightImage.CopyPixels(heightImageArray, heightImage.PixelWidth, 0);
+            byte[] heightImageArray = new byte[width * height * bytesPerPixel];
+            heightImage.CopyPixels(heightImageArray, width * bytesPerPixel, 0);
 
-            double[,] heightData = new double[heightImage.PixelWidth, heightImage.PixelHeight];
+            double[,] heightData = new double[width, height];
 
-            double factor = 1.0 / 255.0; // this will be used to multiply the bytes (multiplying is faster than dividing)
-
-            int index = 0;
+            double factor = 1.0 / (255.0 * bytesPerPixel); // this will be used to multiply the bytes (multiplying is faster than dividing)
+            double offset = 0;
 
             if (invertData)
             {
-                for (int y = 0; y < heightImage.PixelHeight; y++)
+                factor = -factor;
+                offset = 1;
+            }
+
+
+            int index = 0;
+
+            if (bytesPerPixel == 1) // optimize for 8-bit (one byte) per pixel (remove inner for)
+            {
+                for (int y = 0; y < height; y++)
                 {
-                    for (int x = 0; x < heightImage.PixelWidth; x++)
+                    for (int x = 0; x < width; x++)
                     {
-                        // We invert the data
-                        heightData[x, y] = 1.0 - (heightImageArray[index] * factor);
+                        heightData[x, y] = heightImageArray[index] * factor + offset;
                         index++;
                     }
                 }
             }
             else
             {
-                for (int y = 0; y < heightImage.PixelHeight; y++)
+                for (int y = 0; y < height; y++)
                 {
-                    for (int x = 0; x < heightImage.PixelWidth; x++)
+                    for (int x = 0; x < width; x++)
                     {
-                        heightData[x, y] = heightImageArray[index] * factor;
-                        index++;
+                        int colorsSum = 0;
+                        for (int i = 0; i < bytesPerPixel; i++)
+                            colorsSum += heightImageArray[index + i];
+
+                        heightData[x, y] = colorsSum * factor + offset;
+
+                        index += bytesPerPixel;
                     }
-                }         
+                }
             }
 
             return heightData;
@@ -155,6 +210,5 @@ namespace Ab3d.PowerToys.Samples.Objects3D
 
             OpenHeightMapDataFile(_heightMapFileName);
         }
-
     }
 }

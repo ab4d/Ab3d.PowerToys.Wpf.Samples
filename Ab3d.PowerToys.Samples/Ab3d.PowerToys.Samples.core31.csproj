@@ -6,9 +6,9 @@
     <UseWPF>true</UseWPF>
     <AssemblyName>Ab3d.PowerToys.Samples</AssemblyName>
     <ApplicationIcon>PowerToys.ico</ApplicationIcon>
-    <Version>9.4.7657</Version>
-    <AssemblyVersion>9.4.7657.2300</AssemblyVersion>
-    <FileVersion>9.4.7657.2300</FileVersion>        
+    <Version>9.5.7760</Version>
+    <AssemblyVersion>9.5.7760.2300</AssemblyVersion>
+    <FileVersion>9.5.7760.2300</FileVersion>        
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -20,8 +20,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Ab3d.PowerToys" Version="9.4.7657" />
-    <PackageReference Include="Ab3d.PowerToys.Input" Version="9.4.7657" />
+    <PackageReference Include="Ab3d.PowerToys" Version="9.5.7760" />
+    <PackageReference Include="Ab3d.PowerToys.Input" Version="9.5.7760" />
   </ItemGroup>
 
   <ItemGroup>
@@ -109,7 +109,6 @@
     <None Remove="Resources\ObjFiles\Teapot.obj" />
     <None Remove="Resources\ObjFiles\WaltHead.mtl" />
     <None Remove="Resources\ObjFiles\WaltHead.obj" />
-    <None Remove="Resources\PowerToysBannerImage.png" />
     <None Remove="Resources\PowerToysTexture.png" />
     <None Remove="Resources\PowerToysWinFormsSample.jpg" />
     <None Remove="Resources\PowerToys_box_front.jpg" />
@@ -276,7 +275,6 @@
     <Resource Include="Resources\ObjFiles\robotarm.mtl" />
     <Resource Include="Resources\ObjFiles\robotarm.obj" />
     <Resource Include="Resources\ObjFiles\robotarm.png" />
-    <Resource Include="Resources\PowerToysBannerImage.png" />
     <Resource Include="Resources\PowerToysTexture.png" />
     <Resource Include="Resources\PowerToysWinFormsSample.jpg" />
     <Resource Include="Resources\PowerToys_box_front.jpg" />

@@ -410,9 +410,11 @@
 
             <TextBox Name="RobotArmSampleTextBox" FontFamily="Consolas" FontSize="11" Height="240" HorizontalAlignment="Stretch" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" />
 
+            <TextBlock Text="Transform3D" FontWeight="Bold" FontSize="15" Margin="0 20 0 10" Style="{StaticResource InfoContent}" />
+
             <common:TextBlockEx Style="{StaticResource InfoContent}" Margin="0 0 0 0">
                 \n
-                If you will check the previous text carefully, you will see that each Model3D also has a \!Transformation\! property.\n
+                If you will check the previous text carefully, you will see that each Model3DGroup also has a \!Transform\! property that can be set to a 3D transformation (class that is derived from Transform3D base class).\n
                 \n
                 WPF 3D defines the following transformations:\n
                 \*\!TranslateTransform3D\! - translates (moves) the objects for the specified offset,\n

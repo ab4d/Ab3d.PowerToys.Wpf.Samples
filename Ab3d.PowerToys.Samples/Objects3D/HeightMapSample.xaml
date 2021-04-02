@@ -25,10 +25,33 @@
             <Viewport3D Name="MainViewport">
                 <visuals:HeightMapVisual3D x:Name="HeigthMap1" Material="Silver" BackMaterial="Gray" Size="100 30 100"
                                            IsWireframeShown="{Binding ElementName=ShowWireframeCheckBox, Path=IsChecked}"
-                                           IsSolidSurfaceShown="{Binding ElementName=ShowSolidSurfaceCheckBox, Path=IsChecked}"/>
-                
+                                           IsSolidSurfaceShown="{Binding ElementName=ShowSolidSurfaceCheckBox, Path=IsChecked}">
+
+                </visuals:HeightMapVisual3D>
                 <visuals:WireBoxVisual3D x:Name="WireBox1" CenterPosition="0 15 0" Size="100 30 100" LineColor="White" LineThickness="2"
                                         IsVisible="{Binding ElementName=ShowWireBoxCheckBox, Path=IsChecked}"/>
+
+                <!-- To rotate HeightMapVisual3D, you need to rotate its parent Visual3D, for example: 
+                     The following transformation defines the new axis - defined in matrix columns in upper left 3x3 part of the matrix:
+                             x axis - 1st column (use x value): 1 0 0 
+                             y axis - 2nd column (use z value): 0 0 1
+                             z axis - 3rd column (use negative y value): 0 -1 0 -->
+                <!--
+                <ModelVisual3D>
+                    <ModelVisual3D.Transform>
+                        <MatrixTransform3D Matrix="1  0  0  0 
+                                                   0  0  1  0
+                                                   0 -1  0  0 
+                                                   0  0  0  1" />
+                    </ModelVisual3D.Transform>
+
+                    <visuals:HeightMapVisual3D x:Name="HeigthMap1" Material="Silver" BackMaterial="Gray" Size="100 30 100"
+                                               IsWireframeShown="{Binding ElementName=ShowWireframeCheckBox, Path=IsChecked}"
+                                               IsSolidSurfaceShown="{Binding ElementName=ShowSolidSurfaceCheckBox, Path=IsChecked}">
+
+                    </visuals:HeightMapVisual3D>
+                </ModelVisual3D>
+                -->
             </Viewport3D>
         </Border>
 
@@ -65,10 +88,11 @@
                     AutoToolTipPlacement="BottomRight" AutoToolTipPrecision="0" TickFrequency="10" TickPlacement="BottomRight" IsSnapToTickEnabled="True"
                     ValueChanged="HeightSlider_ValueChanged"/>
 
-            <TextBlock FontWeight="Bold" FontSize="14" Foreground="Silver" Margin="0 20 0 3" Text="HeightMap.Material:"/>
-            <RadioButton Name="Material1RadioButton" Foreground="Silver" GroupName="Material" Checked="MaterialRadioButton_Checked"  IsChecked="True" Content="Silver brush"/>
-            <RadioButton Name="Material2RadioButton" Foreground="Silver" Margin="0 3 0 0" GroupName="Material" Checked="MaterialRadioButton_Checked" Content="Bitmap image"/>
-            <RadioButton Name="Material3RadioButton" Foreground="Silver" Margin="0 3 0 0" GroupName="Material" Checked="MaterialRadioButton_Checked" Content="From gradient"/>
+            <TextBlock FontWeight="Bold" FontSize="14" Foreground="Silver" Margin="0 20 0 0" Text="HeightMap.Material:"/>
+            <RadioButton Name="SmoothGradientMaterialRadioButton" Content="From smooth gradient" Foreground="Silver" Margin="0 3 0 0" GroupName="Material" IsChecked="True" Checked="MaterialRadioButton_Checked"/>
+            <RadioButton Name="HardGradientMaterialRadioButton" Content="From hard gradient" Foreground="Silver" Margin="0 3 0 0" GroupName="Material" Checked="MaterialRadioButton_Checked"/>
+            <RadioButton Name="BitmapMaterialRadioButton" Content="Bitmap image" Foreground="Silver" Margin="0 3 0 0" GroupName="Material" Checked="MaterialRadioButton_Checked"/>
+            <RadioButton Name="SilverMaterialRadioButton" Content="Silver brush" Foreground="Silver" Margin="0 3 0 0" GroupName="Material" Checked="MaterialRadioButton_Checked"/>
 
         </StackPanel>
     </Grid>

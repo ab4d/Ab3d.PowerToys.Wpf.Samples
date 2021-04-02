@@ -22,9 +22,10 @@
             </Border.Background>
 
             <Viewport3D Name="MainViewport">
-                <visuals:WireGridVisual3D CenterPosition="0 -50 0" Size="600 300" WidthCellsCount="12" HeightCellsCount="6" LineColor="#555555" LineThickness="2"/>
+                <visuals:WireGridVisual3D CenterPosition="0 -51 0" Size="600 300" WidthCellsCount="12" HeightCellsCount="6" LineColor="#555555" LineThickness="2"/>
 
                 <ModelVisual3D x:Name="RootModelVisual" />
+                <ModelVisual3D x:Name="EdgeLinesModelVisual" />
                 
                 <visuals:TextBlockVisual3D Position="-150 -45 100" PositionType="Center"
                                            Text="Subtract" Foreground="Yellow" Background="Black" BorderBrush="White" BorderThickness="1" TextPadding="5 3"
@@ -58,6 +59,15 @@
                                     MoveCameraConditions="LeftMouseButtonPressed, ControlKey"
                                     EventsSourceElement="{Binding ElementName=ViewportBorder}"
                                     TargetCamera="{Binding ElementName=Camera1}"/>
+
+        <Border BorderBrush="Silver" BorderThickness="2" Background="#55FFFFFF" Margin="10" VerticalAlignment="Bottom" HorizontalAlignment="Right" SnapsToDevicePixels="True">
+            <StackPanel Orientation="Vertical" Margin="5">
+                <RadioButton Name="SolidModelRadioButton" Content="Solid model" Foreground="Silver" GroupName="ViewType" Checked="SolidModelRadioButton_OnChecked" />
+                <RadioButton Name="SolidWithWireframeRadioButton" Content="Solid model with wireframe" Foreground="Silver" IsChecked="True" GroupName="ViewType" Checked="SolidWithWireframeRadioButton_OnChecked" />
+                <RadioButton Name="SolidWithEdgeLinesRadioButton" Content="Solid model with edge lines" Foreground="Silver" GroupName="ViewType" Checked="SolidWithEdgeLinesRadioButton_OnChecked" />
+                <RadioButton Name="EdgeLinesRadioButton" Content="Only edge lines" Foreground="Silver" GroupName="ViewType" Checked="EdgeLinesRadioButton_OnChecked" />
+            </StackPanel>
+        </Border>
 
         <TextBlock FontWeight="Bold" FontSize="20" Foreground="Silver" Margin="10" VerticalAlignment="Top" HorizontalAlignment="Left" 
                    Text="Subtract, Intersect and Union Boolean operations on MeshGeometry3D"/>

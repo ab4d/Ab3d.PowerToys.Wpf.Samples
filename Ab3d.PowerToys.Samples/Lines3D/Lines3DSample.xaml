@@ -116,7 +116,7 @@
                        Text="Note: Rendering many 3D lines with Ab3d.PowerToys and WPF 3D can be slow. Consider using Ab3d.DXEngine to render many 3D lines."/>
         </StackPanel>
 
-        <Border VerticalAlignment="Bottom" HorizontalAlignment="Right" Background="#33000000" BorderBrush="Black" BorderThickness="2" CornerRadius="3">
+        <Border VerticalAlignment="Bottom" HorizontalAlignment="Right" Background="#33000000" BorderBrush="Black" BorderThickness="2">
             <Grid Margin="10">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" />

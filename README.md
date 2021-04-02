@@ -28,6 +28,7 @@ The compiled versions of assimp library for 32-bit and for 64-bit process are in
 ## Support
 
 * Online reference help: https://www.ab4d.com/help/PowerToys/html/R_Project_Ab3d_PowerToys.htm
+* Change log: https://www.ab4d.com/PowerToys-history.aspx
 * Forum: https://forum.ab4d.com/forumdisplay.php?fid=9
 * Related blog posts: http://blog.ab4d.com/category/Ab3dPowerToys.aspx
 * Feedback: https://www.ab4d.com/Feedback.aspx

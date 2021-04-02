@@ -25,10 +25,5 @@ namespace Ab3d.PowerToys.Samples.Cameras
         {
             InitializeComponent();
         }
-
-        private void TestButton_OnClick(object sender, RoutedEventArgs e)
-        {
-            Camera1.MoveRight(50);
-        }
     }
 }

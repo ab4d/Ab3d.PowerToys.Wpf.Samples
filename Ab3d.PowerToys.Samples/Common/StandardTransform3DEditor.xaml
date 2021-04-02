@@ -24,7 +24,7 @@
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
-        <TextBlock Name="PositionTitleTextBlock" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="6" Text="Position:" />
+        <TextBlock Name="PositionTitleTextBlock" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="6" Text="Translate:" />
         <TextBlock Grid.Row="1" Grid.Column="0" Text="X" Margin="10 0 5 0" VerticalAlignment="Center"/>
         <TextBox Name="TranslateXTextBox" Grid.Row="1" Grid.Column="1" TextChanged="OnTextBoxTextChanged"/>
         <TextBlock Grid.Row="1" Grid.Column="2" Text="Y" Margin="10 0 5 0" VerticalAlignment="Center"/>
@@ -32,7 +32,7 @@
         <TextBlock Grid.Row="1" Grid.Column="4" Text="Z" Margin="10 0 5 0" VerticalAlignment="Center"/>
         <TextBox Name="TranslateZTextBox" Grid.Row="1" Grid.Column="5" TextChanged="OnTextBoxTextChanged"/>
 
-        <TextBlock Name="RotationTitleTextBlock" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="6" Text="Rotation:" Margin="0 5 0 0" />
+        <TextBlock Name="RotationTitleTextBlock" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="6" Text="Rotate:" Margin="0 5 0 0" />
         <TextBlock Grid.Row="3" Grid.Column="0" Text="X" VerticalAlignment="Center" Margin="10 0 5 0"/>
         <TextBox Name="RotateXTextBox" Grid.Row="3" Grid.Column="1" TextChanged="OnTextBoxTextChanged"/>
         <TextBlock Grid.Row="3" Grid.Column="2" Text="Y" VerticalAlignment="Center" Margin="10 0 5 0"/>

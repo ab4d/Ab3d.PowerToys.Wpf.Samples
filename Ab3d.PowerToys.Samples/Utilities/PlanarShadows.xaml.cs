@@ -50,6 +50,25 @@ namespace Ab3d.PowerToys.Samples.Utilities
             InitializeComponent();
 
 
+            ShadowOffsetComboBox.ItemsSource = new double[] {0, 0.001, 0.01, 0.05, 0.1, 1, 5};
+            ShadowOffsetComboBox.SelectedIndex = 3; // 0.05
+            ShadowOffsetComboBox.SelectionChanged += delegate(object sender, SelectionChangedEventArgs args)
+            {
+                if (_shadowVisual3D == null)
+                    return;
+
+                var offset = (double)ShadowOffsetComboBox.SelectedValue;
+                _shadowVisual3D.Transform = new TranslateTransform3D(0, offset, 0); // Lift the shadow 3D model slightly above the ground
+            };
+
+            ShadowOffsetInfoControl.InfoText =
+@"Plane offset sets the value that specify for how much the plane is lifter above the green plane. This is needed to prevent z-fighting (artifact that appears when the same 3D objects occupy the same 3D space after the projection multiplication and because of limited floating point precession).
+
+The default value for this sample is 0.05. If using smaller values than for some camera positions (when moving camera closer to the shadow) z-fighting artifacts can appear. When using to big values the shadow appears to be lifter above the plane.
+The best value depends on the size of the scene. 
+In Ab3d.DXEngine this problem is solved by using depth bias.";
+
+
             //var bitmapImage = new BitmapImage(new Uri("pack://application:,,,/Resources/10x10-texture.png"));
             //GroundPlane.Material = new DiffuseMaterial(new ImageBrush(bitmapImage));
 
@@ -110,7 +129,7 @@ namespace Ab3d.PowerToys.Samples.Utilities
                     MainViewport.Children.Remove(_shadowVisual3D);
 
                 _shadowVisual3D = _shadowModel3D.CreateModelVisual3D();
-                _shadowVisual3D.Transform = new TranslateTransform3D(0, 0.01, 0); // Lift the shadow 3D model slightly above the ground
+                _shadowVisual3D.Transform = new TranslateTransform3D(0, 0.05, 0); // Lift the shadow 3D model slightly above the ground
 
                 MainViewport.Children.Add(_shadowVisual3D);
             }

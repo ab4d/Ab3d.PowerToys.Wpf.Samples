@@ -25,6 +25,22 @@ namespace Ab3d.PowerToys.Samples.Objects3D
         public AllVisualsSample()
         {
             InitializeComponent();
+
+
+            //// Code to add test button:
+            //var testButton = new Button()
+            //{
+            //    Content = "TEST",
+            //    HorizontalAlignment = HorizontalAlignment.Right,
+            //    VerticalAlignment = VerticalAlignment.Bottom,
+            //};
+
+            //testButton.Click += delegate (object sender, RoutedEventArgs args)
+            //{
+            //    // Place to put test code
+            //};
+
+            //MainGrid.Children.Add(testButton);
         }
     }
 }

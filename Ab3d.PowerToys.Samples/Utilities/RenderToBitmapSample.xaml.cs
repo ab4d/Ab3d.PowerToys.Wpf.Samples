@@ -97,6 +97,10 @@ namespace Ab3d.PowerToys.Samples.Utilities
             // This is not needed when the Viewport3D is shown in WPF visual tree.
 
             // Now we can render Viewport3D to bitmap
+
+            // When using Ab3d.DXEngine, then use the DXViewportView.RenderToBitmap method to also render DXEngine's objects
+            // and get support for super-sampling that gets superior image quality.
+
             var renderedBitmap = RenderToBitmap(targetPositionCamera);
             SaveBitmap(renderedBitmap);
 

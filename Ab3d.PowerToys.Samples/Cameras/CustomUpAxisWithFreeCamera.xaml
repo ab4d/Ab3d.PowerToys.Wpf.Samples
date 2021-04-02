@@ -57,7 +57,5 @@
 
         <TextBlock FontWeight="Bold" FontSize="20" Foreground="Silver" Margin="10" VerticalAlignment="Top" HorizontalAlignment="Left" 
                    Text="Z up axis with using FreeCamera with UpDirection and RotationUpAxis"/>
-        
-        <Button Name="TestButton" Content="TEST" VerticalAlignment="Bottom" HorizontalAlignment="Right" Click="TestButton_OnClick" />
     </Grid>
 </Page>

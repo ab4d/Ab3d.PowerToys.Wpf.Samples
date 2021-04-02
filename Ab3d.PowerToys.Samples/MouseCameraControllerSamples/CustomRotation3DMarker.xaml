@@ -67,7 +67,7 @@
                                     TargetCamera="{Binding ElementName=Camera1}"/>-->
 
         <StackPanel Orientation="Vertical" VerticalAlignment="Bottom" HorizontalAlignment="Right">
-            <Border Margin="5" Background="#AAFFFFFF" BorderBrush="Gray" BorderThickness="1" CornerRadius="0" Cursor="Arrow">
+            <Border Margin="5" Background="#AAFFFFFF" BorderBrush="Gray" BorderThickness="1" Cursor="Arrow">
                 <StackPanel Orientation="Vertical" Margin="10">
                     <TextBlock FontWeight="Bold" FontSize="14">RotationCenterPosition:</TextBlock>
 

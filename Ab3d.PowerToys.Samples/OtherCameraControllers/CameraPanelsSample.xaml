@@ -22,10 +22,10 @@
         <ab3d:MouseCameraController Name="MouseCameraController1" TargetCamera="{Binding ElementName=SceneCamera1}" RotateCameraConditions="LeftMouseButtonPressed"/>
 
         <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Left">
-            <Border Margin="0 0 5 0" Background="#AAFFFFFF" BorderBrush="Gray" BorderThickness="1" CornerRadius="0" Cursor="Arrow" HorizontalAlignment="Left">
+            <Border Margin="0 0 5 0" Background="#AAFFFFFF" BorderBrush="Gray" BorderThickness="1" Cursor="Arrow" HorizontalAlignment="Left">
                 <StackPanel Orientation="Vertical" Margin="5">
                     <TextBlock FontWeight="Bold" TextDecorations="Underline" FontSize="14">CameraPreviewPanel:</TextBlock>
-                    <Border Width="80" Height="80" BorderBrush="Black" BorderThickness="2" CornerRadius="3" Margin="20 2 5 0" HorizontalAlignment="Left">
+                    <Border Width="80" Height="80" BorderBrush="Black" BorderThickness="2" Margin="20 2 5 0" HorizontalAlignment="Left">
                         <ab3d:CameraPreviewPanel Name="CameraPreviewPanel1" Width="70" Height="70" TargetCamera="{Binding ElementName=SceneCamera1}"/>
                     </Border>
 
@@ -37,7 +37,7 @@
             </Border>
         </StackPanel>
         <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Right">
-            <Border Margin="0 0 5 0" Background="#AAFFFFFF" BorderBrush="Gray" BorderThickness="1" CornerRadius="0" Cursor="Arrow" HorizontalAlignment="Left">
+            <Border Margin="0 0 5 0" Background="#AAFFFFFF" BorderBrush="Gray" BorderThickness="1" Cursor="Arrow" HorizontalAlignment="Left">
                 <StackPanel Orientation="Vertical" Margin="5">
                     <TextBlock FontWeight="Bold" TextDecorations="Underline" FontSize="14">CameraAxisPanel:</TextBlock>
                     <ab3d:CameraAxisPanel Name="CameraAxisPanel1" Width="80" Height="80" 
@@ -51,7 +51,7 @@
                 </StackPanel>
             </Border>
 
-            <Border Margin="0 0 5 0" Background="#AAFFFFFF" BorderBrush="Gray" BorderThickness="1" CornerRadius="0" Cursor="Arrow" HorizontalAlignment="Left">
+            <Border Margin="0 0 5 0" Background="#AAFFFFFF" BorderBrush="Gray" BorderThickness="1" Cursor="Arrow" HorizontalAlignment="Left">
                 <StackPanel Orientation="Vertical" Margin="5" Width="175">
                     <TextBlock FontWeight="Bold" TextDecorations="Underline" FontSize="14">Custom CameraAxisPanel:</TextBlock>
                     <ab3d:CameraAxisPanel Name="CustomCameraAxisPanel1" Width="80" Height="80" 

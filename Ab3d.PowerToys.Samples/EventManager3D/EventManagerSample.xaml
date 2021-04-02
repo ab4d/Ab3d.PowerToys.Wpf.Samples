@@ -24,7 +24,7 @@
             <ColumnDefinition Width="260"/>
         </Grid.ColumnDefinitions>
         
-        <Border Name="ViewportBorder" Grid.Column="0" BorderBrush="Black" BorderThickness="2" Margin="5" CornerRadius="5" Background="Transparent">
+        <Border Name="ViewportBorder" Grid.Column="0" BorderBrush="Black" BorderThickness="2" Margin="5" Background="Transparent">
             <Grid>
                 <Grid.Background>
                     <LinearGradientBrush StartPoint="0,1" EndPoint="0,0">

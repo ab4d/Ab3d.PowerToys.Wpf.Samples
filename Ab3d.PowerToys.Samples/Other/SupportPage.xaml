@@ -54,7 +54,7 @@
                 <TextBlock Style="{StaticResource InfoContent}">
                     <Run>▪</Run>
                     <Run FontWeight="Bold">On-site support</Run>
-                    <Run>with TeamViewer and Skype. Solving problems on your computer and your project. Contact us on</Run>
+                    <Run>with MS Teams, Skype or TeamViewer. Solving problems on your computer and your project. Contact us on</Run>
                     <Hyperlink NavigateUri="mailto://support@ab4d.com" RequestNavigate="link_navigate">email</Hyperlink>
                     <Run>for more details.</Run>
                     <LineBreak/>

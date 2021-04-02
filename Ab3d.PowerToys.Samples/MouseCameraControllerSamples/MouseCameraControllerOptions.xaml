@@ -42,7 +42,7 @@
                                     EventsSourceElementRotationChange="{Binding ElementName=EventsSourceElementRotationChangeSlider, Path=Value}"/>
 
         <StackPanel Grid.Column="1" Orientation="Vertical" VerticalAlignment="Bottom" HorizontalAlignment="Right">
-            <Border Background="#AAFFFFFF" BorderBrush="Gray" BorderThickness="1" CornerRadius="0" Cursor="Arrow" SnapsToDevicePixels="True">
+            <Border Background="#AAFFFFFF" BorderBrush="Gray" BorderThickness="1" Cursor="Arrow" SnapsToDevicePixels="True">
                 <StackPanel Orientation="Vertical" Margin="5">
 
                     <TextBlock Margin="5 5 5 0" FontWeight="Bold" TextDecorations="Underline" FontSize="14">MouseCameraController</TextBlock>

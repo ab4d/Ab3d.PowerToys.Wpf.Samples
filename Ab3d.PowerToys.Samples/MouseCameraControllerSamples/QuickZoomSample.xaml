@@ -105,7 +105,7 @@
         </StackPanel>
 
         <StackPanel Orientation="Vertical" VerticalAlignment="Bottom" HorizontalAlignment="Right">
-            <Border Margin="5" Background="#AAFFFFFF" BorderBrush="#222" BorderThickness="1" CornerRadius="0" Cursor="Arrow">
+            <Border Margin="5" Background="#AAFFFFFF" BorderBrush="#222" BorderThickness="1" Cursor="Arrow">
                 <StackPanel Orientation="Vertical" Margin="10">
 
                     <TextBlock FontWeight="Bold" FontSize="15" Foreground="#333">QuickZoom settings:</TextBlock>

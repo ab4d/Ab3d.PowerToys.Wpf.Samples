@@ -9,7 +9,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Windows;
@@ -108,7 +107,7 @@ namespace Ab3d.PowerToys.Samples.Common
         #endregion
 
         #region ContentText
-        // To get propert design time support we need to redirect the Content from Inlines (as in TextBlock)
+        // To get property design time support we need to redirect the Content from Inlines (as in TextBlock)
         // to our own property so we can update the shown content.
         // Maybe there is a better way to do this, but for our case this works great.
 
@@ -121,7 +120,7 @@ namespace Ab3d.PowerToys.Samples.Common
                                 string.Empty,
                                 FrameworkPropertyMetadataOptions.AffectsMeasure |
                                 FrameworkPropertyMetadataOptions.AffectsRender,
-                                new PropertyChangedCallback(OnContentTextChanged)));
+                                OnContentTextChanged));
 
         /// <summary>
         /// The Text property defines the content (text) to be displayed.
@@ -186,14 +185,21 @@ namespace Ab3d.PowerToys.Samples.Common
         /// </summary>
         public event CreateCustomInlineEventHandler CreateCustomInlineCallback;
 
+        /// <summary>
+        /// Gets or sets the foreground brush that is used to show bullet symbols.
+        /// </summary>
+        public Brush BulletForeground { get; set; }
+
 
         public TextBlockEx()
         {
-            this.Loaded += OnLoaded;
+            BulletForeground = Brushes.Orange;
         }
         
-        public TextBlockEx(Inline inline) : base(inline)
+        public TextBlockEx(Inline inline)
+            : base(inline)
         {
+            BulletForeground = Brushes.Orange;
             this.Loaded += OnLoaded;
         }
 
@@ -264,8 +270,10 @@ namespace Ab3d.PowerToys.Samples.Common
                 }   
                 else if (command == '*') // Orange square bullet sign
                 {
-                    var bulletRun = new Run(" ▪ ");
-                    bulletRun.Foreground = Brushes.Orange;
+                    var bulletRun = new Run(" ▪ ")
+                    {
+                        Foreground = BulletForeground
+                    };
                     this.Inlines.Add(bulletRun);
                 }
                 else if (command == '_')
@@ -325,6 +333,8 @@ namespace Ab3d.PowerToys.Samples.Common
                     if (isBold)
                         hyperlink.FontWeight = FontWeights.Bold;
 
+                    hyperlink.ToolTip = urlAddress;
+
                     hyperlink.RequestNavigate += HyperlinkOnRequestNavigate;
 
                     this.Inlines.Add(hyperlink);
@@ -337,10 +347,10 @@ namespace Ab3d.PowerToys.Samples.Common
                     // We trigger CreateCustomInline event and send the index of the commands (0 for '0', 1 for '1')
                     // and text content between start and end command markers.
                     // The event handler should create a custom Inline and set it to CreatedInline property.
-                    int endPos = originalText.IndexOf("\\" + command, pos2 + 1); // find end of text for this custom action
+                    int endPos = originalText.IndexOf("\\" + command, pos2 + 1, StringComparison.Ordinal); // find end of text for this custom action
                     if (endPos > 0)
                     {
-                        var createCustomInlineEventArgs = new CreateCustomInlineEventArgs(customActionIndex: (int) (command - '0'),
+                        var createCustomInlineEventArgs = new CreateCustomInlineEventArgs(customActionIndex: (command - '0'),
                                                                                           contentText: originalText.Substring(pos2 + 2, endPos - pos2 - 2));
 
                         OnCreateCustomInlineCallback(createCustomInlineEventArgs);
@@ -386,7 +396,11 @@ namespace Ab3d.PowerToys.Samples.Common
             bool isHandled = OnLinkClicked(url);
 
             if (!isHandled)
-                Process.Start(url);
+            {
+                // For CORE3 project we need to set UseShellExecute to true,
+                // otherwise a "The specified executable is not a valid application for this OS platform" exception is thrown.
+                System.Diagnostics.Process.Start(new ProcessStartInfo(url) { UseShellExecute = true });
+            }
 
             e.Handled = true;
         }

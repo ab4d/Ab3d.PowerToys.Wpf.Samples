@@ -143,19 +143,24 @@ namespace Ab3d.PowerToys.Samples.UseCases
                 selectedRectangle = Rectangle3;
 
 
-            // We can use the GetGradientColorsArray from HeightMapMesh3D (Ab3d.PowerToys library) to convert the LinearGradientBrush to array of 128 colors
-            var gradientColorsArray = Ab3d.Meshes.HeightMapMesh3D.GetGradientColorsUIntArray((LinearGradientBrush)selectedRectangle.Fill, 128);
-
-            // Create new writable bitmap and write our gradient to
-            WriteableBitmap texture = new WriteableBitmap(gradientColorsArray.Length, 1, 96, 96, PixelFormats.Pbgra32, null);
-            texture.Lock();
-
-            Int32Rect rect = new Int32Rect(0, 0, texture.PixelWidth, 1); // size: 128 x 1
-            texture.WritePixels(rect, gradientColorsArray, stride: gradientColorsArray.Length * 4, offset: 0);
-
-            texture.Unlock();
-
+            var texture = Ab3d.Meshes.HeightMapMesh3D.CreateGradientTexture((LinearGradientBrush)selectedRectangle.Fill, 128);
             return texture;
+
+            // We could also create the texture manually by the following code:
+
+            //// We can use the GetGradientColorsArray from HeightMapMesh3D (Ab3d.PowerToys library) to convert the LinearGradientBrush to array of 128 colors
+            //var gradientColorsArray = Ab3d.Meshes.HeightMapMesh3D.GetGradientColorsUIntArray((LinearGradientBrush)selectedRectangle.Fill, 128);
+
+            //// Create new writable bitmap and write our gradient to
+            //WriteableBitmap texture = new WriteableBitmap(gradientColorsArray.Length, 1, 96, 96, PixelFormats.Pbgra32, null);
+            //texture.Lock();
+
+            //Int32Rect rect = new Int32Rect(0, 0, texture.PixelWidth, 1); // size: 128 x 1
+            //texture.WritePixels(rect, gradientColorsArray, stride: gradientColorsArray.Length * 4, offset: 0);
+
+            //texture.Unlock();
+
+            //return texture;
         }
 
         private void UpdateTextureCoordinatesForDistance(MeshGeometry3D mesh, Point3D targetPosition, double maxDistance)

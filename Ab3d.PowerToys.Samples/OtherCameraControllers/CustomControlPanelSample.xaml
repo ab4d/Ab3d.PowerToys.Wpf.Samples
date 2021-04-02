@@ -15,7 +15,7 @@
         
         <my:CustomControlPanel VerticalAlignment="Bottom" HorizontalAlignment="Left" ShowMoveButtons="True"/>
 
-        <Border BorderBrush="Black" BorderThickness="2" CornerRadius="2" Background="#CCFFFFFF" 
+        <Border BorderBrush="Black" BorderThickness="2" Background="#CCFFFFFF" 
                 Width="260" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="10">
             <TextBlock Margin="10" TextWrapping="Wrap">
                 <Run FontWeight="Bold">Instructions to change color from original orange to blue with Adobe Photoshop:</Run>

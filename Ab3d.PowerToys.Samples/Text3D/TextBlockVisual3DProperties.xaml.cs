@@ -26,6 +26,10 @@ namespace Ab3d.PowerToys.Samples.Text3D
         {
             InitializeComponent();
 
+            // NOTE:
+            // It is recommended to call TextBlockVisual3D.Dispose after it is not longer used.
+            // See comments in the Unloaded event handler below for more info.
+
             // When setting multiple properties of TextBlockVisual3D
             // it is highly recommended to use BeginInit and EndInit.
             // This way the settings are applied only once and this can improve performance.
@@ -141,6 +145,15 @@ control text and border style.";
                 TextTextBox.Focus();
                 TextTextBox.CaretIndex = TextTextBox.Text.Length;
             };
+
+            this.Unloaded += delegate(object sender, RoutedEventArgs args)
+            {
+                // It is recommended to call Dispose method on TextBlockVisual3D after it is not used anymore.
+                // This releases the native memory that can be used by the RenderTargetBitmap and may otherwise not be released (because the managed part of the object is very small).
+                // The release of the RenderTargetBitmap is done by calling RenderTargetBitmap.Clear method and then removing all references to the RenderTargetBitmap (this cannot be done in the destructor because Clear method cannot be called on another thread).
+                // This is especially important when a lot of TextBlockVisual3D objects are created.
+                TextBlockVisual1.Dispose();
+            };
         }
 
         private void OnPositionChanged(ComboBox comboBox, object newSelectedValue)
@@ -153,9 +166,9 @@ control text and border style.";
         }
 
         private TextBlock AddComboBox(Grid parentGrid, DependencyProperty dependencyProperty, int initialItemIndex, string[] comboBoxItems, string tooltipText, 
-                                 double topMargin = 2,
-                                 Func<string, object> resolveItemText = null,
-                                 Action<ComboBox, object> selectionChanged = null)
+                                      double topMargin = 2,
+                                      Func<string, object> resolveItemText = null,
+                                      Action<ComboBox, object> selectionChanged = null)
         {
             parentGrid.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(1, GridUnitType.Auto)});
             int rowIndex = parentGrid.RowDefinitions.Count - 1;
