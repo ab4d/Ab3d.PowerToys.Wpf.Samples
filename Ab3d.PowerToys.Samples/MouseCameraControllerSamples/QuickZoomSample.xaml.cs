@@ -60,37 +60,16 @@ Default value is 200.";
         
         private void ResetCameraButton_OnClick(object sender, RoutedEventArgs e)
         {
-            ResetCamera(Camera1);
-        }
+            Camera1.BeginInit();
 
-        private void ResetCamera(BaseCamera camera)
-        {
-            camera.BeginInit();
+            Camera1.Heading = 30;
+            Camera1.Attitude = -20;
+            Camera1.Bank = 0;
+            Camera1.Distance = 200;
+            Camera1.TargetPosition = new Point3D(0, 0, 0);
+            Camera1.Offset = new Vector3D(0, 0, 0);
 
-            var targetPositionCamera = camera as TargetPositionCamera;
-
-            if (targetPositionCamera != null)
-            {
-                targetPositionCamera.Heading = 30;
-                targetPositionCamera.Attitude = -20;
-                targetPositionCamera.Bank = 0;
-                targetPositionCamera.Distance = 200;
-                targetPositionCamera.TargetPosition = new Point3D(0, 0, 0);
-            }
-            else
-            {
-                var freeCamera = camera as FreeCamera;
-
-                if (freeCamera != null)
-                {
-                    freeCamera.CameraPosition = new Point3D(100, 150, -300);
-                    freeCamera.TargetPosition = new Point3D(0, 0, 0);
-                }
-            }
-
-            camera.Offset = new Vector3D(0, 0, 0);
-
-            camera.EndInit();
+            Camera1.EndInit();
         }
 
         private void OnQuickZoomCheckBoxChanged(object sender, RoutedEventArgs e)

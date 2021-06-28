@@ -170,7 +170,7 @@ namespace Ab3d.Assimp
                 }
             }
 
-            FramesPerSecond = (int)assimpAnimation.TicksPerSecond == 0 ? 25 : (int)assimpAnimation.TicksPerSecond; // Use TicksPerSecond if defined else default to 25
+            FramesPerSecond = (int)assimpAnimation.TicksPerSecond == 0 ? (assimpAnimation.DurationInTicks * 0.3) : (int)assimpAnimation.TicksPerSecond; // Use TicksPerSecond if defined else default to 25
 
             SelectedAnimation = assimpAnimation;
 

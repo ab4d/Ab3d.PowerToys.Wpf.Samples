@@ -9,7 +9,7 @@
     mc:Ignorable="d" 
     d:DesignHeight="700" d:DesignWidth="1000"
     Title="Point3DTo2DSample">
-    <Grid>
+    <Grid ClipToBounds="True">
         <Border Name="ViewportBorder">
             <Border.Background>
                 <LinearGradientBrush StartPoint="0 0" EndPoint="0 1">

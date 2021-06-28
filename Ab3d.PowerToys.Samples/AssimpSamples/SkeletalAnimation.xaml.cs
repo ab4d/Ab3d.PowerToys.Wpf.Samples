@@ -43,6 +43,15 @@ namespace Ab3d.PowerToys.Samples.AssimpSamples
             // IMPORTANT: See commend in the AssimpLoader class for details on how to prepare your project to use assimp library.
             AssimpLoader.LoadAssimpNativeLibrary();
 
+            // It is recommended to set the TriangulatorFunc static property to provide direct access to Triangulator from Ab3d.PowerToys.
+            // If this is not done, then Reflection is used to get the same Triangulator object.
+            AssimpWpfConverter.TriangulatorFunc = positions =>
+            {
+                var triangulator3D = new Ab3d.Utilities.Triangulator(positions);
+                return triangulator3D.CreateTriangleIndices();
+            };
+
+
             string fileName = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Resources\\soldier.X");
 
             LoadFileWithSkinnedAnimation(fileName);

@@ -2,7 +2,7 @@
 
 ![Ab3d.PowerToys image](https://www.ab4d.com/images/Banner/Banner_PowerToys_intro.png)
 
-[Ab3d.PowerToys](https://www.ab4d.com/PowerToys.aspx) is an **ultimate WPF and WinForms 3D toolkit** library that greatly simplifies developing desktop applications with scientific, technical, CAD or other 3D graphics.
+[Ab3d.PowerToys](https://www.ab4d.com/PowerToys.aspx) is the **ultimate WPF and WinForms 3D toolkit** library that greatly simplifies developing desktop applications with scientific, technical, CAD or other 3D graphics.
 
 Ab3d.PowerToys is using WPF 3D rendering engine (DirectX 9). Check [Ab3d.DXEngine](https://www.ab4d.com/DXEngine.aspx) for super fast DirectX 11 rendering engine that can render the existing WPF 3D scene much faster and with better visual quality.
 
