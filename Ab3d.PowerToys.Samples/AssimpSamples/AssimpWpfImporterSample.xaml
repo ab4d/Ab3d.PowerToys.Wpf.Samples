@@ -6,6 +6,7 @@
       xmlns:cameras="clr-namespace:Ab3d.Cameras;assembly=Ab3d.PowerToys"
       xmlns:ab3d="clr-namespace:Ab3d.Controls;assembly=Ab3d.PowerToys"  
       xmlns:visuals="clr-namespace:Ab3d.Visuals;assembly=Ab3d.PowerToys"
+      xmlns:common="clr-namespace:Ab3d.PowerToys.Samples.Common"
       mc:Ignorable="d" 
       Title="TemplatePage"
       d:DesignHeight="400" d:DesignWidth="800">
@@ -15,8 +16,12 @@
 
             <Viewport3D Name="MainViewport">
                 <ModelVisual3D x:Name="ContentVisual" />
-                <visuals:WireframeVisual3D x:Name="ContentWireframeVisual" ShowPolygonLines="True" WireframeType="Wireframe" UseModelColor="False"
-                                           LineColor="Black" LineThickness="1" />                
+                <visuals:WireframeVisual3D x:Name="ContentWireframeVisual" 
+                                           ShowPolygonLines="True" 
+                                           WireframeType="Wireframe" 
+                                           UseModelColor="False"
+                                           LineColor="Black" 
+                                           LineThickness="{Binding ElementName=LineThicknessComboBox, Path=SelectedValue}" />
             </Viewport3D>
         </Border>
 
@@ -44,7 +49,7 @@
             </Expander>
         </StackPanel>
 
-        <Border HorizontalAlignment="Right" VerticalAlignment="Bottom" BorderBrush="Black" BorderThickness="2" Background="#55FFFFFF" Margin="5">
+        <Border HorizontalAlignment="Right" VerticalAlignment="Bottom" BorderBrush="Black" BorderThickness="2" Background="#BBFFFFFF" Margin="5">
             <StackPanel Orientation="Vertical" Margin="10 5">
 
                 <Button Name="LoadButton" Content="Load file" Height="26" IsDefault="True" Margin="0 10 0 0" Click="LoadButton_OnClick" />
@@ -54,6 +59,13 @@
                 <CheckBox Name="ShowWireframeCheckBox" Content="Show wireframe" Margin="0 10 0 0" IsChecked="True" Checked="OnShowWireframeCheckBoxCheckedChanged" Unchecked="OnShowWireframeCheckBoxCheckedChanged" />
                 <CheckBox Name="ReadPolygonIndicesCheckBox" Content="Read PolygonIndices" Margin="0 5 0 0" IsChecked="True" Checked="OnReadPolygonIndicesCheckBoxCheckedChanged" Unchecked="OnReadPolygonIndicesCheckBoxCheckedChanged"
                           ToolTip="When checked ReaderObj will read PolygonIndices collection that can be used to show polygons instead of triangles. Object need to be shown with wireframe to see the difference."/>
+
+                <StackPanel Orientation="Horizontal" Margin="0 5 0 0">
+                    <TextBlock Text="LineThickness:" VerticalAlignment="Center" Margin="0 0 10 0" />
+                    <ComboBox Name="LineThicknessComboBox" Width="50" />
+                    <common:InfoControl x:Name="LineThicknessInfoControl" Margin="5 0 0 0" 
+                                        InfoText="NOTE: Rendering many 3D lines with Ab3d.PowerToys is slow. What is more, the lines are partially occluded by solid objects and therefore do not appear as tick as they should.&#x0a;Those two problems are fully solved when using Ab3d.DXEngine (lines are hardware accelerated, they can be offset from the solid model, super-smooth lines are rendered by super-sampling).&#x0a;See image from the link below to see a screenshot of the same sample rendered by Ab3d.DXEngine." />
+                </StackPanel>
 
                 <Button Name="ShowInfoButton" Content="Show objects info" Margin="0 20 0 0" IsEnabled="False" Click="ShowInfoButton_OnClick"></Button>
             </StackPanel>

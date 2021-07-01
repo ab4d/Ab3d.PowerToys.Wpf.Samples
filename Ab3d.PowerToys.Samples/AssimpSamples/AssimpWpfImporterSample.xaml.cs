@@ -32,6 +32,9 @@ namespace Ab3d.PowerToys.Samples.AssimpSamples
         {
             InitializeComponent();
 
+            LineThicknessComboBox.ItemsSource = new double[] { 0.1, 0.2, 0.5, 1, 2 };
+            LineThicknessComboBox.SelectedIndex = 3;
+
 
             // Use helper class (defined in this sample project) to load the native assimp libraries.
             // IMPORTANT: See commend in the AssimpLoader class for details on how to prepare your project to use assimp library.
@@ -143,6 +146,19 @@ namespace Ab3d.PowerToys.Samples.AssimpSamples
 
             if (model3D == null)
                 return;
+
+            
+            // IMPORTANT:
+            // Some imported files may define the models in actual units (meters or millimeters) and
+            // this may make the objects very big (for example, objects bounds are bigger than 100000).
+            // For such big models the camera rotation may become irregular (not smooth) because
+            // of floating point precision errors on the graphics card.
+            //
+            // Therefore it is recommended to prevent such big models by scaling them to a more common size.
+            // This can be done by the ModelUtils.CenterAndScaleModel3D method:
+            // Put the model to the center of coordinate axis and scale it to 100 x 100 x 100.
+            Ab3d.Utilities.ModelUtils.CenterAndScaleModel3D(model3D, new Point3D(0, 0, 0), new Size3D(100, 100, 100));
+
 
             // NOTE:
             // We could show both solid model and wireframe in WireframeVisual3D (ContentWireframeVisual) with using WireframeWithOriginalSolidModel for WireframeType.
