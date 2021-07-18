@@ -67,6 +67,17 @@ namespace Ab3d.PowerToys.Samples.Common
                     new SceneViewType("Bottom", 0, 90)
             };
         }
+
+        public override bool Equals(object obj)
+        {
+            var sceneViewType = obj as SceneViewType;
+            if (sceneViewType == null)
+                return false;
+
+            return this.Name.Equals(sceneViewType.Name) &&
+                   this.Heading.Equals(sceneViewType.Heading) &&
+                   this.Attitude.Equals(sceneViewType.Attitude);
+        }
         #endregion
     }
 }

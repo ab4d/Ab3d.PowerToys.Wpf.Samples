@@ -43,12 +43,8 @@ namespace Ab3d.PowerToys.Samples.UseCases
 
                 if (_selectedSceneViewType != null && _selectedSceneViewType != SceneViewType.StandardCustomSceneView)
                 {
-                    Camera1.BeginInit(); // We use BeginInit and EndInit to update the camera only once
-
                     Camera1.Heading = _selectedSceneViewType.Heading;
                     Camera1.Attitude = _selectedSceneViewType.Attitude;
-
-                    Camera1.EndInit();
                 }
 
                 OnPropertyChanged("SelectedSceneViewType");
