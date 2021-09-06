@@ -151,8 +151,8 @@ namespace Ab3d.PowerToys.Samples.Graph3D
             {
                 HeightMap1.HeightData = heightData;
 
-                bool useGeographicalColors = GeographicalSmoothColorsRadioButton.IsChecked ?? false;
-                SetGradientMaterial(useGeographicalColors);
+                bool showMinValueSurface = ShowMinValueSurfaceCheckBox.IsChecked ?? false;
+                SetGradientMaterial(!showMinValueSurface);
             }
         }
 
@@ -173,7 +173,7 @@ namespace Ab3d.PowerToys.Samples.Graph3D
             return heightData;
         }
 
-        private void SetGradientMaterial(bool useGeographicalColors)
+        private void SetGradientMaterial(bool addTransparentColor)
         {
             GradientStopCollection stops = new GradientStopCollection();
 
@@ -184,7 +184,18 @@ namespace Ab3d.PowerToys.Samples.Graph3D
                 stops.Add(new GradientStop(Colors.SandyBrown, 0.6));
                 stops.Add(new GradientStop(Colors.LightGreen, 0.4));
                 stops.Add(new GradientStop(Colors.Aqua, 0.2));
-                stops.Add(new GradientStop(Colors.Blue, 0));
+
+                if (addTransparentColor)
+                {
+                    // All values below 0.01 will be transparent
+                    stops.Add(new GradientStop(Colors.Blue, 0.01));
+                    stops.Add(new GradientStop(Colors.Transparent, 0.009));
+                    stops.Add(new GradientStop(Colors.Transparent, 0));
+                }
+                else
+                {
+                    stops.Add(new GradientStop(Colors.Blue, 0));
+                }
             }
             else if (GeographicalHardColorsRadioButton.IsChecked ?? false)
             {
@@ -198,7 +209,18 @@ namespace Ab3d.PowerToys.Samples.Graph3D
                 stops.Add(new GradientStop(Colors.Aqua, 0.399));
                 stops.Add(new GradientStop(Colors.Aqua, 0.2));
                 stops.Add(new GradientStop(Colors.Blue, 0.199));
-                stops.Add(new GradientStop(Colors.Blue, 0));
+
+                if (addTransparentColor)
+                {
+                    // All values below 0.01 will be transparent
+                    stops.Add(new GradientStop(Colors.Blue, 0.01));
+                    stops.Add(new GradientStop(Colors.Transparent, 0.009));
+                    stops.Add(new GradientStop(Colors.Transparent, 0));
+                }
+                else
+                {
+                    stops.Add(new GradientStop(Colors.Blue, 0));
+                }
             }
             else
             {
@@ -206,7 +228,18 @@ namespace Ab3d.PowerToys.Samples.Graph3D
                 stops.Add(new GradientStop(Colors.Yellow, 0.75));
                 stops.Add(new GradientStop(Colors.LightGreen, 0.5));
                 stops.Add(new GradientStop(Colors.Aqua, 0.25));
-                stops.Add(new GradientStop(Colors.Blue, 0));
+
+                if (addTransparentColor)
+                {
+                    // All values below 0.01 will be transparent
+                    stops.Add(new GradientStop(Colors.Blue, 0.01));
+                    stops.Add(new GradientStop(Colors.Transparent, 0.009));
+                    stops.Add(new GradientStop(Colors.Transparent, 0));
+                }
+                else
+                {
+                    stops.Add(new GradientStop(Colors.Blue, 0));
+                }
             }
 
             // NOTE: We do not have to specify the StartPoint and EndPoint
@@ -311,6 +344,21 @@ namespace Ab3d.PowerToys.Samples.Graph3D
 
             byte c = (byte) AmbientSlider.Value;
             _ambientLight.Color = Color.FromRgb(c, c, c);
+        }
+
+        private void OnShowMinValueSurfaceCheckedChanged(object sender, RoutedEventArgs e)
+        {
+            if (!this.IsLoaded)
+                return;
+
+            // NOTE:
+            // When showing transparent colors, the HeightMapVisual3D must be rendered after other objects.
+            // In this sample this is achieved by adding HeightMapVisual3D as last object to MainViewport (see xaml).
+            // If this is not done, then other objects may not be visible through transparent parts.
+            // See "Transparency problem" sample and its comments in the "Utilities" section for more info.
+
+            bool addTransparentColor = !(ShowMinValueSurfaceCheckBox.IsChecked ?? false);
+            SetGradientMaterial(addTransparentColor);
         }
     }
 }

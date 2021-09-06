@@ -23,14 +23,11 @@
         </Grid.Background>
         <Border Name="ViewportBorder" Background="Transparent">
             <Viewport3D Name="MainViewport">
-                <visuals:HeightMapVisual3D x:Name="HeightMap1" Material="Silver" BackMaterial="Gray" Size="100 30 100"
-                                           IsWireframeShown="False"
-                                           IsSolidSurfaceShown="{Binding ElementName=ShowSolidSurfaceCheckBox, Path=IsChecked}"/>
 
                 <visuals:ContentVisual3D x:Name="ContourLinesRootVisual3D" IsVisible="{Binding ElementName=ShowContourLinesCheckBox, Path=IsChecked}" />
 
                 <visuals:AxesBoxVisual3D x:Name="AxesBox"
-                                         CenterPosition="0 15 0" Size="100 30 100" 
+                                         CenterPosition="0 15 0" Size="100 30.2 100" 
                                          Is3DTextShown="False"
                                          AxisShowingStrategy="LeftmostAxis"
                                          IsWireBoxFullyClosed="True"
@@ -45,6 +42,11 @@
                                          IsVisible="{Binding ElementName=ShowAxesBoxVisual3DCheckBox, Path=IsChecked}"
                                          OverlayCanvas="{Binding ElementName=AxisOverlayCanvas}"
                                          Camera="{Binding ElementName=Camera1}" />
+
+                <visuals:HeightMapVisual3D x:Name="HeightMap1" Material="Silver" BackMaterial="Gray" Size="100 30 100"
+                                           IsWireframeShown="False"
+                                           IsSolidSurfaceShown="{Binding ElementName=ShowSolidSurfaceCheckBox, Path=IsChecked}"/>
+
             </Viewport3D>
         </Border>
         <Canvas Name="AxisOverlayCanvas" IsHitTestVisible="False" Visibility="{Binding ElementName=ShowWireBoxCheckBox, Path=IsChecked, Converter={StaticResource VisibilityOfBool}}"/>
@@ -91,6 +93,11 @@
                 <CheckBox Name="ShowContourLinesCheckBox" Content="Show contour lines" IsChecked="True" Margin="0 15 0 3" Foreground="Silver" />
                 <CheckBox Name="ShowWireBoxCheckBox" Content="Show WireBox" IsChecked="True" Margin="0 0 0 3" Foreground="Silver" />
                 <CheckBox Name="ShowSolidSurfaceCheckBox" Content="Show solid surface" IsChecked="True" Margin="0 0 0 3" Foreground="Silver" />
+                <StackPanel Orientation="Horizontal">
+                    <CheckBox Name="ShowMinValueSurfaceCheckBox" Content="Show surface for min value" IsChecked="True" Margin="0 0 0 3" Foreground="Silver"
+                              Checked="OnShowMinValueSurfaceCheckedChanged" Unchecked="OnShowMinValueSurfaceCheckedChanged" />
+                    <common:InfoControl InfoText="When unchecked than the zero values are rendered with transparent color. This hides the surface for min values. Note that in this case the HeightMapVisual3D must be rendered after other objects (see comments in code behind and Transparency problem for more info)." InfoWidth="400" Margin="3 0 0 0" />
+                </StackPanel>
 
                 <TextBlock Text="Ambient light:" FontWeight="Bold" Foreground="Silver" Margin="0 15 0 0"/>
                 <Slider Name="AmbientSlider" Minimum="0" Maximum="255" ValueChanged="AmbientSlider_OnValueChanged" />
