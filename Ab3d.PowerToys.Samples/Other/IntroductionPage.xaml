@@ -20,19 +20,20 @@
                 <!-- NOTE: In the previous versions of the samples FlowDocumentReader was used to show info pages. But because this control always thrown an exception that 'PresentationUI.Aero2' was not found (the exception was handled by .Net code, but it always stopped the debugger if stop on exception was turned on), I have upgraded TextBlock to add some additional markup. -->
                 <common:TextBlockEx Style="{StaticResource InfoTitle}" Foreground="Black">Welcome to the samples for the \!Ab3d.PowerToys\! library</common:TextBlockEx>
                 <common:TextBlockEx Style="{StaticResource InfoContent}" Foreground="Black">
-\!Ab3d.PowerToys is the ultimate 3D toolkit library to for desktop .Net applications.\!\n
+\!Ab3d.PowerToys is the ultimate 3D toolkit library for desktop .Net applications.\!\n
+\n
+It is used by many professional 3D applications around the world.\n
 \n
 The library is using WPF 3D rendering engine. For more complex 3D scenarios the library can be extended by the super fast \@Ab3d.DXEngine:https://www.ab4d.com/DXEngine.aspx| rendering engine.\n
 \n
 \n
 The main features of the library are:\n
 \n
-\*\!Simplified development\! with Visual Studio and design time support - the 3D scene can be previewed in the design window.\n
 \*Simplified usage of \!cameras\! with \!mouse\!, \!touch\! and \!multi-touch camera rotation\! and \!movement\!.\n
-\*Many basic \!3D models\! (Sphere, Box, Cylinder, etc.) with advanced \!extruded\! and \!lathe\! 3D objects.\n
-\*The \!best\! implementation of \!3D lines\! and \!3D text\! (\!connected\!, \!disconnected\! and lines with \!arrows\!).\n
-\*Simplified \!mouse event handling\! on 3D objects (subscribe to MouseOver, Click and similar events).\n
+\*Many basic \!3D models\! (Sphere, Box, Cylinder, etc.) with advanced \!extruded\!, \!lathe\! and \!Boolean\! 3D objects.\n
 \*\!Import 3D models\! from obj files, from 3ds files (with Ab3d.Reader3ds) or almost all other 3D files with Assimp importer.\n
+\*\!Many samples\! that can be used as code snippets for your application.\n
+\*\!Premium support\! for all questions regarding 3D graphics and our libraries.\n
 \n
                 </common:TextBlockEx>
                 <common:TextBlockEx x:Name="NuGetVersionInfoTextBlockEx" Style="{StaticResource InfoContent}" Foreground="Black" FontSize="14">
@@ -40,7 +41,6 @@ The main features of the library are:\n
                 </common:TextBlockEx>
                 <common:TextBlockEx Style="{StaticResource InfoContent}" Foreground="Black" FontSize="14">
                         Additional resources:\n
-\*\@Ab3d.PowerToys Quick start guide:https://blog.ab4d.com/post/2012/09/11/The-best-platform-for-business-applications-that-require-3D-graphics.aspx|\n
 \*Ab3d.PowerToys help file - installed into the same folder as the library or available \@online:https://www.ab4d.com/help/PowerToys/html/R_Project_Ab3d_PowerToys.htm|.\n
 \*\@Blog posts:https://blog.ab4d.com/category/Ab3dPowerToys.aspx| related to Ab3d.PowerToys library\n
 \*\!Check the Abd3.DXEngine samples project\! \@(GitHub):https://github.com/ab4d/Ab3d.DXEngine.Wpf.Samples|

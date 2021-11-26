@@ -36,14 +36,27 @@
             </Viewport3D>
         </Border>
 
-        <cameras:TargetPositionCamera Name="Camera1" 
+
+        <cameras:TargetPositionCamera Name="TargetPositionCamera1" 
                                       TargetPosition="0 0 0" 
                                       Heading="30" Attitude="-20" Bank="0" 
                                       CameraType="OrthographicCamera"
                                       CameraWidth="160"
                                       FieldOfView="45"
                                       ShowCameraLight="Always"
-                                      TargetViewport3D="{Binding ElementName=MainViewport}"/>
+                                      IsAutoViewport3DFindingEnabled="False"
+                                      CameraChanged="Camera1_CameraChanged"/>
+        
+        <cameras:FreeCamera Name="FreeCamera1" 
+                            TargetPosition="0 0 0" 
+                            CameraPosition="0 0 500"
+                            CameraType="PerspectiveCamera"
+                            CameraWidth="160"
+                            FieldOfView="45"
+                            ShowCameraLight="Always"
+                            IsAutoViewport3DFindingEnabled="False"
+                            CameraChanged="Camera1_CameraChanged"/>
+
 
         <ab3d:MouseCameraController Name="MouseCameraController1"
                                     RotateCameraConditions="LeftMouseButtonPressed"
@@ -57,7 +70,7 @@
 
         <ab3d:CameraAxisPanel HorizontalAlignment="Left" VerticalAlignment="Bottom" TargetCamera="{Binding ElementName=Camera1}" />
 
-        <Border BorderBrush="Black" BorderThickness="2" Background="#55FFFFFF" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="10">
+        <Border BorderBrush="Black" BorderThickness="2" Background="#99FFFFFF" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="10">
             <StackPanel Orientation="Vertical" Margin="10">
                 <StackPanel.LayoutTransform>
                     <ScaleTransform ScaleX="1.7" ScaleY="1.7" />
@@ -81,6 +94,12 @@
             
                 <Button Name="RecreateSceneButton" Content="Recreate scene" Padding="10 3" Margin="0 3 0 0" 
                         Click="RecreateSceneButton_OnClick" />
+
+                <StackPanel Orientation="Vertical" HorizontalAlignment="Left" Margin="0 10 0 0">
+                    <TextBlock Text="Camera type:" FontWeight="Bold" Margin="0 0 0 3" />
+                    <RadioButton Name="TargetPositionCameraRadioButton" Content="TargetPositionCamera" IsChecked="True" GroupName="CameraType" Checked="OnCameraTypeRadioButtonChecked" />
+                    <RadioButton Name="FreeCameraRadioButton" Content="FreeCamera" GroupName="CameraType" Checked="OnCameraTypeRadioButtonChecked" />
+                </StackPanel>
             </StackPanel>
         </Border>
 

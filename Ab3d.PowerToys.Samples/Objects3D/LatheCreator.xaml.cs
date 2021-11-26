@@ -19,6 +19,7 @@ using Ab3d.Cameras;
 using Ab3d.Common.Cameras;
 using Ab3d.Controls;
 using Ab3d.Meshes;
+using Ab3d.Utilities;
 
 namespace Ab3d.PowerToys.Samples.Objects3D
 {
@@ -480,6 +481,11 @@ namespace Ab3d.PowerToys.Samples.Objects3D
             _latheModel3D.Geometry = latheMesh3D.Geometry;
 
             UpdateCodePreview();
+
+            if (latheMesh3D.Geometry.Normals == null || latheMesh3D.Geometry.Normals.Count == 0)
+                MeshUtils.CalculateNormals(latheMesh3D.Geometry);
+
+            Decorator1.TargetModel3D = _latheModel3D;
 
 
             MeshInspector.MeshGeometry3D = latheMesh3D.Geometry;

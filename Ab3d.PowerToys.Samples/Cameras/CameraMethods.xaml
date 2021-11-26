@@ -127,6 +127,7 @@
                         </StackPanel>
                         
                         <StackPanel Name="FreeCameraMethodsPanel" Orientation="Vertical">
+                            <Button Name="FitIntoViewButton2" Content="FitIntoView" Margin="0 2" Click="FitIntoView_OnClick" />
                             <Button Name="SetCameraPositionButton" Content="SetCameraPosition" Margin="0 2" Click="SetCameraPositionButton_OnClick" />
                             <Button Name="SetTargetPositionButton" Content="SetTargetPosition" Margin="0 2" Click="SetTargetPositionButton_OnClick" />
                         </StackPanel>

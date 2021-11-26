@@ -53,7 +53,6 @@ namespace Ab3d.PowerToys.Samples.Utilities
             // You can even define angles that are not aligned with coordinate axes:
             // ModelMover = new ModelMoverVisual3D(new Vector3D(-1, -1, 0), new Vector3D(-1, 1, 0), new Vector3D(0, 0, -1));
 
-
             // Setup event handlers on ModelMoverVisual3D
             ModelMover.ModelMoveStarted += delegate(object o, EventArgs eventArgs)
             {
@@ -161,6 +160,17 @@ namespace Ab3d.PowerToys.Samples.Utilities
                 selectedModelPosition = RootModelVisual3D.Transform.Transform(selectedModelPosition);
 
             return selectedModelPosition;
+        }
+
+        private void OnRotateModelMoverCheckBoxCheckedChanged(object sender, RoutedEventArgs e)
+        {
+            if (!this.IsLoaded)
+                return;
+
+            if (RotateModelMoverCheckBox.IsChecked ?? false)
+                ModelMover.SetRotation(new RotateTransform3D(new AxisAngleRotation3D(new Vector3D(0, 1, 0), 45)));
+            else
+                ModelMover.SetRotation(null);
         }
     }
 }

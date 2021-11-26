@@ -6,6 +6,7 @@
       xmlns:cameras="clr-namespace:Ab3d.Cameras;assembly=Ab3d.PowerToys"
       xmlns:ab3d="clr-namespace:Ab3d.Controls;assembly=Ab3d.PowerToys"  
       xmlns:visuals="clr-namespace:Ab3d.Visuals;assembly=Ab3d.PowerToys"
+      xmlns:common="clr-namespace:Ab3d.PowerToys.Samples.Common"
       mc:Ignorable="d" 
       d:DesignHeight="400" d:DesignWidth="800"
       Title="ModelDecoratorSample">
@@ -28,6 +29,7 @@
                 <visuals:ModelDecoratorVisual3D x:Name="ModelDecorator" BoundingBoxLineColor="Red" BoundingBoxLineThickness="2" ShowBoundingBox="{Binding ElementName=ShowBoundingBoxCheckBox, Path=IsChecked}" 
                                                                         NormalsLineColor="Blue" NormalsLineThickness="1" ShowNormals="{Binding ElementName=ShowNormalsCheckBox, Path=IsChecked}"
                                                                         TrianglesLineColor="Green" TrianglesLineThickness="1" ShowTriangles="{Binding ElementName=ShowTrianglesCheckBox, Path=IsChecked}" 
+                                                                        ShowNormalLineArrow="{Binding ElementName=ShowNormalLineArrowCheckBox, Path=IsChecked}"
                                                                         CalculateBoundingBoxFromPositions="True"
                                                                         RootModelVisual3D="{Binding ElementName=RobotArmModel}" />
                 <!-- IMPORTANT: We need to set the RootModelVisual3D to the ModelVisual3D that contains the selected model. 
@@ -77,6 +79,10 @@
                     <ComboBoxItem>20</ComboBoxItem>
                     <ComboBoxItem>50</ComboBoxItem>
                 </ComboBox>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="0 5 0 0">
+                <CheckBox Name="ShowNormalLineArrowCheckBox" Content="ShowNormalLineArrow" IsChecked="True" Foreground="Silver" VerticalAlignment="Center"/>
+                <common:InfoControl InfoText="When using Ab3d.DXEngine the lines with arrows are not hardware accelerated and are very slow to render. In this case the simple lines without arrows may be shown to provide super fast rendering." Margin="5 0 0 0"/>
             </StackPanel>
         </StackPanel>
 

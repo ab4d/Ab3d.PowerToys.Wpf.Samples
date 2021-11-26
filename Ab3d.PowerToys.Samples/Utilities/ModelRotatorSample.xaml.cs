@@ -233,5 +233,16 @@ namespace Ab3d.PowerToys.Samples.Utilities
             else
                 transform3DGroup.Children.Add(transform3D);
         }
+
+        private void OnRotateModelRotatorCheckBoxCheckedChanged(object sender, RoutedEventArgs e)
+        {
+            if (!this.IsLoaded)
+                return;
+
+            if (RotateModelRotatorCheckBox.IsChecked ?? false)
+                SelectedModelRotator.SetRotation(new RotateTransform3D(new AxisAngleRotation3D(new Vector3D(0, 1, 0), 45)));
+            else
+                SelectedModelRotator.SetRotation(null);
+        }
     }
 }

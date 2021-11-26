@@ -137,6 +137,9 @@ namespace Ab3d.PowerToys.Samples.UseCases
             double cameraHeading = Camera1.Heading;
             double cameraAttitude = Camera1.Attitude;
 
+            cameraHeading  = Ab3d.Utilities.CameraUtils.NormalizeAngleTo180(cameraHeading);
+            cameraAttitude = Ab3d.Utilities.CameraUtils.NormalizeAngleTo180(cameraAttitude);
+
             // Check if the current camera match any view type 
             var matchedViewType = SceneViewType.StandardViews.FirstOrDefault(v => Math.Abs(v.Heading - cameraHeading) < 0.01 &&
                                                                                   Math.Abs(v.Attitude - cameraAttitude) < 0.01);

@@ -61,6 +61,8 @@
             <CheckBox Name="YAxisCheckBox" Content="IsYAxisShown" IsChecked="True" Margin="0 3" />
             <CheckBox Name="ZAxisCheckBox" Content="IsZAxisShown" IsChecked="True" Margin="0 3" />
             <CheckBox Name="ShowMovablePlanesCheckBox" Content="ShowMovablePlanes" IsChecked="True" Margin="0 3" />
+            <CheckBox Name="RotateModelMoverCheckBox" Content="Rotate model mover" IsChecked="False" Margin="0 10 0 0"
+                      Checked="OnRotateModelMoverCheckBoxCheckedChanged" Unchecked="OnRotateModelMoverCheckBoxCheckedChanged"/>
         </StackPanel>
     </Grid>
 </Page>

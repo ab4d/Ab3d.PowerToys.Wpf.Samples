@@ -192,6 +192,31 @@
             <exception cref="T:Assimp.AssimpException">Thrown if the stream is not valid (null or write-only) or if the format hint is null or empty.</exception>
             <exception cref="T:System.ObjectDisposedException">Thrown if the context has already been disposed of.</exception>
         </member>
+        <member name="M:Assimp.AssimpContext.ImportFileFromMemory(System.IntPtr,System.UInt32,System.String)">
+            <summary>
+            Imports a model from the memory without running any post-process steps. The importer sets configurations
+            and loads the model into managed memory, releasing the unmanaged memory used by Assimp. It is up to the caller to dispose/unlock the memory.
+            </summary>
+            <param name="buffer">Pointer to memory location</param>
+            <param name="length">Length of buffer in memory</param>
+            <param name="formatHint">Format extension to serve as a hint to Assimp to choose which importer to use</param>
+            <returns>The imported scene</returns>
+            <exception cref="T:Assimp.AssimpException">Thrown if the pointer is not valid (null or zero) or the length is zero or if the format hint is null or empty.</exception>
+            <exception cref="T:System.ObjectDisposedException">Thrown if the context has already been disposed of.</exception>
+        </member>
+        <member name="M:Assimp.AssimpContext.ImportFileFromMemory(System.IntPtr,System.UInt32,Assimp.PostProcessSteps,System.String)">
+            <summary>
+            Imports a model from the stream. The importer sets configurations
+            and loads the model into managed memory, releasing the unmanaged memory used by Assimp. It is up to the caller to dispose of the stream.
+            </summary>
+            <param name="buffer">Pointer to memory location</param>
+            <param name="length">Length of buffer in memory</param>
+            <param name="postProcessFlags">Post processing flags, if any</param>
+            <param name="formatHint">Format extension to serve as a hint to Assimp to choose which importer to use</param>
+            <returns>The imported scene</returns>
+            <exception cref="T:Assimp.AssimpException">Thrown if the pointer is not valid (null or zero) or the length is zero or if the format hint is null or empty.</exception>
+            <exception cref="T:System.ObjectDisposedException">Thrown if the context has already been disposed of.</exception>
+        </member>
         <member name="M:Assimp.AssimpContext.ImportFile(System.String)">
             <summary>
             Imports a model from the specified file without running any post-process steps. The importer sets configurations
@@ -3041,6 +3066,16 @@
             a cone.
             </summary>
         </member>
+        <member name="F:Assimp.LightSourceType.Ambient">
+            <summary>
+            The generic light level of the world, including the bounces
+            of all other light sources.
+            Typically, there's at most one ambient light in a scene.
+            This light type doesn't have a valid position, direction, or
+            other properties, just a color.
+            </summary>
+        </member>
+        <!-- Badly formed XML comment ignored for member "F:Assimp.LightSourceType.Area" -->
         <member name="T:Assimp.BlendMode">
             <summary>
             Defines alpha blending flags, how the final
@@ -6013,6 +6048,18 @@
             <param name="propStore">Property store containing the config name-values, may be null.</param>
             <returns>Pointer to the unmanaged data structure.</returns>
         </member>
+        <member name="M:Assimp.Unmanaged.AssimpLibrary.ImportFileFromMemory(System.IntPtr,System.UInt32,Assimp.PostProcessSteps,System.String,System.IntPtr)">
+            <summary>
+            Imports a scene from memory. This uses the "aiImportFileFromMemory" function.
+            It is up to the caller to dispose/unlock the memory after import.
+            </summary>
+            <param name="buffer">Pointer to memory location</param>
+            <param name="length">Length of buffer in memory</param>
+            <param name="flags">Post processing flags</param>
+            <param name="formatHint">A hint to Assimp to decide which importer to use to process the data</param>
+            <param name="propStore">Property store containing the config name-values, may be null.</param>
+            <returns>Pointer to the unmanaged data structure.</returns>
+        </member>
         <member name="M:Assimp.Unmanaged.AssimpLibrary.ReleaseImport(System.IntPtr)">
             <summary>
             Releases the unmanaged scene data structure. This should NOT be used for unmanaged scenes that were marshaled
@@ -6331,17 +6378,17 @@
             </summary>
             <returns>String containing Assimp legal info.</returns>
         </member>
-        <member name="M:Assimp.Unmanaged.AssimpLibrary.GetVersionMinor">
-            <summary>
-            Gets the native Assimp DLL's minor version number.
-            </summary>
-            <returns>Assimp minor version number</returns>
-        </member>
         <member name="M:Assimp.Unmanaged.AssimpLibrary.GetVersionMajor">
             <summary>
             Gets the native Assimp DLL's major version number.
             </summary>
             <returns>Assimp major version number</returns>
+        </member>
+        <member name="M:Assimp.Unmanaged.AssimpLibrary.GetVersionMinor">
+            <summary>
+            Gets the native Assimp DLL's minor version number.
+            </summary>
+            <returns>Assimp minor version number</returns>
         </member>
         <member name="M:Assimp.Unmanaged.AssimpLibrary.GetVersionRevision">
             <summary>
@@ -6377,6 +6424,17 @@
         <member name="T:Assimp.Unmanaged.AssimpFunctionNames">
             <summary>
             Defines all the unmanaged assimp C-function names.
+            </summary>
+        </member>
+        <member name="F:Assimp.Unmanaged.AssimpFunctionNames.aiImportFileFromMemoryWithPropertiesMarshalRaw">
+            <summary>
+            Identifies an alternative delegate of the native version aiImportFileFromMemoryWithProperties:
+            Import file from native memory (IntPtr).
+            </summary>
+        </member>
+        <member name="F:Assimp.Unmanaged.AssimpFunctionNames.defaultMarshalDelegate">
+            <summary>
+            Identifies the default marshal delegate (NOTE: added for clarity, actual functions are overloaded)
             </summary>
         </member>
         <member name="T:Assimp.Unmanaged.AssimpDelegates">
@@ -7067,6 +7125,11 @@
             can be used to store format-specific metadata as well.
             </summary>
         </member>
+        <member name="F:Assimp.Unmanaged.AiScene.Name">
+            <summary>
+            The name of the scene itself.
+            </summary>
+        </member>
         <member name="F:Assimp.Unmanaged.AiScene.PrivateData">
             <summary>
             void*, Private data do not touch!
@@ -7150,6 +7213,103 @@
         <member name="F:Assimp.Unmanaged.AiMetadata.Values">
             <summary>
             aiMetadataEntry*, array of values. May not be NULL. Entries may be NULL if the corresponding property key has no assigned value.
+            </summary>
+        </member>
+        <member name="T:Assimp.Unmanaged.AiMesh_Old">
+            <summary>
+            Represents an aiMesh struct. Note: This structure requires marshaling, due to the arrays of IntPtrs.
+            </summary>
+        </member>
+        <member name="F:Assimp.Unmanaged.AiMesh_Old.PrimitiveTypes">
+            <summary>
+            unsigned int, bitwise flag detailing types of primitives contained.
+            </summary>
+        </member>
+        <member name="F:Assimp.Unmanaged.AiMesh_Old.NumVertices">
+            <summary>
+            Number of vertices in the mesh, denotes length of
+            -all- per-vertex arrays.
+            </summary>
+        </member>
+        <member name="F:Assimp.Unmanaged.AiMesh_Old.NumFaces">
+            <summary>
+            Number of faces in the mesh.
+            </summary>
+        </member>
+        <member name="F:Assimp.Unmanaged.AiMesh_Old.Vertices">
+            <summary>
+            aiVector3D*, array of positions.
+            </summary>
+        </member>
+        <member name="F:Assimp.Unmanaged.AiMesh_Old.Normals">
+            <summary>
+            aiVector3D*, array of normals.
+            </summary>
+        </member>
+        <member name="F:Assimp.Unmanaged.AiMesh_Old.Tangents">
+            <summary>
+            aiVector3D*, array of tangents.
+            </summary>
+        </member>
+        <member name="F:Assimp.Unmanaged.AiMesh_Old.BiTangents">
+            <summary>
+            aiVector3D*, array of bitangents.
+            </summary>
+        </member>
+        <member name="F:Assimp.Unmanaged.AiMesh_Old.Colors">
+            <summary>
+            aiColor4D*[Max_Value], array of arrays of vertex colors. Max_Value is defined as <see cref="F:Assimp.Unmanaged.AiDefines.AI_MAX_NUMBER_OF_COLOR_SETS"/>.
+            </summary>
+        </member>
+        <member name="F:Assimp.Unmanaged.AiMesh_Old.TextureCoords">
+            <summary>
+            aiVector3D*[Max_Value], array of arrays of texture coordinates. Max_Value is defined as <see cref="F:Assimp.Unmanaged.AiDefines.AI_MAX_NUMBER_OF_TEXTURECOORDS"/>.
+            </summary>
+        </member>
+        <member name="F:Assimp.Unmanaged.AiMesh_Old.NumUVComponents">
+            <summary>
+            unsigned int[Max_Value], array of ints denoting the number of components for each set of texture coordinates - UV (2), UVW (3) for example.
+            Max_Value is defined as <see cref="F:Assimp.Unmanaged.AiDefines.AI_MAX_NUMBER_OF_TEXTURECOORDS"/>.
+            </summary>
+        </member>
+        <member name="F:Assimp.Unmanaged.AiMesh_Old.Faces">
+            <summary>
+            aiFace*, array of faces.
+            </summary>
+        </member>
+        <member name="F:Assimp.Unmanaged.AiMesh_Old.NumBones">
+            <summary>
+            Number of bones in the mesh.
+            </summary>
+        </member>
+        <member name="F:Assimp.Unmanaged.AiMesh_Old.Bones">
+            <summary>
+            aiBone**, array of bones.
+            </summary>
+        </member>
+        <member name="F:Assimp.Unmanaged.AiMesh_Old.MaterialIndex">
+            <summary>
+            Material index referencing the material in the scene.
+            </summary>
+        </member>
+        <member name="F:Assimp.Unmanaged.AiMesh_Old.Name">
+            <summary>
+            Optional name of the mesh.
+            </summary>
+        </member>
+        <member name="F:Assimp.Unmanaged.AiMesh_Old.NumAnimMeshes">
+            <summary>
+            Number of attachment meshes. NOT CURRENTLY IN USE.
+            </summary>
+        </member>
+        <member name="F:Assimp.Unmanaged.AiMesh_Old.AnimMeshes">
+            <summary>
+            aiAnimMesh**, array of attachment meshes for vertex-based animation. NOT CURRENTLY IN USE.
+            </summary>
+        </member>
+        <member name="F:Assimp.Unmanaged.AiMesh_Old.Method">
+            <summary>
+            Method of morphing when animeshes are specified.
             </summary>
         </member>
         <member name="T:Assimp.Unmanaged.AiMesh">
@@ -7249,6 +7409,16 @@
             Method of morphing when animeshes are specified.
             </summary>
         </member>
+        <member name="F:Assimp.Unmanaged.AiMesh.AABB">
+            <summary>
+            The bounding box.
+            </summary>
+        </member>
+        <member name="F:Assimp.Unmanaged.AiMesh.TextureCoordsNames">
+            <summary>
+            Vertex stream names.
+            </summary>
+        </member>
         <member name="T:Assimp.Unmanaged.AiTexture">
             <summary>
             Represents an aiTexture struct.
@@ -7320,6 +7490,18 @@
         <member name="F:Assimp.Unmanaged.AiBone.NumWeights">
             <summary>
             Number of weights.
+            </summary>
+        </member>
+        <member name="F:Assimp.Unmanaged.AiBone.Armature">
+            <summary>
+            The bone armature node - used for skeleton conversion
+            you must enable aiProcess_PopulateArmatureData to populate this
+            </summary>
+        </member>
+        <member name="F:Assimp.Unmanaged.AiBone.Node">
+            <summary>
+            The bone node in the scene - used for skeleton conversion
+            you must enable aiProcess_PopulateArmatureData to populate this
             </summary>
         </member>
         <member name="F:Assimp.Unmanaged.AiBone.Weights">
@@ -7528,6 +7710,11 @@
         <member name="F:Assimp.Unmanaged.AiLight.Direction">
             <summary>
             Direction of the spot/directional light.
+            </summary>
+        </member>
+        <member name="F:Assimp.Unmanaged.AiLight.Up">
+            <summary>
+            Direction up.
             </summary>
         </member>
         <member name="F:Assimp.Unmanaged.AiLight.AttenuationConstant">
@@ -7868,6 +8055,21 @@
             Char*, user defined opaque data.
             </summary>
         </member>
+        <member name="T:Assimp.Unmanaged.AiAABB">
+            <summary>
+            An axis-aligned bounding box.
+            </summary>
+        </member>
+        <member name="F:Assimp.Unmanaged.AiAABB.Min">
+            <summary>
+            Min
+            </summary>
+        </member>
+        <member name="F:Assimp.Unmanaged.AiAABB.Max">
+            <summary>
+            Max
+            </summary>
+        </member>
         <member name="T:Assimp.Unmanaged.AiLogStreamCallback">
             <summary>
             Callback delegate for Assimp's LogStream.
@@ -7979,6 +8181,23 @@
             </summary>
         </member>
         <member name="P:Assimp.Unmanaged.AiMeshUVComponentArray.Item(System.Int32)">
+            <summary>
+            Gets or sets an array value at the specified index.
+            </summary>
+            <param name="index">Zero-based index.</param>
+        </member>
+        <member name="T:Assimp.Unmanaged.AiStringArray">
+            <summary>
+            Fixed length array for representing strings (used by AiMesh_5_1.TextureCoordsNames). Length is equal
+            to <see cref="F:Assimp.Unmanaged.AiDefines.AI_MAX_NUMBER_OF_TEXTURECOORDS"/>.
+            </summary>
+        </member>
+        <member name="P:Assimp.Unmanaged.AiStringArray.Length">
+            <summary>
+            Gets the length of the array.
+            </summary>
+        </member>
+        <member name="P:Assimp.Unmanaged.AiStringArray.Item(System.Int32)">
             <summary>
             Gets or sets an array value at the specified index.
             </summary>
@@ -8159,6 +8378,16 @@
             <summary>
             Gets or sets the direction of the light source in space, relative to the transformation
             of the node corresponding to the light. This is undefined for point lights.
+            </summary>
+        </member>
+        <member name="P:Assimp.Light.Up">
+            <summary>
+            Gets or sets the direction up.
+            </summary>
+        </member>
+        <member name="P:Assimp.Light.Size">
+            <summary>
+            Gets or sets size of na Area light.
             </summary>
         </member>
         <member name="P:Assimp.Light.ColorDiffuse">
@@ -9424,12 +9653,6 @@
             </summary>
             <param name="thisPtr">Optional pointer to the memory that will hold the native value.</param>
             <param name="nativeValue">Output native value</param>
-        </member>
-        <member name="M:Assimp.Mesh.Assimp#IMarshalable{Assimp#Mesh,Assimp#Unmanaged#AiMesh}#FromNative(Assimp.Unmanaged.AiMesh@)">
-            <summary>
-            Reads the unmanaged data from the native value.
-            </summary>
-            <param name="nativeValue">Input native value</param>
         </member>
         <member name="M:Assimp.Mesh.FreeNative(System.IntPtr,System.Boolean)">
             <summary>

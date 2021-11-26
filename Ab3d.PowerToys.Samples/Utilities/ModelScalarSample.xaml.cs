@@ -252,5 +252,16 @@ namespace Ab3d.PowerToys.Samples.Utilities
 
             return scaleTransform3D;
         }
+
+        private void OnRotateModelScalarCheckBoxCheckedChanged(object sender, RoutedEventArgs e)
+        {
+            if (!this.IsLoaded)
+                return;
+
+            if (RotateModelScalarCheckBox.IsChecked ?? false)
+                SelectedModelScalar.SetRotation(new RotateTransform3D(new AxisAngleRotation3D(new Vector3D(0, 1, 0), 45)));
+            else
+                SelectedModelScalar.SetRotation(null);
+        }
     }
 }

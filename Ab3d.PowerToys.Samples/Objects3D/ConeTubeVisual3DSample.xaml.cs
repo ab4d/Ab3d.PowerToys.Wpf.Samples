@@ -28,6 +28,36 @@ namespace Ab3d.PowerToys.Samples.Objects3D
             InitializeComponent();
 
             this.Loaded += new RoutedEventHandler(ConeTubeVisual3DSample_Loaded);
+
+
+            //// To create an eccentric ConeTube use the following code (see https://forum.ab4d.com/showthread.php?tid=4287&pid=5841#pid5841 for more info):
+            //var coneMesh = new Ab3d.Meshes.TubeMesh3D(bottomCenterPosition: new Point3D(0, 0, 0), 
+            //                                          heightDirection: new Vector3D(0, 1, 0), 
+            //                                          bottomOuterRadius: 100, 
+            //                                          bottomInnerRadius: 90, 
+            //                                          topOuterRadius: 50, 
+            //                                          topInnerRadius: 40, 
+            //                                          height: 100, 
+            //                                          segments: 30);
+
+            //var coneMeshGeometry3D = coneMesh.Geometry;
+
+            //var positions = coneMeshGeometry3D.Positions; // read Positions DependencyProperty only once
+            //int count = positions.Count;
+
+            //var offsetVector = new Vector3D(-50, 0, 0);
+
+            //for (int i = 0; i < count; i++)
+            //{
+            //    if (positions[i].Y > 50)
+            //        positions[i] += offsetVector;
+            //}
+
+
+            //var geometryModel3D = new GeometryModel3D(coneMeshGeometry3D, new DiffuseMaterial(Brushes.Orange));
+
+            //MainViewport.Children.Clear();
+            //MainViewport.Children.Add(geometryModel3D.CreateModelVisual3D());
         }
 
         void ConeTubeVisual3DSample_Loaded(object sender, RoutedEventArgs e)

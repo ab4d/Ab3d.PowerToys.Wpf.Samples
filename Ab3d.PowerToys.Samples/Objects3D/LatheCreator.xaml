@@ -6,6 +6,7 @@
       xmlns:controls="clr-namespace:Ab3d.Controls;assembly=Ab3d.PowerToys"
       xmlns:cameras="clr-namespace:Ab3d.Cameras;assembly=Ab3d.PowerToys"
       xmlns:common="clr-namespace:Ab3d.PowerToys.Samples.Common"
+      xmlns:visuals="clr-namespace:Ab3d.Visuals;assembly=Ab3d.PowerToys"
       mc:Ignorable="d" 
       d:DesignHeight="700" d:DesignWidth="900"
 	Title="LatheCreator">
@@ -32,7 +33,10 @@
                     </LinearGradientBrush>
                 </Border.Background>
 
-                <Viewport3D Name="MainViewport"></Viewport3D>
+                <Viewport3D Name="MainViewport">
+                    <visuals:ModelDecoratorVisual3D x:Name="Decorator1" IsVisible="{Binding ElementName=ShowNormalsCheckBox, Path=IsChecked}"
+                                                    NormalsLineColor="Orange" ShowBoundingBox="False" ShowTriangles="False" ShowNormals="True"/>
+                </Viewport3D>
             </Border>
 
             <controls:MeshInspectorOverlay Name="MeshInspector" Margin="5"
@@ -105,15 +109,17 @@
 
                 <CheckBox Name="TextureCheckBox" IsChecked="False" Content="Show Texture" Margin="5 5 0 0" Checked="OnCheckboxChanged" Unchecked="OnCheckboxChanged"/>
 
-                <CheckBox Name="ShowMeshInspectorCheckBox" IsChecked="False" Margin="5 6 0 0">Show MeshInspectorOverlay</CheckBox>
+                <CheckBox Name="ShowNormalsCheckBox" IsChecked="False" Content="Show Normals" Margin="5 3 0 0" />
+
+                <CheckBox Name="ShowMeshInspectorCheckBox" IsChecked="False" Margin="5 3 0 0">Show MeshInspectorOverlay</CheckBox>
                 <TextBlock Name="MeshInspectorInfoTextBlock" Text="Position indexes (white); Triangle indexes (yellow)"
                            Margin="25 0 0 0" FontSize="10"  />
 
-                <Border Name="ShapesBorder" BorderBrush="Black" BorderThickness="1" Margin="5 15 5 5" Width="270" Height="270" Background="Transparent" SnapsToDevicePixels="True" HorizontalAlignment="Left"
+                <Border Name="ShapesBorder" BorderBrush="Black" BorderThickness="1" Margin="5 10 5 5" Width="225" Height="225" Background="Transparent" SnapsToDevicePixels="True" HorizontalAlignment="Left"
                         MouseUp="ShapeCanvas_OnMouseUp" MouseEnter="ShapesBorder_OnMouseEnter" MouseLeave="ShapesBorder_OnMouseLeave" MouseMove="ShapesBorder_OnMouseMove">
                     <Grid>
-                        <Canvas Name="ShapeCanvas" Width="255" Height="255" Background="#DDD" Margin="0" IsHitTestVisible="False"/>
-                        <Canvas Name="ShapesOverlayCanvas" Width="255" Height="255" Margin="0" Cursor="Cross" IsHitTestVisible="False">
+                        <Canvas Name="ShapeCanvas" Width="210" Height="210" Background="#DDD" Margin="0" IsHitTestVisible="False"/>
+                        <Canvas Name="ShapesOverlayCanvas" Width="210" Height="210" Margin="0" Cursor="Cross" IsHitTestVisible="False">
                             <Ellipse Name="MousePositionEllipse" Width="6" Height="6" Stroke="Red" StrokeThickness="1" Visibility="Collapsed"/>
                         </Canvas>
                         <TextBlock Name="UserInfoTextBlock" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#555" FontWeight="Bold" FontSize="20" IsHitTestVisible="False"

@@ -425,21 +425,21 @@ Camera.Bank: {5:0}",
 
         private void FitIntoView_OnClick(object sender, RoutedEventArgs e)
         {
-            var targetPositionCamera = _selectedCamera as TargetPositionCamera;
-            if (targetPositionCamera == null)
+            var fitIntoViewCamera = _selectedCamera as IFitIntoViewCamera; // FitIntoView is supported by camera derived for BaseTargetPositionCamera and by FreeCamera
+            if (fitIntoViewCamera == null)
                 return;
 
             // First set TargetPosition
-            targetPositionCamera.FitIntoView(FitIntoViewType.CheckAllPositions, // use more precise calculation with using all model positions instead of using only object bounds
-                                             adjustTargetPosition: true,        // the method should change the TargetPosition to get better fit into view
-                                             adjustmentFactor: 1.1);            // 10% margin around the object to the border
+            fitIntoViewCamera.FitIntoView(FitIntoViewType.CheckAllPositions, // use more precise calculation with using all model positions instead of using only object bounds
+                                          adjustTargetPosition: true,        // the method should change the TargetPosition to get better fit into view
+                                          adjustmentFactor: 1.1);            // 10% margin around the object to the border
 
             // When you want to check only some 3D models and fit them into view, 
             // you can call FitIntoView with an IList of Visual3D objects as the first parameter.
 
             // You can also call GetFitIntoViewDistanceOrCameraWidth method to get the required distance or CameraWidth
             // that would fit the scene into view. This method does not change the camera.
-            //targetPositionCamera.GetFitIntoViewDistanceOrCameraWidth(...)
+            //fitIntoViewCamera.GetFitIntoViewDistanceOrCameraWidth(...)
         }
 
 

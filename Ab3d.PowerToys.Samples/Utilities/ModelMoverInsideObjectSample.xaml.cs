@@ -289,6 +289,17 @@ namespace Ab3d.PowerToys.Samples.Utilities
             _modelMover.ShowMovablePlanes = ShowMovablePlanesCheckBox.IsChecked ?? false;
         }
 
+        private void OnRotateModelMoverCheckBoxCheckedChanged(object sender, RoutedEventArgs e)
+        {
+            if (!this.IsLoaded)
+                return;
+
+            if (RotateModelMoverCheckBox.IsChecked ?? false)
+                _modelMover.SetRotation(new RotateTransform3D(new AxisAngleRotation3D(new Vector3D(0, 1, 0), 45)));
+            else
+                _modelMover.SetRotation(null);
+        }
+
 #if USE_GENERIC_MODEL3D
         private Point3D GetSelectedModelCenter()
         {

@@ -58,7 +58,7 @@
                 <CheckBox Name="IsEdgeSelectionEnabledCheckBox" Content="IsEdgeSelectionEnabled" IsChecked="True" FontWeight="Bold" Margin="0 8 0 2" 
                           Checked="OnIsEdgeSelectionEnabledCheckBoxCheckedChanged" Unchecked="OnIsEdgeSelectionEnabledCheckBoxCheckedChanged"/>
 
-                <CheckBox Name="IsRotationCircleShownCheckBox" Content="IsRotationCircleShown" IsChecked="True" Margin="0 4 0 2" FontWeight="Bold" />
+                <CheckBox Name="IsRotationCircleShownCheckBox" Content="IsRotationCircleShown" IsChecked="True" Margin="0 4 0 4" FontWeight="Bold" />
 
                 <CheckBox Name="IsCustomBitmapsShownCheckBox" Content="Is using custom bitmaps" IsChecked="False" FontWeight="Bold"
                           Checked="OnIsCustomBitmapsShownCheckBoxCheckedChanged" Unchecked="OnIsCustomBitmapsShownCheckBoxCheckedChanged" />

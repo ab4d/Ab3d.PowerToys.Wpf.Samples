@@ -226,14 +226,13 @@ namespace Ab3d.PowerToys.Samples.EventManager3D
                 finalSize: new Size3D(100, 100, 100),
                 preserveAspectRatio: true);
 
-            _sceneVisual3D = new ModelVisual3D();
+            _sceneVisual3D = new ContentVisual3D("SceneVisual3D"); // Set name so that we can read then when getting hit test result
             _sceneVisual3D.Content = sceneModel3D;
-            _sceneVisual3D.SetName("SceneVisual3D"); // Set Name dependency properties so that we can read then when getting hit test result
 
             MainViewport.Children.Add(_sceneVisual3D);
 
 
-            _glassPlaneVisual3D = new Ab3d.Visuals.PlaneVisual3D()
+            _glassPlaneVisual3D = new Ab3d.Visuals.PlaneVisual3D("GlassPlaneVisual3D")
             {
                 CenterPosition  = new Point3D(0, 0, 45),
                 Size            = new Size(70, 10),
@@ -243,7 +242,6 @@ namespace Ab3d.PowerToys.Samples.EventManager3D
             };
 
             _glassPlaneVisual3D.BackMaterial = _glassPlaneVisual3D.Material;
-            _glassPlaneVisual3D.SetName("GlassPlaneVisual3D");
 
             MainViewport.Children.Add(_glassPlaneVisual3D);
         }

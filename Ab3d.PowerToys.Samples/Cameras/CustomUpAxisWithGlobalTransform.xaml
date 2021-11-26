@@ -1,12 +1,14 @@
 ﻿<Page x:Class="Ab3d.PowerToys.Samples.Cameras.CustomUpAxisWithGlobalTransform"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
     xmlns:cameras="clr-namespace:Ab3d.Cameras;assembly=Ab3d.PowerToys"
     xmlns:ab3d="clr-namespace:Ab3d.Controls;assembly=Ab3d.PowerToys"  
-    xmlns:visuals="clr-namespace:Ab3d.Visuals;assembly=Ab3d.PowerToys"        
-    Title="AllModelsSample"
-    MinHeight="300"      
-    MinWidth="600">
+    xmlns:visuals="clr-namespace:Ab3d.Visuals;assembly=Ab3d.PowerToys"     
+    mc:Ignorable="d" 
+    d:DesignHeight="600" d:DesignWidth="1000"
+    Title="AllModelsSample">
     <Page.Resources>
         <DiffuseMaterial x:Key="ObjectsMaterial" Brush="#247589"/>
     </Page.Resources>
@@ -23,9 +25,9 @@
                 <ModelVisual3D x:Name="ZUpRootVisual">
                     <ModelVisual3D.Transform>
                         <!-- The transformation defines the new axis - defined in matrix columns in upper left 3x3 part of the matrix:
-                             x axis - 1st column (use x value): 1 0 0 
-                             y axis - 2nd column (use z value): 0 0 1
-                             z axis - 3rd column (use negative y value): 0 -1 0 -->
+                             x axis - 1st column: 1  0  0  (in the positive x direction - same as WPF 3D) 
+                             y axis - 2nd column: 0  0 -1  (in the negative z direction - into the screen)
+                             z axis - 3rd column: 0  1  0  (in the positive y direction - up) -->
                         <MatrixTransform3D Matrix="1  0  0  0 
                                                    0  0 -1  0
                                                    0  1  0  0 
@@ -48,9 +50,6 @@
             </Viewport3D>
         </Border>
 
-        <!-- CameraAxisPanel has custom axes set in code behind -->
-        <ab3d:CameraAxisPanel Name="CustomCameraAxisPanel1" Width="120" Height="120" VerticalAlignment="Bottom" HorizontalAlignment="Right"/>
-
         <cameras:TargetPositionCamera Name="Camera1" Heading="30" Attitude="-20" Bank="0" 
                                       Distance="400" TargetPosition="0 40 0" 
                                       ShowCameraLight="Always"
@@ -63,8 +62,18 @@
                                     EventsSourceElement="{Binding ElementName=ViewportBorder}"
                                     TargetCamera="{Binding ElementName=Camera1}"/>
 
-        <ab3d:CameraControlPanel VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="5" Width="225" Height="75" ShowMoveButtons="True"
-                                 TargetCamera="{Binding ElementName=Camera1}"/>
+        <!-- CameraAxisPanel has custom axes set in code behind -->
+        <ab3d:CameraAxisPanel Name="CustomCameraAxisPanel1" Width="120" Height="120" VerticalAlignment="Bottom" HorizontalAlignment="Left"/>
+
+        <StackPanel Orientation="Vertical" HorizontalAlignment="Right" VerticalAlignment="Bottom">
+
+            <!-- When using global transform, we do not need to set the AxisTransform on the ViewCubeCameraController -->
+            <ab3d:ViewCubeCameraController TargetCamera="{Binding ElementName=Camera1}" HorizontalAlignment="Right" />
+
+            <ab3d:CameraControlPanel HorizontalAlignment="Right" Margin="5" Width="225" Height="75" ShowMoveButtons="True"
+                                     TargetCamera="{Binding ElementName=Camera1}"/>
+        
+        </StackPanel>
 
         <TextBlock FontWeight="Bold" FontSize="20" Foreground="Silver" Margin="10" VerticalAlignment="Top" HorizontalAlignment="Left" 
                    Text="Z up axis with using global transform to create custom coordinate system where Z is pointing up"/>

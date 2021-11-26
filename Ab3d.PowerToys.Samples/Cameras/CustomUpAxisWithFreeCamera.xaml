@@ -33,9 +33,6 @@
             </Viewport3D>
         </Border>
 
-        <!-- CameraAxisPanel has custom axes set in code behind -->
-        <ab3d:CameraAxisPanel Name="CustomCameraAxisPanel1" Width="120" Height="120" VerticalAlignment="Bottom" HorizontalAlignment="Right"/>
-
         <!-- Use FreeCamera with RotationUpAxis and UpDirection set to Z axis -->
         <!-- This will show the scene with Z axis as up direction and use rotation around Z axis -->
         <cameras:FreeCamera Name="Camera1"
@@ -52,8 +49,15 @@
                                     EventsSourceElement="{Binding ElementName=ViewportBorder}"
                                     TargetCamera="{Binding ElementName=Camera1}"/>
 
-        <ab3d:CameraControlPanel VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="5" Width="225" Height="75" ShowMoveButtons="True"
-                                 TargetCamera="{Binding ElementName=Camera1}"/>
+        <ab3d:CameraAxisPanel Name="CustomCameraAxisPanel1" Width="120" Height="120" VerticalAlignment="Bottom" HorizontalAlignment="Left"/>
+
+        <StackPanel Orientation="Vertical" HorizontalAlignment="Right" VerticalAlignment="Bottom">
+
+            <ab3d:ViewCubeCameraController x:Name="ViewCube1" TargetCamera="{Binding ElementName=Camera1}" HorizontalAlignment="Right" />
+            <ab3d:CameraControlPanel HorizontalAlignment="Right" Margin="5" Width="225" Height="75" ShowMoveButtons="True"
+                                     TargetCamera="{Binding ElementName=Camera1}"/>
+
+        </StackPanel>
 
         <TextBlock FontWeight="Bold" FontSize="20" Foreground="Silver" Margin="10" VerticalAlignment="Top" HorizontalAlignment="Left" 
                    Text="Z up axis with using FreeCamera with UpDirection and RotationUpAxis"/>

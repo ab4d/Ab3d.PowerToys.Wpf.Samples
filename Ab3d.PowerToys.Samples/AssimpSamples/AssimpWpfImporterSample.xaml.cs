@@ -126,7 +126,7 @@ namespace Ab3d.PowerToys.Samples.AssimpSamples
                 // you can get the model names by assimpWpfImporter.ObjectNames
                 // or get object by name with assimpWpfImporter.NamedObjects
 
-                // To get the  object model of the assimp importer, you can observe the assimpWpfImporter.ImportedAssimpScene
+                // Note: to get the original Assimp's Scene object, check the assimpWpfImporter.ImportedAssimpScene
 
                 // Show the model
                 ShowModel(readModel3D, updateCamera: isNewFile); // If we just reloaded the previous file, we preserve the current camera TargetPosition and Distance
@@ -205,7 +205,7 @@ namespace Ab3d.PowerToys.Samples.AssimpSamples
             openFileDialog.InitialDirectory = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Resources");
 
             openFileDialog.Filter = "3D model file (*.*)|*.*";
-            openFileDialog.Title = "Open 3D model file file";
+            openFileDialog.Title = "Open 3D model file";
 
             if ((openFileDialog.ShowDialog() ?? false) && !string.IsNullOrEmpty(openFileDialog.FileName))
                 LoadModel(openFileDialog.FileName);

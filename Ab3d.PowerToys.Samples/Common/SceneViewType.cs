@@ -5,9 +5,9 @@ namespace Ab3d.PowerToys.Samples.Common
 {
     public class SceneViewType
     {
-        public string Name { get; set; }
-        public double Heading { get; set; }
-        public double Attitude { get; set; }
+        public readonly string Name;
+        public readonly double Heading;
+        public readonly double Attitude;
 
         public SceneViewType(string name, double heading, double attitude)
         {
@@ -78,6 +78,12 @@ namespace Ab3d.PowerToys.Samples.Common
                    this.Heading.Equals(sceneViewType.Heading) &&
                    this.Attitude.Equals(sceneViewType.Attitude);
         }
+
+        public override int GetHashCode()
+        {
+            return this.Name.GetHashCode() ^ this.Heading.GetHashCode() ^ this.Attitude.GetHashCode();
+        }
+
         #endregion
     }
 }

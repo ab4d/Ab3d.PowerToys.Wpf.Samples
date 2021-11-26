@@ -27,19 +27,31 @@ namespace Ab3d.PowerToys.Samples.Cameras
 
         private Random _rnd = new Random();
 
+        private BaseCamera _selectedCamera;
+
         public FitIntoViewSample()
         {
             InitializeComponent();
 
             CreateRandomScene();
 
+            // It is possible to call FitIntoView even before the size of the Viewport3D is know (though this size is required to actually execute fit into view).
+            // In this case and when waitUntilCameraIsValid parameter is true (by default),
+            // then the camera will execute FitIntoView when the size of Viewport3D is set.
+            // 
+            // We do not call this here, because in this sample FitIntoView is called in the FitIntoView method defined below.
+            //TargetPositionCamera1.FitIntoView(waitUntilCameraIsValid: true);
+
             this.Loaded += delegate(object sender, RoutedEventArgs args)
             {
+                UpdateSelectedCamera();
+                _selectedCamera.Refresh();
+
                 // We need to wait until Loaded event because the MainViewport needs to have its size defined for FitIntoView to work
                 FitIntoView();
 
                 // Subscribe to camera changes
-                Camera1.CameraChanged += Camera1_CameraChanged;
+                _selectedCamera.CameraChanged += Camera1_CameraChanged;
             };
         }
 
@@ -51,13 +63,18 @@ namespace Ab3d.PowerToys.Samples.Cameras
 
             _isAdjustingDistance = true; // Prevent infinite recursion
 
-            Camera1.FitIntoView(visuals: ObjectsRootVisual3D.Children,               // Do not use WireGrid for FitIntoView calculations (this parameter can be skipped if all shown objects should be checked)
-                                fitIntoViewType: Ab3d.Common.FitIntoViewType.CheckAllPositions, // CheckAllPositions can take some time bigger scenes. In this case you can use the CheckBounds
-                                adjustTargetPosition: adjustTargetPosition,                     // Adjust TargetPosition to better fit into view; set to false to preserve the current TargetPosition
-                                adjustmentFactor: selectedAdjustmentFactor);                    // adjustmentFactor can be used to specify the margin
+            // IFitIntoViewCamera is implemented by BaseTargetPositionCamera and FreeCamera.
+            var fitIntoViewCamera = _selectedCamera as IFitIntoViewCamera;
 
-            // See help for more information about FitIntoView (defined in Ab3d.Cameras.BaseTargetPositionCamera)
-
+            if (fitIntoViewCamera != null)
+            {
+                fitIntoViewCamera.FitIntoView(visuals: ObjectsRootVisual3D.Children,                          // Do not use WireGrid for FitIntoView calculations (this parameter can be skipped if all shown objects should be checked)
+                                              fitIntoViewType: Ab3d.Common.FitIntoViewType.CheckAllPositions, // CheckAllPositions can take some time bigger scenes. In this case you can use the CheckBounds
+                                              adjustTargetPosition: adjustTargetPosition,                     // Adjust TargetPosition to better fit into view; set to false to preserve the current TargetPosition
+                                              adjustmentFactor: selectedAdjustmentFactor,                     // adjustmentFactor can be used to specify the margin
+                                              waitUntilCameraIsValid: false);                                 // waitUntilCameraIsValid is set to true by default. This is used when the FitIntoView is called before the size of the Viewport3D is set - in this case the FitIntoView will be called when the size is set.
+            }
+       
 
             // NOTE:
             // If you want to call FitIntoView to show some manually specified area of the scene (not the actually shown objects)
@@ -115,7 +132,8 @@ namespace Ab3d.PowerToys.Samples.Cameras
             if (!this.IsLoaded)
                 return;
 
-            Camera1.TargetPosition = new Point3D(0, 0, 0);
+            TargetPositionCamera1.TargetPosition = new Point3D(0, 0, 0);
+            FreeCamera1.TargetPosition = new Point3D(0, 0, 0);
         }
         
         private void RecreateSceneButton_OnClick(object sender, RoutedEventArgs e)
@@ -146,6 +164,29 @@ namespace Ab3d.PowerToys.Samples.Cameras
                 return;
 
             FitIntoView();
+        }
+
+        private void OnCameraTypeRadioButtonChecked(object sender, RoutedEventArgs e)
+        {
+            if (!this.IsLoaded)
+                return;
+
+            UpdateSelectedCamera();
+        }
+
+        private void UpdateSelectedCamera()
+        {
+            if (FreeCameraRadioButton.IsChecked ?? false)
+                _selectedCamera = FreeCamera1;
+            else // if (TargetPositionCameraRadioButton.IsChecked ?? false)
+                _selectedCamera = TargetPositionCamera1;
+
+            FreeCamera1.TargetViewport3D           = null;
+            TargetPositionCamera1.TargetViewport3D = null;
+
+            _selectedCamera.TargetViewport3D = MainViewport;
+
+            MouseCameraController1.TargetCamera = _selectedCamera;
         }
     }
 }

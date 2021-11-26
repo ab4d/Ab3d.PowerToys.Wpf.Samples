@@ -42,6 +42,9 @@
             <CheckBox Name="IsXAxisShownCheckBox" Content="IsXAxisShown" IsChecked="true" />
             <CheckBox Name="IsYAxisShownCheckBox" Content="IsYAxisShown" IsChecked="true" />
             <CheckBox Name="IsZAxisShownCheckBox" Content="IsZAxisShown" IsChecked="true" />
+
+            <CheckBox Name="RotateModelScalarCheckBox" Content="Rotate model scalar" IsChecked="False" Margin="0 10 0 0"
+                      Checked="OnRotateModelScalarCheckBoxCheckedChanged" Unchecked="OnRotateModelScalarCheckBoxCheckedChanged"/>
         </StackPanel>
     </Grid>
 </Page>
