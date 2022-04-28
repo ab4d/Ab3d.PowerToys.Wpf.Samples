@@ -27,6 +27,9 @@ namespace Ab3d.PowerToys.Samples.Objects3D
         {
             InitializeComponent();
 
+            PlaneVisual3D1.UseMatrixTransform3D = false; // do not use matrix transform to position and orient the normal, but instead change the geometry - this will call GeometryChanged on each change
+            PlaneVisual3D1.GeometryChanged += PlaneVisual3D1_GeometryChanged;
+
             this.Loaded += new RoutedEventHandler(PlaneVisual3DSample_Loaded);
         }
 

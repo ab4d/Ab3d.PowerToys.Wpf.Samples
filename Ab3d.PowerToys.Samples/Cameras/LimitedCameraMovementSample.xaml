@@ -7,9 +7,11 @@
     MinWidth="500"
     Title="CamerasSample">
     <Grid>
-        <Viewport3D Name="SceneCameraViewport">
-            <ModelVisual3D Content="{StaticResource Ab3d_Box_Model}"/>
-        </Viewport3D>
+        <Border Name="ViewportBorder" Background="Transparent">
+            <Viewport3D Name="SceneCameraViewport">
+                <ModelVisual3D Content="{StaticResource Ab3d_Box_Model}"/>
+            </Viewport3D>
+        </Border>
         <cameras:TargetPositionCamera Name="Camera1"
                                       Heading="0" Attitude="-15" Bank="0" Distance="400"
                                       PreviewCameraChanged="SceneCamera1_PreviewCameraChanged"
@@ -20,7 +22,7 @@
                                     MoveCameraConditions="LeftMouseButtonPressed, ControlKey"
                                     ShowRotationCenterMarker="True"
                                     TargetCamera="{Binding ElementName=Camera1}"
-                                    EventsSourceElement="{Binding ElementName=MainGrid}"/>
+                                    EventsSourceElement="{Binding ElementName=ViewportBorder}"/>
 
         <StackPanel VerticalAlignment="Bottom" HorizontalAlignment="Left" Orientation="Vertical">
 

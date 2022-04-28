@@ -78,7 +78,7 @@
 
         <ab3d:CameraControlPanel VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="5" Width="225" Height="75" ShowMoveButtons="True"
                                  TargetCamera="{Binding ElementName=Camera1}"/>
-        
-        <TextBlock FontWeight="Bold" FontSize="20" Foreground="Silver" Margin="10" VerticalAlignment="Top" HorizontalAlignment="Left" Text="3D objects created with Ab3d.Visuals"/>
+
+        <TextBlock Text="3D objects from Ab3d.Visuals namespace" FontWeight="Bold" FontSize="20" Foreground="Silver" Margin="10" VerticalAlignment="Top" HorizontalAlignment="Left"/>
     </Grid>
 </Page>

@@ -6,6 +6,7 @@
       xmlns:cameras="clr-namespace:Ab3d.Cameras;assembly=Ab3d.PowerToys"
       xmlns:ab3d="clr-namespace:Ab3d.Controls;assembly=Ab3d.PowerToys"  
       xmlns:visuals="clr-namespace:Ab3d.Visuals;assembly=Ab3d.PowerToys"
+      xmlns:common="clr-namespace:Ab3d.PowerToys.Samples.Common"
       mc:Ignorable="d" 
       Title="TemplatePage"
       d:DesignHeight="400" d:DesignWidth="900">
@@ -41,7 +42,7 @@
 
         <cameras:TargetPositionCamera Name="Camera1"  Grid.Column="0" Grid.Row="1"
                                       Heading="30" Attitude="-30" Bank="0" 
-                                      Distance="1000" TargetPosition="0 0 0" 
+                                      Distance="1200" TargetPosition="0 0 0" 
                                       ShowCameraLight="Always"
                                       TargetViewport3D="{Binding ElementName=MainViewport}"
                                       CameraChanged="Camera1_OnCameraChanged"/>
@@ -81,18 +82,26 @@
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
 
             <TextBlock Grid.Column="0" Text="Output file name:" VerticalAlignment="Center"/>
 
-            <TextBox Name="OutputFileName" Grid.Column="1" MinWidth="100" Margin="5 0" VerticalAlignment="Center"/>
-            
-            <Button Name="OpenExportedButton" Grid.Column="2" Content="Show exported file" Visibility="Collapsed" Padding="10 3" Margin="20 0 5 0" Click="OpenExportedButton_OnClick" />
+            <TextBox Name="OutputFileNameTextBox" Grid.Column="1" MinWidth="100" Margin="5 0" VerticalAlignment="Center"/>
+
+            <Button Name="OpenExportedButton" Grid.Column="2" Content="Show exported file" Visibility="Collapsed" VerticalAlignment="Center" Padding="6 0" Margin="0 0 5 0" Click="OpenExportedButton_OnClick" />
 
             <TextBlock Text="Export type:" Grid.Column="3" Margin="15 0 5 0" VerticalAlignment="Center"/>
             <ComboBox Name="ExportTypeComboBox" Grid.Column="4" MinWidth="100" SelectionChanged="ExportTypeComboBox_OnSelectionChanged" />
 
-            <Button Name="ExportButton" Grid.Column="5" Content="EXPORT" Padding="15 3" IsDefault="True" Margin="10 0 5 0" Click="ExportButton_OnClick" />
+            <CheckBox Name="EmbedTextureComboBox" Grid.Column="5" Content="Embed textures" IsChecked="False" Margin="10 0 0 0" VerticalAlignment="Center"
+                      ToolTip="When checked, then the grass.jpg texture will be embedded into the exported file (supported by fbx and gltf v2); when unchecked, then the texture's file name is saved into the exported file" />
+
+            <common:InfoControl x:Name="StartAngleVector3DInfoControl" Grid.Column="6" Margin="3 0 0 0" VerticalAlignment="Center"
+                                InfoText="When checked, then the grass.jpg texture will be embedded into the exported file (supported by fbx and gltf v2);&#x0a;when unchecked, then the texture's file name is saved into the exported file." />
+
+            <Button Name="ExportButton" Grid.Column="7" Content="EXPORT" Padding="15 3" IsDefault="True" Margin="20 0 5 0" Click="ExportButton_OnClick" />
         </Grid>
     </Grid>
 </Page>

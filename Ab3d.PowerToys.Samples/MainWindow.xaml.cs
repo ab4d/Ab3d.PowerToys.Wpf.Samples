@@ -22,7 +22,6 @@ namespace Ab3d.PowerToys.Samples
     public partial class MainWindow : Window
     {
         // Uncomment the _startupPage declaration to always start the samples with the specified page
-        //private string _startupPage = "Graph3D/AxesBoxVisual3DSample.xaml";
         private string _startupPage = null;
 
         public MainWindow()

@@ -26,14 +26,15 @@
                                     TargetCamera="{Binding ElementName=Camera1}" 
                                     EventsSourceElement="{Binding ElementName=ViewportBorder}"
                                     RotateCameraConditions="LeftMouseButtonPressed"
-                                    MoveCameraConditions="LeftMouseButtonPressed, ControlKey" />
+                                    MoveCameraConditions="LeftMouseButtonPressed, ControlKey"
+                                    QuickZoomConditions="LeftMouseButtonPressed, RightMouseButtonPressed" />
 
 
         <StackPanel Orientation="Vertical" VerticalAlignment="Bottom" HorizontalAlignment="Left">
             <Border Margin="0 10 0 0" Background="#AAFFFFFF" BorderBrush="Gray" BorderThickness="1" Cursor="Arrow">
                 <StackPanel Orientation="Vertical" Margin="5">
                     <TextBlock Margin="5 5 5 0" FontWeight="Bold">RotateCameraConditions:</TextBlock>
-                    <Grid Margin="5 2 5 0">
+                    <Grid Margin="5 0 5 0">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto"/>
                             <ColumnDefinition Width="20"/>
@@ -57,9 +58,9 @@
                         <CheckBox Name="AltKeyCheckBox1" Grid.Column="2" Grid.Row="3" Margin="0 2 0 0" Checked="OnRotateCheckBoxChanged" Unchecked="OnRotateCheckBoxChanged">Alt</CheckBox>
                     </Grid>
 
-                    <TextBlock Margin="5 15 5 0" FontWeight="Bold">MoveCameraConditions:</TextBlock>
 
-                    <Grid Margin="5 2 5 0">
+                    <TextBlock Margin="5 15 5 0" FontWeight="Bold">MoveCameraConditions:</TextBlock>
+                    <Grid Margin="5 0 5 0">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto"/>
                             <ColumnDefinition Width="20"/>
@@ -82,6 +83,32 @@
                         <CheckBox Name="ControlKeyCheckBox2" Grid.Column="2" Margin="0 2 0 0" Grid.Row="2" IsChecked="True" Checked="OnMoveCheckBoxChanged" Unchecked="OnMoveCheckBoxChanged">Control</CheckBox>
                         <CheckBox Name="AltKeyCheckBox2" Grid.Column="2" Grid.Row="3" Margin="0 2 0 0" Checked="OnMoveCheckBoxChanged" Unchecked="OnMoveCheckBoxChanged">Alt</CheckBox>
                     </Grid>
+               
+
+                    <TextBlock Margin="5 15 5 0" FontWeight="Bold">QuickZoomConditions:</TextBlock>
+                    <Grid Margin="5 0 5 0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="20"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+
+                        <TextBlock Grid.Column="0" Grid.Row="0" Margin="0 2 0 0" TextDecorations="Underline" Text="Mouse button:"/>
+                        <CheckBox Name="LeftButtonCheckBox3" Grid.Column="0" Margin="0 2 0 0" Grid.Row="1" IsChecked="True" Checked="OnQuickZoomCheckBoxChanged" Unchecked="OnQuickZoomCheckBoxChanged">Left</CheckBox>
+                        <CheckBox Name="MiddleButtonCheckBox3" Grid.Column="0" Margin="0 2 0 0" Grid.Row="2" Checked="OnQuickZoomCheckBoxChanged" Unchecked="OnQuickZoomCheckBoxChanged">Middle</CheckBox>
+                        <CheckBox Name="RightButtonCheckBox3" Grid.Column="0" Grid.Row="3" Margin="0 2 0 0" Checked="OnQuickZoomCheckBoxChanged" Unchecked="OnQuickZoomCheckBoxChanged">Right</CheckBox>
+
+                        <TextBlock Grid.Column="2" Grid.Row="0" Margin="0 2 0 0" TextDecorations="Underline" Text="Modifier keys:"/>
+                        <CheckBox Name="ShiftKeyCheckBox3" Grid.Column="2" Grid.Row="1" IsChecked="True" Margin="0 2 0 0" Checked="OnQuickZoomCheckBoxChanged" Unchecked="OnQuickZoomCheckBoxChanged">Shift</CheckBox>
+                        <CheckBox Name="ControlKeyCheckBox3" Grid.Column="2" Margin="0 2 0 0" Grid.Row="2" Checked="OnQuickZoomCheckBoxChanged" Unchecked="OnQuickZoomCheckBoxChanged">Control</CheckBox>
+                        <CheckBox Name="AltKeyCheckBox3" Grid.Column="2" Grid.Row="3" Margin="0 2 0 0" Checked="OnQuickZoomCheckBoxChanged" Unchecked="OnQuickZoomCheckBoxChanged">Alt</CheckBox>
+                    </Grid>
                 </StackPanel>
             </Border>
         </StackPanel>
@@ -89,23 +116,27 @@
         <StackPanel Orientation="Vertical" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="10 0 0 0">
             <Border HorizontalAlignment="Left" Background="#AAFFFFFF" BorderBrush="Gray" BorderThickness="1" Cursor="Arrow" SnapsToDevicePixels="True">
                 <StackPanel Orientation="Vertical" Margin="5" HorizontalAlignment="Left">
-                    <TextBlock Margin="5" FontWeight="Bold" TextDecorations="Underline" FontSize="14">MouseCameraControllerInfo</TextBlock>
-
-                    <TextBlock FontSize="9" Width="240" HorizontalAlignment="Left" Margin="5 0 0 0" TextWrapping="Wrap"
-                               Text="MouseCameraControllerInfo shows which mouse buttons and keyboard modifiers are assigned to camera rotation and movement. It can also show custom info text.&#x0a;&#x0a;Change the RotateCameraConditions and MoveCameraConditions on the left to see how the mouse icons change." />
-
-                    <CheckBox Name="ShowShowRotateInfoCheckBox" IsChecked="True" Margin="5 5 5 0">ShowRotateInfo</CheckBox>
-                    <CheckBox Name="ShowShowMoveInfoCheckBox" IsChecked="True" Margin="5 2 5 0">ShowMoveInfo</CheckBox>
-
-                    <Button Name="ShowCustomInfoButton" Content="Show custom info" Margin="5" HorizontalAlignment="Left" Padding="10 2" Click="ShowCustomInfoButtonOnClick" />
+                    <TextBlock Margin="5" FontWeight="Bold" TextDecorations="Underline" FontSize="14">MouseCameraControllerInfo:</TextBlock>
 
                     <ab3d:MouseCameraControllerInfo x:Name="CameraControllerInfo" 
                                         MouseCameraController="{Binding ElementName=MouseCameraController1}" 
                                         ShowRotateInfo="{Binding ElementName=ShowShowRotateInfoCheckBox, Path=IsChecked}"
                                         ShowMoveInfo="{Binding ElementName=ShowShowMoveInfoCheckBox, Path=IsChecked}"
+                                        ShowQuickZoomInfo="{Binding ElementName=ShowQuickZoomInfoCheckBox, Path=IsChecked}"
                                         Foreground="DimGray" FontSize="15" FontWeight="Bold"
                                         Margin="10 10 10 0" VerticalAlignment="Bottom" HorizontalAlignment="Left" />
 
+
+                    <TextBlock FontSize="9" Width="240" HorizontalAlignment="Left" Margin="5 20 0 0" TextWrapping="Wrap"
+                               Text="MouseCameraControllerInfo shows which mouse buttons and keyboard modifiers are assigned to camera rotation, movement and quick zoom. It can also show custom info text.&#x0a;&#x0a;Change the RotateCameraConditions and MoveCameraConditions on the left to see how the mouse icons change." />
+
+                    <TextBlock Text="Settings:" FontWeight="Bold" Margin="5 10 0 0" />
+
+                    <CheckBox Name="ShowShowRotateInfoCheckBox" IsChecked="True" Margin="5 5 5 0">ShowRotateInfo</CheckBox>
+                    <CheckBox Name="ShowShowMoveInfoCheckBox" IsChecked="True" Margin="5 2 5 0">ShowMoveInfo</CheckBox>
+                    <CheckBox Name="ShowQuickZoomInfoCheckBox" IsChecked="True" Margin="5 2 5 0">ShowQuickZoomInfo</CheckBox>
+
+                    <Button Name="ShowCustomInfoButton" Content="Show custom info" Margin="5 10 5 5" HorizontalAlignment="Left" Padding="10 2" Click="ShowCustomInfoButtonOnClick" />
                 </StackPanel>
             </Border>
         </StackPanel>

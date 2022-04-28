@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Windows;
@@ -18,6 +19,7 @@ using Ab.Common;
 using Ab3d.Assimp;
 using Ab3d.Common.Cameras;
 using Ab3d.Utilities;
+using Ab3d.Visuals;
 using Assimp;
 
 namespace Ab3d.PowerToys.Samples.AssimpSamples
@@ -78,6 +80,8 @@ namespace Ab3d.PowerToys.Samples.AssimpSamples
 
         private string _selectedExportFormatId;
 
+        private int _textureIndex;
+
         private Dictionary<string, object> _namedObjects;
 
         public AssimpWpfExporterSample()
@@ -101,6 +105,8 @@ namespace Ab3d.PowerToys.Samples.AssimpSamples
             _exportFormatDescriptions = assimpWpfExporter.ExportFormatDescriptions;
 
 
+            int selectedFormatIndex = 0;
+
             for (int i = 0; i < _exportFormatDescriptions.Length; i++)
             {
                 var comboBoxItem = new ComboBoxItem()
@@ -110,13 +116,15 @@ namespace Ab3d.PowerToys.Samples.AssimpSamples
                 };
 
                 ExportTypeComboBox.Items.Add(comboBoxItem);
+
+                // Use ascii fbx file format as default (this allows inspecting the content of the exported file in text editor)
+                if (_exportFormatDescriptions[i].FileExtension == "fbx" && _exportFormatDescriptions[i].Description.Contains("ascii"))
+                    selectedFormatIndex = i;
             }
 
 
-            ExportTypeComboBox.SelectedIndex = 0; // Use Collada file format by default
-            _selectedExportFormatId = _exportFormatDescriptions[ExportTypeComboBox.SelectedIndex].FormatId;
-
-
+            ExportTypeComboBox.SelectedIndex = selectedFormatIndex;
+            _selectedExportFormatId = _exportFormatDescriptions[selectedFormatIndex].FormatId;
 
 
             _assimpWpfImporter = new AssimpWpfImporter();
@@ -125,7 +133,8 @@ namespace Ab3d.PowerToys.Samples.AssimpSamples
             CreateTestScene();
 
             // Set initial output file name
-            OutputFileName.Text = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "AssimpExport.dae");
+            OutputFileNameTextBox.Text = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "AssimpExport.fbx");
+            UpdateOutputFileExtension(selectedFormatIndex);
 
             // Add drag and drop handler for all file extensions
             var dragAndDropHelper = new DragAndDropHelper(ViewportBorder, "*");
@@ -145,6 +154,18 @@ namespace Ab3d.PowerToys.Samples.AssimpSamples
 
             // Here we use NamedObjects because NamedObjects dictionary is also set when the 3D models are read from file
             assimpWpfExporter.NamedObjects = _namedObjects;
+            
+            // Provide a callback that is called when exporting a texture.
+            // This method should save the texture (bitmap) and return the relative file name to that texture file.
+            assimpWpfExporter.ExportTextureCallback = OnExportTexture;
+
+            // reset texture index
+            _textureIndex = 0;
+
+            // When we are embedding the texture then set IsEmbeddingTextures to true.
+            // In this case the OnExportTexture method will not be called.
+            // NOTE that not all file formats are supporting embedded texture (currently only fbx and glfv v2)
+            assimpWpfExporter.IsEmbeddingTextures = EmbedTextureComboBox.IsChecked ?? false;
 
 
             // We can export Model3D, Visual3D or entire Viewport3D:
@@ -155,11 +176,15 @@ namespace Ab3d.PowerToys.Samples.AssimpSamples
             // Here we export Viewport3D:
             assimpWpfExporter.AddViewport3D(viewport3D);
 
+
             bool isExported;
 
             try
             {
                 isExported = assimpWpfExporter.Export(fileName, exportFormatId);
+
+                // To export to an in-memory object use the ExportToDataBlob that returns a ExportDataBlob with byte array
+                //var dataBlob = assimpWpfExporter.ExportToDataBlob(exportFormatId);
 
                 if (!isExported)
                     MessageBox.Show("Not exported");
@@ -171,6 +196,90 @@ namespace Ab3d.PowerToys.Samples.AssimpSamples
             }
 
             return isExported;
+        }
+
+        // This method is called to save texture
+        private string OnExportTexture(BitmapSource bitmapSource)
+        {
+            string fileName = null;
+
+            // bitmap is saved to the same folder as the 3D model file
+            // we get this folder from the OutputFileNameTextBox.Text
+            string exportDirectory = System.IO.Path.GetDirectoryName(OutputFileNameTextBox.Text);
+
+            var bitmap = bitmapSource as BitmapImage;
+
+            if (bitmap != null && bitmap.UriSource != null)
+            {
+                fileName = System.IO.Path.GetFileName(bitmap.UriSource.OriginalString); // get only file name without any path
+
+                // First try to get absolute path to the bitmap file and just copy the file
+                // This preserves the original file (if we would save jpeg again we would encode it again and lose information)
+                string sourceFileName;
+                if (bitmap.UriSource.IsAbsoluteUri)
+                    sourceFileName = bitmap.UriSource.AbsoluteUri;
+                else
+                    sourceFileName = System.IO.Path.Combine(Environment.CurrentDirectory, bitmap.UriSource.OriginalString);
+
+                if (System.IO.File.Exists(sourceFileName))
+                {
+                    string destinationFileName;
+                    if (exportDirectory != null)
+                        destinationFileName = System.IO.Path.Combine(exportDirectory, fileName);
+                    else
+                        destinationFileName = fileName;
+
+                    // Copy file (if it does not exist yet)
+                    if (!System.IO.File.Exists(destinationFileName))
+                        System.IO.File.Copy(sourceFileName, destinationFileName);
+                    
+                    // Now just return file name (it is saved to the same folder as model file, so we can just provide name without any relative path
+                    return fileName;
+                }
+            }
+
+
+            // We could not copy the file because the source file name was not found
+            // We will save the bitmap, but first try to get the file name
+
+            if (fileName == null)
+                fileName = string.Format("image_{0}.png", _textureIndex); // in case there is no file name in the texture, then use index
+
+            
+            string fullFileName;
+            if (exportDirectory != null)
+                fullFileName = System.IO.Path.Combine(exportDirectory, fileName);
+            else
+                fullFileName = fileName;
+
+            SaveBitmap(bitmapSource, fullFileName);
+
+            _textureIndex++;
+
+            // This method should return the relative file name (relative to the exported model file)
+            // So in our case we just return the file name without any path
+
+            return fileName;
+        }
+
+        public static void SaveBitmap(BitmapSource image, string fileName)
+        {
+            var fileExtension = System.IO.Path.GetExtension(fileName);
+
+            BitmapEncoder encoder;
+
+            if (fileExtension.Equals(".jpg", StringComparison.OrdinalIgnoreCase))
+                encoder = new JpegBitmapEncoder();
+            else // if (fileExtension.Equals(".png", StringComparison.OrdinalIgnoreCase))
+                encoder = new PngBitmapEncoder();
+
+            // write the bitmap to a file
+            using (FileStream imageStream = new FileStream(fileName, FileMode.Create))
+            {
+                BitmapFrame bitmapImage = BitmapFrame.Create(image, null, null, null);
+                encoder.Frames.Add(bitmapImage);
+                encoder.Save(imageStream);
+            }
         }
 
         private void LoadExportedScene(string fileName)
@@ -256,6 +365,43 @@ namespace Ab3d.PowerToys.Samples.AssimpSamples
                     ContentModelVisual3D.Children.Add(boxVisual3D);
                 }
             }
+
+
+            // Add ground box to demonstrate saving textures
+            var groundBoxVisual3D = new BoxVisual3D("GroundBox")
+            {
+                CenterPosition = new Point3D(0, -80, 0),
+                Size = new Size3D(900, 10, 900),
+                Material = new DiffuseMaterial(Brushes.Green)
+            };
+
+
+            var bitmapImage = new BitmapImage(new Uri("Resources\\grass.jpg", UriKind.Relative));
+            var imageBrush = new ImageBrush(bitmapImage);
+            groundBoxVisual3D.Material = new DiffuseMaterial(imageBrush);
+
+
+            // It is also possible to export textures that are not loaded from file but generated by WPF
+            // Uncomment the following code to demonstrate that
+            //var radialGradientBrush = new RadialGradientBrush(Colors.Blue, Colors.Aqua);
+            //var rectangle = new Rectangle()
+            //{
+            //    Width = 256,
+            //    Height = 256,
+            //    Fill = radialGradientBrush
+            //};
+
+            //rectangle.Measure(new Size(256, 256));
+            //rectangle.Arrange(new Rect(0, 0, 256, 256));
+
+            //var renderTargetBitmap = new RenderTargetBitmap(256, 256, 96, 96, PixelFormats.Pbgra32);
+            //renderTargetBitmap.Render(rectangle);
+
+            //imageBrush = new ImageBrush(renderTargetBitmap);
+            //groundBoxVisual3D.Material = new DiffuseMaterial(imageBrush);
+
+
+            ContentModelVisual3D.Children.Add(groundBoxVisual3D);
         }
 
         private void LoadModel(string fileName)
@@ -331,11 +477,11 @@ namespace Ab3d.PowerToys.Samples.AssimpSamples
 
         private void ExportButton_OnClick(object sender, RoutedEventArgs e)
         {
-            bool isExported = ExportViewport3D(OutputFileName.Text, _selectedExportFormatId, MainViewport, _namedObjects);
+            bool isExported = ExportViewport3D(OutputFileNameTextBox.Text, _selectedExportFormatId, MainViewport, _namedObjects);
 
             if (isExported)
             {
-                LoadExportedScene(OutputFileName.Text);
+                LoadExportedScene(OutputFileNameTextBox.Text);
                 OpenExportedButton.Visibility = Visibility.Visible;
             }
         }
@@ -373,8 +519,8 @@ namespace Ab3d.PowerToys.Samples.AssimpSamples
         private void OpenExportedButton_OnClick(object sender, RoutedEventArgs e)
         {
             // Open exported file in notepad
-            if (System.IO.File.Exists(OutputFileName.Text))
-                System.Diagnostics.Process.Start("notepad.exe", OutputFileName.Text);
+            if (System.IO.File.Exists(OutputFileNameTextBox.Text))
+                System.Diagnostics.Process.Start("notepad.exe", OutputFileNameTextBox.Text);
         }
 
         private Dictionary<string, object> ConvertToNamedObjects(Dictionary<object, string> objectNames)
@@ -394,8 +540,15 @@ namespace Ab3d.PowerToys.Samples.AssimpSamples
 
         private void ExportTypeComboBox_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            int exportTypeIndex = ExportTypeComboBox.SelectedIndex;
+            if (!this.IsLoaded)
+                return;
 
+            int exportTypeIndex = ExportTypeComboBox.SelectedIndex;
+            UpdateOutputFileExtension(exportTypeIndex);
+        }
+
+        private void UpdateOutputFileExtension(int exportTypeIndex)
+        {
             if (exportTypeIndex == -1)
                 return;
 
@@ -403,7 +556,7 @@ namespace Ab3d.PowerToys.Samples.AssimpSamples
 
             _selectedExportFormatId = _exportFormatDescriptions[exportTypeIndex].FormatId;
 
-            OutputFileName.Text = System.IO.Path.ChangeExtension(OutputFileName.Text, selectedFileExtension);
+            OutputFileNameTextBox.Text = System.IO.Path.ChangeExtension(OutputFileNameTextBox.Text, selectedFileExtension);
         }
     }
 }

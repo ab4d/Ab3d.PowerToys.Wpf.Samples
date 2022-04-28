@@ -51,6 +51,14 @@ namespace Ab3d.PowerToys.Samples.OtherCameraControllers
 
             UpdateMoveCameraConditions();
         }
+        
+        private void OnQuickZoomCheckBoxChanged(object sender, RoutedEventArgs e)
+        {
+            if (!this.IsLoaded)
+                return;
+
+            UpdateQuickZoomCameraConditions();
+        }
 
         private void UpdateRotateCameraConditions()
         {
@@ -102,6 +110,32 @@ namespace Ab3d.PowerToys.Samples.OtherCameraControllers
                 rotateConditions |= Ab3d.Controls.MouseCameraController.MouseAndKeyboardConditions.AltKey;
 
             MouseCameraController1.MoveCameraConditions = rotateConditions;
+        }
+        
+        private void UpdateQuickZoomCameraConditions()
+        {
+            var rotateConditions = Ab3d.Controls.MouseCameraController.MouseAndKeyboardConditions.Disabled;
+
+            if (LeftButtonCheckBox3.IsChecked ?? false)
+                rotateConditions |= Ab3d.Controls.MouseCameraController.MouseAndKeyboardConditions.LeftMouseButtonPressed;
+
+            if (MiddleButtonCheckBox3.IsChecked ?? false)
+                rotateConditions |= Ab3d.Controls.MouseCameraController.MouseAndKeyboardConditions.MiddleMouseButtonPressed;
+
+            if (RightButtonCheckBox3.IsChecked ?? false)
+                rotateConditions |= Ab3d.Controls.MouseCameraController.MouseAndKeyboardConditions.RightMouseButtonPressed;
+
+
+            if (ShiftKeyCheckBox3.IsChecked ?? false)
+                rotateConditions |= Ab3d.Controls.MouseCameraController.MouseAndKeyboardConditions.ShiftKey;
+
+            if (ControlKeyCheckBox3.IsChecked ?? false)
+                rotateConditions |= Ab3d.Controls.MouseCameraController.MouseAndKeyboardConditions.ControlKey;
+
+            if (AltKeyCheckBox3.IsChecked ?? false)
+                rotateConditions |= Ab3d.Controls.MouseCameraController.MouseAndKeyboardConditions.AltKey;
+
+            MouseCameraController1.QuickZoomConditions = rotateConditions;
         }
 
         private void ShowCustomInfoButtonOnClick(object sender, RoutedEventArgs e)

@@ -141,6 +141,36 @@ namespace Ab3d.PowerToys.Samples.Objects3D
 
             TubeVisual3D1.HeightDirection = heightDirection;
         }
+
+        private void StartEndAngleComboBox_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (!this.IsLoaded)
+                return;
+
+            double startAngle, endAngle;
+
+            int index = StartEndAngleComboBox.SelectedIndex;
+
+            if (index == 1)
+            {
+                startAngle = 90;
+                endAngle = 180;
+            }           
+            else if (index == 2)
+            {
+                startAngle = 90;
+                endAngle = 120;
+            }
+            else // if (index == 0)
+            {
+                // default value
+                startAngle = 0;
+                endAngle   = 360;
+            }
+
+            TubeVisual3D1.StartAngle = startAngle;
+            TubeVisual3D1.EndAngle   = endAngle;
+        }
     }
 }
 

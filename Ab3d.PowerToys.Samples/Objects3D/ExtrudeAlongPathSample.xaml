@@ -61,6 +61,6 @@
                                  TargetCamera="{Binding ElementName=Camera1}"/>
 
         <TextBlock FontWeight="Bold" FontSize="20" Foreground="Silver" Margin="10" VerticalAlignment="Top" HorizontalAlignment="Left" 
-                   Text="Extrude a 2D shape along a 3D path"/>
+                   Text="Extrude a 2D shape along a 3D path sampels"/>
     </Grid>
 </Page>

@@ -24,8 +24,9 @@
                     </ModelVisual3D.Content>
                 </ModelVisual3D>
                 <visuals:TubeVisual3D x:Name="TubeVisual3D1" 
-                                      Height="50" Material="Silver"
+                                      Material="Silver"
                                       StartAngle="0" EndAngle="360"
+                                      Height="{Binding ElementName=HeightSlider, Path=Value}"
                                       OuterRadius="{Binding ElementName=OuterRadiusSlider, Path=Value}" 
                                       InnerRadius="{Binding ElementName=InnerRadiusSlider, Path=Value}" 
                                       Segments="{Binding ElementName=SectionsSlider, Path=Value}"
@@ -76,50 +77,45 @@
 
             <Label/>
             <TextBlock FontWeight="Bold" FontSize="13" Foreground="Silver" Margin="0 3" Text="Properties:"/>
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                </Grid.RowDefinitions>
-                <TextBlock Grid.Row="0" Grid.Column="0" Foreground="Silver" Margin="0 3 0 0" Text="CenterPosition:"/>
-                <TextBlock Grid.Row="0" Grid.Column="1" Foreground="Silver" Margin="0 3 0 0" Text="0 0 0 (default)"/>
 
-                <TextBlock Grid.Row="1" Grid.Column="0" Foreground="Silver" Margin="0 3 0 0" Text="Height:"/>
-                <TextBlock Grid.Row="1" Grid.Column="1" Foreground="Silver" Margin="0 3 0 0" Text="50"/>
-            </Grid>
+            <TextBlock Foreground="Silver" Margin="0 3 0 0" Text="CenterPosition: (0 0 0)"/>
+
             <TextBlock Text="HeightDirection:" Foreground="Silver" Margin="0 9 0 0" />
             <RadioButton Name="HeightDirectionUpRadioButton" Content="Up (0, 1, 0)" Foreground="Silver" IsChecked="True" GroupName="HeightDirection" Checked="HeightDirectionCheckedChanged"/>
             <RadioButton Name="HeightDirectionRightRadioButton" Content="Right (1, 0, 0)" Foreground="Silver" GroupName="HeightDirection" Checked="HeightDirectionCheckedChanged"/>
             <RadioButton Name="HeightDirectionForwardRadioButton" Content="Forward (0, 0, -1)" Foreground="Silver" GroupName="HeightDirection" Checked="HeightDirectionCheckedChanged"/>
 
-            <StackPanel Orientation="Horizontal" Margin="0 6 0 0">
-                <TextBlock Foreground="Silver" Margin="0 3 0 0" Text="Tube OuterRadius:"/>
-                <TextBlock Foreground="Silver" Margin="5 3 0 0" Text="{Binding ElementName=OuterRadiusSlider, Path=Value, StringFormat=F0}"/>
-            </StackPanel>
-            <Slider Name="OuterRadiusSlider"  Width="160"
+            <TextBlock Foreground="Silver" Margin="0 13 0 0" Text="{Binding ElementName=HeightSlider, Path=Value, StringFormat={}HeightSlider: {0:F0}}"/>
+            <Slider Name="HeightSlider" Width="160"
+                            Minimum="0" Maximum="100" Value="50" 
+                            AutoToolTipPlacement="BottomRight" AutoToolTipPrecision="0" HorizontalAlignment="Left"
+                            TickFrequency="10" TickPlacement="BottomRight" SmallChange="1" LargeChange="10" IsSnapToTickEnabled="False"/>
+            
+            <TextBlock Foreground="Silver" Margin="0 6 0 0" Text="{Binding ElementName=OuterRadiusSlider, Path=Value, StringFormat={}OuterRadius: {0:F0}}"/>
+            <Slider Name="OuterRadiusSlider" Width="160"
                             Minimum="0" Maximum="100" Value="80" 
                             AutoToolTipPlacement="BottomRight" AutoToolTipPrecision="0" HorizontalAlignment="Left"
                             TickFrequency="10" TickPlacement="BottomRight" SmallChange="1" LargeChange="10" IsSnapToTickEnabled="False"/>
-            <StackPanel Orientation="Horizontal">
-                <TextBlock Foreground="Silver" Margin="0 3 0 0" Text="Tube InnerRadius:"/>
-                <TextBlock Foreground="Silver" Margin="5 3 0 0" Text="{Binding ElementName=InnerRadiusSlider, Path=Value, StringFormat=F0}"/>
-            </StackPanel>
+
+            <TextBlock Foreground="Silver" Margin="0 6 0 0" Text="{Binding ElementName=InnerRadiusSlider, Path=Value, StringFormat={}InnerRadius: {0:F0}}"/>
             <Slider Name="InnerRadiusSlider"  Width="160"
                             Minimum="0" Maximum="100" Value="40" 
                             AutoToolTipPlacement="BottomRight" AutoToolTipPrecision="0" HorizontalAlignment="Left"
                             TickFrequency="10" TickPlacement="BottomRight" SmallChange="1" LargeChange="10" IsSnapToTickEnabled="False"/>
-            <StackPanel Orientation="Horizontal">
-                <TextBlock Foreground="Silver" Margin="0 3 0 0" Text="Tube segments:"/>
-                <TextBlock Foreground="Silver" Margin="5 3 0 0" Text="{Binding ElementName=SectionsSlider, Path=Value}"/>
-            </StackPanel>
+
+            <TextBlock Foreground="Silver" Margin="0 6 0 0" Text="{Binding ElementName=SectionsSlider, Path=Value, StringFormat={}Tube segments: {0:F0}}"/>
             <Slider Name="SectionsSlider"  Width="160"
-                            Minimum="3" Maximum="40" Value="20" 
-                            AutoToolTipPlacement="BottomRight" AutoToolTipPrecision="0" HorizontalAlignment="Left"
-                            TickFrequency="1" TickPlacement="BottomRight" SmallChange="1" LargeChange="5" IsSnapToTickEnabled="True"/>
+                    Minimum="3" Maximum="40" Value="20" 
+                    AutoToolTipPlacement="BottomRight" AutoToolTipPrecision="0" HorizontalAlignment="Left"
+                    TickFrequency="1" TickPlacement="BottomRight" SmallChange="1" LargeChange="5" IsSnapToTickEnabled="True"/>
+
+
+            <TextBlock Text="StartAngle - EndAngle:" Foreground="Silver" Margin="0 13 0 0" />
+            <ComboBox Name="StartEndAngleComboBox" SelectedIndex="0" Margin="0 3 0 0" SelectionChanged="StartEndAngleComboBox_OnSelectionChanged">
+                <ComboBoxItem>0 - 360 (default)</ComboBoxItem>
+                <ComboBoxItem>90 - 180</ComboBoxItem>
+                <ComboBoxItem>90 - 120</ComboBoxItem>
+            </ComboBox>
         </StackPanel>
     </Grid>
 </Page>

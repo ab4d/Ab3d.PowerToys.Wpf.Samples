@@ -5,7 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:common="clr-namespace:Ab3d.PowerToys.Samples.Common"
       mc:Ignorable="d" 
-      d:DesignHeight="500" d:DesignWidth="800"
+      d:DesignHeight="700" d:DesignWidth="1000"
       Background="{StaticResource GrayTitlePageGradient}"
 	Title="ReaderObjIntroPage">
     <Grid Margin="10">
@@ -38,7 +38,7 @@
                     - BackMaterial or some other form of two-sided materials is not supported by any file format\n              
                     \n
                     \n
-                    Assimp importer is a native library and comes with 32-bit and 64-bit build (Assimp32.dll, Assimp64.dll). The Assimp library also needs two native libraries from Visual C++ Redistributable for Visual Studio 2012: msvcp110.dll and msvcr110.dll.\n
+                    Assimp importer is a native library and comes with 32-bit and 64-bit build (Assimp32.dll, Assimp64.dll). The native Assimp library requires that the Visual C++ Redistributable for Visual Studio 2019 is available on the system (see comments in Assimp/AssimpLoader.cs file for more info).\n
                     \n
                     To use native assimp library in .Net code, we also need an Open Source Assimp.Net library that is a managed wrapper for assimp library. On top of that we use Ab3d.PowerToys.Assimp library that converts the Assimp 3D Scene object into WPF 3D objects.\n
                     \n

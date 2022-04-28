@@ -301,7 +301,12 @@ namespace Ab3d.PowerToys.Samples.AssimpSamples
             if (!_isAnimationStarted)
             {
                 if (_assimpAnimationController != null)
+                {
                     _assimpAnimationController.StartAnimation();
+
+                    // To start animation at a custom frame number use StartAnimation override that takes startFrameNumber as parameter
+                    //_assimpAnimationController.StartAnimation(startFrameNumber: 10);
+                }
 
                 StartStopAnimationButton.Content = "Stop animation";
                 _isAnimationStarted = true;

@@ -38,8 +38,7 @@
                                          ZAxis1Title="" ZAxis2Title=""
                                          ValueDisplayFormatString="0.##"
                                          ValueLabelsFontSize="14" MajorTicksLength="3" MinorTicksLength="1.5"
-                                         ShowBottomConnectionLines="{Binding ElementName=ShowBottomGridCheckBox, Path=IsChecked}"
-                                         IsVisible="{Binding ElementName=ShowAxesBoxVisual3DCheckBox, Path=IsChecked}"
+                                         ShowBottomConnectionLines="True"
                                          OverlayCanvas="{Binding ElementName=AxisOverlayCanvas}"
                                          Camera="{Binding ElementName=Camera1}" />
 

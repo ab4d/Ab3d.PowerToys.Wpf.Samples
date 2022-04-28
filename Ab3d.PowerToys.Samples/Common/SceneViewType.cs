@@ -5,9 +5,9 @@ namespace Ab3d.PowerToys.Samples.Common
 {
     public class SceneViewType
     {
-        public readonly string Name;
-        public readonly double Heading;
-        public readonly double Attitude;
+        public string Name { get; private set; }
+        public double Heading { get; private set; }
+        public double Attitude { get; private set; }
 
         public SceneViewType(string name, double heading, double attitude)
         {
