@@ -20,7 +20,7 @@
         </Grid.ColumnDefinitions>
 
         <Canvas Name="UserPathCanvas" Grid.Column="0" Grid.Row="0" Background="#DDD" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
-                Cursor="Cross"
+                Cursor="Cross" ClipToBounds="True"
                 MouseLeftButtonUp="UserPathCanvas_MouseLeftButtonUp"
                 SizeChanged="UserPathCanvas_OnSizeChanged">
             
@@ -64,6 +64,9 @@
             
             <CheckBox Name="TransparentMaterialCheckBox" Content="Use transparent material" IsChecked="True" HorizontalAlignment="Left" Margin="0 3 0 0"
                       Checked="OnTransparentMaterialCheckBoxCheckedChanged" Unchecked="OnTransparentMaterialCheckBoxCheckedChanged" />
+            
+            <CheckBox Name="RedBackMaterialCheckBox" Content="Use red back material" IsChecked="False" HorizontalAlignment="Left" Margin="0 3 0 0"
+                      Checked="OnRedBackMaterialCheckBoxCheckedChanged" Unchecked="OnRedBackMaterialCheckBoxCheckedChanged" />
         </StackPanel>
 
 

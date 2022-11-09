@@ -51,7 +51,7 @@ namespace Ab3d.PowerToys.Samples.Graph3D
 
             // Customize the value labels:
             var valueLabels = zAxis.GetValueLabels();         // first get default values
-            valueLabels[0] = "";                              // remove "0" text because it is displayed on the same spot as "1,000"
+            valueLabels[0] = "0 (min)";                       
             valueLabels[valueLabels.Length - 1] += " (max)";  // add custom text to existing label; Note that this will move the axis title to the left (max value label length is used to offset the position of the title)
             zAxis.SetCustomValueLabels(valueLabels);
 
@@ -136,12 +136,14 @@ namespace Ab3d.PowerToys.Samples.Graph3D
             yAxis2.AxisTitle = null;
             yAxis2.IsRenderingOnRightSideOfAxis = !yAxis.IsRenderingOnRightSideOfAxis; // flip side on which the ticks and labels are rendered
 
-            // Remove value label "1" because it overlaps with top y axis
-            valueLabels = yAxis2.GetValueLabels();
-            valueLabels[0] = "";
-            yAxis2.SetCustomValueLabels(valueLabels);
+            //// Remove value label "1" because it overlaps with top y axis
+            //valueLabels = yAxis2.GetValueLabels();
+            //valueLabels[0] = "";
+            //yAxis2.SetCustomValueLabels(valueLabels);
 
             MainViewport.Children.Add(yAxis2);
+
+            UpdateAdjustFirstAndLastLabelPosition();
         }
 
         private void OnIsRenderingTickLinesOnOverlayCheckBoxCheckedChanged(object sender, RoutedEventArgs e)
@@ -158,6 +160,23 @@ namespace Ab3d.PowerToys.Samples.Graph3D
                 axisWithOverlayLabelsVisual3D.MinorTicksLength   = isRenderingTickLinesOnOverlay ? 5  : 2.5;
                 axisWithOverlayLabelsVisual3D.ValueLabelsPadding = isRenderingTickLinesOnOverlay ? 6  : 3;
             }
+        }
+        
+        private void UpdateAdjustFirstAndLastLabelPosition()
+        {
+            foreach (var axisWith3DLabelsVisual3D in MainViewport.Children.OfType<AxisWithOverlayLabelsVisual3D>())
+            {
+                axisWith3DLabelsVisual3D.AdjustFirstLabelPosition = AdjustFirstLabelPositionCheckBox.IsChecked ?? false;
+                axisWith3DLabelsVisual3D.AdjustLastLabelPosition = AdjustLastLabelPositionCheckBox.IsChecked ?? false;
+            }
+        }
+
+        private void OnAdjustFirstOrLastLabelPositionCheckBoxCheckedChanged(object sender, RoutedEventArgs e)
+        {
+            if (!this.IsLoaded)
+                return;
+
+            UpdateAdjustFirstAndLastLabelPosition();
         }
     }
 }

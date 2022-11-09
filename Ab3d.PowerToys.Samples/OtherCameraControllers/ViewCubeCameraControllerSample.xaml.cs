@@ -38,6 +38,14 @@ namespace Ab3d.PowerToys.Samples.OtherCameraControllers
             // To preserve default plane textures but only use custom texts, you can change the DefaultCubePlaneTexts.
             // This needs to be done before the control is loaded. For example:
             //ViewCubeCameraController1.DefaultCubePlaneTexts = new string[] { "EAST", "WEST", "UP", "DOWN", "SOUTH", "NORTH" };
+
+            AdjustHeadingRotationInfoControl.InfoText =
+@"This CheckBox sets the ViewCubeCameraController.IsHeadingRotationInvertedWhenUpsideDown property.
+When true (by default) then heading direction is inverted when the ViewCube is shown upside down (y pointing down).
+This way the rotation of the ViewCube follows the mouse direction.
+When false, then moving mouse to the right will always increase heading.
+
+Note that this setting works only for cameras derived from SphericalCamera (for example TargetPositionCamera but not FreeCamera).";
         }
 
         private void OnViewCubeSettingsChanged(object sender, SelectionChangedEventArgs e)

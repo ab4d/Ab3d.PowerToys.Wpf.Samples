@@ -40,11 +40,11 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Ab3d.PowerToys, Version=10.1.8147.2045, Culture=neutral, PublicKeyToken=d45c8e156fba2841, processorArchitecture=MSIL">
-      <HintPath>..\packages\Ab3d.PowerToys.10.1.8147\lib\net45\Ab3d.PowerToys.dll</HintPath>
+    <Reference Include="Ab3d.PowerToys, Version=10.2.8348.2045, Culture=neutral, PublicKeyToken=d45c8e156fba2841, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ab3d.PowerToys.10.2.8348\lib\net45\Ab3d.PowerToys.dll</HintPath>
     </Reference>
-    <Reference Include="Ab3d.PowerToys.Input, Version=10.1.8147.2045, Culture=neutral, PublicKeyToken=d45c8e156fba2841, processorArchitecture=MSIL">
-      <HintPath>..\packages\Ab3d.PowerToys.Input.10.1.8147\lib\net45\Ab3d.PowerToys.Input.dll</HintPath>
+    <Reference Include="Ab3d.PowerToys.Input, Version=10.2.8348.2045, Culture=neutral, PublicKeyToken=d45c8e156fba2841, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ab3d.PowerToys.Input.10.2.8348\lib\net45\Ab3d.PowerToys.Input.dll</HintPath>
     </Reference>
     <Reference Include="AssimpNet">
       <SpecificVersion>False</SpecificVersion>
@@ -91,12 +91,15 @@
     </Compile>
     <Compile Include="Objects3D\ExtrudeAlongPathSettingsSample.xaml.cs">
       <DependentUpon>ExtrudeAlongPathSettingsSample.xaml</DependentUpon>
-    </Compile>      
+    </Compile>
     <Compile Include="Objects3D\SphericalZoneVisual3DSample.xaml.cs">
       <DependentUpon>SphericalZoneVisual3DSample.xaml</DependentUpon>
     </Compile>
     <Compile Include="Objects3D\TorusKnotVisual3DSample.xaml.cs">
       <DependentUpon>TorusKnotVisual3DSample.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Objects3D\TriangulatorWithHolesSample.xaml.cs">
+      <DependentUpon>TriangulatorWithHolesSample.xaml</DependentUpon>
     </Compile>
     <Compile Include="Objects3D\TubeLineVisual3DSample.xaml.cs">
       <DependentUpon>TubeLineVisual3DSample.xaml</DependentUpon>
@@ -242,12 +245,16 @@
     <Page Include="Objects3D\ExtrudeAlongPathSettingsSample.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>    
+    </Page>
     <Page Include="Objects3D\SphericalZoneVisual3DSample.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Objects3D\TorusKnotVisual3DSample.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Objects3D\TriangulatorWithHolesSample.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -1524,7 +1531,7 @@
     </Compile>
     <Content Include="Resources\grass.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>     
+    </Content>
     <Content Include="Resources\Streamlines.csv">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

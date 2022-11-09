@@ -7,6 +7,7 @@
       xmlns:visuals="clr-namespace:Ab3d.Visuals;assembly=Ab3d.PowerToys"
       xmlns:controls="clr-namespace:Ab3d.Controls;assembly=Ab3d.PowerToys"
       xmlns:cameras="clr-namespace:Ab3d.Cameras;assembly=Ab3d.PowerToys"
+      xmlns:common="clr-namespace:Ab3d.PowerToys.Samples.Common"
       mc:Ignorable="d" 
       d:DesignHeight="500" d:DesignWidth="800"
       Title="ViewBoxSample">
@@ -53,13 +54,18 @@
                                                    Width="200" Height="200"
                                                    IsEdgeSelectionEnabled="True"
                                                    IsRotationCircleShown="{Binding ElementName=IsRotationCircleShownCheckBox, Path=IsChecked}"
+                                                   IsHeadingRotationInvertedWhenUpsideDown="{Binding ElementName=IsHeadingRotationInvertedWhenUpsideDownCheckBox, Path=IsChecked}"
                                                    TargetCamera="{Binding ElementName=Camera1}" />
 
                 <CheckBox Name="IsEdgeSelectionEnabledCheckBox" Content="IsEdgeSelectionEnabled" IsChecked="True" FontWeight="Bold" Margin="0 8 0 2" 
                           Checked="OnIsEdgeSelectionEnabledCheckBoxCheckedChanged" Unchecked="OnIsEdgeSelectionEnabledCheckBoxCheckedChanged"/>
 
-                <CheckBox Name="IsRotationCircleShownCheckBox" Content="IsRotationCircleShown" IsChecked="True" Margin="0 4 0 4" FontWeight="Bold" />
+                <CheckBox Name="IsRotationCircleShownCheckBox" Content="IsRotationCircleShown" IsChecked="True" Margin="0 4 0 0" FontWeight="Bold" />
 
+                <StackPanel Orientation="Horizontal" Margin="0 4 0 4">
+                    <CheckBox Name="IsHeadingRotationInvertedWhenUpsideDownCheckBox" Content="Adjust heading rotation" IsChecked="True" FontWeight="Bold" />
+                    <common:InfoControl x:Name="AdjustHeadingRotationInfoControl" Margin="5 0 0 0" />
+                </StackPanel>
                 <CheckBox Name="IsCustomBitmapsShownCheckBox" Content="Is using custom bitmaps" IsChecked="False" FontWeight="Bold"
                           Checked="OnIsCustomBitmapsShownCheckBoxCheckedChanged" Unchecked="OnIsCustomBitmapsShownCheckBoxCheckedChanged" />
 

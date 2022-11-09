@@ -177,6 +177,8 @@ This sample let you experiment with different values.";
 
             _isDemoAxesShown = true;
 
+            UpdateAdjustFirstAndLastLabelPosition();
+
 
             // NOTE:
             // Many additional customizations are possible by deriving your class from AxisWith3DLabelsVisual3D
@@ -297,6 +299,17 @@ This sample let you experiment with different values.";
             MainViewport.Children.Add(yAxis2);
 
             _isDemoAxesShown = false;
+
+            UpdateAdjustFirstAndLastLabelPosition();
+        }
+
+        private void UpdateAdjustFirstAndLastLabelPosition()
+        {
+            foreach (var axisWith3DLabelsVisual3D in MainViewport.Children.OfType<AxisWith3DLabelsVisual3D>())
+            {
+                axisWith3DLabelsVisual3D.AdjustFirstLabelPosition = AdjustFirstLabelPositionCheckBox.IsChecked ?? false;
+                axisWith3DLabelsVisual3D.AdjustLastLabelPosition  = AdjustLastLabelPositionCheckBox.IsChecked ?? false;
+            }
         }
 
         private void SwitchAxesButton_OnClick(object sender, RoutedEventArgs e)
@@ -361,6 +374,14 @@ This sample let you experiment with different values.";
             int height = Int32.Parse(textParts[1]);
 
             return new Size(width, height);
+        }
+
+        private void OnAdjustFirstOrLastLabelPositionCheckBoxCheckedChanged(object sender, RoutedEventArgs e)
+        {
+            if (!this.IsLoaded)
+                return;
+
+            UpdateAdjustFirstAndLastLabelPosition();
         }
     }
 }

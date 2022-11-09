@@ -85,6 +85,20 @@
                     </ComboBox>
                 </common:SimpleGrid>
 
+                <StackPanel Orientation="Horizontal">
+                    <CheckBox Name="AdjustFirstLabelPositionCheckBox" Content="AdjustFirstLabelPosition" IsChecked="False" Margin="0 15 0 0" 
+                              Checked="OnAdjustFirstOrLastLabelPositionCheckBoxCheckedChanged" Unchecked="OnAdjustFirstOrLastLabelPositionCheckBoxCheckedChanged"/>
+                    <common:InfoControl InfoWidth="400" Margin="7 15 0 0" 
+                                        InfoText="When checked, then the first label is moved up.&#x0a;This can prevent overlapping the first label with adjacent axis.&#x0a;The amount of movement is calculated by multiplying font size and the LabelAdjustmentFactor (0.45 by default)."/>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal">
+                    <CheckBox Name="AdjustLastLabelPositionCheckBox" Content="AdjustLastLabelPosition" IsChecked="False" Margin="0 5 0 0" 
+                              Checked="OnAdjustFirstOrLastLabelPositionCheckBoxCheckedChanged" Unchecked="OnAdjustFirstOrLastLabelPositionCheckBoxCheckedChanged"/>
+                    <common:InfoControl InfoWidth="400" Margin="7 5 0 0" 
+                                        InfoText="When checked, then the the last label is moved down.&#x0a;This can prevent overlapping the last label with adjacent axis.&#x0a;The amount of movement is calculated by multiplying font size and the LabelAdjustmentFactor (0.45 by default)."/>
+                </StackPanel>
+
                 <Button Name="SwitchAxesButton" Content="Show connected axes" Margin="0 15 0 0" Padding="7 2"
                         Click="SwitchAxesButton_OnClick">
                     <Button.LayoutTransform>

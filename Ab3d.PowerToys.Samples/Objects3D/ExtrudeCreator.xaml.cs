@@ -105,9 +105,10 @@ namespace Ab3d.PowerToys.Samples.Objects3D
 
             // Adjust shape positions so that (0,0) is at the center of the area
             // We also invert y so that y increased upwards (as the blue arrows shows) and not downwards as in Canvas coordinate system
-            var centeredShapePositions = InvertYAndCenterPoints(_shapePositions);
+            //var centeredShapePositions = InvertYAndCenterPoints(_shapePositions);
+            var centeredShapePositions = CenterPoints(_shapePositions);
 
-            Ab3d.Utilities.Triangulator triangulator = new Ab3d.Utilities.Triangulator(centeredShapePositions);
+            Ab3d.Utilities.Triangulator triangulator = new Ab3d.Utilities.Triangulator(centeredShapePositions, isYAxisUp: true);
 
             try
             {
@@ -185,7 +186,10 @@ namespace Ab3d.PowerToys.Samples.Objects3D
             else
                 _shownModel.Material = _standardMaterial;
 
-            _shownModel.BackMaterial = _shownModel.Material;
+            if (RedBackMaterialCheckBox.IsChecked ?? false)
+                _shownModel.BackMaterial = new DiffuseMaterial(Brushes.Red);
+            else
+                _shownModel.BackMaterial = _shownModel.Material;
 
             _shownModel.Geometry = meshGeometry3D;
 
@@ -311,6 +315,23 @@ namespace Ab3d.PowerToys.Samples.Objects3D
 
             return centeredPoints;
         }
+        
+        private List<Point> CenterPoints(List<Point> originalPoints)
+        {
+            int count = originalPoints.Count;
+            var centeredPoints = new List<Point>(count);
+
+            double actualWidth = UserPathCanvas.ActualWidth;
+            double actualHeight = UserPathCanvas.ActualHeight;
+
+            double dx = -actualWidth / 2;
+            double dy = -actualHeight / 2;
+
+            for (int i = 0; i < count; i++)
+                centeredPoints.Add(new Point(originalPoints[i].X + dx, originalPoints[i].Y + dy));
+
+            return centeredPoints;
+        }
 
 
         private bool GetExtrudeAndUpVectors(out Vector3D extrudeVector3D, out Vector3D shapeYVector3D)
@@ -431,6 +452,17 @@ namespace Ab3d.PowerToys.Samples.Objects3D
                 _shownModel.Material = _transparentMaterial;
             else
                 _shownModel.Material = _standardMaterial;
+        }
+        
+        private void OnRedBackMaterialCheckBoxCheckedChanged(object sender, RoutedEventArgs e)
+        {
+            if (_shownModel == null)
+                return;
+
+            if (RedBackMaterialCheckBox.IsChecked ?? false)
+                _shownModel.BackMaterial = new DiffuseMaterial(Brushes.Red);
+            else
+                _shownModel.BackMaterial = _shownModel.Material;
         }
 
         private void OnExtrudeSettingsCheckBoxChanged(object sender, RoutedEventArgs e)

@@ -9,19 +9,23 @@
              xmlns:visuals="clr-namespace:Ab3d.Visuals;assembly=Ab3d.PowerToys"                  
              mc:Ignorable="d" 
              Title="SliceSample"
-             d:DesignHeight="300" d:DesignWidth="700">
+             d:DesignHeight="500" d:DesignWidth="700">
     <Grid>
         <Border Name="ViewportBorder" Background="Transparent">
             <Viewport3D Name="MainViewport">
-                <visuals:WireframeVisual3D x:Name="WireframeModels1" 
+                <visuals:WireframeVisual3D x:Name="FrontWireframeVisual3D" 
                                             WireframeType="WireframeWithOriginalSolidModel" UseModelColor="False"
-                                            LineColor="Black" LineThickness="1" />
+                                            LineColor="Black" LineThickness="1" 
+                                            IsVisible="{Binding ElementName=ShowFrontCheckBox, Path=IsChecked}" />
 
-                <visuals:WireframeVisual3D x:Name="WireframeModels2" 
+                <visuals:WireframeVisual3D x:Name="BackWireframeVisual3D" 
                                             WireframeType="WireframeWithOriginalSolidModel" UseModelColor="False"
-                                            LineColor="Black" LineThickness="1" />
+                                            LineColor="Black" LineThickness="1"
+                                            IsVisible="{Binding ElementName=ShowBackCheckBox, Path=IsChecked}" />
 
-                <ModelVisual3D x:Name="RootModelVisual3D"></ModelVisual3D>
+                <!--<ModelVisual3D x:Name="RootModelVisual3D"></ModelVisual3D>-->
+                <visuals:ContentVisual3D x:Name="FrontVisual3D" IsVisible="{Binding ElementName=ShowFrontCheckBox, Path=IsChecked}" />
+                <visuals:ContentVisual3D x:Name="BackVisual3D" IsVisible="{Binding ElementName=ShowBackCheckBox, Path=IsChecked}" />
 
                 <ModelVisual3D>
                     <ModelVisual3D.Content>
@@ -75,7 +79,10 @@
                     <Slider Name="SlicePlaneSlider" Minimum="0" Maximum="100" Value="70"
                             ValueChanged="OnTransformSettingsChanged"></Slider>
 
-                    <CheckBox Name="Show2DSliceCheckBox" Content="Show 2D slice" IsChecked="True" FontWeight="Bold" Margin="0 10 0 0" 
+                    <CheckBox Name="ShowFrontCheckBox" Content="Show front" IsChecked="True" FontWeight="Bold" Margin="0 10 0 0" />
+                    <CheckBox Name="ShowBackCheckBox" Content="Show back" IsChecked="True" FontWeight="Bold" Margin="0 3 0 0" />
+
+                    <CheckBox Name="Show2DSliceCheckBox" Content="Show 2D slice" IsChecked="True" FontWeight="Bold" Margin="0 3 0 0" 
                               Checked="OnShow2DSliceCheckBoxChanged" Unchecked="OnShow2DSliceCheckBoxChanged" />
                 </StackPanel>
             </Border>

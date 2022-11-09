@@ -60,10 +60,11 @@ namespace Ab3d.PowerToys.Samples.Objects3D
             _originalMesh3D = null;
             _model3DFor2DSlice = null;
 
-            RootModelVisual3D.Children.Clear();
+            FrontVisual3D.Children.Clear();
+            BackVisual3D.Children.Clear();
 
-            WireframeModels1.OriginalModel = null;
-            WireframeModels2.OriginalModel = null;
+            FrontWireframeVisual3D.OriginalModel = null;
+            BackWireframeVisual3D.OriginalModel = null;
             
 
             if (Model1RadioButton.IsChecked ?? false)
@@ -135,9 +136,10 @@ namespace Ab3d.PowerToys.Samples.Objects3D
                 plane.SliceModelVisual3D(_originalModelVisual3D, out frontModelVisual3D, out backModelVisual3D);
 
 
-                RootModelVisual3D.Children.Clear();
+                FrontVisual3D.Children.Clear();
+                BackVisual3D.Children.Clear();
 
-                if (frontModelVisual3D != null)
+                if (frontModelVisual3D != null && (ShowFrontCheckBox.IsChecked ?? false))
                 {
                     foreach (var modelVisual3D in frontModelVisual3D.Children.OfType<ModelVisual3D>())
                     {
@@ -146,10 +148,10 @@ namespace Ab3d.PowerToys.Samples.Objects3D
                     }
 
                     frontModelVisual3D.Transform = frontModelTransform;
-                    RootModelVisual3D.Children.Add(frontModelVisual3D);
+                    FrontVisual3D.Children.Add(frontModelVisual3D);
                 }
 
-                if (backModelVisual3D != null)
+                if (backModelVisual3D != null && (ShowBackCheckBox.IsChecked ?? false))
                 {
                     foreach (var modelVisual3D in backModelVisual3D.Children.OfType<ModelVisual3D>())
                     {
@@ -158,7 +160,7 @@ namespace Ab3d.PowerToys.Samples.Objects3D
                     }
 
                     backModelVisual3D.Transform = backModelTransform;
-                    RootModelVisual3D.Children.Add(backModelVisual3D);
+                    BackVisual3D.Children.Add(backModelVisual3D);
                 }
 
                 return;
@@ -214,11 +216,19 @@ namespace Ab3d.PowerToys.Samples.Objects3D
 
 
             // When the sliced 3D models is not ModelVisual3D, we show both sliced parts in WireframeVisual3D object (with all 3D lines)
-            WireframeModels1.OriginalModel = frontModel3D;
-            WireframeModels1.Transform = frontModelTransform;
+            if (ShowFrontCheckBox.IsChecked ?? false)
+                FrontWireframeVisual3D.OriginalModel = frontModel3D;
+            else
+                FrontWireframeVisual3D.OriginalModel = null;
 
-            WireframeModels2.OriginalModel = backModel3D;
-            WireframeModels2.Transform = backModelTransform;
+            FrontWireframeVisual3D.Transform = frontModelTransform;
+
+            if (ShowBackCheckBox.IsChecked ?? false)
+                BackWireframeVisual3D.OriginalModel = backModel3D;
+            else
+                BackWireframeVisual3D.OriginalModel = null;
+
+            BackWireframeVisual3D.Transform = backModelTransform;
         }
 
         private Transform3D GetSelectedPlaneTransform(bool updateTransformationAmount)
@@ -265,6 +275,7 @@ namespace Ab3d.PowerToys.Samples.Objects3D
                 new Plane(1, 0, 0, 0),
                 new Plane(0, 1, 0, 0),
                 new Plane(0, 0, 1, 0),
+                new Plane(0, 0, -1, 0),
             };
 
             foreach (var plane in planes)
