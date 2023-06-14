@@ -40,11 +40,11 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Ab3d.PowerToys, Version=10.2.8348.2045, Culture=neutral, PublicKeyToken=d45c8e156fba2841, processorArchitecture=MSIL">
-      <HintPath>..\packages\Ab3d.PowerToys.10.2.8348\lib\net45\Ab3d.PowerToys.dll</HintPath>
+    <Reference Include="Ab3d.PowerToys, Version=10.3.8564.2045, Culture=neutral, PublicKeyToken=d45c8e156fba2841, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ab3d.PowerToys.10.3.8564-beta1\lib\net45\Ab3d.PowerToys.dll</HintPath>
     </Reference>
-    <Reference Include="Ab3d.PowerToys.Input, Version=10.2.8348.2045, Culture=neutral, PublicKeyToken=d45c8e156fba2841, processorArchitecture=MSIL">
-      <HintPath>..\packages\Ab3d.PowerToys.Input.10.2.8348\lib\net45\Ab3d.PowerToys.Input.dll</HintPath>
+    <Reference Include="Ab3d.PowerToys.Input, Version=10.3.8564.2045, Culture=neutral, PublicKeyToken=d45c8e156fba2841, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ab3d.PowerToys.Input.10.3.8564-beta1\lib\net45\Ab3d.PowerToys.Input.dll</HintPath>
     </Reference>
     <Reference Include="AssimpNet">
       <SpecificVersion>False</SpecificVersion>
@@ -83,8 +83,14 @@
     <Compile Include="Graph3D\ContourLinesSample.xaml.cs">
       <DependentUpon>ContourLinesSample.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Lines3D\LineCapsSample.xaml.cs">
+      <DependentUpon>LineCapsSample.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Lines3D\StaticLineMeshesSample.xaml.cs">
       <DependentUpon>StaticLineMeshesSample.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MouseCameraControllerSamples\CustomMouseEventsSample.xaml.cs">
+      <DependentUpon>CustomMouseEventsSample.xaml</DependentUpon>
     </Compile>
     <Compile Include="Objects3D\AdvancedBooleanOperations.xaml.cs">
       <DependentUpon>AdvancedBooleanOperations.xaml</DependentUpon>
@@ -214,6 +220,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Lines3D\LineCapsSample.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Lines3D\StaticLineMeshesSample.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -229,6 +239,10 @@
     <Page Include="Lines3D\MiterLimitSample.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MouseCameraControllerSamples\CustomMouseEventsSample.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="MouseCameraControllerSamples\QuickZoomSample.xaml">
       <Generator>MSBuild:Compile</Generator>

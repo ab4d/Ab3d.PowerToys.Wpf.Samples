@@ -31,6 +31,11 @@ namespace Ab3d.PowerToys.Samples.Objects3D
         {
             InitializeComponent();
 
+            CreateTestScene();
+        }
+
+        private void CreateTestScene()
+        {
             var boxMesh = new Ab3d.Meshes.BoxMesh3D(new Point3D(0, 0, 0), new Size3D(200, 10, 200), 10, 1, 10).Geometry;
 
             // NOTE:
@@ -50,15 +55,17 @@ namespace Ab3d.PowerToys.Samples.Objects3D
             // But when you know that most of the triangles in the meshes would intersect, then
             // it is worth setting processOnlyIntersectingTriangles to false to skip getting intersecting triangles.
 
-            var subtractedMesh1 = Ab3d.Utilities.MeshBooleanOperations.Subtract(boxMesh, combinedMesh, processOnlyIntersectingTriangles: true); 
+            var generateInnerTriangles = GenerateInnerTrianglesCheckBox.IsChecked ?? false;
+
+            var subtractedMesh1 = Ab3d.Utilities.MeshBooleanOperations.Subtract(boxMesh, combinedMesh, processOnlyIntersectingTriangles: true, generateInnerTriangles: generateInnerTriangles); 
             ShowMesh(subtractedMesh1, -120);
 
-            var subtractedMesh2 = Ab3d.Utilities.MeshBooleanOperations.Subtract(boxMesh, combinedMesh, processOnlyIntersectingTriangles: false);
+            var subtractedMesh2 = Ab3d.Utilities.MeshBooleanOperations.Subtract(boxMesh, combinedMesh, processOnlyIntersectingTriangles: false, generateInnerTriangles: generateInnerTriangles);
             ShowMesh(subtractedMesh2, 120);
 
   
-            TextBlockVisual1.Text += string.Format("\r\nFinal triangles count: {0}", subtractedMesh1.TriangleIndices.Count / 3);
-            TextBlockVisual2.Text += string.Format("\r\nFinal triangles count: {0}", subtractedMesh2.TriangleIndices.Count / 3);
+            TextBlockVisual1.Text = string.Format("processOnlyIntersectingTriangles: true\r\nFinal triangles count: {0}", subtractedMesh1.TriangleIndices.Count / 3);
+            TextBlockVisual2.Text = string.Format("processOnlyIntersectingTriangles: false\r\nFinal triangles count: {0}", subtractedMesh2.TriangleIndices.Count / 3);
 
 
             // Deep dive:
@@ -142,11 +149,20 @@ namespace Ab3d.PowerToys.Samples.Objects3D
             };
 
             var geometryModel = new GeometryModel3D(meshGeometry3D, new DiffuseMaterial(Brushes.Gold));
-            geometryModel.BackMaterial = new DiffuseMaterial(Brushes.Red);
+            geometryModel.BackMaterial = new DiffuseMaterial(Brushes.Black);
 
             wireframeVisual3D.OriginalModel = geometryModel;
 
             RootModelVisual.Children.Add(wireframeVisual3D);
+        }
+
+        private void OnGenerateInnerTrianglesCheckBoxCheckedChanged(object sender, RoutedEventArgs e)
+        {
+            if (!this.IsLoaded)
+                return;
+
+            RootModelVisual.Children.Clear();
+            CreateTestScene();
         }
     }
 }

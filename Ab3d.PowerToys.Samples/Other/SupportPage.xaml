@@ -34,7 +34,7 @@
                 <TextBlock Style="{StaticResource InfoContent}">
                     <Run>▪</Run>
                     <Hyperlink NavigateUri="mailto://support@ab4d.com" RequestNavigate="link_navigate">email support</Hyperlink>
-                    <Run>on support@ab4d.com (for private and more individual questions)</Run>
+                    <Run>on support@ab4d.com (for customers with valid priority support)</Run>
                     <LineBreak/>
                 </TextBlock>
                 <TextBlock Style="{StaticResource InfoContent}">

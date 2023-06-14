@@ -115,38 +115,5 @@
             <TextBlock FontWeight="Bold" FontSize="14" Foreground="Red" Margin="0 3 0 0" HorizontalAlignment="Left" TextWrapping="Wrap"
                        Text="Note: Rendering many 3D lines with Ab3d.PowerToys and WPF 3D can be slow. Consider using Ab3d.DXEngine to render many 3D lines."/>
         </StackPanel>
-
-        <Border VerticalAlignment="Bottom" HorizontalAlignment="Right" Background="#33000000" BorderBrush="Black" BorderThickness="2">
-            <Grid Margin="10">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="Auto" />
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                </Grid.RowDefinitions>
-
-                <TextBlock Grid.Column="0" Grid.Row="0" Foreground="Silver" VerticalAlignment="Center" Margin="0 3 5 0" Text="Arrow angle:"/>
-                <ComboBox Name="AngleComboBox" Grid.Column="1" Grid.Row="0" SelectedIndex="1" Width="60" Margin="0 3" SelectionChanged="AngleComboBox_OnSelectionChanged">
-                    <ComboBoxItem>10</ComboBoxItem>
-                    <ComboBoxItem>15</ComboBoxItem>
-                    <ComboBoxItem>30</ComboBoxItem>
-                    <ComboBoxItem>45</ComboBoxItem>
-                </ComboBox>
-                <common:InfoControl Grid.Row="0" Grid.Column="2" Margin="5 0 0 0" InfoText="Sets the angle of the arrow in degrees" />
-
-                <TextBlock Grid.Column="0" Grid.Row="1" Foreground="Silver" VerticalAlignment="Center" Margin="0 3 5 0" Text="Max arrow length:"/>
-                <ComboBox Name="LengthComboBox" Grid.Column="1" Grid.Row="1" SelectedIndex="1" Width="60" Margin="0 3" SelectionChanged="LengthComboBox_OnSelectionChanged">
-                    <ComboBoxItem>0.1</ComboBoxItem>
-                    <ComboBoxItem>0.25</ComboBoxItem>
-                    <ComboBoxItem>0.333</ComboBoxItem>
-                    <ComboBoxItem>0.4</ComboBoxItem>
-                    <ComboBoxItem>0.5</ComboBoxItem>
-                </ComboBox>
-                <common:InfoControl x:Name="ArrowLengthInfoControl" Grid.Row="1" Grid.Column="2" Margin="5 0 0 0" />
-            </Grid>
-        </Border>
     </Grid>
 </Page>

@@ -9,6 +9,7 @@ using System.Windows.Media;
 using System.Windows.Media.Media3D;
 using Ab3d.Cameras;
 using Ab3d.Common.Cameras;
+using Ab3d.Common.Models;
 using Ab3d.Visuals;
 
 namespace Ab3d.PowerToys.Samples.Lines3D
@@ -69,7 +70,9 @@ namespace Ab3d.PowerToys.Samples.Lines3D
                     new Point3D(-100, 50, 0),
                 }),
                 LineColor     = Colors.Green,
-                LineThickness = 30,
+                LineThickness = 10,
+                StartLineCap = LineCap.BoxAnchor,
+                EndLineCap = LineCap.ArrowAnchor,
 
                 // NOTE:
                 // If you require that each line segment uses exactly 4 positions,
@@ -82,10 +85,12 @@ namespace Ab3d.PowerToys.Samples.Lines3D
                 //MiterLimit = 100
             };
 
+
+            targetPositionCamera.Refresh();
+
             viewport3D.Children.Add(polyLineVisual3D);
 
 
-            targetPositionCamera.Refresh();
             Ab3d.Utilities.LinesUpdater.Instance.Refresh(); // Force regeneration of all 3D lines
 
 
