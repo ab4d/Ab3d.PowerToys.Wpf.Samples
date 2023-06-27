@@ -14,6 +14,26 @@ namespace Ab3d.PowerToys.Samples.Common
     {
         private TextBlock _tooltipTextBlock;
 
+
+        public static DependencyProperty ShowToolTipOnPreviousControlProperty = DependencyProperty.Register("ShowToolTipOnPreviousControl", typeof(bool), typeof(InfoControl),
+                 new FrameworkPropertyMetadata(true));
+
+        /// <summary>
+        /// When true (by default) then the ToolTip will be also set to a control that in the parent's Children before this InfoControl.
+        /// </summary>
+        public bool ShowToolTipOnPreviousControl
+        {
+            get
+            {
+                return (bool)base.GetValue(ShowToolTipOnPreviousControlProperty);
+            }
+            set
+            {
+                base.SetValue(ShowToolTipOnPreviousControlProperty, value);
+            }
+        }
+
+
         public static DependencyProperty InfoTextProperty = DependencyProperty.Register("InfoText", typeof(object), typeof(InfoControl),
                  new FrameworkPropertyMetadata(null, InfoControl.OnTextChanged));
 
@@ -81,11 +101,11 @@ namespace Ab3d.PowerToys.Samples.Common
 
 
         public static DependencyProperty ShowDurationProperty = DependencyProperty.Register("ShowDuration", typeof(int), typeof(InfoControl),
-                 new FrameworkPropertyMetadata(30000, InfoControl.OnShowDurationChanged));
+                 new FrameworkPropertyMetadata(120000, InfoControl.OnShowDurationChanged));
 
 
         /// <summary>
-        /// Duration of showing ToolTip in milliseconds. Default value is 30000.
+        /// Duration of showing ToolTip in milliseconds. Default value is 120000.
         /// </summary>
         public int ShowDuration
         {
@@ -183,7 +203,33 @@ namespace Ab3d.PowerToys.Samples.Common
             _tooltipTextBlock = new TextBlock();
             _tooltipTextBlock.TextWrapping = TextWrapping.Wrap;
 
-            this.Loaded += (sender, args) => ToolTipService.SetShowDuration(this, this.ShowDuration);
+            this.Loaded += (sender, args) =>
+            {
+                ToolTipService.SetShowDuration(this, this.ShowDuration);
+
+                if (ShowToolTipOnPreviousControl)
+                    SetToolTipOnPreviousControl();
+            };
+        }
+
+        private void SetToolTipOnPreviousControl()
+        {
+            var parentPanel = this.Parent as Panel;
+
+            if (parentPanel == null)
+                return;
+
+            int outIndex = parentPanel.Children.IndexOf(this);
+
+            if (outIndex > 0)
+            {
+                var siblingElement = parentPanel.Children[outIndex - 1] as FrameworkElement;
+                if (siblingElement != null && siblingElement.ToolTip == null)
+                {
+                    siblingElement.ToolTip = _tooltipTextBlock;
+                    ToolTipService.SetShowDuration(siblingElement, this.ShowDuration);
+                }
+            }
         }
     }
 }

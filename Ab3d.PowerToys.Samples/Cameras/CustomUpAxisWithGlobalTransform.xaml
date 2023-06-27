@@ -65,15 +65,8 @@
         <!-- CameraAxisPanel has custom axes set in code behind -->
         <ab3d:CameraAxisPanel Name="CustomCameraAxisPanel1" Width="120" Height="120" VerticalAlignment="Bottom" HorizontalAlignment="Left"/>
 
-        <StackPanel Orientation="Vertical" HorizontalAlignment="Right" VerticalAlignment="Bottom">
-
-            <!-- When using global transform, we do not need to set the AxisTransform on the ViewCubeCameraController -->
-            <ab3d:ViewCubeCameraController TargetCamera="{Binding ElementName=Camera1}" HorizontalAlignment="Right" />
-
-            <ab3d:CameraControlPanel HorizontalAlignment="Right" Margin="5" Width="225" Height="75" ShowMoveButtons="True"
-                                     TargetCamera="{Binding ElementName=Camera1}"/>
-        
-        </StackPanel>
+        <!-- CameraNavigationCircles has custom axes set in code behind -->
+        <ab3d:CameraNavigationCircles x:Name="NavigationCircles1" TargetCamera="{Binding ElementName=Camera1}" HorizontalAlignment="Right" VerticalAlignment="Bottom" />
 
         <TextBlock FontWeight="Bold" FontSize="20" Foreground="Silver" Margin="10" VerticalAlignment="Top" HorizontalAlignment="Left" 
                    Text="Z up axis with using global transform to create custom coordinate system where Z is pointing up"/>

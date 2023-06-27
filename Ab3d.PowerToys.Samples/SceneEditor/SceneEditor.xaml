@@ -31,23 +31,23 @@
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
 
-            <StackPanel Name="EditorModePanel" Grid.Column="0" Orientation="Vertical" Margin="0 0 20 0" VerticalAlignment="Center">
+            <StackPanel Name="EditorModePanel" Grid.Column="0" Grid.Row="0" Orientation="Vertical" Margin="0 0 20 0" VerticalAlignment="Center">
                 <RadioButton Name="CreateRadioButton" Content="CREATE" GroupName="EditorMode" IsChecked="True" FontWeight="Bold" Margin="0 0 0 5" Checked="OnEditorModeRadioButtonChecked" />
                 <RadioButton Name="EditRadioButton" Content="EDIT" GroupName="EditorMode" FontWeight="Bold" Checked="OnEditorModeRadioButtonChecked" />
             </StackPanel>
 
-            <StackPanel Name="CreateOptionsPanel" Grid.Column="1" Orientation="Horizontal" Margin="0 0 10 0">
-                <ToggleButton Name="CreateBoxButton" Content="Create box" IsChecked="True" VerticalAlignment="Center" Margin="0 0 10 0" Padding="10 3" Click="CreateBoxButton_OnClick"/>
-                <ToggleButton Name="CreateSphereButton" Content="Create sphere" VerticalAlignment="Center" Padding="10 3" Click="CreateSphereButton_OnClick"/>
+            <StackPanel Name="CreateOptionsPanel" Grid.Column="1" Grid.Row="0" Orientation="Horizontal" Margin="0 0 10 0">
+                <ToggleButton Name="CreateBoxButton" Content="Create box" VerticalAlignment="Center" Margin="0 0 10 0" Padding="10 3" Click="CreateBoxButton_OnClick"/>
+                <ToggleButton Name="CreateSphereButton" Content="Create sphere" IsChecked="True" VerticalAlignment="Center" Padding="10 3" Click="CreateSphereButton_OnClick"/>
             </StackPanel>
 
-            <StackPanel Name="EditOptionsPanel" Grid.Column="1" Orientation="Horizontal" Margin="0 0 10 0" Visibility="Collapsed">
+            <StackPanel Name="EditOptionsPanel" Grid.Column="1" Grid.Row="0" Orientation="Horizontal" Margin="0 0 10 0" Visibility="Collapsed">
                 <ToggleButton Name="EditObjectToggleButton" Content="Edit object" IsChecked="True" VerticalAlignment="Center" Padding="10 3" Margin="0 0 10 0" Click="EditObjectToggleButton_OnClick"/>
                 <ToggleButton Name="EditPositionsToggleButton" Content="Edit positions" VerticalAlignment="Center" Padding="10 3" Click="EditPositionsToggleButton_OnClick"/>
             </StackPanel>
 
 
-            <StackPanel Grid.Column="3" Orientation="Horizontal" Margin="10 0 0 0">
+            <StackPanel Grid.Column="3" Grid.Row="0" Orientation="Horizontal" Margin="10 0 0 0">
         
                 <StackPanel Orientation="Vertical">
                     <Button Name="ResetCameraCenterButton" Content="Reset camera" ToolTip="Sets camera TargetPosition to (0,0,0)" VerticalAlignment="Center" Click="ResetCameraCenterButton_Click" Margin="0 0 5 0"/>
@@ -129,13 +129,13 @@
                                     EventsSourceElement="{Binding ElementName=ViewportBorder}" 
                                     TargetCamera="{Binding ElementName=Camera1}" />
 
-        <ab3d:CameraAxisPanel Grid.Row="1" VerticalAlignment="Bottom" HorizontalAlignment="Left" 
+        <ab3d:CameraNavigationCircles Grid.Row="1" VerticalAlignment="Bottom" HorizontalAlignment="Left"
+                                      TargetCamera="{Binding ElementName=Camera1}"
+                                      Visibility="{Binding Source={x:Static local:SceneEditorContext.Current}, Path=ShowCameraNavigationCircles, Converter={StaticResource VisibilityOfBool}}" />
+
+        <ab3d:CameraAxisPanel Grid.Row="1" VerticalAlignment="Bottom" HorizontalAlignment="Right" 
                               TargetCamera="{Binding ElementName=Camera1}"
                               Visibility="{Binding Source={x:Static local:SceneEditorContext.Current}, Path=ShowCameraAxis, Converter={StaticResource VisibilityOfBool}}"/>
-
-        <ab3d:ViewCubeCameraController Grid.Row="1" VerticalAlignment="Bottom" HorizontalAlignment="Right"
-                                       TargetCamera="{Binding ElementName=Camera1}"
-                                       Visibility="{Binding Source={x:Static local:SceneEditorContext.Current}, Path=ShowViewCubeCameraController, Converter={StaticResource VisibilityOfBool}}" />
 
         <ab3d:MouseCameraControllerInfo Name="MouseCameraControllerInfo1" Grid.Row="1" Margin="0 5 0 0"
                                         VerticalAlignment="Top" HorizontalAlignment="Right"

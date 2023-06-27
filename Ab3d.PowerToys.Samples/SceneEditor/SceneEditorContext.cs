@@ -6,8 +6,8 @@ namespace Ab3d.PowerToys.Samples.SceneEditor
 {
     public class SceneEditorContext : INotifyPropertyChanged
     {
-        private bool _showCameraAxis = true;
-        private bool _showViewCubeCameraController = true;
+        private bool _showCameraAxis = false;
+        private bool _showCameraNavigationCircles = true;
         private bool _showMouseCameraControllerInfo = true;
         private bool _showWireGrid = true;
         private bool _snapToGrid = false;
@@ -45,13 +45,13 @@ namespace Ab3d.PowerToys.Samples.SceneEditor
             }
         }
 
-        public bool ShowViewCubeCameraController
+        public bool ShowCameraNavigationCircles
         {
-            get { return _showViewCubeCameraController; }
+            get { return _showCameraNavigationCircles; }
             set
             {
-                if (value == _showViewCubeCameraController) return;
-                _showViewCubeCameraController = value;
+                if (value == _showCameraNavigationCircles) return;
+                _showCameraNavigationCircles = value;
                 OnPropertyChanged();
             }
         }

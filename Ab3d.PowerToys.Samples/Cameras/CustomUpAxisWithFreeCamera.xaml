@@ -39,7 +39,8 @@
                             CameraPosition="-200 -400 200"
                             TargetPosition="0 0 40"
                             UpDirection="0 0 1"
-                            RotationUpAxis="0 0 1" />
+                            RotationUpAxis="0 0 1" 
+                            TargetViewport3D="{Binding ElementName=MainViewport}"/>
         
 
         <ab3d:MouseCameraController Name="MouseCameraController1"
@@ -51,13 +52,8 @@
 
         <ab3d:CameraAxisPanel Name="CustomCameraAxisPanel1" Width="120" Height="120" VerticalAlignment="Bottom" HorizontalAlignment="Left"/>
 
-        <StackPanel Orientation="Vertical" HorizontalAlignment="Right" VerticalAlignment="Bottom">
-
-            <ab3d:ViewCubeCameraController x:Name="ViewCube1" TargetCamera="{Binding ElementName=Camera1}" HorizontalAlignment="Right" />
-            <ab3d:CameraControlPanel HorizontalAlignment="Right" Margin="5" Width="225" Height="75" ShowMoveButtons="True"
-                                     TargetCamera="{Binding ElementName=Camera1}"/>
-
-        </StackPanel>
+        <!-- CameraNavigationCircles has custom axes set in code behind -->
+        <ab3d:CameraNavigationCircles x:Name="NavigationCircles1" TargetCamera="{Binding ElementName=Camera1}" HorizontalAlignment="Right" VerticalAlignment="Bottom" />
 
         <TextBlock FontWeight="Bold" FontSize="20" Foreground="Silver" Margin="10" VerticalAlignment="Top" HorizontalAlignment="Left" 
                    Text="Z up axis with using FreeCamera with UpDirection and RotationUpAxis"/>

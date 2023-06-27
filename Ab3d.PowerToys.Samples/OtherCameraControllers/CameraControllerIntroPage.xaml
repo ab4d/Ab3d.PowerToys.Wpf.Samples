@@ -17,7 +17,7 @@
                     \n
                     The following are the additional camera controllers:\n
                     \n
-                    The \!ViewCubeCameraController\! shows a 3D cube that can be used to rotate the camera.\n
+                    The \!CameraNavigationCircles\! shows camera axes with axis circles and can be used to rotate the camera.\n
                     \n
                     The \!CameraControlPanel\! shows nice buttons to rotate the camera and move the camera closer or farther away.\n
                     \n

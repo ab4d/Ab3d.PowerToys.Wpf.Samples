@@ -40,11 +40,11 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Ab3d.PowerToys, Version=10.3.8564.2045, Culture=neutral, PublicKeyToken=d45c8e156fba2841, processorArchitecture=MSIL">
-      <HintPath>..\packages\Ab3d.PowerToys.10.3.8564-beta1\lib\net45\Ab3d.PowerToys.dll</HintPath>
+    <Reference Include="Ab3d.PowerToys, Version=11.0.8578.2045, Culture=neutral, PublicKeyToken=d45c8e156fba2841, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ab3d.PowerToys.11.0.8578-beta1\lib\net45\Ab3d.PowerToys.dll</HintPath>
     </Reference>
-    <Reference Include="Ab3d.PowerToys.Input, Version=10.3.8564.2045, Culture=neutral, PublicKeyToken=d45c8e156fba2841, processorArchitecture=MSIL">
-      <HintPath>..\packages\Ab3d.PowerToys.Input.10.3.8564-beta1\lib\net45\Ab3d.PowerToys.Input.dll</HintPath>
+    <Reference Include="Ab3d.PowerToys.Input, Version=11.0.8578.2045, Culture=neutral, PublicKeyToken=d45c8e156fba2841, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ab3d.PowerToys.Input.11.0.8578-beta1\lib\net45\Ab3d.PowerToys.Input.dll</HintPath>
     </Reference>
     <Reference Include="AssimpNet">
       <SpecificVersion>False</SpecificVersion>
@@ -113,11 +113,11 @@
     <Compile Include="Objects3D\HierarchyWithContentVisual3D.xaml.cs">
       <DependentUpon>HierarchyWithContentVisual3D.xaml</DependentUpon>
     </Compile>
+    <Compile Include="OtherCameraControllers\CameraNavigationCirclesSample.xaml.cs">
+      <DependentUpon>CameraNavigationCirclesSample.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Other\BasicWpf3dObjectsTutorial.xaml.cs">
       <DependentUpon>BasicWpf3dObjectsTutorial.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="OtherCameraControllers\FreeCameraViewCubeCameraControllerSample.xaml.cs">
-      <DependentUpon>FreeCameraViewCubeCameraControllerSample.xaml</DependentUpon>
     </Compile>
     <Compile Include="UseCases\HeatmapRenderingSample.xaml.cs">
       <DependentUpon>HeatmapRenderingSample.xaml</DependentUpon>
@@ -280,6 +280,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="OtherCameraControllers\CameraNavigationCirclesSample.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Other\BasicWpf3dObjectsTutorial.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -293,10 +297,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Objects3D\StreamLinesSample.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="OtherCameraControllers\FreeCameraViewCubeCameraControllerSample.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -427,10 +427,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="OtherCameraControllers\ViewCubeCameraControllerSample.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Cameras\CameraAnimationSample.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -1147,9 +1143,6 @@
     </Compile>
     <Compile Include="MouseCameraControllerSamples\MainMouseCameraControllerProperties.xaml.cs">
       <DependentUpon>MainMouseCameraControllerProperties.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="OtherCameraControllers\ViewCubeCameraControllerSample.xaml.cs">
-      <DependentUpon>ViewCubeCameraControllerSample.xaml</DependentUpon>
     </Compile>
     <Compile Include="Cameras\CameraTypeSample.xaml.cs">
       <DependentUpon>CameraTypeSample.xaml</DependentUpon>
