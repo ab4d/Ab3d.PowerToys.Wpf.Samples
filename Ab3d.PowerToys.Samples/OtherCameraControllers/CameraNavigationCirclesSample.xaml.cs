@@ -114,6 +114,7 @@ namespace Ab3d.PowerToys.Samples.OtherCameraControllers
             };
 
             var viewport3D = new Viewport3D();
+            viewport3D.IsHitTestVisible = false; // Do not prevent clicking on axis circle when mouse is over the mini 3D scene
 
             viewport3D.Children.Add(modelVisual3D);
 
