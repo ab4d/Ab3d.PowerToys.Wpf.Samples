@@ -33,6 +33,19 @@ namespace Ab3d.PowerToys.Samples.Cameras
             CustomCameraAxisPanel1.CustomizeAxes(new Vector3D(1, 0, 0), "X", Colors.Red,
                                                  new Vector3D(0, 1, 0), "Z", Colors.Blue,
                                                  new Vector3D(0, 0, -1), "Y", Colors.Green);
+            
+
+            NavigationCircles1.UseZUpAxis();
+
+            // Calling UseZUpAxis is the same as:
+            //
+            //cameraNavigationCircles.CustomizeAxes(xAxisVector: new Vector3D(1, 0, 0), yAxisVector: new Vector3D(0, 0, -1), zAxisVector: new Vector3D(0, 1, 0));
+            //
+            // or:
+            //
+            //cameraNavigationCircles.CustomizeAxes("X", "-X", Colors.Red, new Vector3D(1, 0, 0),
+            //                                      "Z", "-Z", Colors.ForestGreen, new Vector3D(0, 1, 0),
+            //                                      "Y", "-Y", Colors.RoyalBlue, new Vector3D(0, 0, -1));
         }
     }
 }

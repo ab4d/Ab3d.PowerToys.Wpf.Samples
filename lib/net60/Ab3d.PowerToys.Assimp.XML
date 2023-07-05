@@ -79,6 +79,13 @@
             <param name="alpha">alpha</param>
             <returns>Color</returns>
         </member>
+        <member name="M:Ab3d.Assimp.AssimpExtensions.ToWpfColor(Assimp.Color3D)">
+            <summary>
+            Converts Assimp Color3D to WPF Color
+            </summary>
+            <param name="value">Color3D</param>
+            <returns>Color</returns>
+        </member>
         <member name="M:Ab3d.Assimp.AssimpExtensions.ToWpfMatrix3D(Assimp.Matrix4x4)">
             <summary>
             Converts Assimp Matrix4x4 (row-major) to WPF Matrix3D (column-major)
@@ -458,6 +465,18 @@
             AssimpWpfImporter class uses Assimp importer library to read WPF 3D models from many 3D files.
             </summary>
         </member>
+        <member name="P:Ab3d.Assimp.AssimpWpfImporter.TransformCamerasAndLights">
+            <summary>
+            Gets or sets a Boolean that specifies if Node transformations are used to transform imported cameras and lights.
+            Default value is true.
+            </summary>
+        </member>
+        <member name="P:Ab3d.Assimp.AssimpWpfImporter.ReadLightAttenuation">
+            <summary>
+            Gets or set a Boolean that specifies if light Attenuation is read from imported file.
+            By default ReadLightAttenuation is set to false because many times light attenuation is not correctly imported.
+            </summary>
+        </member>
         <member name="F:Ab3d.Assimp.AssimpWpfImporter.Assimp32FileName">
             <summary>
             File name of the 32-bit assimp library
@@ -471,6 +490,11 @@
         <member name="P:Ab3d.Assimp.AssimpWpfImporter.AssimpVersion">
             <summary>
             Gets the version of the native Assimp library.
+            </summary>
+        </member>
+        <member name="P:Ab3d.Assimp.AssimpWpfImporter.GitCommitHash">
+            <summary>
+            Gets the Git commit hash that was generated from the latest source code commit.
             </summary>
         </member>
         <member name="P:Ab3d.Assimp.AssimpWpfImporter.AssimpPostProcessSteps">
@@ -503,6 +527,18 @@
             WPF uses right handed coordinate system - the Z axis points away from the screen. DirectX uses left handed coordinate system - there the Z axis points into the screen.
             </para>
             </remarks>
+        </member>
+        <member name="P:Ab3d.Assimp.AssimpWpfImporter.Lights">
+            <summary>
+            Gets a list of lights that are defined in the imported file.
+            To get the name of the light, call GetValue(FrameworkElement.NameProperty) on the light.
+            </summary>
+        </member>
+        <member name="P:Ab3d.Assimp.AssimpWpfImporter.Cameras">
+            <summary>
+            Gets a list of cameras that are defined in the imported file.
+            To get the name of the camera, call GetValue(FrameworkElement.NameProperty) on the light.
+            </summary>
         </member>
         <member name="P:Ab3d.Assimp.AssimpWpfImporter.NamedObjects">
             <summary>

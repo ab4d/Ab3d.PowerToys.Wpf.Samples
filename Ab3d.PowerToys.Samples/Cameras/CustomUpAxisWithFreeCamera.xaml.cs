@@ -25,21 +25,6 @@ namespace Ab3d.PowerToys.Samples.Cameras
         public CustomUpAxisWithFreeCamera()
         {
             InitializeComponent();
-
-            // Because WPF uses y as up axis, but this sample uses Z as up axis,
-            // we need to transform the axis that is used to generate the ViewCubeCameraController.
-            // 
-            // This is not needed when using a global transform as seen in the "CustomUpAxisWithGlobalTransform.xaml" sample.
-            // 
-            // The transformation defines the new axis - defined in matrix columns in upper left 3x3 part of the matrix:
-            // x axis -1st column: 1  0  0(in the positive x direction - same as WPF 3D)
-            // y axis -2nd column: 0  0 - 1(in the negative z direction - into the screen)
-            // z axis -3rd column: 0  1  0(in the positive y direction - up)
-
-            ViewCube1.AxisTransform = new MatrixTransform3D(new Matrix3D(1, 0, 0, 0,
-                                                                         0, 0, 1, 0,
-                                                                         0, -1, 0, 0,
-                                                                         0, 0, 0, 1));
         }
     }
 }

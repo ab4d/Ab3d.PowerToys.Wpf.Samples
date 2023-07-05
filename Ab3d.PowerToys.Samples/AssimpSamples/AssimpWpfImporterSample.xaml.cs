@@ -55,8 +55,9 @@ namespace Ab3d.PowerToys.Samples.AssimpSamples
             var assimpWpfExporter = new AssimpWpfExporter();
             string[] supportedExportFormats = assimpWpfExporter.ExportFormatDescriptions.Select(f => f.FileExtension).ToArray();
 
-            FileFormatsTextBlock.Text = string.Format("Using native Assimp library version {0}.\r\n\r\nSupported import formats:\r\n{1}\r\n\r\nSupported export formats:\r\n{2}",
-                assimpWpfImporter.AssimpVersion, 
+            FileFormatsTextBlock.Text = string.Format("Using native Assimp library version {0}; Git commit: {1:x7}.\r\n\r\nSupported import formats:\r\n{2}\r\n\r\nSupported export formats:\r\n{3}",
+                assimpWpfImporter.AssimpVersion,
+                assimpWpfImporter.GitCommitHash,
                 string.Join(", ", supportedImportFormats),
                 string.Join(", ", supportedExportFormats));
 

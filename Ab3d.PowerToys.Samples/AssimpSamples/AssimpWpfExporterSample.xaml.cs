@@ -217,9 +217,16 @@ namespace Ab3d.PowerToys.Samples.AssimpSamples
                 // This preserves the original file (if we would save jpeg again we would encode it again and lose information)
                 string sourceFileName;
                 if (bitmap.UriSource.IsAbsoluteUri)
-                    sourceFileName = bitmap.UriSource.AbsoluteUri;
+                {
+                    if (bitmap.UriSource.AbsoluteUri.StartsWith("file:///"))
+                        sourceFileName = bitmap.UriSource.OriginalString;
+                    else
+                        sourceFileName = bitmap.UriSource.AbsoluteUri;
+                }
                 else
+                {
                     sourceFileName = System.IO.Path.Combine(Environment.CurrentDirectory, bitmap.UriSource.OriginalString);
+                }
 
                 if (System.IO.File.Exists(sourceFileName))
                 {

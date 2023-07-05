@@ -137,6 +137,26 @@ namespace Ab3d.PowerToys.Samples.Lines3D
                     var worldToViewportMatrix = new Matrix3D();
                     bool isWorldToViewportMatrixValid = Camera1.GetWorldToViewportMatrix(ref worldToViewportMatrix, forceMatrixRefresh: false);
 
+                    // You can calculate the worldToViewportMatrix manually by the following code:
+                    //
+                    // Matrix3D viewMatrix, projectionMatrix;
+                    // Camera1.GetCameraMatrices(out viewMatrix, out projectionMatrix);
+                    //
+                    // var worldToViewportMatrix = viewMatrix * projectionMatrix * GetViewportMatrix(new Size(MainViewport.ActualWidth, MainViewport.ActualHeight));
+                    //
+                    // public static Matrix3D GetViewportMatrix(Size viewportSize)
+                    // {
+                    //     if (viewportSize.IsEmpty)
+                    //         return Ab3d.Common.Constants.ZeroMatrix;
+
+                    //     return new Matrix3D(viewportSize.Width / 2, 0, 0, 0,
+                    //                         0, -viewportSize.Height / 2, 0, 0,
+                    //                         0, 0, 1, 0,
+                    //                         viewportSize.Width / 2,
+                    //                         viewportSize.Height / 2, 0, 1);
+                    // }
+
+
                     if (isWorldToViewportMatrixValid)
                     {
                         Parallel.For(0, _lineSelectorData.Count, 

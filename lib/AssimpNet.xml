@@ -5583,9 +5583,27 @@
             <param name="uncompressedData">Color data</param>
             <exception cref="T:System.ArgumentException">Thrown if the data size does not match width * height.</exception>
         </member>
+        <member name="P:Assimp.EmbeddedTexture.Assimp#IMarshalable{Assimp#EmbeddedTexture,Assimp#Unmanaged#AiTexture}#IsNativeBlittable">
+            <summary>
+            Gets if the native value type is blittable (that is, does not require marshaling by the runtime, e.g. has MarshalAs attributes).
+            </summary>
+        </member>
+        <member name="M:Assimp.EmbeddedTexture.Assimp#IMarshalable{Assimp#EmbeddedTexture,Assimp#Unmanaged#AiTexture}#ToNative(System.IntPtr,Assimp.Unmanaged.AiTexture@)">
+            <summary>
+            Writes the managed data to the native value.
+            </summary>
+            <param name="thisPtr">Optional pointer to the memory that will hold the native value.</param>
+            <param name="nativeValue">Output native value</param>
+        </member>
+        <member name="M:Assimp.EmbeddedTexture.Assimp#IMarshalable{Assimp#EmbeddedTexture,Assimp#Unmanaged#AiTexture}#FromNative(Assimp.Unmanaged.AiTexture@)">
+            <summary>
+            Reads the unmanaged data from the native value.
+            </summary>
+            <param name="nativeValue">Input native value</param>
+        </member>
         <member name="M:Assimp.EmbeddedTexture.FreeNative(System.IntPtr,System.Boolean)">
             <summary>
-            Frees unmanaged memory created by <see cref="M:Assimp.IMarshalable`2.ToNative(System.IntPtr,`1@)" />.
+            Frees unmanaged memory created by <see cref="M:Assimp.IMarshalable`2.ToNative(System.IntPtr,`1@)"/>.
             </summary>
             <param name="nativeValue">Native value to free</param>
             <param name="freeNative">True if the unmanaged memory should be freed, false otherwise.</param>
@@ -6372,7 +6390,13 @@
         </member>
         <member name="M:Assimp.Unmanaged.AssimpLibrary.GetVersionRevision">
             <summary>
-            Gets the native Assimp DLL's revision version number.
+            Gets the native Assimp DLL's revision version number (Git commit hash).
+            </summary>
+            <returns>Assimp revision version number</returns>
+        </member>
+        <member name="M:Assimp.Unmanaged.AssimpLibrary.GetVersionPatch">
+            <summary>
+            Gets the native Assimp DLL's patch version number.
             </summary>
             <returns>Assimp revision version number</returns>
         </member>
@@ -7108,6 +7132,16 @@
         <member name="F:Assimp.Unmanaged.AiScene.Name">
             <summary>
             The name of the scene itself.
+            </summary>
+        </member>
+        <member name="F:Assimp.Unmanaged.AiScene.NumSkeletons">
+            <summary>
+            Number of skeletons contained.
+            </summary>
+        </member>
+        <member name="F:Assimp.Unmanaged.AiScene.Skeletons">
+            <summary>
+            aiSkeleton**, skeleton in the scene.
             </summary>
         </member>
         <member name="F:Assimp.Unmanaged.AiScene.PrivateData">
@@ -9601,6 +9635,12 @@
             <param name="indicesPerFace">Indices per face</param>
             <returns>True if the operation succeeded, false otherwise (e.g. not enough data)</returns>
         </member>
+        <member name="M:Assimp.Mesh.GetIndicesList">
+            <summary>
+            Convienence method for accumulating all face indices into a single index list (this does not convert list to array as other convienence methods)
+            </summary>
+            <returns>int index array</returns>
+        </member>
         <member name="M:Assimp.Mesh.GetIndices">
             <summary>
             Convienence method for accumulating all face indices into a single
@@ -9939,7 +9979,7 @@
         <member name="M:Assimp.Scene.FreeUnmanagedScene(System.IntPtr)">
             <summary>
             Frees unmanaged memory allocated -ONLY- in <see cref="M:Assimp.Scene.ToUnmanagedScene(Assimp.Scene)"/>. To free an unmanaged scene allocated by the unmanaged Assimp library,
-            call the appropiate <see cref="M:Assimp.Unmanaged.AssimpLibrary.ReleaseImport(System.IntPtr)"/> function.
+            call the appropriate <see cref="M:Assimp.Unmanaged.AssimpLibrary.ReleaseImport(System.IntPtr)"/> function.
             </summary>
             <param name="scenePtr">Pointer to unmanaged scene data.</param>
         </member>

@@ -250,7 +250,7 @@ namespace Ab3d.PowerToys.Samples.Animations
                              targetAttitude, 
                              animationDurationInMilliseconds: 1000, 
                              easingFunction: Ab3d.Animation.EasingFunctions.QuadraticEaseInOutFunction, 
-                             useShortestPath: true);
+                             useShortestPath: useShortestPath);
 
             DumpTextBox.Text = string.Format("Camera1.RotateTo({0}, {1}, 1000, Ab3d.Animation.EasingFunctions.QuadraticEaseInOutFunction, useShortestPath: true);\r\n\r\n", targetHeading, targetAttitude);
 
