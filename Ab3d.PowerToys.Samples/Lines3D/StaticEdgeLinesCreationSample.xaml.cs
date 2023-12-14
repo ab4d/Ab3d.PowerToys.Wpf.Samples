@@ -3,6 +3,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
@@ -104,6 +105,42 @@ namespace Ab3d.PowerToys.Samples.Lines3D
 
             var edgeLinePositions = new Point3DCollection();
             EdgeLinesFactory.AddEdgeLinePositions(readModel3D, EdgeStartAngleSlider.Value, edgeLinePositions);
+
+
+            // Because for complex files it may take a long time to calculate edge lines, 
+            // we can use the following code to save the edge lines so next time we can load the data:
+            //string edgeLinesFileName = System.IO.Path.ChangeExtension(fileName, ".edgelines");
+
+            //// Save edge lines:
+            //using (var stream = File.Open(edgeLinesFileName, FileMode.Create))
+            //{
+            //    using (var writer = new BinaryWriter(stream))
+            //    {
+            //        writer.Write(edgeLinePositions.Count);
+
+            //        foreach (var edgeLinePosition in edgeLinePositions)
+            //        {
+            //            writer.Write(edgeLinePosition.X);
+            //            writer.Write(edgeLinePosition.Y);
+            //            writer.Write(edgeLinePosition.Z);
+            //        }
+            //    }
+            //}
+
+            //// Read edge lines:
+            //using (var stream = File.Open(edgeLinesFileName, FileMode.Open))
+            //{
+            //    using (var reader = new BinaryReader(stream))
+            //    {
+            //        int count = reader.ReadInt32();
+
+            //        var edgeLines = new Point3D[count];
+
+            //        for (int i = 0; i < count; i++)
+            //            edgeLines[i] = new Point3D(reader.ReadDouble(), reader.ReadDouble(), reader.ReadDouble());
+            //    }
+            //}
+
 
             _multiLineVisual3D = new MultiLineVisual3D()
             {

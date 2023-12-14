@@ -35,6 +35,29 @@ namespace Ab3d.PowerToys.Samples.Lines3D
             CreateCurveWithVisuals();
             CreateCurveWithMeshes();
 
+
+            LineArrowAngle = 15;
+
+            //var rnd = new Random();
+            //for (int i = 0; i < 5; i++)
+            //{
+            //    var p1 = new Point3D(rnd.NextDouble() * 100 + 100, rnd.NextDouble() * 50 - 25, rnd.NextDouble() * 100 + 100);
+            //    var p2 = new Point3D(rnd.NextDouble() * 100 + 100, rnd.NextDouble() * 50 - 25, rnd.NextDouble() * 100 + 100);
+
+            //    var tubeRadius = rnd.NextDouble() * 3 + 1;
+            //    AddTubeLineWithEndLineArrow(p1, p2, tubeRadius, arrowRadius: tubeRadius * 2);
+            //}
+
+            for (int i = 0; i < 5; i++)
+            {
+                var p1 = new Point3D(100, 0, 220 - i * 30);
+                var p2 = new Point3D(200, 0, 220 - i * 30);
+
+                var tubeRadius = 1 + i * 0.75;
+                AddTubeLineWithEndLineArrow(p1, p2, tubeRadius, arrowRadius: tubeRadius * 2);
+            }
+
+
             EmissiveMaterialInfoControl.InfoText =
 @"If unchecked then the standard DiffuseMaterial is used to show the tube lines.
 This means that the tube lines will be affected by rendered based on their and light positions and properties.
@@ -77,7 +100,7 @@ This material will have the same color regardless of the lights (but can show so
                     Material = curveTubeLineMaterial,
                     Segments = selectedSegmentsCount,  // Each tube has 8 segments or sides
                     Radius = 1,     // NOTE: Radius is not in screen space coordinates as this is for other 3D lines. Here radius is in 3D world coordinates.
-                    GenerateTextureCoordinates = false // No need to generate texture coordinates because we do not use texture meterial
+                    GenerateTextureCoordinates = false // No need to generate texture coordinates because we do not use texture material
                 };
 
                 MainViewport.Children.Add(tubeLineVisual3D);
@@ -177,6 +200,9 @@ This material will have the same color regardless of the lights (but can show so
             foreach (var oneTubeLine in MainViewport.Children.OfType<TubeLineVisual3D>())
                 oneTubeLine.Material = material;
 
+            foreach (var oneArrowVisual in MainViewport.Children.OfType<ArrowVisual3D>())
+                oneArrowVisual.Material = material;
+
             CreateCurveWithVisuals();
             CreateCurveWithMeshes();
         }
@@ -198,6 +224,100 @@ This material will have the same color regardless of the lights (but can show so
             }           
  
             return material;
+        }
+
+
+
+        private double _lineArrowLengthFactor = 3.73205081; // = 1 / Math.Tan(15 * Math.PI / 180);
+
+        private double _lineArrowAngle = 15;
+
+        /// <summary>
+        /// Gets or sets the angle of the line arrows. Default value is 15 degrees.
+        /// Note that if the line is short so that the arrow length exceeds the amount defined by MaxLineArrowLength, the arrow is shortened which increased the arrow angle.
+        /// </summary>
+        public double LineArrowAngle
+        {
+            get { return _lineArrowAngle; }
+            set
+            {
+                _lineArrowAngle = value;
+                _lineArrowLengthFactor = 1 / (float)Math.Tan(_lineArrowAngle * Math.PI / 180);
+            }
+        }
+
+
+        private double _maxLineArrowLength = 0.333; // max arrow length is 1 / 3 of the line's length
+
+        /// <summary>
+        /// Gets or sets a float value that specifies the maximum arrow length set as fraction of the line length - e.g. 0.333 means that the maximum arrow length will be 1 / 3 (=0.333) of the line length.
+        /// If the line is short so that the arrow length exceeds the amount defined by MaxLineArrowLength, the arrow is shortened (the arrow angle is increased).
+        /// </summary>
+        public double MaxLineArrowLength
+        {
+            get { return _maxLineArrowLength; }
+            set { _maxLineArrowLength = value; }
+        }
+
+ 
+
+        private void AddTubeLineWithEndLineArrow(Point3D startPosition, Point3D endPosition, double tubeRadius, double arrowRadius)
+        {
+            var curveTubeLineMaterial = CreateMaterial(Brushes.Silver);
+            int selectedSegmentsCount = GetSelectedSegmentsCount();
+
+            var arrowLength = arrowRadius * _lineArrowLengthFactor;
+
+            var lineVector = endPosition - startPosition;
+            var lineLength = lineVector.Length;
+
+            lineVector /= lineLength; // normalize
+
+
+            var arrowLengthFraction = arrowLength / lineLength;
+
+            // Usually the arrow angle that is passed to the ArrowVisual3D is twice the LineArrowAngle
+            var fullArrowAngle = LineArrowAngle * 2;
+
+            // We adjust the arrow when it occupies more than max fraction of the line (1/3 by default)
+            if (arrowLengthFraction > _maxLineArrowLength)
+            {
+                arrowLength = lineLength * _maxLineArrowLength;
+
+                // When the arrow is shortened, we also need to increase the arrow angle
+                var updatedLineArrowLengthFactor = arrowLength / arrowRadius;
+                fullArrowAngle = Math.Atan(1 / updatedLineArrowLengthFactor) * 360 / Math.PI; // This is inverted as when calculating _lineArrowLengthFactor and then multiplied by 2 (360 = 180 * 2)
+            }
+
+            // Because we are adding an end line arrow, we go back from the end position
+            var startArrowPosition = endPosition - lineVector * arrowLength;
+
+
+            var tubeLineVisual3D = new TubeLineVisual3D()
+            {
+                StartPosition = startPosition,
+                EndPosition = startArrowPosition,
+                Material = curveTubeLineMaterial,
+                Segments = selectedSegmentsCount,  
+                Radius = tubeRadius,               
+                GenerateTextureCoordinates = false // No need to generate texture coordinates because we do not use texture material
+            };
+
+            MainViewport.Children.Add(tubeLineVisual3D);
+
+
+            var arrowVisual3D = new ArrowVisual3D()
+            {
+                StartPosition = startArrowPosition,
+                EndPosition = endPosition,
+                Radius = arrowRadius,
+                ArrowAngle = fullArrowAngle,
+                Segments = selectedSegmentsCount,
+                Material = curveTubeLineMaterial,
+                GenerateTextureCoordinates = false
+            };
+
+            MainViewport.Children.Add(arrowVisual3D);
         }
     }
 }

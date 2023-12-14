@@ -53,8 +53,8 @@ namespace Ab3d.PowerToys.Samples.Lines3D
             _robotArmModel3D = assimpWpfImporter.ReadModel3D(fileName, texturesPath: null);
 
             // In VS Immediate window call "readModel3D.DumpHierarchy()" to get hierarchy and names of the objects
-            var baseModel3D = assimpWpfImporter.NamedObjects["Base__Group"] as Model3D;
-            var joint2Model3D = assimpWpfImporter.NamedObjects["Joint2__Group"] as Model3D;
+            var baseModel3D = assimpWpfImporter.NamedObjects["Base"] as Model3D;
+            var joint2Model3D = assimpWpfImporter.NamedObjects["Joint2"] as Model3D;
 
             _baseAxisAngleRotation3D   = new AxisAngleRotation3D(new Vector3D(0, 0, 1), 0);
             _joint2AxisAngleRotation3D = new AxisAngleRotation3D(new Vector3D(0, 0, 1), 0);

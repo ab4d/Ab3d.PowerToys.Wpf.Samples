@@ -38,12 +38,14 @@
             </Viewport3D>
         </Border>
 
-        <cameras:SceneCamera Name="Camera1" Heading="-30" Attitude="-20" Bank="0" Distance="200" ShowCameraLight="Always" CameraType="OrthographicCamera" IsDesignTimeInfoIconShown="False"/>
+        <cameras:TargetPositionCamera Name="Camera1" Heading="-30" Attitude="-20" Bank="0" Distance="200" ShowCameraLight="Always" CameraType="OrthographicCamera" IsDesignTimeInfoIconShown="False"/>
 
         <ab3d:MouseCameraController Name="MouseCameraController1" 
                                     RotateCameraConditions="LeftMouseButtonPressed" 
                                     MoveCameraConditions="LeftMouseButtonPressed, ControlKey"
                                     TargetCamera="{Binding ElementName=Camera1}"
+                                    ZoomMode="MousePosition"
+                                    RotateAroundMousePosition="True"
                                     EventsSourceElement="{Binding ElementName=ViewportBorder}"/>
 
         <ab3d:CameraControlPanel VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="5" Width="150" Height="75"/>

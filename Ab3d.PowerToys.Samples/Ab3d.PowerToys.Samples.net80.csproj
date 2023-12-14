@@ -2,13 +2,13 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net7.0-windows</TargetFramework>
+    <TargetFramework>net8.0-windows</TargetFramework>
     <UseWPF>true</UseWPF>
     <AssemblyName>Ab3d.PowerToys.Samples</AssemblyName>
     <ApplicationIcon>PowerToys.ico</ApplicationIcon>
-    <Version>11.0.8614</Version>
-    <AssemblyVersion>11.0.8614.2070</AssemblyVersion>
-    <FileVersion>11.0.8614.2070</FileVersion>         
+    <Version>11.0.8746</Version>
+    <AssemblyVersion>11.0.8746.2070</AssemblyVersion>
+    <FileVersion>11.0.8746.2070</FileVersion>         
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -20,8 +20,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Ab3d.PowerToys" Version="11.0.8614" />    
-    <PackageReference Include="Ab3d.PowerToys.Input" Version="11.0.8614" />
+    <PackageReference Include="Ab3d.PowerToys" Version="11.0.8746" />    
+    <PackageReference Include="Ab3d.PowerToys.Input" Version="11.0.8746" />
   </ItemGroup>
 
   <ItemGroup>

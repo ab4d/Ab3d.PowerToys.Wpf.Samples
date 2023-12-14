@@ -108,7 +108,7 @@
                 <TextBlock Foreground="Silver" Margin="5 3 0 0" Text="{Binding ElementName=ArrowRadiusSlider, Path=Value}"/>
             </StackPanel>
             <Slider Name="ArrowRadiusSlider"  Width="160"
-                            Minimum="1" Maximum="40" Value="20" 
+                            Minimum="1" Maximum="60" Value="20" 
                             AutoToolTipPlacement="BottomRight" AutoToolTipPrecision="0"
                             TickFrequency="1" TickPlacement="BottomRight" SmallChange="1" LargeChange="5" IsSnapToTickEnabled="True"/>
 

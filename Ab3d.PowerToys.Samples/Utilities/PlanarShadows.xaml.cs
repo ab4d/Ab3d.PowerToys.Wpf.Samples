@@ -149,7 +149,7 @@ In Ab3d.DXEngine this problem is solved by using depth bias.";
             var assimpWpfImporter = new AssimpWpfImporter();
             var robotModel3D = assimpWpfImporter.ReadModel3D(fileName);
 
-            var hand2Group = assimpWpfImporter.NamedObjects["Hand2__Group"] as Model3DGroup;
+            var hand2Group = assimpWpfImporter.NamedObjects["Hand2"] as Model3DGroup;
             _axisAngleRotation3D = new AxisAngleRotation3D(new Vector3D(0, 0, -1), 0);
             var rotateTransform3D = new RotateTransform3D(_axisAngleRotation3D);
 

@@ -32,16 +32,17 @@
                 <visuals:TubeLineVisual3D StartPosition="0,0,100" EndPosition="0,0,0" Material="E:Silver" Segments="6" Radius="1"/>
                 <visuals:TubeLineVisual3D StartPosition="50,0,100" EndPosition="50,0,0" Material="E:Silver" Segments="6" Radius="2"/>
 
-                <visuals:TubeLineVisual3D StartPosition="100,0,100" EndPosition="200,0,100" Material="E:Silver" Segments="6" Radius="1"/>
-                <visuals:TubeLineVisual3D StartPosition="200,0,100" EndPosition="200,0,200" Material="E:Silver" Segments="6" Radius="1"/>
-                <visuals:TubeLineVisual3D StartPosition="200,0,200" EndPosition="100,0,200" Material="E:Silver" Segments="6" Radius="1"/>
-                <visuals:TubeLineVisual3D StartPosition="100,0,200" EndPosition="100,0,100" Material="E:Silver" Segments="6" Radius="1"/>
+                <visuals:TubeLineVisual3D StartPosition="-50,0,-150" EndPosition="50,0,-150" Material="E:Silver" Segments="6" Radius="1"/>
+                <visuals:TubeLineVisual3D StartPosition="50,0,-150" EndPosition="50,0,-50" Material="E:Silver" Segments="6" Radius="1"/>
+                <visuals:TubeLineVisual3D StartPosition="50,0,-50" EndPosition="-50,0,-50" Material="E:Silver" Segments="6" Radius="1"/>
+                <visuals:TubeLineVisual3D StartPosition="-50,0,-50" EndPosition="-50,0,-150" Material="E:Silver" Segments="6" Radius="1"/>
                 
                 <ModelVisual3D x:Name="MeshTubeLinesVisual" />
             </Viewport3D>
         </Border>
 
-        <TextBlock FontWeight="Bold" FontSize="20" Foreground="Silver" Margin="10" VerticalAlignment="Top" HorizontalAlignment="Left" Text="3D lines created with TubeLine3DVisual and TubeLineMesh3D objects"/>
+        <TextBlock FontWeight="Bold" FontSize="20" Foreground="Silver" Margin="10" VerticalAlignment="Top" HorizontalAlignment="Left" 
+                   Text="3D lines created with TubeLine3DVisual, TubeLineMesh3D and ArrowVisual3D objects"/>
 
         <cameras:SceneCamera Name="Camera1" Heading="30" Attitude="-20" Bank="0" Distance="700" ShowCameraLight="Always"/>
 

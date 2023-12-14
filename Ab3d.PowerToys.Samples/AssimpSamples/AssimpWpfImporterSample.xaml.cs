@@ -28,6 +28,8 @@ namespace Ab3d.PowerToys.Samples.AssimpSamples
     {
         private string _fileName;
 
+        private bool _isWireframeWarningShown;
+
         public AssimpWpfImporterSample()
         {
             InitializeComponent();
@@ -89,6 +91,23 @@ namespace Ab3d.PowerToys.Samples.AssimpSamples
             {
                 MessageBox.Show("Assimp does not support importing files file extension: " + fileExtension);
                 return;
+            }
+
+            var fileInfo = new System.IO.FileInfo(fileName);
+
+            if (!fileInfo.Exists)
+            {
+                MessageBox.Show(string.Format("File {0} does not exist", fileName));
+                return;
+            }
+
+            // When file is bigger then 1MB then show warning about wireframe rendering and uncheck the CheckBox
+            if (fileInfo.Length > 1000000 && (ShowWireframeCheckBox.IsChecked ?? false) && !_isWireframeWarningShown)
+            {
+                MessageBox.Show("Showing a complex 3D file with 'Show wireframe' CheckBox checked can be very slow because rendering many 3D lines is slow when using only WPF 3D and Ab3d.PowerToys (without using Ab3d.DXEngine).\r\nDisabling wireframe rendering to show the models faster. To show the wireframe model, check the 'Show wireframe' CheckBox.", "Wireframe rendering", MessageBoxButton.OK, MessageBoxImage.Warning);
+                
+                ShowWireframeCheckBox.IsChecked = false;
+                _isWireframeWarningShown = true;
             }
 
             try
