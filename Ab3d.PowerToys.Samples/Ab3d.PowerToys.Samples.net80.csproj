@@ -28,7 +28,7 @@
     <Reference Include="AssimpNet">
       <HintPath>..\lib\AssimpNet.dll</HintPath>
     </Reference>
-    <Reference Include="AssimpNet">
+    <Reference Include="Ab3d.PowerToys.Assimp">
       <HintPath>..\lib\Ab3d.PowerToys.Assimp.dll</HintPath>
     </Reference>    
   </ItemGroup>
