@@ -10,7 +10,6 @@
       mc:Ignorable="d" 
       Title="TemplatePage"
       d:DesignHeight="400" d:DesignWidth="800">
-
     <Grid Name="RootGrid">
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
@@ -34,8 +33,6 @@
                                     RotateCameraConditions="LeftMouseButtonPressed"
                                     MoveCameraConditions="LeftMouseButtonPressed, ControlKey"
                                     ShowRotationCenterMarker="True"
-                                    RotateAroundMousePosition="True"
-                                    ZoomMode="MousePosition"
                                     EventsSourceElement="{Binding ElementName=ViewportBorder}"
                                     TargetCamera="{Binding ElementName=Camera1}" />
 
@@ -43,11 +40,35 @@
 
         <Border Grid.Row="0" HorizontalAlignment="Right" VerticalAlignment="Bottom" Background="#CCFFFFFF" BorderBrush="Black" BorderThickness="2" >
             <StackPanel Orientation="Vertical" Margin="5">
+                <CheckBox Name="ShowModelCheckBox" Content="Show Model" IsChecked="True" Margin="0 0 0 8" Checked="ShowModelCheckBox_OnChecked" Unchecked="ShowModelCheckBox_OnChecked"/>
+                <CheckBox Name="ShowEdgeLinesCheckBox" Content="Show Edge lines" IsChecked="True" Margin="0 0 0 20" Checked="ShowEdgeLinesCheckBox_OnChecked" Unchecked="ShowEdgeLinesCheckBox_OnChecked"/>
+
                 <TextBlock Text="{Binding ElementName=EdgeStartAngleSlider, Path=Value, StringFormat=Edge start angle: {0:F0}}" />
                 <Slider Name="EdgeStartAngleSlider" Minimum="0" Maximum="90" Value="25" ValueChanged="EdgeStartAngleSlider_OnValueChanged" />
 
                 <TextBlock Text="{Binding ElementName=LineThicknessSlider, Path=Value, StringFormat=Line thickness: {0:F1}}" Margin="0 10 0 0" />
                 <Slider Name="LineThicknessSlider" Minimum="0.5" Maximum="3" Value="1.5" ValueChanged="LineThicknessSlider_OnValueChanged" />
+
+                <StackPanel Orientation="Horizontal" Margin="0 20 0 8">
+                    <CheckBox x:Name="CacheIntermediateObjectsCheckBox" Content="CacheIntermediateObjects" IsChecked="True" Margin="0 0 5 0" Checked="OnReloadModelChecked" Unchecked="OnReloadModelChecked" />
+                    <common:InfoControl x:Name="CacheIntermediateObjectsInfoControl" />
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Margin="0 0 0 8">
+                    <CheckBox x:Name="ProcessDuplicatePositionsCheckBox" Content="ProcessDuplicatePositions" IsChecked="True" Margin="0 0 5 0" Checked="OnReloadModelChecked" Unchecked="OnReloadModelChecked" />
+                    <common:InfoControl x:Name="ProcessDuplicatePositionsInfoControl" />
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Margin="0 0 0 8">
+                    <CheckBox x:Name="ProcessPartiallyCoveredEdgesCheckBox" Content="ProcessPartiallyCoveredEdges" IsChecked="True" Margin="0 0 5 0" Checked="OnReloadModelChecked" Unchecked="OnReloadModelChecked" />
+                    <common:InfoControl x:Name="ProcessPartiallyCoveredEdgesInfoControl" />
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Margin="0 0 0 10">
+                    <CheckBox Name="AddMeshOuterEdgesCheckBox" Content="AddMeshOuterEdges" IsChecked="True" Margin="0 0 5 0" Checked="OnReloadModelChecked" Unchecked="OnReloadModelChecked" />
+                    <common:InfoControl x:Name="AddMeshOuterEdgesInfoControl" />
+                </StackPanel>
+                <TextBlock Name="TimeTextBlock" Margin="0 10 0 0" />
             </StackPanel>
         </Border>
 

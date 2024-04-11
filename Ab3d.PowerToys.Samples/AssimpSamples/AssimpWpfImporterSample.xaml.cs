@@ -114,7 +114,7 @@ namespace Ab3d.PowerToys.Samples.AssimpSamples
             {
                 Mouse.OverrideCursor = Cursors.Wait;
 
-                // Before readin the file we can set the default material (used when no other materila is defined - here we set the default value again)
+                // Before reading the file we can set the default material (used when no other material is defined - here we set the default value again)
                 assimpWpfImporter.DefaultMaterial = new DiffuseMaterial(Brushes.Silver);
 
                 // After assimp importer reads the file, it can execute many post processing steps to transform the geometry.
@@ -126,6 +126,15 @@ namespace Ab3d.PowerToys.Samples.AssimpSamples
                 // When ReadPolygonIndices is true, assimpWpfImporter will read PolygonIndices collection that can be used to show polygons instead of triangles.
                 assimpWpfImporter.ReadPolygonIndices = ReadPolygonIndicesCheckBox.IsChecked ?? false;
 
+
+                // Set importer configuration properties:
+                // You can get the possible setting class by using intelli sense and checking the classes available in the global::Assimp.Configs namespace
+                // or get property names from config.h.in file in Assimp source (https://github.com/assimp/assimp/blob/master/include/assimp/config.h.in)
+                //assimpWpfImporter.SetConfig(new global::Assimp.Configs.FBXPreservePivotsConfig(preservePivots: false));
+                //// this is the same as: 
+                //assimpWpfImporter.SetConfig(new global::Assimp.Configs.BooleanPropertyConfig("IMPORT_FBX_PRESERVE_PIVOTS", false));
+
+
                 // Read model from file
                 Model3D readModel3D;
 
@@ -135,9 +144,23 @@ namespace Ab3d.PowerToys.Samples.AssimpSamples
 
                     // To read 3D model from stream, use the following code:
                     //var extension = System.IO.Path.GetExtension(fileName); // extension is needed as a format hint so assimp will know which importer to use
+                    //var directoryName = System.IO.Path.GetDirectoryName(fileName);
+
                     //using (var fileStream = System.IO.File.OpenRead(fileName))
                     //{
-                    //    readModel3D = assimpWpfImporter.ReadModel3D(fileStream, extension, resolveResourceFunc: null); // when reading models with texture, you will need to define the resolveResourceFunc
+                    //    readModel3D = assimpWpfImporter.ReadModel3D(fileStream, extension, resolveResourceFunc: resourceName =>
+                    //    {
+                    //        // when reading models with texture, we will need to define the resolveResourceFunc to read additional resources
+                    //        // (textures or additional files, like material .mtl that is associated with .obj file)
+                    //        if (string.IsNullOrEmpty(directoryName))
+                    //            return null;
+                                
+                    //        string resourceFileName = System.IO.Path.Combine(directoryName, resourceName);
+                    //        if (System.IO.File.Exists(resourceFileName))
+                    //            return System.IO.File.OpenRead(resourceFileName);
+
+                    //        return null;
+                    //    }); 
                     //}
 
                     isNewFile = (_fileName != fileName);

@@ -76,32 +76,21 @@ namespace Ab3d.PowerToys.Samples.Lines3D
 
 
             // NOTES:
-            // 1)
-            // The source code for EdgeLinesFactory class is written in a comment at the end of the StaticEdgeLinesCreationSample.xaml.cs file.
-            // You can change its source and create a new class that would suite your needs.
-            //
-            // 2)
-            // Call CreateEdgeLinesForEachGeometryModel3D that will generate MultiLineVisual3D
+            // Call SetEdgeLinesForEachGeometryModel3D or static CreateEdgeLinesForEachGeometryModel3D to generate MultiLineVisual3D
             // with edge lines for each GeometryModel3D in the _robotArmModel3D hierarchy.
-            // The MultiLineVisual3D are added to to the EdgeLinesRootVisual3D.
-            // The create MultiLineVisual3D will be set as EdgeLinesFactory.EdgeMultiLineVisual3DProperty to each GeometryModel3D.
+            // The MultiLineVisual3D are added to the EdgeLinesRootVisual3D.
+            // The created MultiLineVisual3D will be set as EdgeLinesFactory.EdgeMultiLineVisual3DProperty to each GeometryModel3D.
             // This way we will be able to update the Transformation in the MultiLineVisual3D after the transformation in the model is changed.
             // This is done in the OnRendering method.
             // 
-            // If the model is not animated or otherwise transformed, then it is recommended to call AddEdgeLinePositions
+            // If the model is not animated or otherwise transformed, then it is recommended to call GetEdgeLines method
             // that will create static edge lines. See StaticEdgeLinesCreationSample for more info.
-            //
-            // 3)
-            // Multi-threading:
-            // You cannot call CreateEdgeLinesForEachGeometryModel3D in background treads because MultiLineVisual3D object cannot be used on other threads.
-            // But you can move most of the work (generating edge line positions) to the background threads.
-            // To do that you will need to manually collect all MeshGeometry3D objects, call Freeze method on them and then in multiple threads
-            // create MeshAnalyzer classes and call CreateEdgeLines for each MeshGeometry3D. 
-            // Because you will not be able to store the generated lines into MeshGeometry3D (it is frozen), you will need to crate a Dictionary 
-            // where key will be MeshGeometry3D and value will be the List<int> that is created by the CreateEdgeLines method.
-            // After all the threads have completed its work, then in the main thread you can create MultiLineVisual3D objects
-            // based on the data from the Dictionary that was created in each thread.
-            EdgeLinesFactory.CreateEdgeLinesForEachGeometryModel3D(_robotArmModel3D, edgeStartAngleInDegrees: 25, lineThickness: 2, lineColor: Colors.Black, parentModelVisual3D: EdgeLinesRootVisual3D);
+            
+            var edgeLinesFactory = new EdgeLinesFactory();
+            edgeLinesFactory.SetEdgeLinesForEachGeometryModel3D(_robotArmModel3D, edgeStartAngleInDegrees: 25, lineThickness: 2, lineColor: Colors.Black, parentModelVisual3D: EdgeLinesRootVisual3D);
+
+            // You can also use a static CreateEdgeLinesForEachGeometryModel3D:
+            //EdgeLinesFactory.CreateEdgeLinesForEachGeometryModel3D(_robotArmModel3D, edgeStartAngleInDegrees: 25, lineThickness: 2, lineColor: Colors.Black, parentModelVisual3D: EdgeLinesRootVisual3D);
 
             SetupAnimation();
         }

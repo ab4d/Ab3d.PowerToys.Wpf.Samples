@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Ab3d.Common;
 using Ab3d.Common.EventManager3D;
+using Ab3d.Controls;
 using Ab3d.Meshes;
 using Ab3d.Utilities;
 using Ab3d.Visuals;
@@ -74,6 +75,11 @@ namespace Ab3d.PowerToys.Samples.Utilities
                 _startScaleX = _scaleTransform3D.ScaleX;
                 _startScaleY = _scaleTransform3D.ScaleY;
                 _startScaleZ = _scaleTransform3D.ScaleZ;
+
+                // When MouseCameraController uses left mouse button to rotate the camera,
+                // then we need to disable it when we start scaling the SelectedModelScalar otherwise we would also rotate the camera.
+                if (MouseCameraController1.RotateCameraConditions == MouseCameraController.MouseAndKeyboardConditions.LeftMouseButtonPressed)
+                    MouseCameraController1.IsEnabled = false;
             };
 
             SelectedModelScalar.ModelScaled += delegate (object sender, ModelScaledEventArgs args)
@@ -88,8 +94,8 @@ namespace Ab3d.PowerToys.Samples.Utilities
 
             SelectedModelScalar.ModelScaleEnded += delegate (object sender, EventArgs args)
             {
-                // Nothing to do here in this sample
-                // The event handler is here only for description purposes
+                // Enable the MouseCameraController after we finished scaling the SelectedModelScalar
+                MouseCameraController1.IsEnabled = true;
             };
 
             CreateRandomScene();

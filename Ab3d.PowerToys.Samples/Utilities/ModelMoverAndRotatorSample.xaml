@@ -36,7 +36,8 @@
                                       TargetViewport3D="{Binding ElementName=MainViewport}"/>
 
         <ab3d:MouseCameraController Name="MouseCameraController1" 
-                                    RotateCameraConditions="RightMouseButtonPressed"
+                                    RotateCameraConditions="LeftMouseButtonPressed"
+                                    MoveCameraConditions="LeftMouseButtonPressed, ControlKey"
                                     TargetCamera="{Binding ElementName=Camera1}" EventsSourceElement="{Binding ElementName=ViewportBorder}"/>
 
         <StackPanel VerticalAlignment="Bottom" HorizontalAlignment="Right" Orientation="Vertical">

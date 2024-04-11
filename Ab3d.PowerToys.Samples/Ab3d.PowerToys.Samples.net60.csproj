@@ -6,9 +6,9 @@
     <UseWPF>true</UseWPF>
     <AssemblyName>Ab3d.PowerToys.Samples</AssemblyName>
     <ApplicationIcon>PowerToys.ico</ApplicationIcon>
-    <Version>11.0.8746</Version>
-    <AssemblyVersion>11.0.8746.2060</AssemblyVersion>
-    <FileVersion>11.0.8746.2060</FileVersion>        
+    <Version>11.1.8864</Version>
+    <AssemblyVersion>11.1.8864.2060</AssemblyVersion>
+    <FileVersion>11.1.8864.2060</FileVersion>        
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -20,8 +20,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Ab3d.PowerToys" Version="11.0.8746" />    
-    <PackageReference Include="Ab3d.PowerToys.Input" Version="11.0.8746" />
+    <PackageReference Include="Ab3d.PowerToys" Version="11.1.8864" />    
+    <PackageReference Include="Ab3d.PowerToys.Input" Version="11.1.8864" />
   </ItemGroup>
 
   <ItemGroup>

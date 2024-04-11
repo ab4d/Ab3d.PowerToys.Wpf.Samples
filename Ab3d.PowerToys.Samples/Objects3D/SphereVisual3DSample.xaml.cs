@@ -112,6 +112,8 @@ namespace Ab3d.PowerToys.Samples.Objects3D
 
 
             MeshInspector.MeshGeometry3D = SphereVisual3D1.Geometry;
+
+            PositionsCountTextBlock.Text = string.Format(System.Globalization.CultureInfo.InvariantCulture, "Positions count: {0:#,##0}\r\nTriangles count: {1:#,##0}", sphereMeshGeometry3D.Positions.Count, sphereMeshGeometry3D.TriangleIndices.Count / 3);
         }
 
         private void OnMaterialSettingsChanged(object sender, RoutedEventArgs e)

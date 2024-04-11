@@ -27,6 +27,8 @@
                         <Model3DGroup>
                             <Model3DGroup x:Name="GroundModelGroup"/>
                             <Model3DGroup x:Name="GeneratorsGroup"/>
+                            <AmbientLight Color="#888" />
+                            <DirectionalLight Direction="1 -0.5 0"></DirectionalLight>
                         </Model3DGroup>
                     </ModelVisual3D.Content>
                 </ModelVisual3D>

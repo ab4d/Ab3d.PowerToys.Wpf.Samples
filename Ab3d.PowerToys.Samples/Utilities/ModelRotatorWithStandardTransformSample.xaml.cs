@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Ab3d.Common;
 using Ab3d.Common.EventManager3D;
+using Ab3d.Controls;
 using Ab3d.Utilities;
 using Ab3d.Visuals;
 
@@ -68,6 +69,11 @@ namespace Ab3d.PowerToys.Samples.Utilities
                 _startRotateX = _standardTransform3D.RotateX;
                 _startRotateY = _standardTransform3D.RotateY;
                 _startRotateZ = _standardTransform3D.RotateZ;
+
+                // When MouseCameraController uses left mouse button to rotate the camera,
+                // then we need to disable it when we start rotating the SelectedModelRotator otherwise we would also rotate the camera.
+                if (MouseCameraController1.RotateCameraConditions == MouseCameraController.MouseAndKeyboardConditions.LeftMouseButtonPressed)
+                    MouseCameraController1.IsEnabled = false;
             };
 
             SelectedModelRotator.ModelRotated += delegate (object sender, ModelRotatedEventArgs args)
@@ -88,8 +94,8 @@ namespace Ab3d.PowerToys.Samples.Utilities
 
             SelectedModelRotator.ModelRotateEnded += delegate (object sender, ModelRotatedEventArgs args)
             {
-                // Nothing to do here in this sample
-                // The event handler is here only for description purposes
+                // Enable the MouseCameraController after we finished rotating the SelectedModelRotator
+                MouseCameraController1.IsEnabled = true;
             };
 
             CreateRandomScene();

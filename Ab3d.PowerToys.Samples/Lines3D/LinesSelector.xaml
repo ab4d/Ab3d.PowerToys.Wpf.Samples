@@ -8,8 +8,7 @@
              xmlns:ab3d="clr-namespace:Ab3d.Controls;assembly=Ab3d.PowerToys"  
              xmlns:visuals="clr-namespace:Ab3d.Visuals;assembly=Ab3d.PowerToys"     
              Title="LinesSelector"
-             MinHeight="300"
-             MinWidth="600">
+             d:DesignHeight="400" d:DesignWidth="800">
     <Grid>
         <Border Name="MainBorder" Background="White">
             <Viewport3D Name="MainViewport" >
@@ -33,11 +32,11 @@
                                     MoveCameraConditions="RightMouseButtonPressed, ControlKey"
                                     EventsSourceElement="{Binding ElementName=MainBorder}"/>
 
+        <ab3d:MouseCameraControllerInfo MouseCameraController="{Binding ElementName=MouseCameraController1}" HorizontalAlignment="Left" VerticalAlignment="Bottom" />
 
         <StackPanel  VerticalAlignment="Bottom" HorizontalAlignment="Right" Orientation="Vertical">
-            <ab3d:MouseCameraControllerInfo MouseCameraController="{Binding ElementName=MouseCameraController1}" HorizontalAlignment="Right" Margin="0 0 10 0" />
 
-            <Border BorderThickness="1" BorderBrush="Black" Background="#99FFFFFF" Margin="10 10 10 0">
+            <Border BorderThickness="1" BorderBrush="Black" Background="#DDFFFFFF" Margin="10 10 10 0">
                 <StackPanel Orientation="Vertical" Margin="10 5" Width="190">
 
                     <TextBlock>
@@ -50,20 +49,57 @@
                         <Run Name="LineSegmentIndexValue"></Run>
                     </TextBlock>
 
+                    <TextBlock Margin="0 3 0 0" ToolTip="This shows time to call CalculateScreenSpacePositions method + time to call GetClosestDistance method and process the distances">
+                        <Run>Update time (in ms):</Run>
+                        <Run Name="UpdateTimeValue"></Run>
+                    </TextBlock>
+
                     <TextBlock Margin="0 10 0 0">
                         <Run>Max selection distance:</Run>
                         <Run Name="MaxDistanceValue"></Run>
                     </TextBlock>
                     <Slider Name="MaxDistanceSlider" Minimum="0" Maximum="21" Value="15" TickPlacement="TopLeft" TickFrequency="1" IsSnapToTickEnabled="True" ValueChanged="MaxDistanceSlider_OnValueChanged" />
-                    
+
                     <CheckBox Name="OrderByDistanceCheckBox" Content="Order lines by camera distance" IsChecked="True" Margin="0 10 0 2"/>
                     <TextBlock Text="When unchecked the line that is closest to the mouse will be selected even if it is behind some other line in 3D space." 
+                               FontSize="10" FontStyle="Italic" TextWrapping="Wrap"/>
+                    
+                    <CheckBox Name="CheckBoundingBoxCheckBox" Content="Check BoundingBox" IsChecked="True" Margin="0 10 0 2" Checked="OnCheckBoundingBoxCheckBoxCheckedChanged" Unchecked="OnCheckBoundingBoxCheckBoxCheckedChanged"/>
+                    <TextBlock Text="When checked this significantly improves performance because many line checks are skipped after checking the bounding box. Increase line numbers and segments below to see this effect." 
                                FontSize="10" FontStyle="Italic" TextWrapping="Wrap"/>
                     
                     <CheckBox Name="MultiThreadedCheckBox" Content="Use multiple threads" IsChecked="False" Margin="0 10 0 2"/>
                     <TextBlock Text="When checked then Parallel.For is used to get the closest line (useful when there are many 3D lines in the scene)." 
                                FontSize="10" FontStyle="Italic" TextWrapping="Wrap"/>
-                    
+
+                    <TextBlock Text="Shown lines:" Margin="0 20 0 0"  />
+
+                    <ComboBox Name="LinesCountComboBox" SelectedIndex="0" Margin="0 3 0 0" Width="190" SelectionChanged="LinesCountComboBox_OnSelectionChanged">
+                        <ComboBoxItem>10 lines + 20 poly-lines</ComboBoxItem>
+                        <ComboBoxItem>10 lines + 20 multi-lines</ComboBoxItem>
+                        <ComboBoxItem>50 poly-lines</ComboBoxItem>
+                        <ComboBoxItem>100 poly-lines</ComboBoxItem>
+                        <ComboBoxItem>500 poly-lines</ComboBoxItem>
+                        <!-- More lines can be shown in the Ab3d.DXEngine samples project because line rendering is much faster there -->
+                        <!--<ComboBoxItem>1000 poly-lines</ComboBoxItem>
+                        <ComboBoxItem>5000 poly-lines</ComboBoxItem>-->
+                    </ComboBox>
+
+                    <StackPanel Orientation="Horizontal" Margin="0 5 0 0">
+                        <TextBlock Text="Line segments count:" VerticalAlignment="Center" />
+                        <ComboBox Name="LinesSegmentsComboBox" SelectedIndex="0" Margin="5 0 0 0" Width="70" SelectionChanged="LinesSegmentsComboBox_OnSelectionChanged">
+                            <ComboBoxItem>10</ComboBoxItem>
+                            <ComboBoxItem>50</ComboBoxItem>
+                            <ComboBoxItem>100</ComboBoxItem>
+                            <ComboBoxItem>500</ComboBoxItem>
+                            <!-- More lines can be shown in the Ab3d.DXEngine samples project because line rendering is much faster there -->
+                            <!--<ComboBoxItem>1000</ComboBoxItem>
+                            <ComboBoxItem>5000</ComboBoxItem>-->
+                        </ComboBox>
+                    </StackPanel>
+
+                    <TextBlock Name="DXEngineInfoTextBlock" Text="Use Ab3d.DXEngine to show many 3D lines much more efficiently." Margin="0 10 0 0" FontSize="10" FontStyle="Italic" TextWrapping="Wrap" />
+
                     <Button Name="CameraRotationButton" Content="Stop camera rotation" Margin="0 15 0 0" Click="CameraRotationButton_OnClick"/>
                 </StackPanel>
             </Border>

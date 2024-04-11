@@ -17,6 +17,7 @@ using System.Windows.Shapes;
 using Ab3d.Common;
 using Ab3d.Common.Cameras;
 using Ab3d.Common.EventManager3D;
+using Ab3d.Controls;
 using Ab3d.Utilities;
 using Ab3d.Visuals;
 
@@ -118,6 +119,11 @@ namespace Ab3d.PowerToys.Samples.Utilities
             {
                 _startMovePosition = new Point3D(_translateTransform3D.OffsetX, _translateTransform3D.OffsetY, _translateTransform3D.OffsetZ);
                 _modelMover.Position = _initialPosition.ToVector3D() + _startMovePosition;
+
+                // When MouseCameraController uses left mouse button to rotate the camera,
+                // then we need to disable it when we start moving the ModelMover otherwise we would also rotate the camera.
+                if (MouseCameraController1.RotateCameraConditions == MouseCameraController.MouseAndKeyboardConditions.LeftMouseButtonPressed)
+                    MouseCameraController1.IsEnabled = false;
             };
 
             _modelMover.ModelMoved += delegate(object o, Ab3d.Common.ModelMovedEventArgs e)
@@ -146,6 +152,8 @@ namespace Ab3d.PowerToys.Samples.Utilities
 
             _modelMover.ModelMoveEnded += delegate(object sender, EventArgs args)
             {
+                // Enable the MouseCameraController after we finished moving the ModelMover
+                MouseCameraController1.IsEnabled = true;
             };
 
 
@@ -195,6 +203,11 @@ namespace Ab3d.PowerToys.Samples.Utilities
                     if (_selectedAxisAngleRotation3D != null)
                         _startRotationAngle = _selectedAxisAngleRotation3D.Angle;
                 }
+
+                // When MouseCameraController uses left mouse button to rotate the camera,
+                // then we need to disable it when we start rotating the _modelRotator otherwise we would also rotate the camera.
+                if (MouseCameraController1.RotateCameraConditions == MouseCameraController.MouseAndKeyboardConditions.LeftMouseButtonPressed)
+                    MouseCameraController1.IsEnabled = false;
             };
 
             _modelRotator.ModelRotated += delegate (object sender, ModelRotatedEventArgs args)
@@ -208,6 +221,9 @@ namespace Ab3d.PowerToys.Samples.Utilities
             _modelRotator.ModelRotateEnded += delegate(object sender, ModelRotatedEventArgs args)
             {
                 _selectedAxisAngleRotation3D = null;
+
+                // Enable the MouseCameraController after we finished rotating the _modelRotator
+                MouseCameraController1.IsEnabled = true;
             };
 
 

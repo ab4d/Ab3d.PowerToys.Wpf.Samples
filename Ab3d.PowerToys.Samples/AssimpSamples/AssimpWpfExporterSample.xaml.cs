@@ -337,6 +337,21 @@ namespace Ab3d.PowerToys.Samples.AssimpSamples
             ContentModelVisual3D.Content = null;
 
 
+            var group = new MaterialGroup();
+            group.Children.Add(new DiffuseMaterial(Brushes.Gold));
+            group.Children.Add(new SpecularMaterial(Brushes.White, 32));
+
+            var sphereVisual3D = new SphereVisual3D()
+            {
+                CenterPosition = new Point3D(0, 500, 0),
+                Radius = 50,
+                Material = group
+            };
+
+            ContentModelVisual3D.Children.Add(sphereVisual3D);
+
+            
+
             var greenMaterial = new DiffuseMaterial(Brushes.Green);
             var redMaterial = new DiffuseMaterial(Brushes.Red);
 

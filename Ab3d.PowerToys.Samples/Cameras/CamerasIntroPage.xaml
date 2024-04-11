@@ -27,9 +27,9 @@
                     \n
                     The \!SphericalCamera\! defines the angles (Heading, Attitude, Bank) that set the camera's LookDirection. It also defines the Camera light that can illuminate the scene from the cameras position. \!StartRotation\! and \!StopRotation\! methods can be used to simply start and stop rotating the camera.\n
                     \n
-                    The \!TargetPositonCamera\! can be used if we know the 3D position where the camera should look at. To fully define the camera we also need to set the camera angles and distance to the position.\n
+                    The \!TargetPositionCamera\! can be used if we know the 3D position where the camera should look at. To fully define the camera we also need to set the camera angles and distance to the position.\n
                     \n
-                    The \!TargetRect3DCamera\! is similar to TargetPositonCamera, but instead of looking at a Point3D, the camera looks at a Rect3D - actually at the center of the Rect3D. Because the Rect3D has size, we can also use distance relative to the size of the Rect3D. For example if we set IsDistancePercent to true and Distance is 3, this means the camera will be away from the center of the Rect3D for 3 times the length of the Rect3D diagonal. There is also IsDynamicTarget property that if set to true means that the camera is constantly checking if the TargetRect3D is changed.\n
+                    The \!TargetRect3DCamera\! is similar to TargetPositionCamera, but instead of looking at a Point3D, the camera looks at a Rect3D - actually at the center of the Rect3D. Because the Rect3D has size, we can also use distance relative to the size of the Rect3D. For example if we set IsDistancePercent to true and Distance is 3, this means the camera will be away from the center of the Rect3D for 3 times the length of the Rect3D diagonal. There is also IsDynamicTarget property that if set to true means that the camera is constantly checking if the TargetRect3D is changed.\n
                     \n
                     The \!SceneCamera\! is almost the same as TargetRect3DCamera. The only difference is that the user does not need to set the TargetRect3D as it is automatically set to the whole 3D scene in the TargetViewport3D.\n
                     \n

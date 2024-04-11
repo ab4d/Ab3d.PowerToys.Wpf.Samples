@@ -96,7 +96,9 @@
             <Slider Name="SectionsSlider"  Width="160"
                             Minimum="3" Maximum="40" Value="15" 
                             AutoToolTipPlacement="BottomRight" AutoToolTipPrecision="0"
-                            TickFrequency="1" TickPlacement="BottomRight" SmallChange="1" LargeChange="5" IsSnapToTickEnabled="True"/>            
+                            TickFrequency="1" TickPlacement="BottomRight" SmallChange="1" LargeChange="5" IsSnapToTickEnabled="True"/>
+
+            <TextBlock Name="PositionsCountTextBlock" Foreground="Silver" Margin="0 5 0 0" />
         </StackPanel>
     </Grid>
 </Page>

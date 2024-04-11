@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Ab3d.Common.Cameras;
 using Ab3d.Common.EventManager3D;
+using Ab3d.Controls;
 using Ab3d.Utilities;
 using Ab3d.Visuals;
 
@@ -97,6 +98,11 @@ namespace Ab3d.PowerToys.Samples.Utilities
                     return;
 
                 _startMovePosition = _selectedBoxModel.CenterPosition;
+
+                // When MouseCameraController uses left mouse button to rotate the camera,
+                // then we need to disable it when we start moving the ModelMover otherwise we would also rotate the camera.
+                if (MouseCameraController1.RotateCameraConditions == MouseCameraController.MouseAndKeyboardConditions.LeftMouseButtonPressed)
+                    MouseCameraController1.IsEnabled = false;
             };
 
             _modelMover.ModelMoved += delegate(object o, Ab3d.Common.ModelMovedEventArgs e)
@@ -137,6 +143,9 @@ namespace Ab3d.PowerToys.Samples.Utilities
             _modelMover.ModelMoveEnded += delegate(object sender, EventArgs args)
             {
                 InfoTextBlock.Text = "";
+
+                // Enable the MouseCameraController after we finished moving the ModelMover
+                MouseCameraController1.IsEnabled = true;
             };
 
             RootOverlayModelVisual3D.Children.Add(_modelMover);
