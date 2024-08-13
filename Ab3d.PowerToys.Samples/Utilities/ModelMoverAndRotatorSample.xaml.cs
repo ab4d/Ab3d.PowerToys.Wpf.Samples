@@ -193,8 +193,8 @@ namespace Ab3d.PowerToys.Samples.Utilities
                     _selectedAxisAngleRotation3D = new AxisAngleRotation3D(_selectedAxisAngleRotation3D.Axis, 0);
                     var rotateTransform3D = new RotateTransform3D(_selectedAxisAngleRotation3D);
 
-                    // Insert before TranslateTransform3D
-                    _transform3DGroup.Children.Insert(_transform3DGroup.Children.Count - 2, rotateTransform3D);
+                    // Insert before TranslateTransform3D that is the last transform in the _transform3DGroup.Children
+                    _transform3DGroup.Children.Insert(_transform3DGroup.Children.Count - 1, rotateTransform3D);
 
                     _startRotationAngle = 0;
                 }
