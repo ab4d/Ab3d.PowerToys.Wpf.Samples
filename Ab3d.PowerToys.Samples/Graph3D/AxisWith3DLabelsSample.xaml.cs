@@ -121,6 +121,26 @@ This sample let you experiment with different values.";
             //var majorTicks = customValuesLabelsAxis.GetMajorTickValues();
 
             customValuesLabelsAxis.SetCustomValueLabels(new string[] { "lowest", "low", "normal", "high", "highest" });
+            customValuesLabelsAxis.SetCustomValueColors(new Color[] { Colors.DarkBlue, Colors.Blue, Colors.Green, Colors.Orange, Colors.Red });
+
+            customValuesLabelsAxis.CustomizeValueLabelAction = (valueLabelIndex, textBlockVisual3D) =>
+            {
+                if (valueLabelIndex == 0)
+                    textBlockVisual3D.Background = Brushes.White;
+
+                if (valueLabelIndex < 2)
+                    textBlockVisual3D.FontFamily = new FontFamily("Courier New");
+
+                if (valueLabelIndex == 2)
+                {
+                    textBlockVisual3D.Background = Brushes.White;
+                    textBlockVisual3D.BorderBrush = Brushes.Yellow;
+                    textBlockVisual3D.BorderThickness = new Thickness(0, 0, 0, 2);
+                }
+
+                if (valueLabelIndex > 2)
+                    textBlockVisual3D.FontWeight = FontWeights.Bold;
+            };
 
             MainViewport.Children.Add(customValuesLabelsAxis);
 

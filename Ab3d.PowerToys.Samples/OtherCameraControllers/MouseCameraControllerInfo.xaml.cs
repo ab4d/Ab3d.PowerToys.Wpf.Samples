@@ -151,11 +151,11 @@ namespace Ab3d.PowerToys.Samples.OtherCameraControllers
             else
             {
                 // AddCustomInfoLine method adds custom message with keyboard and mouse button icon to the existing mouse controller info.
-                // The first parameter (insertRowIndex) specifies the index of the inserted row at the time of insertion
-                // In our example we are inserting two texts both time to index = 0
-                // This means that the first line will be inserted first and then the second line will be inserted at position 0 (so the first line will become second)
-                CameraControllerInfo.AddCustomInfoLine(0, Ab3d.Controls.MouseCameraController.MouseAndKeyboardConditions.MiddleMouseButtonPressed, "Custom info text 2");
-                CameraControllerInfo.AddCustomInfoLine(0, Ab3d.Controls.MouseCameraController.MouseAndKeyboardConditions.ShiftKey | Ab3d.Controls.MouseCameraController.MouseAndKeyboardConditions.LeftMouseButtonPressed, "Custom info text 1");
+                CameraControllerInfo.AddCustomInfoLine(Ab3d.Controls.MouseCameraController.MouseAndKeyboardConditions.ShiftKey | Ab3d.Controls.MouseCameraController.MouseAndKeyboardConditions.LeftMouseButtonPressed, "Custom info text");
+                CameraControllerInfo.AddCustomInfoLine(Ab3d.Controls.MouseCameraController.MouseAndKeyboardConditions.Disabled, "Only mouse move"); // When Disabled is used for custom info, then only Mouse is shown without any buttons
+                
+                // Insert custom text before other texts (use insertRowIndex to set the index for insertion):
+                CameraControllerInfo.AddCustomInfoLine(0, Ab3d.Controls.MouseCameraController.MouseAndKeyboardConditions.MiddleMouseButtonPressed, "Custom first text");
 
                 ShowCustomInfoButton.Content = "Hide custom info";
                 _isCustomInfoShown = true;

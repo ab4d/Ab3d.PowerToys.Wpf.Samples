@@ -20,7 +20,7 @@
                                          Camera="{Binding ElementName=Camera1}"
                                          OverlayCanvas="{Binding ElementName=AxisOverlayCanvas}"
                                          
-                                         Is3DTextShown="{Binding ElementName=Is3DTextShownCheckBox, Path=IsChecked}"
+                                         Is3DTextShown="True"
                                          IsWireBoxFullyClosed="{Binding ElementName=IsWireBoxFullyClosedCheckBox, Path=IsChecked}"
                                          AdjustFirstAndLastLabelPositions="{Binding ElementName=AdjustFirstAndLastLabelPositionsCheckBox, Path=IsChecked}"
                                          AxisShowingStrategy="{Binding ElementName=AxisShowingStrategyComboBox, Path=SelectedItem}"
@@ -84,14 +84,20 @@
             <StackPanel Orientation="Vertical" Margin="10 7">
                 <TextBlock FontWeight="Bold" FontSize="18" Margin="0 3" TextDecorations="Underline" Text="AxesBoxVisual3D"/>
 
-                <CheckBox Name="Is3DTextShownCheckBox" Content="Is3DTextShown" Margin="0 3 0 0" IsChecked="True" />
+                <CheckBox Name="Is3DTextShownCheckBox" Content="Is3DTextShown" Margin="0 3 0 0" IsChecked="True" Checked="OnIs3DTextShownCheckedChecked" Unchecked="OnIs3DTextShownCheckedChecked" />
                 <CheckBox Name="IsWireBoxFullyClosedCheckBox" Content="IsWireBoxFullyClosed" Margin="0 3 0 0" IsChecked="False" />
-                <CheckBox Name="AdjustFirstAndLastLabelPositionsCheckBox" Content="AdjustFirstAndLastLabelPositions" Margin="0 3 0 0" IsChecked="False" />
-
+                <CheckBox Name="AdjustFirstAndLastLabelPositionsCheckBox" Content="AdjustFirstAndLastLabelPositions" Margin="0 3 0 0" IsChecked="True" />
+                
                 <StackPanel Orientation="Horizontal" Margin="0 3 0 0">
                     <TextBlock Text="Strategy:" VerticalAlignment="Center" />
                     <ComboBox Name="AxisShowingStrategyComboBox" Width="150" Margin="5 0 0 0" />
                 </StackPanel>
+
+                <TextBlock FontWeight="Bold" FontSize="13" Margin="0 10 0 0" Text="Z Axes customization:"/>
+
+                <CheckBox Name="CustomZAxisValueLabelsCheckBox" Content="Custom labels" Margin="0 3 0 0" IsChecked="False" Checked="OnZAxisCustomizationCheckedChanged" Unchecked="OnZAxisCustomizationCheckedChanged" />
+                <CheckBox Name="CustomZAxisValueColorsCheckBox" Content="Custom colors" Margin="0 3 0 0" IsChecked="False" Checked="OnZAxisCustomizationCheckedChanged" Unchecked="OnZAxisCustomizationCheckedChanged" />
+                <CheckBox Name="CustomZAxisValueFormatingCheckBox" Content="Custom formating" Margin="0 3 0 0" IsChecked="False" Checked="OnZAxisCustomizationCheckedChanged" Unchecked="OnZAxisCustomizationCheckedChanged" />
 
                 <TextBlock FontWeight="Bold" FontSize="13" Margin="0 10 0 0" Text="Axes visibility:"/>
                 <CheckBox Name="ShowXAxis1CheckBox" Content="Show XAxis1" Margin="0 3 0 0" IsChecked="True" Checked="OnAxesVisibilityChanged" Unchecked="OnAxesVisibilityChanged" />
@@ -108,7 +114,7 @@
                 <CheckBox Name="ShowYAxisConnectionLinesCheckBox" Content="ShowYAxisConnectionLines" Margin="0 3 0 0" IsChecked="False" />
                 <CheckBox Name="ShowZAxisConnectionLinesCheckBox" Content="ShowZAxisConnectionLines" Margin="0 6 0 0" IsChecked="True" />
 
-                <Button Name="CustomizeButton" Content="Randomize axes settings" Margin="0 10 0 0" Click="CustomizeButton_OnClick" />
+                <Button Name="RandomizeButton" Content="Randomize axes settings" Margin="0 10 0 0" Click="RandomizeButton_OnClick" />
 
                 <TextBlock Margin="0 15 0 0" TextWrapping="Wrap" Width="200"
                            Text="Axes colors and line thicknesses are set in XAML. Axes line data ranges and axes titles are set code behind.&#x0a;&#x0a;To further customize the axes see the following two samples." />

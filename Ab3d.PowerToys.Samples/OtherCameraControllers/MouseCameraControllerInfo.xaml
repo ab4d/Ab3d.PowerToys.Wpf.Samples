@@ -102,10 +102,10 @@
                         <TextBlock Grid.Column="0" Grid.Row="0" Margin="0 2 0 0" TextDecorations="Underline" Text="Mouse button:"/>
                         <CheckBox Name="LeftButtonCheckBox3" Grid.Column="0" Margin="0 2 0 0" Grid.Row="1" IsChecked="True" Checked="OnQuickZoomCheckBoxChanged" Unchecked="OnQuickZoomCheckBoxChanged">Left</CheckBox>
                         <CheckBox Name="MiddleButtonCheckBox3" Grid.Column="0" Margin="0 2 0 0" Grid.Row="2" Checked="OnQuickZoomCheckBoxChanged" Unchecked="OnQuickZoomCheckBoxChanged">Middle</CheckBox>
-                        <CheckBox Name="RightButtonCheckBox3" Grid.Column="0" Grid.Row="3" Margin="0 2 0 0" Checked="OnQuickZoomCheckBoxChanged" Unchecked="OnQuickZoomCheckBoxChanged">Right</CheckBox>
+                        <CheckBox Name="RightButtonCheckBox3" Grid.Column="0" Grid.Row="3" Margin="0 2 0 0" IsChecked="True" Checked="OnQuickZoomCheckBoxChanged" Unchecked="OnQuickZoomCheckBoxChanged">Right</CheckBox>
 
                         <TextBlock Grid.Column="2" Grid.Row="0" Margin="0 2 0 0" TextDecorations="Underline" Text="Modifier keys:"/>
-                        <CheckBox Name="ShiftKeyCheckBox3" Grid.Column="2" Grid.Row="1" IsChecked="True" Margin="0 2 0 0" Checked="OnQuickZoomCheckBoxChanged" Unchecked="OnQuickZoomCheckBoxChanged">Shift</CheckBox>
+                        <CheckBox Name="ShiftKeyCheckBox3" Grid.Column="2" Grid.Row="1" Margin="0 2 0 0" Checked="OnQuickZoomCheckBoxChanged" Unchecked="OnQuickZoomCheckBoxChanged">Shift</CheckBox>
                         <CheckBox Name="ControlKeyCheckBox3" Grid.Column="2" Margin="0 2 0 0" Grid.Row="2" Checked="OnQuickZoomCheckBoxChanged" Unchecked="OnQuickZoomCheckBoxChanged">Control</CheckBox>
                         <CheckBox Name="AltKeyCheckBox3" Grid.Column="2" Grid.Row="3" Margin="0 2 0 0" Checked="OnQuickZoomCheckBoxChanged" Unchecked="OnQuickZoomCheckBoxChanged">Alt</CheckBox>
                     </Grid>

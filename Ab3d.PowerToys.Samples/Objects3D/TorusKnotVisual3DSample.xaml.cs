@@ -48,16 +48,11 @@ namespace Ab3d.PowerToys.Samples.Objects3D
         {
             TrianglesGroup.Children.Clear();
             
-            // When SphereVisual3D.UseCachedMeshGeometry3D is set to true (by default),
-            // then a shared MeshGeometry3D with radius 1 and at center position (0,0,0) is used.
-            // This MeshGeometry3D is then transformed by a MatrixTransform3D to produce the desired plane.
-            // To get the transformed MeshGeometry3D we need to manually transform the Positions and Normals (or set UseCachedMeshGeometry3D to false).
-            var sphereMeshGeometry3D = TorusKnotVisual3D1.Geometry;
-            sphereMeshGeometry3D = Ab3d.Utilities.MeshUtils.TransformMeshGeometry3D(sphereMeshGeometry3D, TorusKnotVisual3D1.Content.Transform, transformNormals: true);
+            var torusMeshGeometry3D = TorusKnotVisual3D1.Geometry;
 
             if (ShowTrianglesCheckBox.IsChecked ?? false)
             {
-                var wireframeModel = Ab3d.Models.WireframeFactory.CreateWireframe(sphereMeshGeometry3D, 2, Color.FromRgb(47, 72, 57), MainViewport) as GeometryModel3D;
+                var wireframeModel = Ab3d.Models.WireframeFactory.CreateWireframe(torusMeshGeometry3D, 2, Color.FromRgb(47, 72, 57), MainViewport) as GeometryModel3D;
                 TrianglesGroup.Children.Add(wireframeModel);
             }
 
@@ -66,7 +61,7 @@ namespace Ab3d.PowerToys.Samples.Objects3D
 
             if (ShowNormalsCheckBox.IsChecked ?? false)
             {
-                var normalsModel = Ab3d.Models.WireframeFactory.CreateNormals(sphereMeshGeometry3D, 10, 2, Color.FromRgb(179, 140, 57), true, MainViewport);
+                var normalsModel = Ab3d.Models.WireframeFactory.CreateNormals(torusMeshGeometry3D, 10, 2, Color.FromRgb(179, 140, 57), true, MainViewport);
                 NormalsGroup.Children.Add(normalsModel);
             }
 

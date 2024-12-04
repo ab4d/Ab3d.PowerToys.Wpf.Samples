@@ -22,8 +22,8 @@
         </Border>
 
         <cameras:TargetPositionCamera Name="Camera1" 
-                                      TargetPosition="0 0 0"
-                                      Heading="10" Attitude="-20" Bank="0" 
+                                      TargetPosition="-50 -15 0"
+                                      Heading="17" Attitude="-16" Bank="0" 
                                       Distance="1100"
                                       ShowCameraLight="Always"
                                       TargetViewport3D="{Binding ElementName=MainViewport}" />
