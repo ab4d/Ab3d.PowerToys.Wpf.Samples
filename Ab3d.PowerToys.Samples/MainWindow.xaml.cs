@@ -27,6 +27,13 @@ namespace Ab3d.PowerToys.Samples
 
         public MainWindow()
         {
+            // When using the DXEngine from NuGet and when you have purchased a commercial version,
+            // then uncomment the following line to activate the license.
+            // You can get your license code from your User Account web page.
+            //Ab3d.Licensing.PowerToys.LicenseHelper.SetLicense(licenseOwner: "[CompanyName]", 
+            //                                                  licenseType: "[LicenseType]", 
+            //                                                  license: "[LicenseText]");
+            
             InitializeComponent();
 
             // SelectionChanged event handler is used to start the samples with the page set with _startupPage field.
