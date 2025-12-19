@@ -41,11 +41,9 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Ab3d.PowerToys, Version=12.0.9484.2048, Culture=neutral, PublicKeyToken=d45c8e156fba2841, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Ab3d.PowerToys.12.0.9484\lib\net48\Ab3d.PowerToys.dll</HintPath>
     </Reference>
     <Reference Include="Ab3d.PowerToys.Input, Version=12.0.9484.2048, Culture=neutral, PublicKeyToken=d45c8e156fba2841, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Ab3d.PowerToys.Input.12.0.9484\lib\net48\Ab3d.PowerToys.Input.dll</HintPath>
     </Reference>
     <Reference Include="AssimpNet">
