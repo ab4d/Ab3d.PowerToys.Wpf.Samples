@@ -37,7 +37,7 @@
                                     RotateAroundMousePosition="True"
                                     ShowRotationCenterMarker="True"
                                     EventsSourceElement="{Binding ElementName=ViewportBorder}"
-                                    TargetCamera="{Binding ElementName=Camera1}" />
+                                    CameraSmoothing="Normal" TargetCamera="{Binding ElementName=Camera1}" />
 
         <StackPanel VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="5" Orientation="Vertical">
 
@@ -98,7 +98,7 @@
                                             RotateCameraConditions="LeftMouseButtonPressed"
                                             MoveCameraConditions="LeftMouseButtonPressed, ControlKey"
                                             EventsSourceElement="{Binding ElementName=PreviewBorder}"
-                                            TargetCamera="{Binding ElementName=PreviewCamera}" />
+                                            CameraSmoothing="Normal" TargetCamera="{Binding ElementName=PreviewCamera}" />
             </StackPanel>
         </Border>
                 

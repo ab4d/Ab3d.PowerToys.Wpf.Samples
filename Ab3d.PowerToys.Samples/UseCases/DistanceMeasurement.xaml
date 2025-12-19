@@ -41,7 +41,7 @@
                                                RotateAroundMousePosition="True"
                                                ZoomMode="MousePosition"
                                                ShowRotationCenterMarker="True"
-                                               TargetCamera="{Binding ElementName=MainCamera}"
+                                               CameraSmoothing="Normal" TargetCamera="{Binding ElementName=MainCamera}"
                                                EventsSourceElement="{Binding ElementName=ViewportBorder}"
                                                RotateCameraConditions="RightMouseButtonPressed" 
                                                MoveCameraConditions="RightMouseButtonPressed, AltKey"/>

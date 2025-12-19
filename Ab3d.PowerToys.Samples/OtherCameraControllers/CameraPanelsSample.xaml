@@ -19,7 +19,7 @@
         <cameras:SceneCamera Name="SceneCamera1"
                              Heading="-30" Attitude="-15" Bank="0" Distance="2" IsDistancePercent="True"/>
         
-        <ab3d:MouseCameraController Name="MouseCameraController1" TargetCamera="{Binding ElementName=SceneCamera1}" RotateCameraConditions="LeftMouseButtonPressed"/>
+        <ab3d:MouseCameraController Name="MouseCameraController1" CameraSmoothing="Normal" TargetCamera="{Binding ElementName=SceneCamera1}" RotateCameraConditions="LeftMouseButtonPressed"/>
 
         <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Left">
             <Border Margin="0 0 5 0" Background="#AAFFFFFF" BorderBrush="Gray" BorderThickness="1" Cursor="Arrow" HorizontalAlignment="Left">

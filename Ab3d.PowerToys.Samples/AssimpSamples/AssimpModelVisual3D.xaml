@@ -36,7 +36,7 @@
             </Viewport3D>
         </Border>
         <cameras:TargetPositionCamera Name="Camera1" Grid.Row="1" Heading="-140" Attitude="-22" Distance="15" Offset="1.5 0.2 2.7" ShowCameraLight="Always" TargetViewport3D="{Binding ElementName=Viewport1}"/>
-        <ab3d:MouseCameraController Grid.Row="1" RotateCameraConditions="LeftMouseButtonPressed" MoveCameraConditions="LeftMouseButtonPressed, ControlKey" TargetCamera="{Binding ElementName=Camera1}" EventsSourceElement="{Binding ElementName=Viewport1Border}"/>
+        <ab3d:MouseCameraController Grid.Row="1" RotateCameraConditions="LeftMouseButtonPressed" MoveCameraConditions="LeftMouseButtonPressed, ControlKey" CameraSmoothing="Normal" TargetCamera="{Binding ElementName=Camera1}" EventsSourceElement="{Binding ElementName=Viewport1Border}"/>
         <ab3d:CameraAxisPanel Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Bottom" TargetCamera="{Binding ElementName=Camera1}" />
         
         <StackPanel Grid.Row="0" Margin="20 0 0 0" VerticalAlignment="Center" Orientation="Vertical">
@@ -65,7 +65,7 @@
             </Viewport3D>
         </Border>
         <cameras:TargetPositionCamera Name="Camera2" Grid.Row="3" Heading="-140" Attitude="-22" Distance="15" Offset="1.5 0.2 2.7" ShowCameraLight="Always" TargetViewport3D="{Binding ElementName=Viewport2}"/>
-        <ab3d:MouseCameraController Grid.Row="3" RotateCameraConditions="LeftMouseButtonPressed" MoveCameraConditions="LeftMouseButtonPressed, ControlKey" TargetCamera="{Binding ElementName=Camera2}" EventsSourceElement="{Binding ElementName=Viewport2Border}"/>
+        <ab3d:MouseCameraController Grid.Row="3" RotateCameraConditions="LeftMouseButtonPressed" MoveCameraConditions="LeftMouseButtonPressed, ControlKey" CameraSmoothing="Normal" TargetCamera="{Binding ElementName=Camera2}" EventsSourceElement="{Binding ElementName=Viewport2Border}"/>
         <ab3d:CameraAxisPanel Grid.Row="3" HorizontalAlignment="Left" VerticalAlignment="Bottom" TargetCamera="{Binding ElementName=Camera2}" />
 
         <StackPanel Grid.Row="2" Margin="20 0 0 0" VerticalAlignment="Center" Orientation="Vertical">
@@ -96,7 +96,7 @@
             </Viewport3D>
         </Border>
         <cameras:TargetPositionCamera Name="Camera3" Grid.Row="5" Heading="-140" Attitude="-7" Distance="15" Offset="1.5 0.2 2.7" ShowCameraLight="Always" TargetViewport3D="{Binding ElementName=Viewport3}"/>
-        <ab3d:MouseCameraController Grid.Row="5" RotateCameraConditions="LeftMouseButtonPressed" MoveCameraConditions="LeftMouseButtonPressed, ControlKey" TargetCamera="{Binding ElementName=Camera3}" EventsSourceElement="{Binding ElementName=Viewport3Border}"/>
+        <ab3d:MouseCameraController Grid.Row="5" RotateCameraConditions="LeftMouseButtonPressed" MoveCameraConditions="LeftMouseButtonPressed, ControlKey" CameraSmoothing="Normal" TargetCamera="{Binding ElementName=Camera3}" EventsSourceElement="{Binding ElementName=Viewport3Border}"/>
         <ab3d:CameraAxisPanel Grid.Row="5" HorizontalAlignment="Left" VerticalAlignment="Bottom" TargetCamera="{Binding ElementName=Camera3}" />
 
         <StackPanel Grid.Row="4" Margin="20 0 0 0" VerticalAlignment="Center" Orientation="Vertical">

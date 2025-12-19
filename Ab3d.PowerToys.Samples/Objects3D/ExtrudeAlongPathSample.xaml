@@ -53,6 +53,7 @@
                                     QuickZoomMaxZoomInFactor="10"
                                     QuickZoomMaxFactorScreenDistance="200"
                                     ShowQuickZoomMarker="True"
+                                    CameraSmoothing="Normal"
 
                                     EventsSourceElement="{Binding ElementName=ViewportBorder}"
                                     TargetCamera="{Binding ElementName=Camera1}"/>

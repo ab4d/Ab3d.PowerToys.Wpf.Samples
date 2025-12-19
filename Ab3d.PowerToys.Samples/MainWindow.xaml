@@ -130,7 +130,7 @@
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
 
-                <Frame Name="ContentFrame" Grid.Row="0" Source="{Binding XPath=@Page}" NavigationUIVisibility="Hidden" Navigated="ContentFrame_OnNavigated" Focusable="false" Grid.ColumnSpan="2"/>
+                <Frame Name="ContentFrame" Grid.Row="0" NavigationUIVisibility="Hidden" Navigated="ContentFrame_OnNavigated" Focusable="false"/>
 
                 <Expander Name="DescriptionExpander" Grid.Row="1"
                           Style="{StaticResource MyExpanderNoHeaderStyle}"

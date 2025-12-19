@@ -82,7 +82,7 @@
         <ab3d:MouseCameraController Name="MouseCameraController1" 
                                     RotateCameraConditions="LeftMouseButtonPressed"
                                     MoveCameraConditions="LeftMouseButtonPressed, ControlKey"
-                                    TargetCamera="{Binding ElementName=Camera}"
+                                    CameraSmoothing="Normal" TargetCamera="{Binding ElementName=Camera}"
                                     EventsSourceElement="{Binding ElementName=ViewportBorder}"/>
 
         <ab3d:MouseCameraControllerInfo MouseCameraController="{Binding ElementName=MouseCameraController1}" 

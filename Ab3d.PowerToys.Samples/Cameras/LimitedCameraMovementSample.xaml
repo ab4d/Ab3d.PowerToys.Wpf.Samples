@@ -21,7 +21,7 @@
                                     RotateCameraConditions="LeftMouseButtonPressed"
                                     MoveCameraConditions="LeftMouseButtonPressed, ControlKey"
                                     ShowRotationCenterMarker="True"
-                                    TargetCamera="{Binding ElementName=Camera1}"
+                                    CameraSmoothing="Normal" TargetCamera="{Binding ElementName=Camera1}"
                                     EventsSourceElement="{Binding ElementName=ViewportBorder}"/>
 
         <StackPanel VerticalAlignment="Bottom" HorizontalAlignment="Left" Orientation="Vertical">

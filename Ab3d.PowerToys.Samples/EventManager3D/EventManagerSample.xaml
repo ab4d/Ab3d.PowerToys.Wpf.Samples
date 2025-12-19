@@ -63,7 +63,7 @@
                                     IsTouchMoveEnabled="False"
                                     IsTouchRotateEnabled="False"
                                     IsTouchZoomEnabled="False"
-                                    TargetCamera="{Binding ElementName=Camera1}"
+                                    CameraSmoothing="Normal" TargetCamera="{Binding ElementName=Camera1}"
                                     IsMouseWheelZoomEnabled="{Binding ElementName=MouseWheelZoomCheckBox, Path=IsChecked}"
                                     EventsSourceElement="{Binding ElementName=ViewportBorder}"/> 
         

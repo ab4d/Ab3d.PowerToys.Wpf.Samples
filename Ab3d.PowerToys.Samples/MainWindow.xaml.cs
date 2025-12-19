@@ -22,32 +22,39 @@ namespace Ab3d.PowerToys.Samples
     public partial class MainWindow : Window
     {
         // Uncomment the _startupPage declaration to always start the samples with the specified page
-        //private string _startupPage = "OtherCameraControllers/CameraNavigationCirclesSample.xaml";
+        //private string _startupPage = "Objects3D/AllVisualsSample.xaml";
         private string _startupPage = null;
 
         public MainWindow()
         {
-            // When using the DXEngine from NuGet and when you have purchased a commercial version,
-            // then uncomment the following line to activate the license.
-            // You can get your license code from your User Account web page.
-            //Ab3d.Licensing.PowerToys.LicenseHelper.SetLicense(licenseOwner: "[CompanyName]", 
-            //                                                  licenseType: "[LicenseType]", 
-            //                                                  license: "[LicenseText]");
-            
             InitializeComponent();
 
-            // SelectionChanged event handler is used to start the samples with the page set with _startupPage field.
-            // SelectionChanged is used because SelectItem cannot be set from this.Loaded event.
             SampleList.SelectionChanged += delegate(object sender, SelectionChangedEventArgs args)
             {
-                if (_startupPage != null)
-                {
-                    string savedStartupPage = _startupPage;
-                    _startupPage = null;
-
-                    SelectItem(savedStartupPage);
-                }
+                ShowSelectedSample();
             };
+        }
+
+        private void ShowSelectedSample()
+        {
+            if (_startupPage != null)
+            {
+                string savedStartupPage = _startupPage;
+                _startupPage = null;
+
+                SelectItem(savedStartupPage);
+            }
+            else
+            {
+                var xmlElement = SampleList.SelectedItem as System.Xml.XmlElement;
+                if (xmlElement != null)
+                {
+                    var pageAttribute = xmlElement.GetAttribute("Page");
+
+                    if (!string.IsNullOrEmpty(pageAttribute))
+                        SelectItem(pageAttribute);
+                }
+            }
         }
 
         public void ShowSupportPage()
@@ -63,6 +70,24 @@ namespace Ab3d.PowerToys.Samples
             SampleList.SelectedItem = supportPageElement;
 
             SampleList.ScrollIntoView(supportPageElement);
+
+
+            // Create an instance of the selected sample
+            var typeName = pageName.Replace('/', '.').Replace(".xaml", "");
+            var assemblyName = this.GetType().Assembly.GetName().Name;
+            typeName = string.Format("{0}.{1},{0}", assemblyName, typeName);
+
+            var sampleType = Type.GetType(typeName, throwOnError: true);
+
+            var sampleInstance = Activator.CreateInstance(sampleType);
+
+            // ...  and show it
+            ContentFrame.Navigate(sampleInstance);
+
+            // NOTE:
+            // Before we use the following binding in the ContentFrame control: Source="{Binding XPath=@Page}"
+            // This produced "Application identity is not set" exception in WPF code. This exception is handled by WPF, but still can stop the debugger at the exception.
+            // To prevent that we manually create an instance of the sample and set that to ContentFrame 
         }
 
         private void RightSideBorder_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)

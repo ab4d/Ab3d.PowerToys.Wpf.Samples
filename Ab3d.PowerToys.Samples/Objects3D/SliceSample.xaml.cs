@@ -1,21 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
+﻿using Ab3d.Utilities;
+using Ab3d.Visuals;
+using System;
 using System.Linq;
-using System.Text;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
 using System.Windows.Media.Media3D;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
-using Ab3d.Utilities;
-using Ab3d.Visuals;
-using Window = System.Windows.Window;
+using Ab3d.Models;
 
 namespace Ab3d.PowerToys.Samples.Objects3D
 {
@@ -24,33 +16,36 @@ namespace Ab3d.PowerToys.Samples.Objects3D
     /// </summary>
     public partial class SliceSample : Page
     {
-        // If position's distance from the slice plane is less then planeDistanceEpsilon
-        // then consider this position on the plane (use some epsilon value to account for floating point imprecision)
-        private const double PlaneDistanceEpsilon = 0.0000001;
-
-
         private MeshGeometry3D _originalMesh3D;
         private Model3D _originalModel3D;
         private ModelVisual3D _originalModelVisual3D;
-
-        private Model3D _model3DFor2DSlice;
+        private Model3DGroup _slicesOnPlaneGroup;
 
         private Rect3D _modelBounds;
 
-        private Rect _projectedModelBounds;
-
         private double _rootModelSize;
+
+        private Slicer _slicer;
 
         public SliceSample()
         {
             InitializeComponent();
+
+            
+            // Create the Slicer helper class that can slice 3D models
+            _slicer = new Slicer()
+            {
+                // When we use Slicer only to slice 3D models and we do not need the 2D slice shape or to close the mesh, 
+                // then we can set the CollectIntersectionPoints to false.
+                //CollectIntersectionPoints = false 
+            };
+
 
             SetupPlanes();
 
             UpdateScene();
 
             SliceScene();
-            UpdateSlice2DLines();
         }
 
         private void UpdateScene()
@@ -58,16 +53,37 @@ namespace Ab3d.PowerToys.Samples.Objects3D
             _originalModelVisual3D = null;
             _originalModel3D = null;
             _originalMesh3D = null;
-            _model3DFor2DSlice = null;
 
-            FrontVisual3D.Children.Clear();
-            BackVisual3D.Children.Clear();
+            if (SphereModelRadioButton.IsChecked ?? false)
+            {
+                _originalMesh3D = new Ab3d.Meshes.SphereMesh3D(centerPosition: new Point3D(0, 0, 0), radius: 50, segments: 20).Geometry;
+                _modelBounds = _originalMesh3D.Bounds;
+            }
+            else if (TeapotModelRadioButton.IsChecked ?? false)
+            {
+                string fileName = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Resources/ObjFiles/Teapot.obj");
 
-            FrontWireframeVisual3D.OriginalModel = null;
-            BackWireframeVisual3D.OriginalModel = null;
-            
+                var readerObj = new Ab3d.ReaderObj();
+                var readModel3D = (GeometryModel3D)readerObj.ReadModel3D(fileName); // We assume that a single GeometryModel3D is returned
+                
+                _originalMesh3D = (MeshGeometry3D)readModel3D.Geometry;
+                _modelBounds = _originalMesh3D.Bounds;
+            }
+            else if (MultiVisualsModelRadioButton.IsChecked ?? false)
+            {
+                _originalModelVisual3D = new ModelVisual3D();
 
-            if (Model1RadioButton.IsChecked ?? false)
+                _originalModelVisual3D.Children.Add(new Ab3d.Visuals.PyramidVisual3D() { BottomCenterPosition = new Point3D(-360, -60, 0), Size = new Size3D(120, 120, 120), Material = new DiffuseMaterial(Brushes.Green) });
+                _originalModelVisual3D.Children.Add(new Ab3d.Visuals.BoxVisual3D() { CenterPosition = new Point3D(-180, 0, 0), Size = new Size3D(120, 120, 60), Material = new DiffuseMaterial(Brushes.Green) });
+                _originalModelVisual3D.Children.Add(new Ab3d.Visuals.TorusKnotVisual3D() { CenterPosition = new Point3D(0, 0, 0), P = 3, Q = 4, Radius1 = 40, Radius2 = 20, Radius3 = 10, USegments = 150, VSegments = 20, Material = new DiffuseMaterial(Brushes.Green) });
+                _originalModelVisual3D.Children.Add(new Ab3d.Visuals.TubeVisual3D() { BottomCenterPosition = new Point3D(160, -60, 0), Segments = 4, InnerRadius = 40, OuterRadius = 60, Height = 120, Material = new DiffuseMaterial(Brushes.Green), Transform = new RotateTransform3D(new AxisAngleRotation3D(new Vector3D(0, 0, 1), 90)) { CenterX = 160 } });
+                _originalModelVisual3D.Children.Add(new Ab3d.Visuals.TubeVisual3D() { BottomCenterPosition = new Point3D(320, -60, 0), InnerRadius = 40, OuterRadius = 60, Height = 120, Material = new DiffuseMaterial(Brushes.Green) });
+
+                _modelBounds = new Rect3D();
+                foreach (var visual3D in _originalModelVisual3D.Children.OfType<ModelVisual3D>())
+                    _modelBounds.Union(visual3D.Content.Bounds);
+            }
+            else if (RobotarmModelRadioButton.IsChecked ?? false)
             {
                 // Use ObjModelVisual3D to load robotarm.obj and then read its Content to get Model3D
                 var objModelVisual3D = new ObjModelVisual3D()
@@ -81,24 +97,6 @@ namespace Ab3d.PowerToys.Samples.Objects3D
                 _originalModel3D = objModelVisual3D.Content;
                 _modelBounds = _originalModel3D.Bounds;
             }
-            else if (Model2RadioButton.IsChecked ?? false)
-            {
-                _originalMesh3D = new Ab3d.Meshes.SphereMesh3D(new Point3D(0, 0, 0), 50, 20).Geometry;
-                _modelBounds = _originalMesh3D.Bounds;
-            }
-            else if (Model3RadioButton.IsChecked ?? false)
-            {
-                _originalModelVisual3D = new ModelVisual3D();
-
-                _originalModelVisual3D.Children.Add(new Ab3d.Visuals.PyramidVisual3D() { BottomCenterPosition = new Point3D(-280, -60, 0), Size = new Size3D(120, 120, 120), Material = new DiffuseMaterial(Brushes.Green) });
-                _originalModelVisual3D.Children.Add(new Ab3d.Visuals.BoxVisual3D() { CenterPosition = new Point3D(-100, 0, 0), Size = new Size3D(120, 120, 60), Material = new DiffuseMaterial(Brushes.Green) });
-                _originalModelVisual3D.Children.Add(new Ab3d.Visuals.TubeVisual3D() { BottomCenterPosition = new Point3D(80, -60, 0), InnerRadius = 40, OuterRadius = 60, Height = 120, Material = new DiffuseMaterial(Brushes.Green) });
-                _originalModelVisual3D.Children.Add(new Ab3d.Visuals.SphereVisual3D() { CenterPosition = new Point3D(240, 0, 0), Radius = 60, Material = new DiffuseMaterial(Brushes.Green) });
-
-                _modelBounds = new Rect3D();
-                foreach (var visual3D in _originalModelVisual3D.Children.OfType<ModelVisual3D>())
-                    _modelBounds.Union(visual3D.Content.Bounds);
-            }
 
             _rootModelSize = Math.Sqrt(_modelBounds.SizeX * _modelBounds.SizeX + _modelBounds.SizeY * _modelBounds.SizeY + _modelBounds.SizeZ * _modelBounds.SizeZ);
             Camera1.Distance = 2 * _rootModelSize;
@@ -106,8 +104,17 @@ namespace Ab3d.PowerToys.Samples.Objects3D
 
         private void SliceScene()
         {
-            _projectedModelBounds = Rect.Empty; // Reset the bounds of the model that is projected to the plane (used by showing 2D sliced lines)
+            // Clear all existing slices and related models
+            FrontVisual3D.Children.Clear();
+            FrontVisual3D.Content = null;
 
+            BackVisual3D.Children.Clear();
+            BackVisual3D.Content = null;
+
+            WireframeVisual3D.Positions.Clear();
+
+
+            // Get selected 3D plane that will slice the models
             var plane = GetSelectedPlane();
             var planeTransform = GetSelectedPlaneTransform(updateTransformationAmount: true);
 
@@ -115,120 +122,322 @@ namespace Ab3d.PowerToys.Samples.Objects3D
             plane.Transform(planeTransform);
 
 
-            double slicedModelsSeparation = _rootModelSize * 0.1;
-            var frontModelTransform = new TranslateTransform3D(plane.A * slicedModelsSeparation, plane.B * slicedModelsSeparation, plane.C * slicedModelsSeparation);
-            var backModelTransform = new TranslateTransform3D(plane.A * -slicedModelsSeparation, plane.B * -slicedModelsSeparation, plane.C * -slicedModelsSeparation); ;
+            // Update the used Plane in the Slicer
+            _slicer.Plane = plane;
 
+            _slicer.CloseSlicedMeshes = CloseMeshesCheckBox.IsChecked ?? false;
+
+
+            ModelVisual3D frontModelVisual3D, backModelVisual3D;
 
             // When _originalModelVisual3D is defined we demonstrate the use of SliceModelVisual3D method.
             if (_originalModelVisual3D != null)
             {
-                ModelVisual3D frontModelVisual3D, backModelVisual3D;
-
                 // Each SliceXXXX method returns two new object:
                 // one that lies in front of the plane (as defined with plane's normal vector (A, B, C value in Plane object),
                 // one that lines in the back of the plane.
                 // 
                 // If we only need the front object, we can use the SliceXXXX method that only takes 1 or 2 parameters and return the front object - for example:
-                //frontModelVisual3D = _plane.SliceModelVisual3D(_originalModelVisual3D, transform);
+                //frontModelVisual3D = _slicer.SliceModelVisual3D(_originalModelVisual3D, optionalTransform);
                 //backModelVisual3D = null;
 
-                plane.SliceModelVisual3D(_originalModelVisual3D, out frontModelVisual3D, out backModelVisual3D);
+                _slicer.SliceModelVisual3D(_originalModelVisual3D, out frontModelVisual3D, out backModelVisual3D);
+            }
+            else
+            {
+                Model3D frontModel3D, backModel3D;
 
-
-                FrontVisual3D.Children.Clear();
-                BackVisual3D.Children.Clear();
-
-                if (frontModelVisual3D != null && (ShowFrontCheckBox.IsChecked ?? false))
+                // When _originalModel3D is defined we demonstrate the use of SliceModel3D method (can slice GeometryModel3D or Model3DGroup objects)
+                if (_originalModel3D != null)
                 {
-                    foreach (var modelVisual3D in frontModelVisual3D.Children.OfType<ModelVisual3D>())
+                    _slicer.SliceModel3D(_originalModel3D, frontModel3D: out frontModel3D, backModel3D: out backModel3D);
+
+                    // To get only front objects, we can use the following method:
+                    //frontModel3D = _slicer.SliceModel3D(_originalModel3D, parentTransform: transform);
+                    //backModel3D = null;
+                }
+                // When _originalMesh3D is defined we demonstrate the use of SliceMeshGeometry3D method.
+                else if (_originalMesh3D != null)
+                {
+                    MeshGeometry3D frontMesh, backMash;
+                    _slicer.SliceMeshGeometry3D(_originalMesh3D, frontMeshGeometry3D: out frontMesh, backMeshGeometry3D: out backMash);
+
+                    // To get only front objects, we can use the following method:
+                    //frontMesh = _slicer.SliceMeshGeometry3D(originalMesh3D, transform: transform);
+                    //backMash = null;
+
+                    if (frontMesh != null)
                     {
-                        if (modelVisual3D.Content != null)
-                            Ab3d.Utilities.ModelUtils.ChangeBackMaterial(modelVisual3D.Content, new DiffuseMaterial(Brushes.Red));
+                        var frontGeometryModel3D = new GeometryModel3D(frontMesh, new DiffuseMaterial(Brushes.Gold));
+                        frontModel3D = frontGeometryModel3D;
+                    }
+                    else
+                    {
+                        frontModel3D = null;
                     }
 
-                    frontModelVisual3D.Transform = frontModelTransform;
-                    FrontVisual3D.Children.Add(frontModelVisual3D);
-                }
-
-                if (backModelVisual3D != null && (ShowBackCheckBox.IsChecked ?? false))
-                {
-                    foreach (var modelVisual3D in backModelVisual3D.Children.OfType<ModelVisual3D>())
+                    if (backMash != null)
                     {
-                        if (modelVisual3D.Content != null)
-                            Ab3d.Utilities.ModelUtils.ChangeBackMaterial(modelVisual3D.Content, new DiffuseMaterial(Brushes.Red));
+                        var backGeometryModel3D = new GeometryModel3D(backMash, new DiffuseMaterial(Brushes.Gold));
+                        backModel3D = backGeometryModel3D;
                     }
-
-                    backModelVisual3D.Transform = backModelTransform;
-                    BackVisual3D.Children.Add(backModelVisual3D);
+                    else
+                    {
+                        backModel3D = null;
+                    }
+                }
+                else
+                {
+                    frontModel3D = null;
+                    backModel3D = null;
                 }
 
+                if (frontModel3D != null)
+                    frontModelVisual3D = frontModel3D.CreateModelVisual3D();
+                else
+                    frontModelVisual3D = null;
+
+                if (backModel3D != null)
+                    backModelVisual3D = backModel3D.CreateModelVisual3D();
+                else
+                    backModelVisual3D = null;
+            }
+
+
+            ShowSlice(frontModelVisual3D, isFront: true);
+            ShowSlice(backModelVisual3D, isFront: false);
+
+            UpdateSlice2DLines();
+        }
+
+        private void ShowSlice(ModelVisual3D modelVisual3D, bool isFront)
+        {
+            if (modelVisual3D == null ||
+                (isFront && !(ShowFrontCheckBox.IsChecked ?? false)) ||
+                (!isFront && !(ShowBackCheckBox.IsChecked ?? false)))
+            {
                 return;
             }
 
 
-            Model3D frontModel3D, backModel3D;
+            // Set BackMaterial to red color to show the inner parts of the models
+            Ab3d.Utilities.ModelUtils.ChangeBackMaterial(modelVisual3D, new DiffuseMaterial(Brushes.Red));
 
-            // When _originalModel3D is defined we demonstrate the use of SliceModel3D method (can slice GeometryModel3D or Model3DGroup objects)
-            if (_originalModel3D != null)
+            
+            // Define separationTransform that separates the front and back models
+            var plane = _slicer.Plane;
+            double slicedModelsSeparation = _rootModelSize * 0.2;
+
+            if (!isFront)
+                slicedModelsSeparation *= -1;
+
+            var separationTransform = new TranslateTransform3D(plane.A * slicedModelsSeparation, 
+                                                               plane.B * slicedModelsSeparation, 
+                                                               plane.C * slicedModelsSeparation);
+
+            modelVisual3D.Transform = separationTransform;
+
+
+            // Add to scene
+            if (isFront)
+                FrontVisual3D.Children.Add(modelVisual3D);
+            else
+                FrontVisual3D.Children.Add(modelVisual3D);
+
+
+            // Add wireframe
+            if (ShowWireframeCheckBox.IsChecked ?? false)
             {
-                plane.SliceModel3D(_originalModel3D, frontModel3D: out frontModel3D, backModel3D: out backModel3D);
+                var wireframePositions = WireframeVisual3D.Positions;
+                WireframeVisual3D.Positions = null; // Disconnect to prevent firing change events on each added position
 
-                // To get only front objects, we can use the following method:
-                //frontModel3D = _plane.SliceModel3D(_originalModel3D, parentTransform: transform);
-                //backModel3D = null;
+                WireframeFactory.AddWireframeLinePositions(modelVisual3D, parentTransform: null, usePolygonIndices: false, removedDuplicates: true, wireframeLinePositions: wireframePositions);
+
+                WireframeVisual3D.Positions = wireframePositions; // Added positions back
             }
-            // When _originalModel3D is defined we demonstrate the use of SliceMeshGeometry3D method.
+        }
+
+        private void UpdateSlice2DLines()
+        {
+            Slice2DCanvas.Children.Clear();
+
+            if (_slicesOnPlaneGroup == null)
+            {
+                _slicesOnPlaneGroup = new Model3DGroup();
+                SliceOnPlaneVisual3D.Content = _slicesOnPlaneGroup;
+            }
+            else
+            {
+                _slicesOnPlaneGroup.Children.Clear();
+            }
+
+
+            if (_originalModelVisual3D != null)
+            {
+                Ab3d.Utilities.ModelIterator.IterateGeometryModel3DObjects(
+                    rootVisual: _originalModelVisual3D,
+                    callback: delegate (GeometryModel3D geometryModel3D, Transform3D parentTransform3D)
+                    {
+                        var mesh = geometryModel3D.Geometry as MeshGeometry3D;
+                        if (mesh == null)
+                            return;
+
+                        ShowMeshSliceLines(mesh, geometryModel3D.Material);
+                    });
+            }
+            else if (_originalModel3D != null)
+            {
+                Ab3d.Utilities.ModelIterator.IterateGeometryModel3DObjects(
+                    model3D: _originalModel3D,
+                    parentTransform3D: null,
+                    callback: delegate (GeometryModel3D geometryModel3D, Transform3D parentTransform3D)
+                    {
+                        var mesh = geometryModel3D.Geometry as MeshGeometry3D;
+                        if (mesh == null)
+                            return;
+
+                        ShowMeshSliceLines(mesh, geometryModel3D.Material);
+                    });
+            }
             else if (_originalMesh3D != null)
             {
-                MeshGeometry3D frontMesh, backMash;
-                plane.SliceMeshGeometry3D(_originalMesh3D, frontMeshGeometry3D: out frontMesh, backMeshGeometry3D: out backMash);
+                ShowMeshSliceLines(_originalMesh3D, material: null);
+            }
 
-                // To get only front objects, we can use the following method:
-                //frontMesh = plane.SliceMeshGeometry3D(originalMesh3D, transform: transform);
-                //backMash = null;
 
-                var frontGeometryModel3D = new GeometryModel3D(frontMesh, new DiffuseMaterial(Brushes.Gold));
-                frontModel3D = frontGeometryModel3D;
+            // Setup Slice2DCanvas RenderTransform so that the 2D shape is fit into the Slice2DCanvas
+
+            var boundingBox = GetSelectedModelBoundingBox();
+
+            if (!boundingBox.IsEmpty)
+            {
+                var boundPoints = boundingBox.GetCorners();
+
+                _slicer.Plane.Project3DPointsToPlane(boundPoints, out Rect projectedBoundingBox);
                 
-                if (backMash != null)
-                {
-                    var backGeometryModel3D = new GeometryModel3D(backMash, new DiffuseMaterial(Brushes.Gold));
-                    backModel3D = backGeometryModel3D;
-                }
-                else
-                {
-                    backModel3D = null;
-                }
+                double resultWindowSize = Math.Min(Slice2DCanvas.Width, Slice2DCanvas.Height);
+
+                double scaleFactor = Math.Max(projectedBoundingBox.Width, projectedBoundingBox.Height);
+                scaleFactor = (resultWindowSize * 0.8) / scaleFactor; // 0.8 is used to add some margin around lines
+
+                var transformGroup = new TransformGroup();
+
+                // We need to negate the yScale because on Slice2DCanvas the y-axis points down (in 3D view the y-axis is up).
+                // Because we negate the y-axis, we also need to do the same for the x-axis to reserve the x orientation.
+                transformGroup.Children.Add(new ScaleTransform(-scaleFactor, -scaleFactor));
+
+                transformGroup.Children.Add(new TranslateTransform(resultWindowSize / 2 - (projectedBoundingBox.X + projectedBoundingBox.Width / 2) * scaleFactor,
+                                                                   resultWindowSize / 2 - (projectedBoundingBox.Y + projectedBoundingBox.Height / 2) * scaleFactor));
+
+                Slice2DCanvas.RenderTransform = transformGroup;
             }
             else
             {
-                frontModel3D = null;
-                backModel3D = null;
+                Slice2DCanvas.RenderTransform = null;
+            }
+        }
+
+        private void ShowMeshSliceLines(MeshGeometry3D mesh, Material material)
+        {
+            // To get the intersection polygons, call the GetProjectedIntersectionPolylines
+            var intersectionPolygons = _slicer.GetProjectedIntersectionPolylines(mesh, useMeshTransform: true, out var bounds);
+
+            // When any of the polygon is not closed then we need to show individual intersection lines (instead of connected polylines)
+            if (_slicer.HasBrokenIntersectionPolylines)
+            {
+                ShowIntersectionPoints(mesh);
+                return;
             }
 
-            // Set back material to red so we will easily see the inner parts of the model
-            if (frontModel3D != null)
-                Ab3d.Utilities.ModelUtils.ChangeBackMaterial(frontModel3D, new DiffuseMaterial(Brushes.Red));
 
-            if (backModel3D != null)
-                Ab3d.Utilities.ModelUtils.ChangeBackMaterial(backModel3D, new DiffuseMaterial(Brushes.Red));
+            if (intersectionPolygons == null || intersectionPolygons.Length == 0)
+                return;
 
 
-            // When the sliced 3D models is not ModelVisual3D, we show both sliced parts in WireframeVisual3D object (with all 3D lines)
-            if (ShowFrontCheckBox.IsChecked ?? false)
-                FrontWireframeVisual3D.OriginalModel = frontModel3D;
-            else
-                FrontWireframeVisual3D.OriginalModel = null;
+            var lineColor = Ab3d.Utilities.ModelUtils.GetMaterialDiffuseColor(material, defaultColor: Colors.Black);
+            var lineBrush = new SolidColorBrush(lineColor);
+            lineBrush.Freeze();
 
-            FrontWireframeVisual3D.Transform = frontModelTransform;
+            foreach (var intersectionPolygon in intersectionPolygons)
+            {
+                var polyline = new Polyline()
+                {
+                    Points = new PointCollection(intersectionPolygon),
+                    Stroke = lineBrush,
+                    StrokeThickness = 1
+                };
 
-            if (ShowBackCheckBox.IsChecked ?? false)
-                BackWireframeVisual3D.OriginalModel = backModel3D;
-            else
-                BackWireframeVisual3D.OriginalModel = null;
+                Slice2DCanvas.Children.Add(polyline);
 
-            BackWireframeVisual3D.Transform = backModelTransform;
+                //// Show orientation of the shape:
+                //var line = new Line()
+                //{
+                //    X1 = intersectionPolygon[0].X,
+                //    Y1 = intersectionPolygon[0].Y,
+                //    X2 = intersectionPolygon[1].X,
+                //    Y2 = intersectionPolygon[1].Y,
+                //    Stroke = Brushes.Red,
+                //    StrokeThickness = 6,
+                //    StrokeEndLineCap = PenLineCap.Triangle
+                //};
+
+                //Slice2DCanvas.Children.Add(line);
+            }
+
+
+            if (ShowSliceMeshCheckBox.IsChecked ?? false)
+            {
+                var closedSliceMesh = _slicer.GetClosedSliceMesh(mesh, useMeshTransform: true);
+
+                if (closedSliceMesh != null)
+                {
+                    var closedSliceMaterial = new DiffuseMaterial(Brushes.Silver);
+                    var geometryModel3D = new GeometryModel3D(closedSliceMesh, closedSliceMaterial)
+                    {
+                        BackMaterial = closedSliceMaterial
+                    };
+
+                    _slicesOnPlaneGroup.Children.Add(geometryModel3D);
+
+
+                    if (ShowWireframeCheckBox.IsChecked ?? false)
+                    {
+                        var wireframePositions = WireframeVisual3D.Positions;
+                        WireframeVisual3D.Positions = null; // Disconnect to prevent firing change events on each added position
+
+                        WireframeFactory.AddWireframeLinePositions(geometryModel3D, transform: null, usePolygonIndices: false, removedDuplicates: true, wireframeLinePositions: wireframePositions);
+
+                        WireframeVisual3D.Positions = wireframePositions; // Added positions back
+                    }
+                }
+            }
+        }
+
+        private void ShowIntersectionPoints(MeshGeometry3D mesh)
+        {
+            // When we cannot create a closed polygon from the mesh's slice (_slicer.HasBrokenIntersectionPolylines is true),
+            // then we can call GetProjectedIntersectionPoints to get individual intersection lines
+            var intersectionPoints = _slicer.GetProjectedIntersectionPoints(mesh, useMeshTransform: true, out var bounds);
+
+            var redBrush = Brushes.Red;
+
+            for (var i = 0; i < intersectionPoints.Count; i += 2)
+            {
+                var p1 = intersectionPoints[i];
+                var p2 = intersectionPoints[i + 1];
+
+                var line = new Line()
+                {
+                    X1 = p1.X,
+                    Y1 = p1.Y,
+                    X2 = p2.X,
+                    Y2 = p2.Y,
+                    Stroke = redBrush,
+                    StrokeThickness = 1,
+                };
+
+                Slice2DCanvas.Children.Add(line);
+            }
         }
 
         private Transform3D GetSelectedPlaneTransform(bool updateTransformationAmount)
@@ -245,14 +454,14 @@ namespace Ab3d.PowerToys.Samples.Objects3D
 
                 transform = new TranslateTransform3D(plane.A * offset, plane.B * offset, plane.C * offset);
 
-                newTransformationAmount = string.Format("{0:0}", offset);
+                newTransformationAmount = offset.ToString("N1");
             }
             else if (RotateTransformRadioButton.IsChecked ?? false)
             {
                 double angle = ((SlicePlaneSlider.Value / SlicePlaneSlider.Maximum) - 0.5) * 360.0;
                 transform = new RotateTransform3D(new AxisAngleRotation3D(new Vector3D(plane.B, plane.C, plane.A), angle));
 
-                newTransformationAmount = string.Format("{0:0}", angle);
+                newTransformationAmount = angle.ToString("N1");
             }
             else
             {
@@ -269,13 +478,12 @@ namespace Ab3d.PowerToys.Samples.Objects3D
 
         private void SetupPlanes()
         {
-            // Plane is created with defining plane's normal vector (first 3 numbers) and an offset d (forth number):
+            // Plane is created by defining plane's normal vector (first 3 numbers) and an offset d (forth number):
             var planes = new Plane[]
             {
+                new Plane(0, 0, 1, 0),
                 new Plane(1, 0, 0, 0),
                 new Plane(0, 1, 0, 0),
-                new Plane(0, 0, 1, 0),
-                new Plane(0, 0, -1, 0),
             };
 
             foreach (var plane in planes)
@@ -294,7 +502,6 @@ namespace Ab3d.PowerToys.Samples.Objects3D
                         return;
 
                     SliceScene();
-                    UpdateSlice2DLines();
                 };
 
                 PlanesPanel.Children.Add(radioButton);
@@ -323,13 +530,20 @@ namespace Ab3d.PowerToys.Samples.Objects3D
             return plane;
         }
 
-        private void OnTransformSettingsChanged(object sender, RoutedEventArgs e)
+        private Rect3D GetSelectedModelBoundingBox()
         {
-            if (!this.IsLoaded)
-                return;
+            Rect3D boundingBox;
 
-            SliceScene();
-            UpdateSlice2DLines();
+            if (_originalModel3D != null)
+                boundingBox = _originalModel3D.Bounds;
+            else if (_originalMesh3D != null)
+                boundingBox = _originalMesh3D.Bounds;
+            else if (_originalModelVisual3D != null)
+                boundingBox = ModelUtils.GetBounds(_originalModelVisual3D);
+            else
+                boundingBox = Rect3D.Empty;
+
+            return boundingBox;
         }
 
         private void OnModelTypeChecked(object sender, RoutedEventArgs e)
@@ -339,218 +553,6 @@ namespace Ab3d.PowerToys.Samples.Objects3D
 
             UpdateScene();
             SliceScene();
-            UpdateSlice2DLines();
-        }
-
-        //private void Show2DSliceButton_OnClick(object sender, RoutedEventArgs e)
-        //{
-        //}
-
-        private void UpdateSlice2DLines()
-        {
-            // NOTE:
-            // If you want to project all 3D points to a 2D plane you can use the following method:
-            // Ab3d.Utilities.MeshUtils.Project3DPointsTo2DPlane(...)
-
-            // Here we will create 2D lines from only the sliced part of the 3D model
-
-
-            Slice2DCanvas.Children.Clear();
-
-            if (!Show2DSliceCheckBox.IsChecked ?? false)
-                return;
-
-
-            Model3D originalModel3D = GetModel3DFor2DSlice();
-
-            if (originalModel3D == null)
-                return;
-
-
-            var slicePlane = GetSelectedPlane();
-
-            var planeTransform = GetSelectedPlaneTransform(updateTransformationAmount: true);
-            slicePlane.Transform(planeTransform);
-
-
-            var slicedModel3D = slicePlane.SliceModel3D(originalModel3D, parentTransform: null);
-
-
-
-
-
-
-            var upDirection = Ab3d.Utilities.CameraUtils.CalculateUpDirection(slicePlane.Normal);
-            var planeWidthVector = Vector3D.CrossProduct(upDirection, slicePlane.Normal);
-
-
-            if (_projectedModelBounds.IsEmpty)
-            {
-                var boundPoints = originalModel3D.Bounds.GetCorners();
-                slicePlane.Project3DPointsToPlane(boundPoints, planeWidthVector, out _projectedModelBounds);
-            }
-
-
-            var pointCollection = new PointCollection();
-
-            Ab3d.Utilities.ModelIterator.IterateGeometryModel3DObjects(
-               model3D: slicedModel3D, 
-               parentTransform3D: null, 
-               callback: delegate(GeometryModel3D geometryModel3D, Transform3D parentTransform3D)
-               {
-                   var mesh = geometryModel3D.Geometry as MeshGeometry3D;
-
-                   if (mesh == null)
-                       return;
-
-
-                   pointCollection.Clear();
-
-                   var positions = mesh.Positions;
-                   var triangleIndices = mesh.TriangleIndices;
-
-                   var totalTransform3D = parentTransform3D;
-                   if (geometryModel3D.Transform != null && !geometryModel3D.Transform.Value.IsIdentity)
-                       totalTransform3D = Ab3d.Utilities.TransformationsHelper.CombineTransform3D(totalTransform3D, geometryModel3D.Transform);
-
-                   bool useTransform = totalTransform3D != null && !totalTransform3D.Value.IsIdentity;
-
-                   // Go through each triangle and check if any triangle edge lies on the slice plane
-                   for (int i = 0; i < triangleIndices.Count; i += 3)
-                   {
-                       // Get triangle positions
-                       var p1 = positions[triangleIndices[i]];
-                       var p2 = positions[triangleIndices[i + 1]];
-                       var p3 = positions[triangleIndices[i + 2]];
-
-                       if (useTransform)
-                       {
-                           p1 = totalTransform3D.Transform(p1);
-                           p2 = totalTransform3D.Transform(p2);
-                           p3 = totalTransform3D.Transform(p3);
-                       }
-
-
-                       // Get distances of each position from the plane
-                       var d1 = slicePlane.GetDistance(p1);
-                       var d2 = slicePlane.GetDistance(p2);
-                       var d3 = slicePlane.GetDistance(p3);
-
-                       // If distance is almost zero, then consider this position on the slice plane
-                       if (d1 <= PlaneDistanceEpsilon || d2 <= PlaneDistanceEpsilon || d3 <= PlaneDistanceEpsilon)
-                       {
-                           if (d1 <= PlaneDistanceEpsilon && d2 <= PlaneDistanceEpsilon)
-                           {
-                               // Convert 3D position to a 2D position on the slice plane
-                               var planePos1 = slicePlane.Project3DPointToPlane(p1, planeWidthVector);
-                               var planePos2 = slicePlane.Project3DPointToPlane(p2, planeWidthVector);
-
-                               pointCollection.Add(planePos1);
-                               pointCollection.Add(planePos2);
-                           }
-
-                           if (d2 <= PlaneDistanceEpsilon && d3 <= PlaneDistanceEpsilon)
-                           {
-                               // Convert 3D position to a 2D position on the slice plane
-                               var planePos1 = slicePlane.Project3DPointToPlane(p2, planeWidthVector);
-                               var planePos2 = slicePlane.Project3DPointToPlane(p3, planeWidthVector);
-
-                               pointCollection.Add(planePos1);
-                               pointCollection.Add(planePos2);
-                           }
-
-                           if (d3 <= PlaneDistanceEpsilon && d1 <= PlaneDistanceEpsilon)
-                           {
-                               // Convert 3D position to a 2D position on the slice plane
-                               var planePos1 = slicePlane.Project3DPointToPlane(p3, planeWidthVector);
-                               var planePos2 = slicePlane.Project3DPointToPlane(p1, planeWidthVector);
-
-                               pointCollection.Add(planePos1);
-                               pointCollection.Add(planePos2);
-                           }
-                       }
-                   }
-
-                   if (pointCollection.Count > 0)
-                   {
-                       var lineColor = Ab3d.Utilities.ModelUtils.GetMaterialDiffuseColor(geometryModel3D.Material, defaultColor: Colors.Black);
-                       var lineBrush = new SolidColorBrush(lineColor);
-                       lineBrush.Freeze();
-
-                       for (int i = 0; i < pointCollection.Count; i += 2)
-                       {
-                           var line = new Line()
-                           {
-                               X1     = pointCollection[i].X,
-                               Y1     = pointCollection[i].Y,
-                               X2     = pointCollection[i + 1].X,
-                               Y2     = pointCollection[i + 1].Y,
-                               Stroke = lineBrush,
-                               StrokeThickness = 1
-                           };
-
-                           Slice2DCanvas.Children.Add(line);
-                       }
-
-                   }
-               });
-
-
-
-            double resultWindowSize = Math.Min(Slice2DCanvas.Width, Slice2DCanvas.Height);
-
-            double scaleFactor = Math.Max(_projectedModelBounds.Width, _projectedModelBounds.Height);
-            scaleFactor = (resultWindowSize * 0.8) / scaleFactor; // 0.8 is used to add some margin around lines
-
-            var transformGroup = new TransformGroup();
-            transformGroup.Children.Add(new ScaleTransform(scaleFactor, scaleFactor));
-
-            transformGroup.Children.Add(new TranslateTransform(resultWindowSize / 2 - (_projectedModelBounds.X + _projectedModelBounds.Width / 2) * scaleFactor,
-                                                               resultWindowSize / 2 - (_projectedModelBounds.Y + _projectedModelBounds.Height / 2) * scaleFactor));
-
-            Slice2DCanvas.RenderTransform = transformGroup;
-        }
-
-        // This sample demonstrates multiple ways to create slice - from Visual3D, Model3D and MeshGeometry3D
-        // To get 2D slice, we require Model3D.
-        // This method provides that
-        private Model3D GetModel3DFor2DSlice()
-        {
-            Model3D originalModel3D = _model3DFor2DSlice;
-
-            if (originalModel3D == null)
-            {
-                if (_originalModel3D != null)
-                {
-                    originalModel3D = _originalModel3D;
-                }
-                else if (_originalMesh3D != null)
-                {
-                    // In case _originalMesh3D is used to test creating slice from MeshGeometry3D, we need to create a new GeometryModel3D
-                    originalModel3D = new GeometryModel3D(_originalMesh3D, null);
-                }
-                else if (_originalModelVisual3D != null)
-                {
-                    // In case _originalModelVisual3D is used to test SliceModelVisual3D method we need to 
-                    // convert children in ModelVisual3D to Model3DGroup (this is not a generic code - it works only for this sample)
-                    var model3DGroup = new Model3DGroup();
-
-                    foreach (var oneChild in _originalModelVisual3D.Children.OfType<ModelVisual3D>())
-                    {
-                        var childModel3DGroup = new Model3DGroup();
-                        childModel3DGroup.Transform = oneChild.Transform;
-                        childModel3DGroup.Children.Add(oneChild.Content);
-
-                        model3DGroup.Children.Add(childModel3DGroup);
-                    }
-
-                    originalModel3D = model3DGroup;
-                }
-
-                _model3DFor2DSlice = originalModel3D; // Save that for the next time
-            }
-
-            return originalModel3D;
         }
 
         private void OnShow2DSliceCheckBoxChanged(object sender, RoutedEventArgs e)
@@ -568,6 +570,14 @@ namespace Ab3d.PowerToys.Samples.Objects3D
                 Slice2DBorder.Visibility = Visibility.Collapsed;
                 Slice2DCanvas.Children.Clear();
             }
+        }
+
+        private void OnUpdateSlicedModels(object sender, RoutedEventArgs e)
+        {
+            if (!this.IsLoaded)
+                return;
+
+            SliceScene();
         }
     }
 }

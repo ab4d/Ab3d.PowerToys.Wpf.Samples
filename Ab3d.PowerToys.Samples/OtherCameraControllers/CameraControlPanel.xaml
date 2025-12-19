@@ -18,7 +18,7 @@
                              Heading="-30" Attitude="-15" Bank="0" Distance="2" IsDistancePercent="True"/>
         
         <ab3d:MouseCameraController Name="MouseCameraController1"
-                                    TargetCamera="{Binding ElementName=SceneCamera1}" 
+                                    CameraSmoothing="Normal" TargetCamera="{Binding ElementName=SceneCamera1}" 
                                     EventsSourceElementRotationChange="{Binding ElementName=CameraControlPanelRotationChangeSlider, Path=Value}"/>
 
         <Border HorizontalAlignment="Left" VerticalAlignment="Bottom"

@@ -106,7 +106,7 @@
             <ab3d:MouseCameraController Name="MouseCameraController2"
                                         RotateCameraConditions="LeftMouseButtonPressed"
                                         EventsSourceElement="{Binding ElementName=ViewportBorder2}"
-                                        TargetCamera="{Binding ElementName=Camera2}" />
+                                        CameraSmoothing="Normal" TargetCamera="{Binding ElementName=Camera2}" />
 
 
             <common:TextBlockEx Style="{StaticResource InfoContent}" Margin="0 0 0 0">
@@ -153,7 +153,7 @@
             <ab3d:MouseCameraController Name="MouseCameraController3"
                                         RotateCameraConditions="LeftMouseButtonPressed"
                                         EventsSourceElement="{Binding ElementName=ViewportBorder3}"
-                                        TargetCamera="{Binding ElementName=Camera3}" />
+                                        CameraSmoothing="Normal" TargetCamera="{Binding ElementName=Camera3}" />
 
             <common:TextBlockEx Style="{StaticResource InfoContent}" Margin="0 0 0 0">
                 \n
@@ -190,7 +190,7 @@
             <ab3d:MouseCameraController Name="MouseCameraController4"
                                         RotateCameraConditions="LeftMouseButtonPressed"
                                         EventsSourceElement="{Binding ElementName=ViewportBorder4}"
-                                        TargetCamera="{Binding ElementName=Camera4}" />
+                                        CameraSmoothing="Normal" TargetCamera="{Binding ElementName=Camera4}" />
 
 
             <common:TextBlockEx Style="{StaticResource InfoContent}" Margin="0 0 0 0">
@@ -266,8 +266,7 @@
             <ab3d:MouseCameraController Name="MouseCameraController5"
                                         RotateCameraConditions="LeftMouseButtonPressed"
                                         EventsSourceElement="{Binding ElementName=ViewportBorder5}"
-                                        TargetCamera="{Binding ElementName=Camera5}" />
-
+                                        CameraSmoothing="Normal" TargetCamera="{Binding ElementName=Camera5}" />
 
             <common:TextBlockEx Style="{StaticResource InfoContent}" Margin="0 0 0 0">
                 \n
@@ -377,7 +376,7 @@
             <ab3d:MouseCameraController Name="MouseCameraController6"
                                         RotateCameraConditions="LeftMouseButtonPressed"
                                         EventsSourceElement="{Binding ElementName=ViewportBorder6}"
-                                        TargetCamera="{Binding ElementName=Camera6}" />
+                                        CameraSmoothing="Normal" TargetCamera="{Binding ElementName=Camera6}" />
 
 
             <TextBlock Text="Model3DGroup" FontWeight="Bold" FontSize="15" Margin="0 20 0 10" Style="{StaticResource InfoContent}" />

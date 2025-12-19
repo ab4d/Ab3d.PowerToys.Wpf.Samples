@@ -60,7 +60,7 @@
                                     MoveCameraConditions="LeftMouseButtonPressed, ControlKey"
                                     ShowRotationCenterMarker="True"
                                     EventsSourceElement="{Binding ElementName=ViewportBorder}"
-                                    TargetCamera="{Binding ElementName=Camera1}"/>
+                                    CameraSmoothing="Normal" TargetCamera="{Binding ElementName=Camera1}"/>
 
         <!-- CameraAxisPanel has custom axes set in code behind -->
         <ab3d:CameraAxisPanel Name="CustomCameraAxisPanel1" Width="120" Height="120" VerticalAlignment="Bottom" HorizontalAlignment="Left"/>

@@ -49,7 +49,7 @@
                                     RotateCameraConditions="LeftMouseButtonPressed"
                                     MoveCameraConditions="LeftMouseButtonPressed, ControlKey"
                                     EventsSourceElement="{Binding ElementName=ViewportBorder1}"
-                                    TargetCamera="{Binding ElementName=Camera1}"
+                                    CameraSmoothing="Normal" TargetCamera="{Binding ElementName=Camera1}"
                                     MoveOnlyHorizontally="False"
                                     CameraMoveEnded="OnCamera1MoveEnded"/>
 
@@ -86,7 +86,7 @@
                                     RotateCameraConditions="LeftMouseButtonPressed"
                                     MoveCameraConditions="LeftMouseButtonPressed, ControlKey"
                                     EventsSourceElement="{Binding ElementName=ViewportBorder2}"
-                                    TargetCamera="{Binding ElementName=Camera2}"
+                                    CameraSmoothing="Normal" TargetCamera="{Binding ElementName=Camera2}"
                                     MoveOnlyHorizontally="True"
                                     CameraMoveEnded="OnCamera2MoveEnded"/>
 

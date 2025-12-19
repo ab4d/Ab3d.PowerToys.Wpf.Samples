@@ -6,26 +6,20 @@
              xmlns:controls="clr-namespace:Ab3d.Controls;assembly=Ab3d.PowerToys"
              xmlns:cameras="clr-namespace:Ab3d.Cameras;assembly=Ab3d.PowerToys"
              xmlns:ab3d="clr-namespace:Ab3d.Controls;assembly=Ab3d.PowerToys"  
-             xmlns:visuals="clr-namespace:Ab3d.Visuals;assembly=Ab3d.PowerToys"                  
+             xmlns:visuals="clr-namespace:Ab3d.Visuals;assembly=Ab3d.PowerToys"
+             xmlns:common="clr-namespace:Ab3d.PowerToys.Samples.Common"
              mc:Ignorable="d" 
              Title="SliceSample"
              d:DesignHeight="500" d:DesignWidth="700">
     <Grid>
         <Border Name="ViewportBorder" Background="Transparent">
             <Viewport3D Name="MainViewport">
-                <visuals:WireframeVisual3D x:Name="FrontWireframeVisual3D" 
-                                            WireframeType="WireframeWithOriginalSolidModel" UseModelColor="False"
-                                            LineColor="Black" LineThickness="1" 
-                                            IsVisible="{Binding ElementName=ShowFrontCheckBox, Path=IsChecked}" />
+                <visuals:ContentVisual3D x:Name="SliceOnPlaneVisual3D" />
 
-                <visuals:WireframeVisual3D x:Name="BackWireframeVisual3D" 
-                                            WireframeType="WireframeWithOriginalSolidModel" UseModelColor="False"
-                                            LineColor="Black" LineThickness="1"
-                                            IsVisible="{Binding ElementName=ShowBackCheckBox, Path=IsChecked}" />
+                <visuals:ContentVisual3D x:Name="FrontVisual3D" />
+                <visuals:ContentVisual3D x:Name="BackVisual3D" />
 
-                <!--<ModelVisual3D x:Name="RootModelVisual3D"></ModelVisual3D>-->
-                <visuals:ContentVisual3D x:Name="FrontVisual3D" IsVisible="{Binding ElementName=ShowFrontCheckBox, Path=IsChecked}" />
-                <visuals:ContentVisual3D x:Name="BackVisual3D" IsVisible="{Binding ElementName=ShowBackCheckBox, Path=IsChecked}" />
+                <visuals:MultiLineVisual3D x:Name="WireframeVisual3D" LineThickness="1" LineColor="Black" />
 
                 <ModelVisual3D>
                     <ModelVisual3D.Content>
@@ -38,7 +32,7 @@
         </Border>
 
         <cameras:TargetPositionCamera Name="Camera1" 
-                                      Heading="30" Attitude="-20" Bank="0" Distance="500" TargetPosition="0 0 0" 
+                                      Heading="50" Attitude="-20" Bank="0" Distance="500" TargetPosition="0 0 0" 
                                       ShowCameraLight="Always"
                                       TargetViewport3D="{Binding ElementName=MainViewport}"/>
 
@@ -46,7 +40,7 @@
                                     RotateCameraConditions="LeftMouseButtonPressed"
                                     MoveCameraConditions="LeftMouseButtonPressed, ControlKey"
                                     EventsSourceElement="{Binding ElementName=ViewportBorder}"
-                                    TargetCamera="{Binding ElementName=Camera1}"/>
+                                    CameraSmoothing="Normal" TargetCamera="{Binding ElementName=Camera1}"/>
 
         <controls:CameraAxisPanel VerticalAlignment="Bottom" HorizontalAlignment="Left" TargetCamera="{Binding ElementName=Camera1}" />
 
@@ -58,32 +52,45 @@
             </Border>
 
             <Border VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="10" BorderBrush="Black" BorderThickness="1" Background="#55FFFFFF">
-                <StackPanel Orientation="Vertical" Margin="10 5" Width="160">
+                <StackPanel Orientation="Vertical" Margin="10 5" Width="170">
 
-                    <TextBlock Text="3D model:" FontWeight="Bold" Margin="0 0 0 3" />
-                    <RadioButton Name="Model1RadioButton" Content="Robotarm" IsChecked="True" GroupName="ModelType" Margin="0 0 0 3" Checked="OnModelTypeChecked" />
-                    <RadioButton Name="Model2RadioButton" Content="Sphere" GroupName="ModelType" Margin="0 0 0 3" Checked="OnModelTypeChecked" />
-                    <RadioButton Name="Model3RadioButton" Content="Multiple Visual3D objects" GroupName="ModelType" Margin="0 0 0 3" Checked="OnModelTypeChecked" />
+                    <TextBlock Text="View:" FontWeight="Bold" Margin="0 0 0 3" />
+                    <CheckBox Name="ShowWireframeCheckBox" Content="Show wireframe" IsChecked="False" Margin="0 0 0 0" Checked="OnUpdateSlicedModels" Unchecked="OnUpdateSlicedModels" />
+                    <CheckBox Name="ShowFrontCheckBox" Content="Show front" IsChecked="True" Margin="0 6 0 0" Checked="OnUpdateSlicedModels" Unchecked="OnUpdateSlicedModels" />
+                    <CheckBox Name="ShowBackCheckBox" Content="Show back" IsChecked="True" Margin="0 3 0 0" Checked="OnUpdateSlicedModels" Unchecked="OnUpdateSlicedModels" />
+                    <CheckBox Name="ShowSliceMeshCheckBox" Content="Show slice mesh on plane" IsChecked="True" Margin="0 3 0 0" Checked="OnUpdateSlicedModels" Unchecked="OnUpdateSlicedModels" />
+                    <CheckBox Name="CloseMeshesCheckBox" Content="Close meshes" IsChecked="False" Margin="0 3 0 0" Checked="OnUpdateSlicedModels" Unchecked="OnUpdateSlicedModels" />
+                    <CheckBox Name="Show2DSliceCheckBox" Content="Show 2D slice" IsChecked="True" Margin="0 3 0 0" Checked="OnShow2DSliceCheckBoxChanged" Unchecked="OnShow2DSliceCheckBoxChanged" />
+
+
+                    <TextBlock Text="3D model:" FontWeight="Bold" Margin="0 10 0 3" />
+                    <RadioButton Name="SphereModelRadioButton" Content="Sphere" GroupName="ModelType" Margin="0 0 0 3" Checked="OnModelTypeChecked" />
+
+                    <StackPanel Orientation="Horizontal" Margin="0 0 0 3">
+                        <RadioButton Name="TeapotModelRadioButton" Content="Teapot" GroupName="ModelType" Checked="OnModelTypeChecked" />
+                        <common:InfoControl InfoText="Teapot model demonstrates how a 3D model with not fully connected polygons can be sliced.&#x0a;Note that mesh cannot be closed when the polygons are not closed.&#x0a;To see that set the plane's normal to (1,0,0) and adjust the Transformation slider." Margin="3 0 0 0" />
+                    </StackPanel>
+
+                    <RadioButton Name="MultiVisualsModelRadioButton" Content="Multiple Visual3D objects" IsChecked="True" GroupName="ModelType" Margin="0 0 0 3" Checked="OnModelTypeChecked" />
+
+                    <StackPanel Orientation="Horizontal" Margin="0 0 0 3">
+                        <RadioButton Name="RobotarmModelRadioButton" Content="Robotarm" GroupName="ModelType" Margin="0 0 0 3" Checked="OnModelTypeChecked" />
+                        <common:InfoControl InfoText="Note that the teapot model cannot be closed because the model is not fully connected.&#x0a;Check the 'Teapot' RadioButton for closer investigation of that problem." Margin="3 0 0 0" />
+                    </StackPanel>
 
                     <TextBlock Text="Plane for slicing:" FontWeight="Bold" Margin="0 10 0 3" />
                     <StackPanel Name="PlanesPanel" Orientation="Vertical" />
 
-                    <TextBlock Text="Transform:" FontWeight="Bold" Margin="0 10 0 3" />
-                    <RadioButton Name="TranslateTransformRadioButton" Content="Translate" IsChecked="True" GroupName="PlaneTransform" Checked="OnTransformSettingsChanged" />
-                    <RadioButton Name="RotateTransformRadioButton" Content="Rotate" GroupName="PlaneTransform" Checked="OnTransformSettingsChanged" />
+                    <TextBlock Text="Transform:" FontWeight="Bold" Margin="0 10 0 0" />
 
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="Transformation amount:" Margin="0 0 3 0" />
                         <TextBlock Name="TransformationAmountTextBlock"></TextBlock>
                     </StackPanel>
-                    <Slider Name="SlicePlaneSlider" Minimum="0" Maximum="100" Value="70"
-                            ValueChanged="OnTransformSettingsChanged"></Slider>
+                    <Slider Name="SlicePlaneSlider" Minimum="0" Maximum="100" Value="60" ValueChanged="OnUpdateSlicedModels"></Slider>
 
-                    <CheckBox Name="ShowFrontCheckBox" Content="Show front" IsChecked="True" FontWeight="Bold" Margin="0 10 0 0" />
-                    <CheckBox Name="ShowBackCheckBox" Content="Show back" IsChecked="True" FontWeight="Bold" Margin="0 3 0 0" />
-
-                    <CheckBox Name="Show2DSliceCheckBox" Content="Show 2D slice" IsChecked="True" FontWeight="Bold" Margin="0 3 0 0" 
-                              Checked="OnShow2DSliceCheckBoxChanged" Unchecked="OnShow2DSliceCheckBoxChanged" />
+                    <RadioButton Name="TranslateTransformRadioButton" Content="Translate" IsChecked="True" Margin="0 5 0 0" GroupName="PlaneTransform" Checked="OnUpdateSlicedModels" />
+                    <RadioButton Name="RotateTransformRadioButton" Content="Rotate" GroupName="PlaneTransform" Checked="OnUpdateSlicedModels" />
                 </StackPanel>
             </Border>
         </StackPanel>

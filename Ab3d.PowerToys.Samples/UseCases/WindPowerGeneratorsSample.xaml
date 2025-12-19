@@ -47,7 +47,7 @@
                                     ShowRotationCenterMarker="True"
                                     RotateAroundMousePosition="True" 
                                     ZoomMode="MousePosition"
-                                    TargetCamera="{Binding ElementName=Camera1}"
+                                    CameraSmoothing="Normal" TargetCamera="{Binding ElementName=Camera1}"
                                     EventsSourceElement="{Binding ElementName=ViewportBorder}" />
         
         <Grid VerticalAlignment="Bottom">

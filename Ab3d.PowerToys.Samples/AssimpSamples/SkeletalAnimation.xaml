@@ -35,7 +35,7 @@
 
         <controls:MouseCameraController Grid.Row="0" RotateCameraConditions="LeftMouseButtonPressed"
                                         MoveCameraConditions="LeftMouseButtonPressed, ControlKey"
-                                        TargetCamera="{Binding ElementName=Camera1}"
+                                        CameraSmoothing="Normal" TargetCamera="{Binding ElementName=Camera1}"
                                         EventsSourceElement="{Binding ElementName=ViewportBorder}" />
 
         <Border Grid.Row="0" VerticalAlignment="Bottom" HorizontalAlignment="Right" BorderBrush="Black" BorderThickness="1" Background="#44FFFFFF" Margin="5 5 5 0">

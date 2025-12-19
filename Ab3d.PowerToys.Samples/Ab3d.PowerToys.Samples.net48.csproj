@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -40,11 +40,13 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Ab3d.PowerToys, Version=11.2.9104.2048, Culture=neutral, PublicKeyToken=d45c8e156fba2841, processorArchitecture=MSIL">
-      <HintPath>..\packages\Ab3d.PowerToys.11.2.9104\lib\net48\Ab3d.PowerToys.dll</HintPath>
+    <Reference Include="Ab3d.PowerToys, Version=12.0.9484.2048, Culture=neutral, PublicKeyToken=d45c8e156fba2841, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Ab3d.PowerToys.12.0.9484\lib\net48\Ab3d.PowerToys.dll</HintPath>
     </Reference>
-    <Reference Include="Ab3d.PowerToys.Input, Version=11.2.9104.2048, Culture=neutral, PublicKeyToken=d45c8e156fba2841, processorArchitecture=MSIL">
-      <HintPath>..\packages\Ab3d.PowerToys.Input.11.2.9104\lib\net48\Ab3d.PowerToys.Input.dll</HintPath>
+    <Reference Include="Ab3d.PowerToys.Input, Version=12.0.9484.2048, Culture=neutral, PublicKeyToken=d45c8e156fba2841, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Ab3d.PowerToys.Input.12.0.9484\lib\net48\Ab3d.PowerToys.Input.dll</HintPath>
     </Reference>
     <Reference Include="AssimpNet">
       <SpecificVersion>False</SpecificVersion>
@@ -88,6 +90,9 @@
     </Compile>
     <Compile Include="Lines3D\StaticLineMeshesSample.xaml.cs">
       <DependentUpon>StaticLineMeshesSample.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MouseCameraControllerSamples\CameraSmoothingSample.xaml.cs">
+      <DependentUpon>CameraSmoothingSample.xaml</DependentUpon>
     </Compile>
     <Compile Include="MouseCameraControllerSamples\CustomMouseEventsSample.xaml.cs">
       <DependentUpon>CustomMouseEventsSample.xaml</DependentUpon>
@@ -245,6 +250,10 @@
     <Page Include="Lines3D\MiterLimitSample.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MouseCameraControllerSamples\CameraSmoothingSample.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="MouseCameraControllerSamples\CustomMouseEventsSample.xaml">
       <Generator>MSBuild:Compile</Generator>

@@ -47,6 +47,7 @@
                                     ShowRotationCenterMarker="True"
                                     RotateAroundMousePosition="True"
                                     ZoomMode="MousePosition"
+                                    CameraSmoothing="Normal" TargetCamera="{Binding ElementName=Camera1}"
                                     EventsSourceElement="{Binding ElementName=ViewportBorder}"/>
         
         <StackPanel Grid.Column="1" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="10">

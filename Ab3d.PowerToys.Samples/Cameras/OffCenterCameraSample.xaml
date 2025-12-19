@@ -39,7 +39,7 @@
         <cameras:TargetPositionCamera Name="Camera1" 
                                       Heading="30" Attitude="-20" Bank="0" 
                                       TargetPosition="30 0 0" RotationCenterPosition="0 0 0"
-                                      Distance="150" 
+                                      Distance="170" 
                                       ShowCameraLight="Always"
                                       TargetViewport3D="{Binding ElementName=MainViewport}"/>
 
@@ -51,10 +51,10 @@
                                     RotateAroundMousePosition="False"
                                     ZoomMode="MousePosition"
                                     EventsSourceElement="{Binding ElementName=ViewportBorder}"
-                                    TargetCamera="{Binding ElementName=Camera1}" />
+                                    CameraSmoothing="Normal" TargetCamera="{Binding ElementName=Camera1}" />
 
         <Border Name="OptionsBorder" BorderBrush="Black" BorderThickness="1" VerticalAlignment="Bottom" HorizontalAlignment="Right" 
-                Margin="10" Background="#CCFFFFFF" Width="320" Padding="10 15 10 10" UseLayoutRounding="True">
+                Margin="10" Background="#CCFFFFFF" Width="360" Padding="10 15 10 10" UseLayoutRounding="True">
 
             <StackPanel Orientation="Vertical">
                 <TextBlock Text="Off-center scene rendering" FontSize="18" FontWeight="Bold" Margin="0 0 0 10"/>
@@ -77,14 +77,15 @@
                     The 3D scene in a Viewport3D element is rendered in such a way that the Camera's TargetPosition is rendered in the center of the Viewport3D (this is the position the camera is looking at).\n
                     \n
                     This means, that if we want to move the center of the scene, we need to adjust the value of the TargetPosition property.
-                    For example, to move the rendered scene to the left, we \bset the TargetPosition\b to a position right off the center position - in our case to (20, 0, 0). This will move our scene that is located around (0, 0, 0) to the left.\n
+                    For example, to move the rendered scene to the left, we \bset the TargetPosition\b to a position right off the center position - in our case to (30, 0, 0). This will move our scene that is located around (0, 0, 0) to the left.\n
                     \n
                     But we still want to preserve the center or rotation - we want to rotate around the center of the coordinate axes.
                     To solve that we \bset the RotationCenterPosition\b to the desired position of rotation - (0, 0, 0).\n
                     \n
                     Notes:\n
                     \*MouseCameraController.RotateAroundMousePosition must be false.\n
-                    \*RotationCenterPosition is supported only by TargetPositionCamera and FreeCamera.
+                    \*RotationCenterPosition is supported only by TargetPositionCamera and FreeCamera.\n
+                    \*To change the camera's Heading and Attitude from code (not by user interaction) and use RotationCenterPosition, call the \!SetCameraRotation method\! instead of changing Heading and Attitude properties.
                 </common:TextBlockEx>
             </StackPanel>
         </Border>

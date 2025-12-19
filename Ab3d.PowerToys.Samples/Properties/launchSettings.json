@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "Ab3d.PowerToys.Samples.net90": {
+      "commandName": "Project",
+      "nativeDebugging": true
+    }
+  }
+}

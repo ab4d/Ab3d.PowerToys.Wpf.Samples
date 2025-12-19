@@ -66,7 +66,7 @@
                 <cameras:TargetPositionCamera Name="HeadingCamera1" TargetViewport3D="{Binding ElementName=HeadingViewport}"
                                               Heading="30" Attitude="-30" Bank="0" TargetPosition="0 0 0" Distance="350"/>
                 <ab3d:CameraControlPanel Name="CameraControlPanel1" Margin="0 10 0 0" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="100" Height="50" TargetCameraName="HeadingCamera1"/>
-                <ab3d:MouseCameraController Name="MouseCameraController1" RotateCameraConditions="LeftMouseButtonPressed" MoveCameraConditions="LeftMouseButtonPressed, ControlKey" TargetCamera="{Binding ElementName=HeadingCamera1}" EventsSourceElement="{Binding ElementName=HeadingGrid}"/>
+                <ab3d:MouseCameraController Name="MouseCameraController1" RotateCameraConditions="LeftMouseButtonPressed" MoveCameraConditions="LeftMouseButtonPressed, ControlKey" CameraSmoothing="Normal" TargetCamera="{Binding ElementName=HeadingCamera1}" EventsSourceElement="{Binding ElementName=HeadingGrid}"/>
                 <ab3d:CameraAxisPanel HorizontalAlignment="Right" VerticalAlignment="Bottom" TargetCamera="{Binding ElementName=HeadingCamera1}" />
             </Grid>
         </Border>
@@ -124,7 +124,7 @@
                 <cameras:TargetPositionCamera Name="AttitudeCamera1" TargetViewport3D="{Binding ElementName=AttitudeViewport}"
                                               Heading="30" Attitude="-20" Bank="0" TargetPosition="0 0 0" Distance="350"/>
                 <ab3d:CameraControlPanel Name="CameraControlPanel2" Margin="0 10 0 0" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="100" Height="50" TargetCameraName="AttitudeCamera1"/>
-                <ab3d:MouseCameraController Name="MouseCameraController2" RotateCameraConditions="LeftMouseButtonPressed" MoveCameraConditions="LeftMouseButtonPressed, ControlKey" TargetCamera="{Binding ElementName=AttitudeCamera1}" EventsSourceElement="{Binding ElementName=AttitudeGrid}"/>
+                <ab3d:MouseCameraController Name="MouseCameraController2" RotateCameraConditions="LeftMouseButtonPressed" MoveCameraConditions="LeftMouseButtonPressed, ControlKey" CameraSmoothing="Normal" TargetCamera="{Binding ElementName=AttitudeCamera1}" EventsSourceElement="{Binding ElementName=AttitudeGrid}"/>
                 <ab3d:CameraAxisPanel HorizontalAlignment="Right" VerticalAlignment="Bottom" TargetCamera="{Binding ElementName=AttitudeCamera1}" />
             </Grid>
         </Border>
@@ -182,7 +182,7 @@
                 <cameras:TargetPositionCamera Name="BankCamera1" TargetViewport3D="{Binding ElementName=BankViewport}"
                                               Heading="15" Attitude="-20" Bank="0" Distance="350"/>
                 <ab3d:CameraControlPanel Name="CameraControlPanel3" Margin="0 10 0 0" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="100" Height="50" TargetCameraName="BankCamera1"/>
-                <ab3d:MouseCameraController Name="MouseCameraController3" RotateCameraConditions="LeftMouseButtonPressed" MoveCameraConditions="LeftMouseButtonPressed, ControlKey" TargetCamera="{Binding ElementName=BankCamera1}" EventsSourceElement="{Binding ElementName=BankGrid}"/>
+                <ab3d:MouseCameraController Name="MouseCameraController3" RotateCameraConditions="LeftMouseButtonPressed" MoveCameraConditions="LeftMouseButtonPressed, ControlKey" CameraSmoothing="Normal" TargetCamera="{Binding ElementName=BankCamera1}" EventsSourceElement="{Binding ElementName=BankGrid}"/>
                 <ab3d:CameraAxisPanel HorizontalAlignment="Right" VerticalAlignment="Bottom" TargetCamera="{Binding ElementName=BankCamera1}" />
             </Grid>
         </Border>

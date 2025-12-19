@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Windows;
@@ -36,6 +37,8 @@ namespace Ab3d.PowerToys.Samples.Lines3D
             NURBSCurve
         }
 
+        private int _createdPointsCount = 15;
+        
         private Random _rnd;
 
         private List<Point3D> _controlPoints;
@@ -43,7 +46,7 @@ namespace Ab3d.PowerToys.Samples.Lines3D
 
         private List<double> _weights;
 
-        private int _pointsCount;
+        
 
         private CurveType _selectedCurveType;
 
@@ -90,6 +93,8 @@ namespace Ab3d.PowerToys.Samples.Lines3D
 
         private void CreateRandomPositionsButton_Click(object sender, RoutedEventArgs e)
         {
+            _createdPointsCount = (PointsCountComboBox.SelectedIndex + 1) * 5;
+            
             CreateRandomPositions();
             RecreateCurve();
         }
@@ -186,30 +191,58 @@ namespace Ab3d.PowerToys.Samples.Lines3D
             RecreateControlPointNumbers();
             UpdatePositionCross();
 
-
-
-            int positionsPerSegment = Int32.Parse(PointsCountTextBox.Text);
-
-   
-            // Create the curve
-            // Because we already have the BezierCurve or BSpline class instance we can use them to create the curves.
-            // First get the positions that will be used to create the PolyLine3D
-            // Than we create the PolyLine3D
-            // Note that we could also create the curves directly by the following methods:
-            //curveModel = Ab3d.Models.Line3DFactory.CreateCurveThroughPoints3D(usedPointCollection, positionsPerSegment, 2, Colors.White, LineCap.Flat, LineCap.Flat, CurvesVisual);
-            //curveModel = Ab3d.Models.Line3DFactory.CreateBezierCurve3D(usedPointCollection, positionsPerSegment, 2, Colors.White, LineCap.Flat, LineCap.Flat, CurvesVisual);
-            //curveModel = Ab3d.Models.Line3DFactory.CreateBSpline3D(usedPointCollection, positionsPerSegment, 2, Colors.White, LineCap.Flat, LineCap.Flat, CurvesVisual);
-            //curveModel = Ab3d.Models.Line3DFactory.CreateNURBSCurve3D(usedPointCollection, _weights, positionsPerSegment, 2, Colors.White, LineCap.Flat, LineCap.Flat, CurvesVisual);
-
             Point3DCollection finalPointsCollection;
 
-            if (_selectedCurveType == CurveType.BezierCurve || _selectedCurveType == CurveType.CurveThroughPoints)
-                finalPointsCollection = _bezierCurve.CreateBezierCurve(positionsPerSegment);
-            else if (_selectedCurveType == CurveType.BSpline)
-                finalPointsCollection = _bspline.CreateBSpline(positionsPerSegment);
-            else
-                finalPointsCollection = _bspline.CreateNURBSCurve(positionsPerSegment);
+                
+            if (PointsPerSegmentRadioButton.IsChecked ?? false)
+            {
+                AngleBasedPanel1.Visibility = Visibility.Collapsed;
+                AngleBasedPanel2.Visibility = Visibility.Collapsed;
 
+                var comboBoxItem = (ComboBoxItem)PositionsPerSegmentComboBox.SelectedItem;
+                int positionsPerSegment = Int32.Parse((string)comboBoxItem.Content);
+
+
+                // Create the curve
+                // Because we already have the BezierCurve or BSpline class instance, we can use them to create the curves.
+                // First get the positions that will be used to create the PolyLine3D
+                // Than we create the PolyLine3D
+                // Note that we could also create the curves directly by the following methods:
+                //curveModel = Ab3d.Models.Line3DFactory.CreateCurveThroughPoints3D(usedPointCollection, positionsPerSegment, 2, Colors.White, LineCap.Flat, LineCap.Flat, CurvesVisual);
+                //curveModel = Ab3d.Models.Line3DFactory.CreateBezierCurve3D(usedPointCollection, positionsPerSegment, 2, Colors.White, LineCap.Flat, LineCap.Flat, CurvesVisual);
+                //curveModel = Ab3d.Models.Line3DFactory.CreateBSpline3D(usedPointCollection, positionsPerSegment, 2, Colors.White, LineCap.Flat, LineCap.Flat, CurvesVisual);
+                //curveModel = Ab3d.Models.Line3DFactory.CreateNURBSCurve3D(usedPointCollection, _weights, positionsPerSegment, 2, Colors.White, LineCap.Flat, LineCap.Flat, CurvesVisual);
+
+                if (_selectedCurveType == CurveType.BezierCurve || _selectedCurveType == CurveType.CurveThroughPoints)
+                    finalPointsCollection = _bezierCurve.CreateBezierCurve(positionsPerSegment);
+                else if (_selectedCurveType == CurveType.BSpline)
+                    finalPointsCollection = _bspline.CreateBSpline(positionsPerSegment);
+                else
+                    finalPointsCollection = _bspline.CreateNURBSCurve(positionsPerSegment);
+            }
+            else
+            {
+                AngleBasedPanel1.Visibility = Visibility.Visible;
+                AngleBasedPanel2.Visibility = Visibility.Visible;
+                
+                var comboBoxItem = (ComboBoxItem)AngleThresholdComboBox.SelectedItem;
+                var angleThreshold = double.Parse((string)comboBoxItem.Content, NumberStyles.Float, System.Globalization.CultureInfo.InvariantCulture);
+                
+                comboBoxItem = (ComboBoxItem)MinSegmentLengthComboBox.SelectedItem;
+                var minSegmentLength = Int32.Parse((string)comboBoxItem.Content, NumberStyles.Float, System.Globalization.CultureInfo.InvariantCulture);
+                
+                if (_selectedCurveType == CurveType.BezierCurve || _selectedCurveType == CurveType.CurveThroughPoints)
+                    finalPointsCollection = _bezierCurve.CreateBezierCurve(angleThreshold, minSegmentLength);
+                else if (_selectedCurveType == CurveType.BSpline)
+                    finalPointsCollection = _bspline.CreateBSpline(angleThreshold, minSegmentLength);
+                else
+                    finalPointsCollection = _bspline.CreateNURBSCurve(angleThreshold, minSegmentLength);
+            }
+
+            
+            TotalPositionsTextBox.Text = string.Format("Total positions: {0}", finalPointsCollection.Count);
+            
+            
             Model3D curveModel = Ab3d.Models.Line3DFactory.CreatePolyLine3D(finalPointsCollection, 2, Colors.White, false, LineCap.Flat, LineCap.Flat, CurvesVisual);
 
             CurvesVisual.Content = curveModel;
@@ -229,6 +262,20 @@ namespace Ab3d.PowerToys.Samples.Lines3D
                     cross.LineThickness = 1;
                     cross.LinesLength = 5;
                     cross.Position = _bezierControlPoints[i];
+                    PositionsVisual.Children.Add(cross);
+                }
+            }
+
+            if (finalPointsCollection.Count < 1000 && (ShowPositionsCheckBox.IsChecked ?? false))
+            {
+                for (int i = 0; i < finalPointsCollection.Count; i++)
+                {
+                    Ab3d.Visuals.WireCrossVisual3D cross = new Visuals.WireCrossVisual3D();
+
+                    cross.LineColor = Colors.Gray;
+                    cross.LineThickness = 1;
+                    cross.LinesLength = 3;
+                    cross.Position = finalPointsCollection[i];
                     PositionsVisual.Children.Add(cross);
                 }
             }
@@ -315,7 +362,7 @@ namespace Ab3d.PowerToys.Samples.Lines3D
                 }
             }
 
-            _pointsCount = pointsCount;
+            _createdPointsCount = pointsCount;
             _weights = weights;
 
             if (_selectedCurveType == CurveType.BezierCurve)
@@ -329,15 +376,14 @@ namespace Ab3d.PowerToys.Samples.Lines3D
             Point3D point;
             Vector3D vector;
 
-            _pointsCount = Int32.Parse(PositionsCountTextBox.Text);
             _bezierControlPoints = null;
 
-            _controlPoints = new List<Point3D>(_pointsCount);
-            _weights = new List<double>(_pointsCount);
+            _controlPoints = new List<Point3D>(_createdPointsCount);
+            _weights = new List<double>(_createdPointsCount);
 
-            point = new Point3D(-(20 * _pointsCount / 2), 0, 0);
+            point = new Point3D(-(20 * _createdPointsCount / 2), 0, 0);
 
-            for (int i = 0; i < _pointsCount; i++)
+            for (int i = 0; i < _createdPointsCount; i++)
             {
                 vector = new Vector3D(20, _rnd.NextDouble() * 60 - 20, _rnd.NextDouble() * 60 - 20);
                 point += vector;
@@ -461,6 +507,25 @@ namespace Ab3d.PowerToys.Samples.Lines3D
             }
 
             PositionsTextBox.Text = sb.ToString();
+        }
+
+        private void OnGenerationTypeChanged(object sender, RoutedEventArgs e)
+        {
+            if (!this.IsLoaded)
+                return;
+            
+            RecreateCurve();
+        }
+
+        private void PointsCountComboBox_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (!this.IsLoaded)
+                return;
+            
+            _createdPointsCount = (PointsCountComboBox.SelectedIndex + 1) * 5;
+            
+            CreateRandomPositions();
+            RecreateCurve();
         }
     }
 }

@@ -44,7 +44,7 @@
                                     RotateCameraConditions="LeftMouseButtonPressed" 
                                     MoveCameraConditions="LeftMouseButtonPressed, ControlKey" 
                                     EventsSourceElement="{Binding ElementName=ViewportBorder}"
-                                    TargetCamera="{Binding ElementName=Camera1}"/>
+                                    CameraSmoothing="Normal" TargetCamera="{Binding ElementName=Camera1}"/>
 
 
         <TextBox Name="InfoTextBox" Grid.Column="0" Grid.Row="1" Margin="5 10 5 5" 

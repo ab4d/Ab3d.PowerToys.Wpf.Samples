@@ -23,7 +23,7 @@
                                           IsConnectedChanged="XInputCameraController1_OnIsConnectedChanged"/>
 
         <ab3d:MouseCameraController Name="MouseCameraController1"
-                                    TargetCamera="{Binding ElementName=SceneCamera1}" />
+                                    CameraSmoothing="Normal" TargetCamera="{Binding ElementName=SceneCamera1}" />
 
 
         <Border HorizontalAlignment="Left" VerticalAlignment="Bottom"

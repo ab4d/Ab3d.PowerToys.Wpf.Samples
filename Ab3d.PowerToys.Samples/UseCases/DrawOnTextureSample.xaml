@@ -34,6 +34,7 @@
                                     MoveOnlyHorizontally="False" 
                                     
                                     EventsSourceElement="{Binding ElementName=ViewportBorder}"
+                                    CameraSmoothing="Normal"
                                     TargetCamera="{Binding ElementName=Camera1}" />
 
         <StackPanel VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="5" Orientation="Vertical">

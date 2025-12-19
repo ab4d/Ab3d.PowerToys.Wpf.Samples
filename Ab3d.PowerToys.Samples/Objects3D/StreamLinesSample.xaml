@@ -31,7 +31,7 @@
                                     ZoomMode="MousePosition"
                                     RotateAroundMousePosition="True"
                                     EventsSourceElement="{Binding ElementName=ViewportBorder}"
-                                    TargetCamera="{Binding ElementName=Camera1}" />
+                                    CameraSmoothing="Normal" TargetCamera="{Binding ElementName=Camera1}" />
 
         <TextBlock FontWeight="Bold" FontSize="20" Foreground="Black" Margin="10" VerticalAlignment="Top" HorizontalAlignment="Left"
                    Text="3D Streamlines show the flow of a stream and its density (color)"/>

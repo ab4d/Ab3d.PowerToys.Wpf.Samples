@@ -127,7 +127,7 @@
                                     RotateCameraConditions="RightMouseButtonPressed" 
                                     MoveCameraConditions="RightMouseButtonPressed, ControlKey"
                                     EventsSourceElement="{Binding ElementName=ViewportBorder}" 
-                                    TargetCamera="{Binding ElementName=Camera1}" />
+                                    CameraSmoothing="Normal" TargetCamera="{Binding ElementName=Camera1}" />
 
         <ab3d:CameraNavigationCircles Grid.Row="1" VerticalAlignment="Bottom" HorizontalAlignment="Left"
                                       TargetCamera="{Binding ElementName=Camera1}"

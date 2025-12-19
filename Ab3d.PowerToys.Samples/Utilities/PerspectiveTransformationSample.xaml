@@ -51,7 +51,7 @@
                                     MoveOnlyHorizontally="False" 
                                     
                                     EventsSourceElement="{Binding ElementName=ViewportBorder}"
-                                    TargetCamera="{Binding ElementName=Camera1}" />
+                                    CameraSmoothing="Normal" TargetCamera="{Binding ElementName=Camera1}" />
 
         <Border Name="ViewportCanvasBorder" Grid.Column="1" Background="Transparent" BorderBrush="Black" BorderThickness="2" Margin="5 10 10 10">
             <Canvas Name="ViewportCanvas" ClipToBounds="True"/>            

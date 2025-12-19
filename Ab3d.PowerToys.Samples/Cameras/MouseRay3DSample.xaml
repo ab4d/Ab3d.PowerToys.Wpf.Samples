@@ -39,7 +39,7 @@
 
         <cameras:TargetPositionCamera Name="Camera1" TargetPosition="0 0 0" Heading="30" Attitude="-15" Bank="0" Distance="1500" ShowCameraLight="Always" TargetViewport3D="{Binding ElementName=MainViewport}"/>
         <ab3d:CameraControlPanel VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="5" Width="225" Height="75" ShowMoveButtons="True" TargetCamera="{Binding ElementName=Camera1}"/>
-        <ab3d:MouseCameraController Name="MouseCameraController1" EventsSourceElement="{Binding ElementName=OverlayBorder}" TargetCamera="{Binding ElementName=Camera1}"
+        <ab3d:MouseCameraController Name="MouseCameraController1" EventsSourceElement="{Binding ElementName=OverlayBorder}" CameraSmoothing="Normal" TargetCamera="{Binding ElementName=Camera1}"
                                     RotateCameraConditions="RightMouseButtonPressed" MoveCameraConditions="RightMouseButtonPressed, AltKey"/>
         
         <Border VerticalAlignment="Top" HorizontalAlignment="Right" Margin="10" Background="#66FFFFFF">

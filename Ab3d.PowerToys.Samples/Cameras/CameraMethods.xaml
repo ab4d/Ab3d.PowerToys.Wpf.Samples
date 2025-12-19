@@ -42,7 +42,7 @@
                                         RotateCameraConditions="LeftMouseButtonPressed"
                                         MoveCameraConditions="LeftMouseButtonPressed, ControlKey"
                                         EventsSourceElement="{Binding ElementName=ViewportBorder}"
-                                        TargetCamera="{Binding ElementName=TargetPositionCamera1}" />
+                                        CameraSmoothing="Normal" TargetCamera="{Binding ElementName=TargetPositionCamera1}" />
 
         <controls:CameraAxisPanel x:Name="CameraAxisPanel1" HorizontalAlignment="Left" VerticalAlignment="Bottom" 
                                   TargetCamera="{Binding ElementName=TargetPositionCamera1}" />

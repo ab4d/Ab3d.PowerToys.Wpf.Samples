@@ -50,7 +50,7 @@
                                         MoveOnlyHorizontally="False" 
                                         
                                         EventsSourceElement="{Binding ElementName=ViewportBorder}"
-                                        TargetCamera="{Binding ElementName=Camera1}" />
+                                        CameraSmoothing="Normal" TargetCamera="{Binding ElementName=Camera1}" />
         
         <controls:MouseCameraControllerInfo x:Name="CameraControllerInfo" 
                                             VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="5"
