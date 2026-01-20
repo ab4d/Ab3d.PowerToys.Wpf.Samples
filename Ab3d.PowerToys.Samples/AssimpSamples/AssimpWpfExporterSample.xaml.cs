@@ -49,16 +49,18 @@ namespace Ab3d.PowerToys.Samples.AssimpSamples
     // ply      | .ply      | Stanford Polygon Library
     // plyb     | .ply      | Stanford Polygon Library (binary)
     // 3ds      | .3ds      | Autodesk 3DS (legacy)
-    // gltf     | .gltf     | GL Transmission Format
-    // glb      | .glb      | GL Transmission Format (binary)
     // gltf2    | .gltf     | GL Transmission Format v. 2
     // glb2     | .glb      | GL Transmission Format v. 2 (binary)
-    // assbin   | .assbin   | Assimp Binary
-    // assxml   | .assxml   | Assxml Document
+    // gltf     | .gltf     | GL Transmission Format
+    // glb      | .glb      | GL Transmission Format (binary)
+    // assbin   | .assbin   | Assimp Binary File
+    // assxml   | .assxml   | Assimp XML Document
     // x3d      | .x3d      | Extensible 3D
     // fbx      | .fbx      | Autodesk FBX (binary)
     // fbxa     | .fbx      | Autodesk FBX (ascii)
-    // 3mf      | .3mf      | The 3MF-File-Format 
+    // 3mf      | .3mf      | The 3MF-File-Format
+    // pbrt     | .pbrt     | pbrt-v4 scene description file
+    // assjson  | .json     | Assimp JSON Document
 
     // List of file formats was get with the following line:
     //var assimpWpfExporter = new AssimpWpfExporter();
@@ -104,6 +106,8 @@ namespace Ab3d.PowerToys.Samples.AssimpSamples
             var assimpWpfExporter = new AssimpWpfExporter();
             _exportFormatDescriptions = assimpWpfExporter.ExportFormatDescriptions;
 
+            // Uncomment to dump supported export formats to Debug output
+            //System.Diagnostics.Debug.WriteLine(string.Join("\r\n", _exportFormatDescriptions.Select(f => f.FormatId.PadRight(8) + " | ." + f.FileExtension.PadRight(8) + " | " + f.Description).ToArray()));
 
             int selectedFormatIndex = 0;
 
@@ -117,8 +121,8 @@ namespace Ab3d.PowerToys.Samples.AssimpSamples
 
                 ExportTypeComboBox.Items.Add(comboBoxItem);
 
-                // Use ascii fbx file format as default (this allows inspecting the content of the exported file in text editor)
-                if (_exportFormatDescriptions[i].FileExtension == "fbx" && _exportFormatDescriptions[i].Description.Contains("ascii"))
+                // Use text glTF 2 (.gltf) file format as default (this allows inspecting the content of the exported file in text editor)
+                if (_exportFormatDescriptions[i].FormatId == "gltf2")
                     selectedFormatIndex = i;
             }
 
